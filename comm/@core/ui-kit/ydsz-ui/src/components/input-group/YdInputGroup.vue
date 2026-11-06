@@ -70,7 +70,7 @@ defineSlots<{
 }
 
 /* 紧凑模式：中间元素无圆角 */
-[data-compact] > :not(:first-child):not(:last-child) {
+[data-compact] > :not(:first-child, :last-child) {
   border-radius: 0;
 }
 </style>

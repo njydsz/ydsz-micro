@@ -1,4 +1,6 @@
 <script setup lang="ts">
+defineOptions({ name: 'RedocEmbed' });
+
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 interface Props {

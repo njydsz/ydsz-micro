@@ -128,6 +128,7 @@
   --ydsz-accent: var(--ydsz-color-neutral-100);
   --ydsz-accent-foreground: var(--ydsz-text-primary);
   --ydsz-destructive: var(--ydsz-color-destructive-500);
+  --ydsz-error: var(--ydsz-color-destructive-500);
   --ydsz-destructive-foreground: var(--ydsz-text-inverse);
   --ydsz-destructive-hover: var(--ydsz-color-destructive-600);
   --ydsz-border: var(--ydsz-border-default);

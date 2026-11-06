@@ -55,12 +55,12 @@ import { Clock, FileText as Document } from '@ydsz/icons';
 
 import { showToast } from '@ydsz/notification';
 
-import { generate, generateAll, downloadPreviewZip, preview } from '#/api/code-gen';
+import { generate, generateAll, downloadPreviewZip, preview } from '#/api/codeGen';
 import { listDatasources } from '#/api/datasource';
 import type { GenDatasourceRespVO, GenHistory } from '#/api/models';
 import { getActiveGroup, listGroups } from '#/api/template';
 import type { GenTemplateGroup } from '#/api/models';
-import { listTables } from '#/api/table-meta';
+import { listTables } from '#/api/tableMeta';
 import type { CodePreviewVO, GenResultVO } from '#/api/models';
 
 import CodeDiffViewer from '#/components/code-diff-viewer/index.vue';
@@ -77,8 +77,8 @@ defineOptions({ name: 'CodeGenManagement' });
 const datasourceList = ref<GenDatasourceRespVO[]>([]);
 const groupList = ref<GenTemplateGroup[]>([]);
 const tableList = ref<string[]>([]);
-const selectedDatasourceId = ref<number | undefined>(undefined);
-const selectedGroupId = ref<number | undefined>(undefined);
+const selectedDatasourceId = ref<string | undefined>(undefined);
+const selectedGroupId = ref<string | undefined>(undefined);
 const selectedTableName = ref('');
 const tablesLoading = ref(false);
 
@@ -176,7 +176,7 @@ onMounted(async () => {
   if (queryDsId) {
     selectedDatasourceId.value = Number(queryDsId);
   } else if (datasourceList.value.length > 0) {
-    const defaultDs = datasourceList.value.find((ds) => ds.defaultFlag);
+    const defaultDs = datasourceList.value.find((ds) => ds.isDefault);
     selectedDatasourceId.value = defaultDs?.id ?? datasourceList.value[0]?.id;
   }
   if (queryTableName && typeof queryTableName === 'string') {

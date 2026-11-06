@@ -357,7 +357,7 @@ defineExpose({
   background: var(--yd-color-bg, #fff);
   border: 1px solid var(--yd-color-border, #e5e7eb);
   border-radius: 4px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 16px rgb(0 0 0 / 8%);
   padding: 4px 0;
 }
 
@@ -390,6 +390,7 @@ defineExpose({
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -416,7 +417,7 @@ defineExpose({
 }
 
 .yd-auto-complete__option--active {
-  background-color: var(--yd-color-primary-bg-subtle, rgba(24, 144, 255, 0.08));
+  background-color: var(--yd-color-primary-bg-subtle, rgb(24 144 255 / 8%));
 }
 
 .yd-auto-complete__option--disabled {

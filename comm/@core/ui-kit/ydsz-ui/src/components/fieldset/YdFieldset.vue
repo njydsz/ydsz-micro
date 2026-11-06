@@ -121,7 +121,7 @@ function toggle() {
   border: 1px solid hsl(var(--ydsz-border-default));
   border-radius: var(--ydsz-radius-lg);
   padding: var(--ydsz-spacing-md);
-  margin: 0 0.5rem 0;
+  margin: 0 0.5rem;
   background: hsl(var(--ydsz-surface-1));
   min-width: 0;
   transition: opacity 0.2s ease;

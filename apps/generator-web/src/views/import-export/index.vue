@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 导入导出页面。
  *
@@ -38,7 +39,7 @@ import type { UploadRequestOptions } from '@ydsz-core/ydsz-ui';
 
 import { showToast } from '@ydsz/notification';
 
-import { exportTemplates, importTemplates } from '#/api/import-export';
+import { exportTemplates, importTemplates } from '#/api/importExport';
 import { listGroups } from '#/api/template';
 import type { GenTemplateGroup } from '#/api/models';
 
@@ -78,9 +79,9 @@ async function handleExport() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    showToast.success('导出成功');
+    showToast.success($t('operation.export.success'));
   } catch {
-    showToast.error('导出失败');
+    showToast.error($t('operation.export.failed'));
   } finally {
     exporting.value = false;
   }
@@ -101,7 +102,7 @@ async function handleImport(options: UploadRequestOptions) {
     const count = await importTemplates(formData);
     showToast.success(`导入成功，共导入 ${count} 个模板`);
   } catch {
-    showToast.error('导入失败');
+    showToast.error($t('operation.import.failed'));
   }
 }
 

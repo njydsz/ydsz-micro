@@ -11,6 +11,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * DAG 工作流持久化管理（列表页）
  * <p>消费后端 DagWorkflowController 契约：
@@ -200,9 +201,9 @@ async function handleExport(row: DagWorkflowVO): Promise<void> {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast.success('导出成功');
+    showToast.success($t('operation.export.success'));
   } catch {
-    showToast.error('导出失败');
+    showToast.error($t('operation.export.failed'));
   }
 }
 
@@ -218,7 +219,7 @@ async function handleDelete(row: DagWorkflowVO): Promise<void> {
   }
   try {
     await deleteDagWorkflow(row.workflowCode ?? '');
-    showToast.success('删除成功');
+    showToast.success($t('operation.delete.success'));
     await handleRefresh();
   } catch {
     // 错误已由请求拦截器展示

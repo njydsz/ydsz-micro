@@ -8,6 +8,10 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
+defineOptions({
+  name: 'DecisionTableDesigner',
+});
 /**
  * 决策表可视化编辑器
  * <p>消费后端契约 RuleDecisionTableController（apps/literule-web/src/api/ruleDecisionTable.ts）：
@@ -234,7 +238,7 @@ async function handleSave(): Promise<void> {
       actionColumns: actionColumns.value,
       rows: ruleRows.value,
     });
-    showToast.success('保存成功');
+    showToast.success($t('operation.save.success'));
     emit('success');
     close();
   } catch {

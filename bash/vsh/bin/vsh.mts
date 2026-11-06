@@ -23,9 +23,9 @@ const rest = args.slice(1);
  * @param items 原始参数数组
  * @return `{ opts, positional }` 解析后的选项与位置参数
  */
-function parseArgs(items) {
-  const opts = {};
-  const positional = [];
+function parseArgs(items: string[]): { opts: { output?: string }; positional: string[] } {
+  const opts: { output?: string } = {};
+  const positional: string[] = [];
   for (let i = 0; i < items.length; i++) {
     const a = items[i];
     if (a === '-o' || a === '--output') {
@@ -160,7 +160,7 @@ async function main() {
  * @param rootDir 仓库根目录
  * @return TS 与 Vue 文件数量（Promise）
  */
-async function countScanFiles(rootDir) {
+async function countScanFiles(rootDir: string) {
   const { readdirSync, statSync } = await import('node:fs');
   const { join } = await import('node:path');
   const skip = new Set([
@@ -180,7 +180,7 @@ async function countScanFiles(rootDir) {
    *
    * @param dir 当前目录
    */
-  function walkCount(dir) {
+  function walkCount(dir: string) {
     let entries;
     try {
       entries = readdirSync(dir);
@@ -214,7 +214,7 @@ async function countScanFiles(rootDir) {
  * @param target 目标路径
  * @return 相对路径或原始 target
  */
-function relativePath(base, target) {
+function relativePath(base: string, target: string) {
   try {
     return relative(base, target);
   } catch {

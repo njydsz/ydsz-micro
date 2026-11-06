@@ -18,6 +18,7 @@
  * @since 1.0.0
  */
 import { Page } from '@ydsz/common-ui';
+import { $t } from '@ydsz/locales';
 import { createLogger } from '@ydsz/utils';
 import {
   YdEmptyState,
@@ -84,6 +85,11 @@ const levelOptions: Array<{ label: string; value: ReactiveEventLevel }> = [
   { label: 'CRITICAL', value: 'CRITICAL' },
 ];
 
+/** 级别显示文本 */
+function getLevelLabel(level: ReactiveEventLevel): string {
+  return $t(`reactive.level.${level}`);
+}
+
 /**
  * 加载健康信息。
  */
@@ -147,7 +153,7 @@ async function handlePublish() {
       level: publishForm.value.level,
       targetUserId: publishForm.value.targetUserId || undefined,
     });
-    showToast.success(result ?? '发布成功');
+    showToast.success(result ?? $t('reactive.publish.success'));
   } catch {
     /* 错误由拦截器处理 */
   }
@@ -173,11 +179,11 @@ function getConnectionVariant(): 'default' | 'outline' | 'secondary' {
 function getConnectionText(): string {
   switch (connectionStatus.value) {
     case 'connected':
-      return '已连接';
+      return $t('reactive.connection.connected');
     case 'connecting':
-      return '连接中';
+      return $t('reactive.connection.connecting');
     default:
-      return '未连接';
+      return $t('reactive.connection.disconnected');
   }
 }
 
@@ -214,23 +220,29 @@ onBeforeUnmount(() => {
       <!-- 连接状态 -->
       <YdCard class="mb-4">
         <YdCardHeader>
-          <YdCardTitle>连接状态</YdCardTitle>
+          <YdCardTitle>{{ $t('reactive.connection.title') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <div class="flex items-center gap-5">
             <YdBadge :variant="getConnectionVariant()">{{ getConnectionText() }}</YdBadge>
-            <span class="text-sm">运行模式: {{ health.mode ?? '-' }}</span>
-            <span class="text-sm">缓冲区: {{ health.bufferSize ?? '-' }}</span>
-            <span class="text-sm">运行状态: {{ health.status ?? '-' }}</span>
+            <span class="text-sm">{{ $t('reactive.health.mode') }}: {{ health.mode ?? '-' }}</span>
+            <span class="text-sm">
+              {{ $t('reactive.health.bufferSize') }}: {{ health.bufferSize ?? '-' }}
+            </span>
+            <span class="text-sm">
+              {{ $t('reactive.health.status') }}: {{ health.status ?? '-' }}
+            </span>
             <div class="flex-1" />
             <YdButton
               v-if="connectionStatus === 'connected'"
               variant="destructive"
               @click="disconnectSse"
             >
-              断开
+              {{ $t('reactive.connection.disconnect') }}
             </YdButton>
-            <YdButton v-else @click="connectSse"> 连接 </YdButton>
+            <YdButton v-else @click="connectSse">
+              {{ $t('reactive.connection.connect') }}
+            </YdButton>
           </div>
         </YdCardContent>
       </YdCard>
@@ -238,20 +250,20 @@ onBeforeUnmount(() => {
       <!-- 发布事件 -->
       <YdCard class="mb-4">
         <YdCardHeader>
-          <YdCardTitle>发布事件（试点测试）</YdCardTitle>
+          <YdCardTitle>{{ $t('reactive.publish.title') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <div class="space-y-4">
             <div>
-              <YdLabel>事件类型</YdLabel>
+              <YdLabel>{{ $t('reactive.publish.eventType') }}</YdLabel>
               <YdInput
                 v-model="publishForm.eventType"
-                placeholder="默认 notification"
+                :placeholder="$t('reactive.publish.eventTypePlaceholder')"
                 class="mt-1"
               />
             </div>
             <div>
-              <YdLabel>级别</YdLabel>
+              <YdLabel>{{ $t('reactive.publish.level') }}</YdLabel>
               <YdSelectBase v-model="publishForm.level">
                 <YdSelectTriggerBase class="mt-1">
                   <YdSelectValueBase />
@@ -262,28 +274,28 @@ onBeforeUnmount(() => {
                     :key="item.value"
                     :value="item.value"
                   >
-                    {{ item.label }}
+                    {{ getLevelLabel(item.value) }}
                   </YdSelectItemBase>
                 </YdSelectContentBase>
               </YdSelectBase>
             </div>
             <div>
-              <YdLabel>目标用户</YdLabel>
+              <YdLabel>{{ $t('reactive.publish.targetUserId') }}</YdLabel>
               <YdInput
                 v-model="publishForm.targetUserId"
-                placeholder="留空则广播给所有订阅者"
+                :placeholder="$t('reactive.publish.targetUserIdPlaceholder')"
                 class="mt-1"
               />
             </div>
             <div>
-              <YdLabel>标题</YdLabel>
+              <YdLabel>{{ $t('reactive.publish.titleLabel') }}</YdLabel>
               <YdInput v-model="publishForm.title" class="mt-1" />
             </div>
             <div>
-              <YdLabel>正文</YdLabel>
+              <YdLabel>{{ $t('reactive.publish.content') }}</YdLabel>
               <YdTextarea v-model="publishForm.content" class="mt-1" />
             </div>
-            <YdButton @click="handlePublish">发布</YdButton>
+            <YdButton @click="handlePublish">{{ $t('reactive.publish.submit') }}</YdButton>
           </div>
         </YdCardContent>
       </YdCard>
@@ -291,10 +303,13 @@ onBeforeUnmount(() => {
       <!-- 最近事件 -->
       <YdCard>
         <YdCardHeader>
-          <YdCardTitle>最近事件（近 50 条）</YdCardTitle>
+          <YdCardTitle>{{ $t('reactive.recent.title') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
-          <YdEmptyState v-if="recentEvents.length === 0" description="暂无事件" />
+          <YdEmptyState
+            v-if="recentEvents.length === 0"
+            :description="$t('reactive.recent.empty')"
+          />
           <YdTimeline v-else>
             <YdTimelineItem
               v-for="event in recentEvents"
@@ -304,10 +319,12 @@ onBeforeUnmount(() => {
             >
               <div class="flex items-center gap-2">
                 <YdBadge :variant="getLevelVariant(event.level)">{{
-                  event.level ?? 'INFO'
+                  getLevelLabel(event.level ?? 'INFO')
                 }}</YdBadge>
                 <span>{{ event.title }}</span>
-                <span class="text-sm text-gray-500">{{ event.targetUserId ?? '广播' }}</span>
+                <span class="text-sm text-gray-500">
+                  {{ event.targetUserId ?? $t('reactive.recent.broadcast') }}
+                </span>
               </div>
               <p v-if="event.content" class="text-sm text-gray-600">{{ event.content }}</p>
             </YdTimelineItem>

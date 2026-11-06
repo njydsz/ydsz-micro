@@ -15,6 +15,7 @@
 -->
 <script lang="ts" setup>
 import type { RouteLocationRaw } from 'vue-router';
+import { YdBreadcrumb } from '@ydsz/layouts';
 
 import { YdSubAppLayout } from '@ydsz/shared-business';
 import { useAccessStore } from '@ydsz/stores';
@@ -31,6 +32,9 @@ const { t } = useI18n();
 const accessStore = useAccessStore();
 const router = useRouter();
 const route = useRoute();
+
+/** 当前路由是否声明隐藏面包屑（路由 meta.hideBreadcrumb） */
+const hideBreadcrumb = computed(() => Boolean(route.meta?.hideBreadcrumb));
 
 /* ===================== 移动端断点判断 ===================== */
 const breakpoints = useBreakpoints(breakpointsTailwind);
@@ -116,6 +120,9 @@ function handleMenuClick(to: RouteLocationRaw): void {
 </script>
 
 <template>
+  <!-- 统一面包屑：条目由 YdBreadcrumb 从路由 matched 链解析 -->
+  <YdBreadcrumb v-if="!hideBreadcrumb" class="px-4 py-3" />
+
   <YdSubAppLayout>
     <!-- ===================== 移动端抽屉菜单 ===================== -->
     <Teleport to="body">

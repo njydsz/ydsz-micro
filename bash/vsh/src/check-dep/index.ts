@@ -62,6 +62,9 @@ const DEFAULT_CONFIG: DepComplianceConfig = {
     // "文件级" 开源（修改 MPL 文件需开源该文件），不影响本仓库整体许可。
     // axe-core / @axe-core/playwright（a11y 门禁依赖）即此许可证。
     'MPL-2.0',
+    // 包元数据用 "SEE LICENSE IN LICENSE" 占位、实际许可写在随包文件里。
+    // 目前仅 bpmn-js（workflow-web 流程设计器）命中，其 LICENSE 文件为 MIT。
+    'declared-in-file',
   ],
   forbiddenPackages: ['moment', 'jquery', 'lodash'],
   requireWorkspaceProtocol: true,
@@ -83,7 +86,16 @@ const DEFAULT_CONFIG: DepComplianceConfig = {
 };
 
 /** 跳过的目录（避免扫描产物与依赖） */
-const SKIP_DIRS = new Set(['node_modules', 'dist', 'build', '.git', 'coverage', '.turbo']);
+const SKIP_DIRS = new Set([
+  'node_modules',
+  'dist',
+  'build',
+  '.git',
+  'coverage',
+  '.turbo',
+  // 构建期生成的文档站缓存（vitepress 依赖预打包产物），不是工作区包
+  '.vitepress',
+]);
 
 /**
  * 解析某个直接依赖的真实许可证（读取其 package.json）。
@@ -100,7 +112,13 @@ function resolveLicense(name: string, pkgDir: string, rootDir: string): string {
     if (!existsSync(p)) continue;
     try {
       const meta = JSON.parse(readFileSync(p, 'utf-8').replace(/^\ufeff/, ''));
-      if (typeof meta.license === 'string') return meta.license;
+      if (typeof meta.license === 'string') {
+        // 部分包（如 bpmn-js）在 license 字段写 "SEE LICENSE IN LICENSE"，
+        // 实际许可以随包 LICENSE 文件为准（bpmn-js 为 MIT）。
+        // 这类占位串无法机器判定，统一归为 'declared-in-file' 交人工确认。
+        if (meta.license.toUpperCase().startsWith('SEE LICENSE')) return 'declared-in-file';
+        return meta.license;
+      }
       if (Array.isArray(meta.licenses) && meta.licenses.length > 0) {
         const first = meta.licenses[0];
         if (typeof first === 'string') return first;

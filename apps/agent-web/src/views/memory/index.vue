@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 对话记忆管理（列表页）
  * <p>消费后端 MemoryController（apps/agent-web/src/api/memory.ts）：
@@ -186,7 +187,7 @@ async function handleOpenSaveMemory(): Promise<void> {
 
 async function handleSaveMemoryConfirm(): Promise<void> {
   if (!saveFormContent.value.trim()) {
-    showToast.warning('请输入记忆内容');
+    showToast.warning($t('validation.required.memoryContent'));
     return;
   }
   const data: SaveMemoryRequest = {
@@ -195,7 +196,7 @@ async function handleSaveMemoryConfirm(): Promise<void> {
   };
   try {
     await saveMemory({ conversationId: queryConversationId.value.trim() }, data);
-    showToast.success('新增记忆成功');
+    showToast.success($t('operation.success'));
     gridApi.query();
   } catch (error) {
     logger.warn('新增记忆失败: {}', error);
@@ -292,31 +293,33 @@ async function handleDelete(row: MemoryVO): Promise<void> {
       <!-- 搜索区域 -->
       <YdCard shadow="never">
         <div class="flex items-center gap-5">
-          <span class="whitespace-nowrap text-sm font-medium">对话 ID：</span>
+          <span class="whitespace-nowrap text-sm font-medium">{{ $t('business.memory.conversationId') }}：</span>
           <YdInput
             v-model="queryConversationId"
-            placeholder="请输入对话 Conversation ID"
+            :placeholder="$t('business.memory.conversationIdPlaceholder')"
             style="width: 360px"
             @keyup.enter="handleSearch"
           />
-          <YdButton :loading="isLoading" @click="handleSearch">查询</YdButton>
+          <YdButton :loading="isLoading" @click="handleSearch">{{
+            $t('business.memory.actions.query')
+          }}</YdButton>
           <YdButton
             variant="default"
             :disabled="!queryConversationId.trim()"
             @click="handleOpenSaveMemory"
-            >新增记忆</YdButton
+            >{{ $t('business.memory.actions.add') }}</YdButton
           >
           <YdButton
             variant="destructive"
             :disabled="!queryConversationId.trim()"
             @click="handleClearAll"
-            >清空记忆</YdButton
+            >{{ $t('business.memory.actions.clear') }}</YdButton
           >
           <YdButton
             variant="outline"
             :disabled="!queryConversationId.trim()"
             @click="handleConsolidate"
-            >触发整合</YdButton
+            >{{ $t('business.memory.actions.consolidate') }}</YdButton
           >
         </div>
       </YdCard>
@@ -326,7 +329,7 @@ async function handleDelete(row: MemoryVO): Promise<void> {
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">消息总数</p>
+              <p class="text-sm text-gray-500">{{ $t('business.memory.stats.totalMessages') }}</p>
               <p class="mt-1 text-2xl font-bold text-blue-600">{{ messageCount }}</p>
             </div>
             <div class="rounded-full bg-blue-50 p-3">
@@ -338,7 +341,7 @@ async function handleDelete(row: MemoryVO): Promise<void> {
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">当前对话 ID</p>
+              <p class="text-sm text-gray-500">{{ $t('business.memory.stats.currentConversation') }}</p>
               <p class="mt-1 truncate text-sm font-medium">{{ queryConversationId || '-' }}</p>
             </div>
             <div class="rounded-full bg-green-50 p-3">
@@ -350,7 +353,7 @@ async function handleDelete(row: MemoryVO): Promise<void> {
         <YdCard shadow="hover">
           <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm text-gray-500">已加载</p>
+              <p class="text-sm text-gray-500">{{ $t('business.memory.stats.loaded') }}</p>
               <p class="mt-1 text-2xl font-bold text-purple-600">{{ memoryList.length }}</p>
             </div>
             <div class="rounded-full bg-purple-50 p-3">
@@ -362,38 +365,44 @@ async function handleDelete(row: MemoryVO): Promise<void> {
 
       <!-- 数据表格 -->
       <YdCard shadow="never">
-        <Grid v-if="queryConversationId.trim()" table-title="对话记忆列表">
+        <Grid v-if="queryConversationId.trim()" :table-title="$t('business.memory.table.title')">
           <template #toolbar-tools>
-            <YdButton @click="handleSearch">刷新</YdButton>
+            <YdButton @click="handleSearch">{{ $t('business.memory.table.refresh') }}</YdButton>
           </template>
         </Grid>
-        <YdEmptyState v-else description="请输入对话 ID 后点击查询" />
+        <YdEmptyState v-else :description="$t('business.memory.table.empty')" />
       </YdCard>
     </div>
 
     <!-- 新增记忆弹窗 -->
-    <SaveMemoryModal title="新增记忆">
+    <SaveMemoryModal :title="$t('business.memory.modal.title')">
       <div class="space-y-4">
         <div>
-          <label class="mb-1 block text-sm font-medium">角色</label>
+          <label class="mb-1 block text-sm font-medium">{{ $t('business.memory.modal.role') }}</label>
           <YdSelect
             v-model:value="saveFormRole"
             :options="[
-              { label: '用户', value: 'USER' },
-              { label: '助手', value: 'ASSISTANT' },
-              { label: '系统', value: 'SYSTEM' },
-              { label: '工具', value: 'TOOL' },
+              { label: $t('business.memory.role.user'), value: 'USER' },
+              { label: $t('business.memory.role.assistant'), value: 'ASSISTANT' },
+              { label: $t('business.memory.role.system'), value: 'SYSTEM' },
+              { label: $t('business.memory.role.tool'), value: 'TOOL' },
             ]"
           />
         </div>
         <div>
-          <label class="mb-1 block text-sm font-medium">记忆内容</label>
-          <YdTextarea v-model:value="saveFormContent" placeholder="请输入记忆内容" :rows="4" />
+          <label class="mb-1 block text-sm font-medium">{{ $t('business.memory.modal.content') }}</label>
+          <YdTextarea
+            v-model:value="saveFormContent"
+            :placeholder="$t('business.memory.modal.contentPlaceholder')"
+            :rows="4"
+          />
         </div>
       </div>
       <template #footer>
-        <YdButton variant="outline" @click="saveMemoryApi.close()">取消</YdButton>
-        <YdButton @click="handleSaveMemoryConfirm">确认</YdButton>
+        <YdButton variant="outline" @click="saveMemoryApi.close()">{{
+          $t('business.memory.modal.cancel')
+        }}</YdButton>
+        <YdButton @click="handleSaveMemoryConfirm">{{ $t('business.memory.modal.confirm') }}</YdButton>
       </template>
     </SaveMemoryModal>
   </Page>

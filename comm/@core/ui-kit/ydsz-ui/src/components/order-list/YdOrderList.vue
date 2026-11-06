@@ -299,8 +299,9 @@ const isLastSelected = computed(
   padding: 0 10px;
   border-radius: 9999px;
   background-color: #404040;
+
   /* neutral-700 */
-  color: #ffffff;
+  color: #fff;
   font-size: 12px;
   line-height: 1;
   transition:
@@ -315,18 +316,20 @@ const isLastSelected = computed(
   padding: 0;
 }
 
+.order-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .order-btn:hover:not(:disabled) {
   background-color: #262626;
+
   /* neutral-800 */
 }
 
 .order-btn:active:not(:disabled) {
   background-color: #171717;
-  /* neutral-900 */
-}
 
-.order-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+  /* neutral-900 */
 }
 </style>

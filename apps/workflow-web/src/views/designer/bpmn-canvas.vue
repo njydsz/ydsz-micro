@@ -319,8 +319,8 @@ defineExpose({
   height: 100%;
   background-color: #fafafa;
   background-image:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    linear-gradient(90deg, rgb(0 0 0 / 4%) 1px, transparent 1px),
+    linear-gradient(rgb(0 0 0 / 4%) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 

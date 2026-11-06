@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 任务告警（表单组件）
  * <p>告警规则的创建/编辑弹窗，字段对应契约 AlertRulePostDTO/AlertRulePutDTO（src/api/alert.ts，auto-generated）：
@@ -127,10 +128,10 @@ const [Modal, modalApi] = useYdModal({
       };
       if (isEdit.value) {
         await updateRule({ id: formData.id }, { ...payload, id: formData.id || undefined });
-        showToast.success('更新成功');
+        showToast.success($t('operation.update.success'));
       } else {
         await createRule(payload);
-        showToast.success('创建成功');
+        showToast.success($t('operation.create.success'));
       }
       emit('success');
       modalApi.close();

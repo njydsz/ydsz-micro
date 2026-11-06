@@ -440,12 +440,17 @@ config.push({
 // =====================================================================
 
 import testCompanionPlugin from './conf/lint-configs/eslint-plugin-test-companion/index.mjs';
+import ydszUiPlugin from './conf/lint-configs/eslint-plugin-ydsz-ui/index.mjs';
 
 config.push({
-  plugins: { 'test-companion': testCompanionPlugin },
+  plugins: { 'test-companion': testCompanionPlugin, 'ydsz-ui': ydszUiPlugin },
   files: ['apps/**/*.{vue,ts,tsx}'],
   rules: {
-    'test-companion/require-test-companion': 'warn',
+    'test-companion/require-test-companion': 'error',
+    // v26.11.06 P2-1: CLAUDE.md 宣称的 NAM/SFC 规则落地
+    'ydsz-ui/require-define-options': 'warn',
+    'ydsz-ui/require-script-setup': 'warn',
+    'ydsz-ui/require-generic-props': 'warn',
   },
 });
 

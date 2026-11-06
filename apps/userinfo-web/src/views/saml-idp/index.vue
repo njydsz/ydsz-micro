@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * SAML IdP 配置管理（列表页）
  * <p>SAML 身份提供商配置的列表页，消费后端契约 SamlIdpConfigController
@@ -252,10 +253,10 @@ const [Modal, modalApi] = useYdModal({
       };
       if (isEdit.value) {
         await update({ entityId: formData.entityId }, payload);
-        showToast.success('更新成功');
+        showToast.success($t('operation.update.success'));
       } else {
         await create(payload);
-        showToast.success('创建成功');
+        showToast.success($t('operation.create.success'));
       }
       modalApi.close();
       gridApi.query();

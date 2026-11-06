@@ -52,8 +52,8 @@ const MANUAL_ONLY = {
   'check:cspell':
     '存量未登记词需一次性字典治理（lorem 占位文本 + 库专有名词），治理完再接线；跟进归 B1-8',
   'format:check':
-    'prettier --check . 当前 3309 个文件不一致（且 6 个文件解析报错），一次性 pnpm format 前接线等于把整个 CI 变红；' +
-    '另需先把 .dev-logs/（203 个已入库的临时脚本）从扫描范围剔除。跟进归 B1-9',
+    '已接入 CI verify job（2026-11-06 全量 pnpm format 后 3309 处不一致已清零，' +
+    '.dev-logs/ 与 vendor 已加入 .prettierignore）。保留本条目仅为防止误删 MANUAL_ONLY 登记。',
   'tokens:check':
     '需要 FIGMA_TOKEN 联网比对 Figma 变量，CI 无该凭据；由设计侧改令牌时本地执行，CI 侧的等价保障是 check:tokens（源码↔CSS 接线）',
 };

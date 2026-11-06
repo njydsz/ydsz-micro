@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 角色（表单组件）
  * <p>角色的创建/编辑弹窗，字段对应契约 RoleDTO（src/api/role.ts，auto-generated）：
@@ -132,10 +133,10 @@ const [Modal, modalApi] = useYdModal({
       };
       if (isEdit.value) {
         await update({ ...payload, id: formData.id || undefined });
-        showToast.success('更新成功');
+        showToast.success($t('operation.update.success'));
       } else {
         await create(payload);
-        showToast.success('创建成功');
+        showToast.success($t('operation.create.success'));
       }
       emit('success');
       modalApi.close();

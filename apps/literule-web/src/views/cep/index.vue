@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 规则 CEP（复杂事件处理页面）
  * <p>模式管理 + 事件上抛 + 命中记录 + 统计 + 模式详情，数据来自后端契约 API（apps/literule-web/src/api/cep.ts、cepExtend.ts）。
@@ -236,10 +237,10 @@ async function handleToggle(row: CEPPatternVO, enable: boolean) {
   try {
     if (enable) {
       await enablePattern({ id: row.id });
-      showToast.success('启用成功');
+      showToast.success($t('operation.enable.success'));
     } else {
       await disablePattern({ id: row.id });
-      showToast.success('禁用成功');
+      showToast.success($t('operation.disable.success'));
     }
     gridApi.query();
   } catch {

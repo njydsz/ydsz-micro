@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 模板管理主面板。
  *
@@ -43,7 +44,7 @@ defineOptions({ name: 'TemplateManagement' });
 // ══════ 分组管理 ══════
 
 const groupList = ref<GenTemplateGroup[]>([]);
-const selectedGroupId = ref<number | undefined>(undefined);
+const selectedGroupId = ref<string | undefined>(undefined);
 const selectedGroupName = ref('');
 const groupFormVisible = ref(false);
 
@@ -118,7 +119,7 @@ async function handleDeleteGroup(group: GenTemplateGroup) {
   }
   try {
     await deleteGroup({ id: group.id });
-    showToast.success('删除成功');
+    showToast.success($t('operation.delete.success'));
     if (selectedGroupId.value === group.id) {
       selectedGroupId.value = undefined;
       templateList.value = [];

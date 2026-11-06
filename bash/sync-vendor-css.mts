@@ -93,15 +93,16 @@ for (const { pkg, distPath } of CSS_SOURCES) {
     continue;
   }
 
-  const destDirs = targets.length > 0
-    ? targets.map((t) => (path.isAbsolute(t) ? t : path.join(ROOT, t)))
-    : [
-        path.join(ROOT, 'main'),
-        ...fs
-          .readdirSync(path.join(ROOT, 'apps'), { withFileTypes: true })
-          .filter((e) => e.isDirectory())
-          .map((e) => path.join(ROOT, 'apps', e.name)),
-      ];
+  const destDirs =
+    targets.length > 0
+      ? targets.map((t) => (path.isAbsolute(t) ? t : path.join(ROOT, t)))
+      : [
+          path.join(ROOT, 'main'),
+          ...fs
+            .readdirSync(path.join(ROOT, 'apps'), { withFileTypes: true })
+            .filter((e) => e.isDirectory())
+            .map((e) => path.join(ROOT, 'apps', e.name)),
+        ];
 
   for (const dir of destDirs) {
     const destDir = path.join(dir, 'public', 'vendor', pkg);
@@ -126,6 +127,8 @@ for (const { pkg, distPath } of CSS_SOURCES) {
 }
 
 if (isCheck) {
-  console.log(failures === 0 ? '\n校验通过：所有 vendor 样式副本一致' : `\n校验失败：${failures} 项不一致`);
+  console.log(
+    failures === 0 ? '\n校验通过：所有 vendor 样式副本一致' : `\n校验失败：${failures} 项不一致`,
+  );
   process.exit(failures === 0 ? 0 : 1);
 }

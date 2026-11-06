@@ -23,8 +23,9 @@
  * @since 5.3.0 (5.6.0 支持 week/month/quarter/year 全粒度；5.7.0 multiple/inline)
  */
 import type { DatePickerShortcut, DatePickerType, DatePickerValue } from './types';
+import type { DateSelectionEmit } from './use-date-selection';
 
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, type ComputedRef, type Ref } from 'vue';
 
 import { onClickOutside, useElementBounding, useVModel } from '@vueuse/core';
 
@@ -38,8 +39,8 @@ import YdCalendarPanel from './YdCalendarPanel.vue';
 import YdMonthPanel from './YdMonthPanel.vue';
 import YdQuarterPanel from './YdQuarterPanel.vue';
 import YdYearPanel from './YdYearPanel.vue';
+import { useDateSelection } from './use-date-selection';
 import {
-  formatByGrain,
   isRangeType,
   parseByGrain,
   resolveRangeBase,
@@ -211,174 +212,24 @@ const multipleSelection = computed<string[]>(() => {
   return v ? [v as string] : [];
 });
 
-/* ----- 选择状态 ----- */
-/** range 起始值 */
-const rangeStartValue = ref<string | undefined>(undefined);
-/** range 结束值 */
-const rangeEndValue = ref<string | undefined>(undefined);
-/** range 悬停预览 */
-const rangeHoverValue = ref<string | undefined>(undefined);
-
-/** 同步已选范围到本地状态 */
-function syncRangeFromModel(): void {
-  if (isRange.value) {
-    const tuple = modelValue.value as readonly [string, string] | undefined;
-    if (tuple) {
-      rangeStartValue.value = tuple[0];
-      rangeEndValue.value = tuple[1];
-    }
-  }
-}
-
-/** 值格式化（用于 range 提交） */
-function normalizeRange(start: string, end: string): [string, string] {
-  return start <= end ? [start, end] : [end, start];
-}
-
-/**
- * 提交选择值。
- */
-function commitSingle(value: string): void {
-  emits('update:modelValue', value);
-  emits('change', value);
-  isOpen.value = false;
-}
-
-function commitRange(start: string, end: string): void {
-  const [lo, hi] = normalizeRange(start, end);
-  const value: [string, string] = [lo, hi];
-  rangeStartValue.value = lo;
-  rangeEndValue.value = hi;
-  rangeHoverValue.value = undefined;
-  emits('update:modelValue', value);
-  emits('change', value);
-  isOpen.value = false;
-}
-
-/**
- * 日视图点击处理。
- *
- * @param date —— 选中的日期对象
- */
-function handleDaySelect(date: Date): void {
-  const key = formatByGrain(date, baseGrain.value);
-
-  // 多选模式：离散累积
-  if (isMultiple.value) {
-    const current = multipleSelection.value;
-    const next = current.includes(key)
-      ? current.filter((v) => v !== key)
-      : [...current, key];
-    emits('update:modelValue', next as unknown as DatePickerValue);
-    emits('change', next as unknown as DatePickerValue);
-    return;
-  }
-
-  if (!isRange.value) {
-    commitSingle(key);
-    return;
-  }
-
-  if (!rangeStartValue.value) {
-    rangeStartValue.value = key;
-    rangeEndValue.value = undefined;
-    rangeHoverValue.value = undefined;
-    return;
-  }
-  if (!rangeEndValue.value) {
-    commitRange(rangeStartValue.value, key);
-    return;
-  }
-  // 已有一组范围：开启新一轮
-  rangeStartValue.value = key;
-  rangeEndValue.value = undefined;
-  rangeHoverValue.value = undefined;
-}
-
-/**
- * 月份视图点击处理。
- */
-function handleMonthSelect(date: Date): void {
-  const key = formatByGrain(date, 'month');
-
-  if (isMultiple.value) {
-    const current = multipleSelection.value;
-    const next = current.includes(key)
-      ? current.filter((v) => v !== key)
-      : [...current, key];
-    emits('update:modelValue', next as unknown as DatePickerValue);
-    emits('change', next as unknown as DatePickerValue);
-    return;
-  }
-
-  if (!isRange.value) {
-    commitSingle(key);
-    return;
-  }
-  if (!rangeStartValue.value) {
-    rangeStartValue.value = key;
-    rangeEndValue.value = undefined;
-    rangeHoverValue.value = undefined;
-    return;
-  }
-  if (!rangeEndValue.value) {
-    commitRange(rangeStartValue.value, key);
-    return;
-  }
-  rangeStartValue.value = key;
-  rangeEndValue.value = undefined;
-  rangeHoverValue.value = undefined;
-}
-
-/**
- * 年份视图点击处理。
- */
-function handleYearSelect(date: Date): void {
-  const key = formatByGrain(date, 'year');
-
-  if (isMultiple.value) {
-    const current = multipleSelection.value;
-    const next = current.includes(key)
-      ? current.filter((v) => v !== key)
-      : [...current, key];
-    emits('update:modelValue', next as unknown as DatePickerValue);
-    emits('change', next as unknown as DatePickerValue);
-    return;
-  }
-
-  if (!isRange.value) {
-    commitSingle(key);
-    return;
-  }
-  if (!rangeStartValue.value) {
-    rangeStartValue.value = key;
-    rangeEndValue.value = undefined;
-    rangeHoverValue.value = undefined;
-    return;
-  }
-  if (!rangeEndValue.value) {
-    commitRange(rangeStartValue.value, key);
-    return;
-  }
-  rangeStartValue.value = key;
-  rangeEndValue.value = undefined;
-  rangeHoverValue.value = undefined;
-}
-
-/**
- * 季度视图点击处理。
- */
-function handleQuarterSelect(date: Date): void {
-  const key = `${date.getFullYear()}-Q${Math.floor(date.getMonth() / 3) + 1}`;
-  commitSingle(key);
-}
-
-/** 范围悬停预览 */
-function handleHover(date: Date): void {
-  if (isRange.value && rangeStartValue.value && !rangeEndValue.value) {
-    rangeHoverValue.value = formatByGrain(date, baseGrain.value);
-  }
-}
+/* ----- 选择状态（useDateSelection）----- */
+const {
+  rangeStartValue,
+  rangeEndValue,
+  rangeHoverValue,
+  syncRangeFromModel,
+  handleDaySelect,
+  handleMonthSelect,
+  handleYearSelect,
+  handleQuarterSelect,
+  handleHover,
+} = useDateSelection(modelValue as Ref<DatePickerValue>, emits as DateSelectionEmit, {
+  isRange,
+  isMultiple,
+  baseGrain: baseGrain as ComputedRef<'date' | 'month' | 'year'>,
+  isOpen,
+  multipleSelection,
+});
 
 function handleClearHover(): void {
   rangeHoverValue.value = undefined;
@@ -485,10 +336,7 @@ const panelVisible = computed(() => props.inline || isOpen.value);
       "
     >
       <!-- 快捷项 -->
-      <div
-        v-if="shortcuts && shortcuts.length > 0"
-        class="mb-2 flex flex-wrap gap-1 border-b pb-2"
-      >
+      <div v-if="shortcuts && shortcuts.length > 0" class="mb-2 flex flex-wrap gap-1 border-b pb-2">
         <button
           v-for="sc in shortcuts"
           :key="sc.text"
@@ -716,4 +564,3 @@ const panelVisible = computed(() => props.inline || isOpen.value);
     </Teleport>
   </div>
 </template>
-

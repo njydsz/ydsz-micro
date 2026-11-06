@@ -32,8 +32,19 @@
   "status": "Status",
   "createTime": "Create Time",
   "actions": "Actions",
-  "validation": { "required": "Please enter {field}" },
-  "error": { "pageLoadFailed": "Page load error, please try again later" },
+  "validation": {
+    "required": {
+      "shareTitle": "Please enter a share title",
+      "workflowName": "Please enter a workflow name",
+      "agentCode": "Please enter an agent code",
+      "memoryContent": "Please enter memory content",
+      "templateCode": "Please enter a template code",
+      "templateName": "Please enter a template name"
+    }
+  },
+  "error": {
+    "pageLoadFailed": "Page load error, please try again later"
+  },
   "crud": {
     "confirmDeleteDefault": "Are you sure you want to delete this record? This action cannot be undone.",
     "deleteConfirmTitle": "Delete Confirmation",
@@ -53,5 +64,59 @@
     "confirm": "Confirm",
     "errorInvalid": "Password verification failed, please try again",
     "errorEmpty": "Password cannot be empty"
+  },
+  "operation": {
+    "update": {
+      "success": "Updated successfully"
+    },
+    "create": {
+      "success": "Created successfully"
+    },
+    "delete": {
+      "success": "Deleted successfully"
+    },
+    "publish": {
+      "success": "Published successfully"
+    },
+    "save": {
+      "success": "Saved successfully"
+    },
+    "copy": {
+      "failed": "Copy failed"
+    },
+    "export": {
+      "success": "Exported successfully",
+      "failed": "Export failed"
+    },
+    "query": {
+      "success": "Query succeeded"
+    },
+    "success": "Memory added successfully",
+    "import": {
+      "success": "Imported successfully",
+      "failed": "Import failed"
+    },
+    "connect": {
+      "success": "Connected successfully"
+    },
+    "rollback": {
+      "success": "Rolled back successfully"
+    },
+    "trigger": {
+      "success": "Triggered successfully"
+    },
+    "enable": {
+      "success": "Enabled successfully"
+    },
+    "disable": {
+      "success": "Disabled successfully"
+    },
+    "unbind": {
+      "success": "Unbound successfully"
+    },
+    "validate": {
+      "failed": "DSL validation failed"
+    },
+    "failed": "Operation failed"
   }
 }

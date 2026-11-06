@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 文件分享（表单组件）
  * <p>新建分享表单，数据提交到后端契约 API share#createShare（apps/nextwiki-web/src/api/share.ts）。
@@ -51,7 +52,7 @@ const [Modal, modalApi] = useYdModal({
     modalApi.lock();
     try {
       await createShare({ ...formData });
-      showToast.success('创建成功');
+      showToast.success($t('operation.create.success'));
       emit('success');
       modalApi.close();
     } finally {

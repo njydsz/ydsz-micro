@@ -56,16 +56,13 @@ function handleCancel() {
   align-items: center;
   justify-content: center;
   gap: var(--ydsz-spacing-xs);
-
   border: 1px solid transparent;
   border-radius: var(--ydsz-radius-md);
-
   font-family: inherit;
   font-weight: var(--ydsz-font-weight-medium);
   line-height: var(--ydsz-line-height-tight);
   white-space: nowrap;
   text-decoration: none;
-
   cursor: pointer;
   user-select: none;
   transition:

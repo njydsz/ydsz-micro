@@ -260,7 +260,7 @@ const displayText = computed(() => {
   border: 1px solid var(--ydsz-color-border, #d9d9d9);
   border-radius: 6px;
   background: var(--ydsz-color-bg, #fff);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
 }
 
 .yd-cascader__search {

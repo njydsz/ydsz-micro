@@ -9,6 +9,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 认证策略表单弹窗
  *
@@ -164,11 +165,11 @@ const [Modal, modalApi] = useYdModal({
       if (isEdit.value) {
         const { update } = await import('#/api/authPolicy');
         await update({ tenantId: formData.tenantId }, payload);
-        showToast.success('更新成功');
+        showToast.success($t('operation.update.success'));
       } else {
         const { create: createApi } = await import('#/api/authPolicy');
         await createApi(payload);
-        showToast.success('创建成功');
+        showToast.success($t('operation.create.success'));
       }
       emit('success');
       modalApi.close();

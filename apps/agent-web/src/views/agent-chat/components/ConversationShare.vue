@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 对话发布/分享
  * <p>支持设置分享标题、有效期、访问权限（公开/仅团队），生成分享链接供复制。
@@ -82,7 +83,7 @@ async function handlePublish(): Promise<void> {
     return;
   }
   if (!shareConfig.title.trim()) {
-    showToast.warning('请输入分享标题');
+    showToast.warning($t('validation.required.shareTitle'));
     return;
   }
   publishing.value = true;
@@ -92,7 +93,7 @@ async function handlePublish(): Promise<void> {
     shareUrl.value =
       `${window.location.origin}/agent/share/${token}` +
       `?cid=${encodeURIComponent(currentConversationId.value)}&perm=${shareConfig.permission}`;
-    showToast.success('发布成功');
+    showToast.success($t('operation.publish.success'));
   } catch {
     // 错误提示由请求拦截器统一处理
   } finally {
@@ -126,7 +127,7 @@ defineExpose({ open, close });
         </p>
         <YdForm label-width="90px">
           <YdFormItem label="分享标题" required>
-            <YdInput v-model="shareConfig.title" placeholder="请输入分享标题" />
+            <YdInput v-model="shareConfig.title" :placeholder="$t('validation.required.shareTitle')" />
           </YdFormItem>
           <YdFormItem label="访问权限">
             <YdRadioGroup v-model="shareConfig.permission">

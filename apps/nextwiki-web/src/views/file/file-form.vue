@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 文件夹（表单组件）
  * <p>新建文件夹表单，数据提交到后端契约 API file#createFolder（apps/nextwiki-web/src/api/file.ts）。
@@ -49,7 +50,7 @@ const [Modal, modalApi] = useYdModal({
     modalApi.lock();
     try {
       await createFolder({ ...formData });
-      showToast.success('创建成功');
+      showToast.success($t('operation.create.success'));
       emit('success');
       modalApi.close();
     } finally {

@@ -39,17 +39,33 @@ function lintAs(filename, code, ruleId) {
 
 // ── no-element-plus ──────────────────────────────────────────
 {
-  const errors = lintAs('src/demo.ts', "import { ElButton } from 'element-plus';", 'no-element-plus');
+  const errors = lintAs(
+    'src/demo.ts',
+    "import { ElButton } from 'element-plus';",
+    'no-element-plus',
+  );
   assert.equal(errors.length, 1, '应检测到 element-plus 引入');
   assert.equal(errors[0].messageId, 'forbidden');
 
-  const errors2 = lintAs('src/demo.ts', "import { Search } from '@element-plus/icons-vue';", 'no-element-plus');
+  const errors2 = lintAs(
+    'src/demo.ts',
+    "import { Search } from '@element-plus/icons-vue';",
+    'no-element-plus',
+  );
   assert.equal(errors2.length, 1, '应检测到 @element-plus/icons-vue');
 
-  const clean = lintAs('src/demo.ts', "import { YdButton } from '@ydsz-core/ydsz-ui';", 'no-element-plus');
+  const clean = lintAs(
+    'src/demo.ts',
+    "import { YdButton } from '@ydsz-core/ydsz-ui';",
+    'no-element-plus',
+  );
   assert.equal(clean.length, 0, 'ydsz-ui 引入不应报错');
 
-  const clean2 = lintAs('src/demo.ts', "import { Search } from 'lucide-vue-next';", 'no-element-plus');
+  const clean2 = lintAs(
+    'src/demo.ts',
+    "import { Search } from 'lucide-vue-next';",
+    'no-element-plus',
+  );
   assert.equal(clean2.length, 0, 'lucide 引入不应报错');
 }
 
@@ -70,11 +86,7 @@ function lintAs(filename, code, ruleId) {
   );
   assert.equal(clean.length, 0, 'i18n key 不应报错');
 
-  const clean2 = lintAs(
-    'src/components/demo.ts',
-    'const unit = "年";',
-    'no-hardcoded-chinese',
-  );
+  const clean2 = lintAs('src/components/demo.ts', 'const unit = "年";', 'no-hardcoded-chinese');
   assert.equal(clean2.length, 0, '单个中文字符不应报错');
 
   const clean3 = lintAs(

@@ -34,7 +34,6 @@ import type { MicroAppConfig } from '@ydsz/micro-runtime';
 import { createLogger } from '@ydsz-core/shared/utils';
 
 import { microRuntime } from '#/bootstrap';
-import { $t } from '#/locales';
 
 import { useSubAppPhase } from './composables/use-subapp-phase';
 import { useSkeletonResolver } from './composables/use-skeleton-resolver';

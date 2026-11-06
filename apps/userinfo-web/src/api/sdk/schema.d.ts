@@ -6,8249 +6,10474 @@
  */
 
 export type paths = {
-  '/api/admin/users/{userId}/ban': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['banUser'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/users/{userId}/unban': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['unbanUser'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/users/{userId}/ban-info': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getBanInfo'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/users/{userId}/sessions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getUserSessions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/users/{userId}/sessions/{accessToken}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['forceLogout'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/sessions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getAllActiveSessions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/sessions/statistics': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getSessionStatistics'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/mfa/send-code': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['sendMfaCode'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/mfa/send-email-code': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['sendMfaEmailCode'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/login': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['login'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/logout': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['logout'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/refresh': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['refresh'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/sso/device-code': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['generateDeviceCode'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/sso/device-exchange': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['exchangeDeviceCode'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/sessions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listActiveSessions'];
-    put?: never;
-    post?: never;
-    delete: operations['kickOutOtherSessions'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/sessions/{token}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['kickOutSession'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/secondary-auth': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['secondaryAuth'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth-policy/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth-policy/{tenantId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getByTenantId'];
-    put: operations['update'];
-    post?: never;
-    delete: operations['delete'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth-policy': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/captcha/generate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['generate'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/captcha/validate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['validate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/cas/login': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['login'];
-    put?: never;
-    post: operations['loginPost'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/cas/serviceValidate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['serviceValidate'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/cas/p3/serviceValidate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['serviceValidateJson'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/cas/logout': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['logout'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/company/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/company/tree': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['tree'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/company/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/company': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['update'];
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dept/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dept/tree': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['tree'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dept/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dept': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['update'];
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/user/info': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getUserInfo'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/dept/tree': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getDeptTree'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/dept/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getDeptList'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/user/list-by-role': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listUserIdsByRole'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/user/role-codes': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listRoleCodesByUserId'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/user/dept-ids': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listDeptIdsByUserId'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/user/leader': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getLeaderByUserId'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/user/list-by-position': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listUserIdsByPosition'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/dept/leader-by-id': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getDeptLeaderByDeptId'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/dept/leader-by-code': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getDeptLeaderByDeptCode'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/user/batch-names': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchUserNames'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/dept/batch-names': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchDeptNames'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/role/batch-names': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchRoleNames'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/post/batch-names': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchPostNames'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/company/batch-names': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchCompanyNames'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/language/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/language/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/language/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/language': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['update'];
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/ldap/sync': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['triggerSync'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/ldap/sync/status': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getStatus'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/ldap/sync/logs': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getLogs'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/menu/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/menu/tree': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['tree'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/menu/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/menu': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['update'];
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/oauth2/applications': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['page'];
-    put?: never;
-    post: operations['register'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/oauth2/applications/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getById'];
-    put: operations['update'];
-    post?: never;
-    delete: operations['delete'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/oauth2/applications/{id}/reset-secret': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['resetSecret'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/oauth2/authorize': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['authorize'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/oauth2/consent': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getConsentInfo'];
-    put?: never;
-    post: operations['submitConsent'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/oauth2/token': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['token'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/oauth2/revoke': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['revoke'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/oauth2/introspect': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['introspect'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/oauth2/userinfo': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['userinfo'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/.well-known/openid-configuration': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['discovery'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/.well-known/jwks.json': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['jwks'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/post/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/post/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/post': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['update'];
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/role/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/role/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/role/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/role': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['update'];
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/role/{roleId}/permissions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getRolePermissions'];
-    put?: never;
-    post: operations['assignPermissions'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/saml/metadata': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['metadata'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/saml/sso': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['initiateSso'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/saml/acs': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['assertionConsumerService'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/saml/sso/{idpEntityId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['initiateSsoByEntityId'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/saml/acs/{idpEntityId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['assertionConsumerServiceByEntityId'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/saml/idp-list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listIdps'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/saml-idp-config/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/saml-idp-config/enabled': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listEnabled'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/saml-idp-config': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/saml-idp-config/{entityId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['update'];
-    post?: never;
-    delete: operations['delete'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/scim/v2/Users': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listUsers'];
-    put?: never;
-    post: operations['createUser'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/scim/v2/Users/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getUser'];
-    put: operations['updateUser'];
-    post?: never;
-    delete: operations['deleteUser'];
-    options?: never;
-    head?: never;
-    patch: operations['patchUser'];
-    trace?: never;
-  };
-  '/scim/v2/Groups': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listGroups'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/scim/v2/ServiceProviderConfig': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getServiceProviderConfig'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/scim/v2/ResourceTypes': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getResourceTypes'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/scim/v2/Schemas': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getSchemas'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/alerts': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['pageAlerts'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/alerts/pending': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getPendingAlerts'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/alerts/{id}/acknowledge': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['acknowledgeAlert'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/alerts/{id}/resolve': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['resolveAlert'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/alerts/{id}/ignore': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['ignoreAlert'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/dashboard': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getDashboard'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/login-success-rate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getLoginSuccessRate'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/login-fail-distribution': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getLoginFailDistribution'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/mfa-coverage': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getMfaCoverage'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/risk-distribution': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getRiskLevelDistribution'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/recent-events': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getRecentSecurityEvents'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/session-activity': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getSessionActivity'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/active-user-ranking': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getActiveUserRanking'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/session-trend': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getSessionTrend'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/device-distribution': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getDeviceDistribution'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/security/anomaly-sessions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['detectAnomalySessions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/profile/social/bindings': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getBindings'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/profile/social/platforms': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getAvailablePlatforms'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/profile/social/bindings/{platform}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['unbind'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/social-client-config/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/social-client-config/enabled': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listEnabled'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/social-client-config': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/social-client-config/{platform}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['update'];
-    post?: never;
-    delete: operations['delete'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/sso/metrics/overview': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getOverview'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/sso/token-exchange': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['tokenExchange'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/sso/validate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['validate'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/sso/logout-notify': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['logoutNotify'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['update'];
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/change-password': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['changePassword'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/reset-password': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['resetPassword'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/{userId}/roles': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getUserRoles'];
-    put?: never;
-    post: operations['assignRoles'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/import': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['importUsers'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/import-template': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['downloadImportTemplate'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/export': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['exportUsers'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/{userId}/login-history': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getLoginHistory'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/batch-remove': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchRemove'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/batch-enable': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchEnable'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/batch-disable': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchDisable'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/{userId}/lifecycle/suspend': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['suspend'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/{userId}/lifecycle/resume': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['resume'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/{userId}/lifecycle/disable': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['disable'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/{userId}/lifecycle/enable': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['enable'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/{userId}/lifecycle/resign': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['resign'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/user/sensitive-verify': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['sensitiveVerify'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/userinfo/search': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['search'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/userinfo/search/rebuild': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['rebuildIndex'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/profile/me': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getCurrentUserProfile'];
-    put: operations['updateCurrentUserProfile'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/profile/password': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['changePassword'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/profile/avatar': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['uploadAvatar'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/profile/mfa/status': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getMfaStatus'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/profile/mfa/setup': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['setupMfa'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/profile/mfa/activate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['activateMfa'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/profile/mfa/disable': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['disableMfa'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/webauthn/passkey/registration/options': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getPasskeyRegistrationOptions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/webauthn/passkey/options': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getPasskeyAuthenticationOptions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/webauthn/passkey/verify': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['verifyPasskeyAuthentication'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/webauthn/registration/options': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getRegistrationOptions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/webauthn/registration/verify': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['verifyRegistration'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/webauthn/authentication/options': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getAuthenticationOptions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/webauthn/authentication/verify': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['verifyAuthentication'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/webauthn/credentials': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listCredentials'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/webauthn/credentials/{credentialId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['deleteCredential'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/devices': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listMyDevices'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/devices/{sessionId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['revokeDevice'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/self-service/send-verify-code': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['sendVerifyCode'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/self-service/register': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['register'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/self-service/forgot-password': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['forgotPassword'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/self-service/unlock': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['unlockAccount'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/auth/events/stream': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['streamEvents'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
+    "/admin/users/{userId}/ban": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["banUser"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/{userId}/unban": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["unbanUser"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/{userId}/ban-info": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getBanInfo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/{userId}/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getUserSessions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/users/{userId}/sessions/{accessToken}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["forceLogout"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAllActiveSessions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/sessions/statistics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSessionStatistics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/apikey": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["pageKeys"];
+        put?: never;
+        post: operations["createKey"];
+        delete: operations["revokeKeys"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/apikey/all": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listMyKeys"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/apikey/{id}/enabled": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateEnabled"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/mfa/send-code": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["sendMfaCode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/mfa/send-email-code": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["sendMfaEmailCode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["login"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/userinfo": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getUserInfo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/codes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAccessCodes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["logout"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/refresh": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["refresh"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/sso/device-code": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["generateDeviceCode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/sso/device-exchange": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["exchangeDeviceCode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listActiveSessions"];
+        put?: never;
+        post?: never;
+        delete: operations["kickOutOtherSessions"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/sessions/{token}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["kickOutSession"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/secondary-auth": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["secondaryAuth"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/secondary-auth/webauthn/challenge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getWebAuthnChallenge"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/secondary-auth/webauthn": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["webAuthnSecondaryAuth"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth-policy/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth-policy/{tenantId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getByTenantId"];
+        put: operations["update"];
+        post?: never;
+        delete: operations["delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth-policy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/captcha/generate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["generate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/captcha/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["validate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/cas/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["login"];
+        put?: never;
+        post: operations["loginPost"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/cas/serviceValidate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["serviceValidate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/cas/p3/serviceValidate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["serviceValidateJson"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/cas/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["logout"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/company/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/company/tree": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["tree"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/company/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/company": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/dept/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/dept/tree": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["tree"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/dept/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/dept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/user/info": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getUserInfo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/dept/tree": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getDeptTree"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/dept/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getDeptList"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/user/list-by-role": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listUserIdsByRole"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/user/role-codes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listRoleCodesByUserId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/user/dept-ids": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listDeptIdsByUserId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/user/leader": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getLeaderByUserId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/user/list-by-position": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listUserIdsByPosition"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/dept/leader-by-id": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getDeptLeaderByDeptId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/dept/leader-by-code": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getDeptLeaderByDeptCode"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/user/batch-names": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchUserNames"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/dept/batch-names": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchDeptNames"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/role/batch-names": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchRoleNames"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/post/batch-names": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchPostNames"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/company/batch-names": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchCompanyNames"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/user/verify-password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["verifyPassword"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/language/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/language/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/language/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/language": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/ldap/sync": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["triggerSync"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/ldap/sync/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getStatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/ldap/sync/logs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getLogs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/userinfo/login-log/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/menu/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/menu/tree": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["tree"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/menu/routes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["routes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/menu/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/menu": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/oauth2/applications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post: operations["register"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/oauth2/applications/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put: operations["update"];
+        post?: never;
+        delete: operations["delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/oauth2/applications/{id}/reset-secret": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["resetSecret"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oauth2/authorize": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["authorize"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oauth2/consent": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getConsentInfo"];
+        put?: never;
+        post: operations["submitConsent"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oauth2/token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["token"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oauth2/revoke": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["revoke"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oauth2/introspect": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["introspect"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oauth2/userinfo": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["userinfo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/.well-known/openid-configuration": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["discovery"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/.well-known/jwks.json": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["jwks"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/post/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/post/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/post": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/role/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/role/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/role/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/role": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/role/{roleId}/permissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRolePermissions"];
+        put?: never;
+        post: operations["assignPermissions"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/saml/metadata": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["metadata"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/saml/sso": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["initiateSso"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/saml/acs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["assertionConsumerService"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/saml/sso/{idpEntityId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["initiateSsoByEntityId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/saml/acs/{idpEntityId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["assertionConsumerServiceByEntityId"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/saml/idp-list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listIdps"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/saml-idp-config/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/saml-idp-config/enabled": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listEnabled"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/saml-idp-config": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/saml-idp-config/{entityId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post?: never;
+        delete: operations["delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/scim/v2/Users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listUsers"];
+        put?: never;
+        post: operations["createUser"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/scim/v2/Users/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getUser"];
+        put: operations["updateUser"];
+        post?: never;
+        delete: operations["deleteUser"];
+        options?: never;
+        head?: never;
+        patch: operations["patchUser"];
+        trace?: never;
+    };
+    "/scim/v2/Groups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listGroups"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/scim/v2/ServiceProviderConfig": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getServiceProviderConfig"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/scim/v2/ResourceTypes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getResourceTypes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/scim/v2/Schemas": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSchemas"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/alerts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["pageAlerts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/alerts/pending": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getPendingAlerts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/alerts/{id}/acknowledge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["acknowledgeAlert"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/alerts/{id}/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["resolveAlert"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/alerts/{id}/ignore": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["ignoreAlert"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getDashboard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/login-success-rate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getLoginSuccessRate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/login-fail-distribution": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getLoginFailDistribution"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/mfa-coverage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getMfaCoverage"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/risk-distribution": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRiskLevelDistribution"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/recent-events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRecentSecurityEvents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/session-activity": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSessionActivity"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/active-user-ranking": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getActiveUserRanking"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/session-trend": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSessionTrend"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/device-distribution": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getDeviceDistribution"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/security/anomaly-sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["detectAnomalySessions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/social/bindings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getBindings"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/social/platforms": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAvailablePlatforms"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/social/bindings/{platform}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["unbind"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/social-client-config/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/social-client-config/enabled": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listEnabled"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/social-client-config": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/social-client-config/{platform}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post?: never;
+        delete: operations["delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/sso/metrics/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getOverview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/sso/token-exchange": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["tokenExchange"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/sso/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["validate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/sso/logout-notify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["logoutNotify"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/change-password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["changePassword"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/reset-password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["resetPassword"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/{userId}/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getUserRoles"];
+        put?: never;
+        post: operations["assignRoles"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["importUsers"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/import-template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["downloadImportTemplate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportUsers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/{userId}/login-history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getLoginHistory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/batch-remove": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchRemove"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/batch-enable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchEnable"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/batch-disable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchDisable"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/{userId}/lifecycle/suspend": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["suspend"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/{userId}/lifecycle/resume": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["resume"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/{userId}/lifecycle/disable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["disable"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/{userId}/lifecycle/enable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["enable"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/{userId}/lifecycle/resign": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["resign"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/sensitive-verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["sensitiveVerify"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/userinfo/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["search"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/userinfo/search/rebuild": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rebuildIndex"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/preferences": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get"];
+        put: operations["save"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/user/preferences/reset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["reset"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getCurrentUserProfile"];
+        put: operations["updateCurrentUserProfile"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["changePassword"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/avatar": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["uploadAvatar"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/mfa/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getMfaStatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/mfa/setup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["setupMfa"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/mfa/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["activateMfa"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/profile/mfa/disable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["disableMfa"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webauthn/passkey/registration/options": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getPasskeyRegistrationOptions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webauthn/passkey/options": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getPasskeyAuthenticationOptions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webauthn/passkey/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["verifyPasskeyAuthentication"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webauthn/registration/options": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRegistrationOptions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webauthn/registration/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["verifyRegistration"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webauthn/authentication/options": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAuthenticationOptions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webauthn/authentication/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["verifyAuthentication"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webauthn/credentials": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listCredentials"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/webauthn/credentials/{credentialId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deleteCredential"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/devices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listMyDevices"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/devices/{sessionId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["revokeDevice"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/oauth2/device_authorization": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["deviceAuthorization"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/self-service/send-verify-code": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["sendVerifyCode"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/self-service/register": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["register"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/self-service/forgot-password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["forgotPassword"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/self-service/unlock": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["unlockAccount"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/events/stream": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["streamEvents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/tenant/switch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["switchTenant"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 };
 export type webhooks = Record<string, never>;
 export type components = {
-  schemas: {
-    /**
-     * @description 统一API返回结果封装类
-     *
-     *     用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。
-     *
-     *     响应结构：
-     *
-     *
-     *     code: 响应码，A00000表示成功，其他表示失败
-     *     msg: 响应消息
-     *     data: 响应数据
-     *     timestamp: 响应时间戳
-     *
-     *
-     *     使用示例：
-     *
-     *     <pre>{@code
-     *     // 返回成功
-     *     return YdszResponse.success(user);
-     *
-     *     // 返回失败（走 i18n）
-     *     return YdszResponse.error(YdszResultCode.NOT_FOUND);
-     *     }</pre>
-     *
-     *     @param <T> 数据泛型
-     */
-    YdszResponse: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 返回编码 */
-      code?: string;
-      /** @description 返回信息 */
-      msg?: string;
-      /**
-       * @description 返回数据
-       *
-       *     泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。
-       */
-      data?: Record<string, never>;
-      /**
-       * @description 链路追踪 ID。
-       *
-       *     首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。
-       */
-      traceId?: Record<string, never>;
-      /**
-       * @description 请求 ID（用于客户端/前端精准排障，单个请求唯一）。
-       *
-       *     volatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。
-       */
-      requestId?: Record<string, never>;
-      /**
-       * @description 当前服务调用的 Span ID（W3C Trace Context span ID）。
-       *
-       *     volatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link
-       *     com.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。
-       */
-      spanId?: Record<string, never>;
-      /**
-       * Format: int64
-       * @description 时间戳
-       */
-      timestamp?: number;
-      /**
-       * @description 扩展字段（可选）。
-       *
-       *     用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
-       */
-      extensions?: {
-        [key: string]: Record<string, never>;
-      };
-      /**
-       * @description 国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。
-       *
-       *     采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。
-       */
-      RESOLVER?: Record<string, never>;
+    schemas: {
+        /**
+         * @description 统一API返回结果封装类
+         *
+         *     用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。
+         *
+         *     响应结构：
+         *
+         *
+         *     code: 响应码，A00000表示成功，其他表示失败
+         *     msg: 响应消息
+         *     data: 响应数据
+         *     timestamp: 响应时间戳
+         *
+         *
+         *     使用示例：
+         *
+         *     <pre>{@code
+         *     // 返回成功
+         *     return YdszResponse.success(user);
+         *
+         *     // 返回失败（走 i18n）
+         *     return YdszResponse.error(YdszResultCode.NOT_FOUND);
+         *     }</pre>
+         *
+         *     @param <T> 数据泛型
+         */
+        YdszResponse: {
+            /**
+             * Format: int64
+             * @description 序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。
+             */
+            serialVersionUID?: number;
+            /** @description 返回编码 */
+            code?: string;
+            /** @description 返回信息 */
+            msg?: string;
+            /**
+             * @description 异常级别。
+             *
+             *     取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：
+             *
+             *
+             *     INFO — 静默处理，不展示 toast
+             *     WARN — 轻量 toast 提示（auto-close 3s）
+             *     ERROR — toast 提示，需用户点击关闭
+             *     FATAL — 弹窗提示，阻断用户当前操作
+             *
+             *
+             *     成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
+             */
+            level?: string;
+            /**
+             * @description 返回数据
+             *
+             *     泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。
+             */
+            data?: Record<string, never>;
+            /**
+             * @description 链路追踪 ID。
+             *
+             *     首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。
+             */
+            traceId?: Record<string, never>;
+            /**
+             * @description 请求 ID（用于客户端/前端精准排障，单个请求唯一）。
+             *
+             *     volatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。
+             */
+            requestId?: Record<string, never>;
+            /**
+             * @description 当前服务调用的 Span ID（W3C Trace Context span ID）。
+             *
+             *     volatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link
+             *     com.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。
+             */
+            spanId?: Record<string, never>;
+            /**
+             * Format: int64
+             * @description 时间戳
+             */
+            timestamp?: number;
+            /**
+             * @description 扩展字段（可选）。
+             *
+             *     用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
+             */
+            extensions?: {
+                [key: string]: Record<string, never>;
+            };
+            /**
+             * @description 国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。
+             *
+             *     采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。
+             */
+            RESOLVER?: Record<string, never>;
+        };
+        /**
+         * @description 用户封禁请求 DTO。
+         *
+         *     用于管理员封禁用户账号，支持临时封禁（指定到期时间）和永久封禁。
+         */
+        UserBanRequestDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 封禁类型（TEMPORARY/PERMANENT），必填 */
+            banType: string;
+            /** @description 封禁原因，必填 */
+            banReason: string;
+            /**
+             * Format: date-time
+             * @description 封禁到期时间（临时封禁必填，永久封禁不填）
+             */
+            banExpireAt?: string;
+        };
+        /** @description 创建 API Key 请求体。 */
+        ApiKeyCreateDTO: {
+            /** @description Key 名称（用于标识用途，如 "jenkins-deploy", "datadog-monitor"） */
+            keyName: string;
+            /**
+             * @description 授权范围（逗号分隔）。
+             *
+             *     预定义值：`read`、`write`、`admin`、`user:read`、`user:write` 等。
+             */
+            scopes?: string;
+            /**
+             * Format: int32
+             * @description 过期时间（天数），为空表示永不过期
+             */
+            expireDays?: number;
+            /**
+             * Format: int32
+             * @description 每分钟请求限流阈值，为空表示使用默认配置
+             */
+            rateLimit?: number;
+        };
+        /** @description API Key 分页查询。 */
+        ApiKeyPageQuery: {
+            /**
+             * Format: int32
+             * @description 默认每页大小
+             */
+            DEFAULT_PAGE_SIZE?: number;
+            /**
+             * Format: int32
+             * @description 页码（从 1 开始）
+             */
+            pageNum?: number;
+            /**
+             * Format: int32
+             * @description 每页大小
+             */
+            pageSize?: number;
+            /** @description Key 名称模糊搜索 */
+            keyName?: string;
+            /** @description 按用户 ID 筛选 */
+            userId?: string;
+            /** @description 按启用状态筛选 */
+            isEnabled?: boolean;
+        };
+        /**
+         * @description 发送验证码请求 DTO。
+         *
+         *     用于自助注册/找回密码流程中，向用户手机或邮箱发送验证码。
+         *
+         *     使用方式：
+         *
+         *
+         *     手机验证：`target` 填手机号，`targetType` 为 `PHONE`
+         *     邮箱验证：`target` 填邮箱地址，`targetType` 为 `EMAIL`
+         */
+        SendVerifyCodeDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 发送类型：REGISTER（注册）/ FORGOT_PASSWORD（找回密码）/ UNLOCK（账号解锁） */
+            type: string;
+            /** @description 验证码目标类型：PHONE（手机）/ EMAIL（邮箱） */
+            targetType: string;
+            /** @description 目标标识（手机号或邮箱地址） */
+            target: string;
+            /** @description 图形验证码 key（P0-5：防短信轰炸，前端先调用 /api/captcha 获取） */
+            captchaKey: string;
+            /** @description 图形验证码用户输入（P0-5：防短信轰炸） */
+            captcha: string;
+            phone?: string;
+            email?: string;
+        };
+        /**
+         * @description 登录请求 DTO。
+         *
+         *     用于 `Post /api/auth/login` 接口，支持用户名+密码登录， 可选携带图形验证码进行人机校验。
+         *
+         *     校验规则：
+         *
+         *
+         *     `username` — 必填，登录用户名
+         *     `password` — 必填，明文密码（传输层由 HTTPS 保护，服务端 BCrypt 比对）
+         *     `captchaKey` / `captcha` — 可选，当系统开启验证码或登录风险为 MEDIUM 及以上时必填
+         *     `mfaCode` — 可选，当登录风险为 HIGH 时必填（TOTP 动态码或短信验证码）
+         */
+        LoginDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 登录用户名（全局唯一） */
+            username: string;
+            /** @description 登录密码（明文，传输层由 HTTPS 保护，服务端 BCrypt 比对） */
+            password: string;
+            /** @description 验证码 Redis Key（由 `GET /api/auth/captcha` 返回，开启验证码时必填） */
+            captchaKey?: string;
+            /** @description 用户输入的图形验证码（不区分大小写，开启验证码时必填） */
+            captcha?: string;
+            /** @description 双因素认证动态码（TOTP 或短信验证码，登录风险为 HIGH 时必填） */
+            mfaCode?: string;
+            /** @description 租户 ID（多租户场景下指定登录归属租户，单租户模式可不传） */
+            tenantId?: string;
+            /** @description 客户端 IP（由 Controller 从 HttpServletRequest 提取并填充，用于登录历史记录与 IP 封禁） */
+            loginIp?: string;
+            /** @description User-Agent（由 Controller 从请求头提取，用于登录历史审计） */
+            userAgent?: string;
+            /**
+             * @description X-Platform 请求头（由 Controller 从请求头提取，用于分端会话控制）。
+             *
+             *     可选值：`web` / `app` / `api`。
+             *     未传时从 #userAgent 推断设备类型。
+             */
+            platform?: string;
+            /**
+             * @description 是否开启「记住我」功能，默认 false。
+             *
+             *     开启后每次访问自动续期 Token TTL（滑动过期），关闭浏览器则按原 Cookie 有效期失效。
+             *     开启时服务端会签发 Remember-Me Cookie（存储加密后的用户 ID）。
+             */
+            isRememberMe?: boolean;
+        };
+        /** @description HttpServletRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        HttpServletRequest: Record<string, never>;
+        /** @description HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        HttpServletResponse: Record<string, never>;
+        /**
+         * @description 刷新 Token 请求体
+         *
+         *     封装 refreshToken 字段，避免与 com.njydsz.userinfo.domain.dto.LoginDTO 耦合。
+         *
+         *     由 com.njydsz.userinfo.web.controller.AuthController#refresh(RefreshRequest) 使用。
+         */
+        RefreshRequest: {
+            /** @description 刷新令牌（来自上一次登录或上一次 refresh 响应） */
+            refreshToken?: string;
+        };
+        /**
+         * @description 场景化二级认证请求体（P0-2 标准化）。
+         *
+         *     前端调用 `Post /api/auth/secondary-auth` 接口时传入，包含当前用户密码和目标场景标识。
+         */
+        SecondaryAuthRequest: {
+            /**
+             * @description 当前登录用户的明文密码。
+             *
+             *     用于验证用户身份，验证通过后写入场景化安全标记。
+             */
+            password: string;
+            /**
+             * @description 场景标识（scene）。
+             *
+             *     用于区分不同业务场景的二级认证，每个场景独立验证、独立过期。
+             *     常用值：`password_change`、`role_assign`、`data_export`、`tenant_config`
+             */
+            scene: string;
+            /**
+             * Format: int32
+             * @description 二级认证有效期（秒）。
+             *
+             *     默认 300 秒（5 分钟）。CRITICAL 级别会自动缩短为 40%。
+             */
+            ttlSeconds?: number;
+            /**
+             * @description 敏感操作等级。
+             *
+             *     默认 HIGH。CRITICAL 级别使用更短的验证窗口（TTL 的 40%，最小 60 秒）。
+             * @enum {string}
+             */
+            level?: "MEDIUM" | "HIGH" | "CRITICAL";
+        };
+        /**
+         * @description WebAuthn 二级认证请求体。
+         *
+         *     前端在完成 WebAuthn 通行钥断言后，调用 `POST /api/auth/secondary-auth/webauthn` 提交验证结果。
+         *
+         *     流程：
+         *
+         *     <ol>
+         *     前端请求 `/secondary-auth/webauthn/challenge` 获取 WebAuthn 挑战码
+         *     浏览器调用 `navigator.credentials.get()` 完成通行钥断言
+         *     前端将断言结果提交到此 DTO，调用 `/secondary-auth/webauthn` 完成二级认证
+         *     </ol>
+         */
+        WebAuthnSecondaryAuthDTO: {
+            /**
+             * @description 场景标识（scene）。
+             *
+             *     用于区分不同业务场景的二级认证，每个场景独立验证、独立过期。
+             */
+            scene: string;
+            /** @description WebAuthn 认证挑战码（由 challenge 端点获取）。 */
+            challenge: string;
+            /** @description 凭证 ID（Base64URL 编码）。 */
+            credentialId: string;
+            /** @description 客户端数据 JSON（Base64URL 编码）。 */
+            clientDataJSON: string;
+            /** @description 认证器数据（Base64URL 编码）。 */
+            authenticatorData: string;
+            /** @description 签名（Base64URL 编码）。 */
+            signature: string;
+            /**
+             * Format: int32
+             * @description 二级认证有效期（秒）。默认 300 秒（5 分钟）。
+             */
+            ttlSeconds?: number;
+        };
+        /** @description 认证策略分页查询参数（P3-1）。 */
+        AuthPolicyPageQuery: {
+            /** @description 租户 ID */
+            tenantId?: string;
+            /** @description 策略名称（模糊查询） */
+            name?: string;
+        };
+        /**
+         * @description 认证策略统一 DTO（P3-1 多租户认证域隔离）。
+         *
+         *     同时用于创建和更新场景：创建时 `tenantId` 可不传（为空表示全局默认策略），
+         *     更新时 `tenantId` 必填。
+         */
+        AuthPolicyDTO: {
+            /** @description 租户 ID（为空表示全局默认策略） */
+            tenantId?: string;
+            /** @description 策略名称 */
+            name?: string;
+            /**
+             * Format: int32
+             * @description 密码最小长度（≥ 6）
+             */
+            passwordMinLength?: number;
+            /** @description 密码必须包含大写字母 */
+            isPasswordRequireUppercase?: boolean;
+            /** @description 密码必须包含数字 */
+            isPasswordRequireDigit?: boolean;
+            /** @description 密码是否启用双因素认证 */
+            isMfaEnabled?: boolean;
+            /** @description 登录是否启用图形验证码 */
+            isCaptchaEnabled?: boolean;
+            /** @description 允许的身份提供者类型（逗号分隔，如 "LDAP,SAML,OAUTH2"） */
+            allowedIdentityProviders?: string;
+            /**
+             * Format: int32
+             * @description 最大会话数（每个用户同时在线的最大会话数）
+             */
+            maxSessionsPerUser?: number;
+            /**
+             * Format: int32
+             * @description 会话超时时间（秒）
+             */
+            sessionTimeoutSeconds?: number;
+            /** @description 备注说明 */
+            remark?: string;
+        };
+        /** @description ResponseEntity（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        ResponseEntity: Record<string, never>;
+        /**
+         * @description 公司请求 DTO。
+         *
+         *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
+         */
+        CompanyDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 公司 ID（更新时必填） */
+            id?: string;
+            /** @description 公司名称 */
+            companyName: string;
+            /** @description 公司编码（全局唯一，建议格式 `COMP_XXX`） */
+            companyCode: string;
+            /** @description 上级公司 ID（`"0"` 表示顶级公司） */
+            parentId?: string;
+            /** @description 联系人姓名 */
+            contactPerson?: string;
+            /** @description 联系电话 */
+            contactPhone?: string;
+            /** @description 公司地址 */
+            address?: string;
+            /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
+            status?: string;
+        };
+        /**
+         * @description 部门请求 DTO。
+         *
+         *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
+         *     部门通过 parentId 自关联形成树形组织架构，"0" 表示根节点。
+         *
+         *     字段语义：
+         *
+         *
+         *     `deptCode` — 部门编码（全局唯一，建议格式 DEPT_XXX），业务侧引用
+         *     `parentId` — 父部门 ID（"0" 表示根部门）
+         *     `tenantId` — 租户 ID（多租户场景下区分归属租户）
+         */
+        DepartmentDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 部门 ID（更新时必填） */
+            id?: string;
+            /** @description 部门编码（全局唯一，建议格式 `DEPT_XXX`） */
+            deptCode: string;
+            /** @description 部门名称（前端展示） */
+            deptName: string;
+            /** @description 父部门 ID（`"0"` 表示根部门） */
+            parentId?: string;
+            /** @description 部门描述 */
+            description?: string;
+            /**
+             * Format: int32
+             * @description 同级排序序号（升序）
+             */
+            sort?: number;
+            /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
+            status?: string;
+            /** @description 租户 ID */
+            tenantId?: string;
+        };
+        /** @description 语言分页查询参数，继承 PageQuery 提供分页基础字段。 */
+        LanguagePageQuery: {
+            /** @description 语言编码，如 zh-CN */
+            languageCode?: string;
+            /** @description 语言名称 */
+            languageName?: string;
+            /** @description 状态过滤：ENABLE/DISABLE */
+            status?: string;
+        };
+        /**
+         * @description 语言配置请求 DTO。
+         *
+         *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
+         *
+         *     字段语义：
+         *
+         *
+         *     `languageCode` — 语言编码（ISO 639-1 + ISO 3166-1，如 zh-CN / en-US）
+         *     `isDefault` — 是否默认语言（1=是，全局仅允许一个默认语言）
+         *     `status` — 启用状态（ENABLED/DISABLED），禁用后该语言不在用户切换器中显示
+         */
+        LanguageDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 语言 ID（更新时必填） */
+            id?: string;
+            /** @description 语言编码（ISO 639-1 + ISO 3166-1，如 `zh-CN` / `en-US`） */
+            languageCode: string;
+            /** @description 语言名称（前端展示，如「简体中文」/「English」） */
+            languageName: string;
+            /**
+             * Format: int32
+             * @description 是否默认语言（`1=是`，全局仅允许一个默认语言）
+             */
+            isDefault?: number;
+            /**
+             * Format: int32
+             * @description 排序序号（升序，决定语言切换器展示顺序）
+             */
+            sort?: number;
+            /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
+            status?: string;
+        };
+        /**
+         * @description 登录日志分页查询条件。
+         *
+         *     支持按用户名、IP、登录结果、时间范围筛选。
+         */
+        LoginLogPageQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 用户名（模糊匹配） */
+            username?: string;
+            /** @description 登录 IP（精确或模糊匹配） */
+            loginIp?: string;
+            /** @description 登录结果（SUCCESS/FAILED/ALL） */
+            status?: string;
+            /**
+             * Format: date-time
+             * @description 起始时间（含）
+             */
+            startTime?: string;
+            /**
+             * Format: date-time
+             * @description 结束时间（含）
+             */
+            endTime?: string;
+        };
+        /**
+         * @description 菜单请求 DTO。
+         *
+         *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
+         */
+        MenuDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 菜单 ID（更新时必填） */
+            id?: string;
+            /** @description 父菜单 ID（`"0"` 表示根节点） */
+            parentId?: string;
+            /** @description 菜单名称（前端展示） */
+            menuName: string;
+            /** @description 菜单编码（全局唯一） */
+            menuCode: string;
+            /** @description 菜单类型（DIR=目录 / Menu=菜单 / BUTTON=按钮） */
+            menuType: string;
+            /** @description 前端路由路径（menuType=Menu 时必填） */
+            path?: string;
+            /** @description 前端组件路径（menuType=Menu 时必填，如 `"system/user/index"`） */
+            component?: string;
+            /** @description 菜单图标（Iconify / Element Plus 图标名） */
+            icon?: string;
+            /**
+             * Format: int32
+             * @description 同级排序序号（升序）
+             */
+            sort?: number;
+            /** @description 权限码（`"system:user:create"` 格式） */
+            permissionCode?: string;
+            /**
+             * Format: int32
+             * @description 是否前端可见（0=隐藏，1=可见）
+             */
+            visible?: number;
+            /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
+            status?: string;
+        };
+        /** @description RegisterApplicationDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        RegisterApplicationDTO: Record<string, never>;
+        /** @description UpdateApplicationDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        UpdateApplicationDTO: Record<string, never>;
+        /**
+         * @description OAuth2 授权端点请求参数值对象。
+         *
+         *     封装 `GET /authorize` 端点的全部请求参数，避免方法参数数量超限（云顶编码规范 5.4 节）。
+         *     通过组件级绑定注解映射到 HTTP 请求。
+         *
+         *     @param authorization Authorization 请求头（Bearer access_token）
+         *     @param clientId 客户端 ID（必须已注册）
+         *     @param redirectUri 回调地址（必须在 clientId 的白名单中）
+         *     @param state 客户端防 CSRF 随机串（服务端存储并校验）
+         *     @param scope 授权范围（可选，OIDC 流程需包含 `openid`）
+         *     @param nonce OIDC nonce（可选，用于防重放攻击）
+         *     @param codeChallenge PKCE 码挑战值（可选，用于公共客户端）
+         *     @param codeChallengeMethod PKCE 码挑战方法（可选，仅支持 S256）
+         */
+        OAuth2AuthorizeRequest: Record<string, never>;
+        /**
+         * @description OAuth2 token 端点请求参数值对象。
+         *
+         *     封装 `POST /token` 端点的全部表单参数，避免方法参数数量超限（云顶编码规范 5.4 节）。
+         *
+         *     @param grantType 授权类型（authorization_code / refresh_token）
+         *     @param code 授权码（authorization_code 必填）
+         *     @param refreshToken 刷新令牌（refresh_token 必填）
+         *     @param clientId 客户端 ID
+         *     @param clientSecret 客户端密钥（confidential 客户端必填）
+         *     @param codeVerifier PKCE 码验证器（public 客户端 authorization_code 必填）
+         *     @param state OAuth2 CSRF 防护 state 参数（可选）
+         */
+        OAuth2TokenRequest: {
+            grantType: Record<string, never>;
+            false: Record<string, never>;
+        };
+        /**
+         * @description 岗位请求 DTO。
+         *
+         *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
+         */
+        PostDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 岗位 ID（更新时必填） */
+            id?: string;
+            /** @description 岗位名称（前端展示，如「项目经理」「后端开发工程师」） */
+            postName: string;
+            /** @description 岗位编码（全局唯一，建议使用英文枚举值如 `PM` / `DEV`） */
+            postCode: string;
+            /** @description 岗位描述 */
+            description?: string;
+            /**
+             * Format: int32
+             * @description 同级排序序号（升序）
+             */
+            sort?: number;
+            /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
+            status?: string;
+        };
+        /** @description 角色分页查询参数，继承 PageQuery 提供分页基础字段。 */
+        RolePageQuery: {
+            /** @description 角色编码，模糊查询 */
+            roleCode?: string;
+            /** @description 角色名称，模糊查询 */
+            roleName?: string;
+            /** @description 状态过滤：ENABLE/DISABLE */
+            status?: string;
+            /** @description 租户 ID */
+            tenantId?: string;
+        };
+        /**
+         * @description 角色请求 DTO。
+         *
+         *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
+         *
+         *     字段语义：
+         *
+         *
+         *     `roleCode` — 角色编码（全局唯一，建议格式 ROLE_XXX），用于权限匹配
+         *     `dataScope` — 数据权限范围（ALL/DEPT_AND_CHILD/DEPT/SELF/CUSTOM），控制角色可见数据范围
+         *     `isBuiltIn` — 是否内置角色（true 时禁止删除与修改编码）
+         *     `tenantId` — 租户 ID（"0" = 平台级角色，跨租户可见）
+         */
+        RoleDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 角色 ID（更新时必填） */
+            id?: string;
+            /** @description 角色编码（全局唯一，建议格式 `ROLE_XXX`） */
+            roleCode: string;
+            /** @description 角色名称（前端展示） */
+            roleName: string;
+            /** @description 角色描述 */
+            description?: string;
+            /**
+             * Format: int32
+             * @description 同级排序序号（升序）
+             */
+            sort?: number;
+            /** @description 数据权限范围（ALL / DEPT_AND_CHILD / DEPT / SELF / CUSTOM） */
+            dataScope?: string;
+            /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
+            status?: string;
+            /** @description 是否内置角色（`true` 时禁止删除与修改编码） */
+            isBuiltIn?: boolean;
+            /** @description 租户 ID（`"0"` = 平台级角色） */
+            tenantId?: string;
+        };
+        /**
+         * @description 分配角色权限请求 DTO。
+         *
+         *     用于 `Post /api/Role/{roleId`/permissions} 接口，为指定角色分配权限。 采用全量覆盖策略：传入的权限 ID
+         *     列表将完全替换角色原有权限关联。
+         *
+         *     注意事项：
+         *
+         *
+         *     传入空列表表示清除角色所有权限
+         *     权限 ID 必须为系统中已存在的有效权限（菜单/按钮/API）
+         */
+        AssignPermissionsDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 权限 ID 列表（全量覆盖，空列表表示清除所有权限） */
+            permissionIds?: string[];
+        };
+        /** @description SAML 身份提供者配置分页查询参数（P2-1）。 */
+        SamlIdpPageQuery: {
+            /** @description 状态过滤：ENABLED / DISABLED */
+            status?: string;
+            /** @description IdP 显示名称（模糊查询） */
+            name?: string;
+        };
+        /**
+         * @description SAML 2.0 身份提供者（IdP）配置统一 DTO（P2-1 CUD 入参）。
+         *
+         *     同时用于创建和更新场景：创建时 `entityId` 必填，更新时 `entityId` 必填。
+         *
+         *     字段语义：
+         *
+         *
+         *     `entityId` — IdP Entity ID（唯一标识 URI，作为主键）
+         *     `ssoUrl` — IdP SSO 端点 URL（SP 重定向用户至此发起 SSO）
+         *     `certificate` — IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名）
+         *     `emailAttribute` — SAML Assertion 中邮箱属性名（默认 emailAddress）
+         *     `displayNameAttribute` — SAML Assertion 中显示名称属性名（默认 displayName）
+         *     `status` — 状态（ENABLED/DISABLED），禁用后该 IdP 不可登录
+         */
+        SamlIdpDTO: {
+            /** @description IdP Entity ID（唯一标识） */
+            entityId?: string;
+            /** @description IdP 显示名称（如 "企业微信 SAML"、"飞书 SAML"） */
+            name: string;
+            /** @description IdP SSO 端点 URL */
+            ssoUrl: string;
+            /** @description IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名） */
+            certificate?: string;
+            /** @description 用户邮箱对应的 SAML Attribute 名称（默认 email） */
+            emailAttribute?: string;
+            /** @description 用户显示名称对应的 SAML Attribute 名称（默认 displayName） */
+            displayNameAttribute?: string;
+            /** @description 状态：ENABLED / DISABLED */
+            status?: string;
+            /**
+             * Format: int32
+             * @description 排序权重
+             */
+            sort?: number;
+            /** @description 备注说明 */
+            remark?: string;
+        };
+        /**
+         * @description SCIM 2.0 User 资源表示。
+         *
+         *     遵循 RFC 7643 Section 4.1 Core User Schema（`urn:ietf:params:scim:schemas:core:2.0:User`），
+         *     是 SCIM 协议中最核心的资源类型，用于 HR 系统与身份管理系统之间的用户数据同步。
+         *
+         *     字段映射：
+         *
+         *
+         *     `userName` → ydsz `username`（登录名）
+         *     `externalId` → HR 系统员工编号等外部标识
+         *     `name.formatted` → ydsz `realName`（真实姓名）
+         *     `emails[0].value` → ydsz `email`
+         *     `phoneNumbers[0].value` → ydsz `phone`
+         *     `active` → ydsz 启用/禁用状态反推
+         */
+        ScimUser: {
+            /** @description SCIM Schema 标识（固定值）。 */
+            schemas?: string[];
+            /** @description SCIM 资源唯一标识（对应 ydsz 用户 ID）。 */
+            id?: string;
+            /** @description 外部系统标识（如 HR 系统员工编号）。 */
+            externalId?: string;
+            /** @description 登录用户名（唯一）。 */
+            userName?: string;
+            name?: components["schemas"]["ScimName"];
+            /** @description 显示名称。 */
+            displayName?: string;
+            active?: boolean;
+            /** @description 电子邮箱列表。 */
+            emails?: components["schemas"]["ScimEmail"][];
+            /** @description 电话号码列表。 */
+            phoneNumbers?: components["schemas"]["ScimPhone"][];
+            meta?: components["schemas"]["ScimMeta"];
+            /** @description 账号是否启用。 */
+            isActive?: boolean;
+        };
+        /**
+         * @description SCIM 用户姓名组件（name 子属性）。
+         *
+         *     对应 SCIM Core Schema `urn:ietf:params:scim:schemas:core:2.0:User` 的 `name` 属性，
+         *     遵循 RFC 7643 Section 4.1.1。
+         */
+        ScimName: {
+            /** @description 完整格式化姓名（如 "张三" 或 "Dr. John Jonas, Jr."）。 */
+            formatted?: string;
+            /** @description 姓氏（family name / surname）。 */
+            familyName?: string;
+            /** @description 名字（given name / first name）。 */
+            givenName?: string;
+        };
+        /**
+         * @description SCIM 电子邮箱子属性。
+         *
+         *     对应 SCIM Core Schema `urn:ietf:params:scim:schemas:core:2.0:User` 的 `emails`
+         *     属性元素，遵循 RFC 7643 Section 4.1.1。
+         */
+        ScimEmail: {
+            /** @description 电子邮箱地址。 */
+            value?: string;
+            /** @description 显示名称（可选）。 */
+            display?: string;
+            primary?: boolean;
+            /** @description 是否为主邮箱。 */
+            isPrimary?: boolean;
+        };
+        /**
+         * @description SCIM 电话号码子属性。
+         *
+         *     对应 SCIM Core Schema `urn:ietf:params:scim:schemas:core:2.0:User` 的 `phoneNumbers`
+         *     属性元素，遵循 RFC 7643 Section 4.1.1。
+         */
+        ScimPhone: {
+            /** @description 电话号码。 */
+            value?: string;
+            /** @description 显示名称（可选）。 */
+            display?: string;
+            primary?: boolean;
+            /** @description 是否为主要电话号码。 */
+            isPrimary?: boolean;
+        };
+        /**
+         * @description SCIM 资源元数据。
+         *
+         *     对应 SCIM Core Schema 的 `meta` 属性，记录资源类型、创建时间和最后修改时间，
+         *     遵循 RFC 7643 Section 3.1。
+         */
+        ScimMeta: {
+            /** @description 资源类型（如 "User"、"Group"）。 */
+            resourceType?: string;
+            /** @description 资源创建时间（ISO 8601 格式）。 */
+            created?: string;
+            /** @description 资源最后修改时间（ISO 8601 格式）。 */
+            lastModified?: string;
+        };
+        /**
+         * @description SCIM 2.0 PATCH 操作请求体。
+         *
+         *     遵循 RFC 7644 Section 3.5.2（PATCH），支持对资源的部分更新。
+         *
+         *     操作类型：
+         *
+         *
+         *     `add` — 添加属性值（不存在则创建，存在则替换）
+         *     `remove` — 移除属性值（指定 path 时移除对应属性，否则报错）
+         *     `replace` — 替换属性值（不存在则报错）
+         *
+         *
+         *     示例：
+         *
+         *     <pre>
+         *     {
+         *     "schemas": ["urn:ietf:params:scim:schemas:core:2.0:PatchOp"],
+         *     "Operations": [
+         *     {"op": "replace", "path": "displayName", "value": "张三"},
+         *     {"op": "replace", "path": "emails[value eq \"old@test.com\"].value", "value": "new@test.com"},
+         *     {"op": "add", "path": "phoneNumbers", "value": "1*********0"},
+         *     {"op": "remove", "path": "phoneNumbers[value eq \"1*********0\"]"}
+         *     ]
+         *     }
+         *     </pre>
+         */
+        ScimPatchOp: {
+            Operations?: components["schemas"]["ScimPatchOperation"][];
+            /**
+             * @description 操作类型。
+             *
+             *     可选值：add、remove、replace（大小写不敏感）。
+             */
+            op?: string;
+            /**
+             * @description 目标属性路径（可选）。
+             *
+             *     支持 SCIM 标准路径语法，如 `displayName`、`emails`、
+             *     `emails[value eq "xxx"].value`。为 null 时表示操作整个资源。
+             */
+            path?: string;
+            /**
+             * @description 操作值（可选）。
+             *
+             *     用于 add/replace 操作。当 op 为 remove 时，value 应为 null。
+             */
+            value?: Record<string, never>;
+            /** @description PATCH 操作 Schema 标识。 */
+            PATCH_OP_SCHEMA?: string[];
+            /** @description Schema 标识（固定值）。 */
+            schemas?: string[];
+            /** @description PATCH 操作列表（按顺序执行）。 */
+            operations?: components["schemas"]["ScimPatchOperation"][];
+        };
+        /**
+         * @description 单个 PATCH 操作。
+         *
+         *     表示对资源的一个原子修改操作。
+         */
+        ScimPatchOperation: {
+            /**
+             * @description 操作类型。
+             *
+             *     可选值：add、remove、replace（大小写不敏感）。
+             */
+            op?: string;
+            /**
+             * @description 目标属性路径（可选）。
+             *
+             *     支持 SCIM 标准路径语法，如 `displayName`、`emails`、
+             *     `emails[value eq "xxx"].value`。为 null 时表示操作整个资源。
+             */
+            path?: string;
+            /**
+             * @description 操作值（可选）。
+             *
+             *     用于 add/replace 操作。当 op 为 remove 时，value 应为 null。
+             */
+            value?: Record<string, never>;
+        };
+        /**
+         * @description 安全告警分页查询参数。
+         *
+         *     用于安全告警分页查询接口，封装过滤条件与分页参数。 所有过滤条件均为可选，未设置则不作为筛选条件。
+         */
+        SecurityAlertPageQuery: {
+            /** @description 告警状态过滤（可为 null 表示不过滤） */
+            alertStatus?: Record<string, never>;
+            /** @description 风险等级过滤（可为 null 表示不过滤） */
+            riskLevel?: Record<string, never>;
+            /**
+             * Format: date
+             * @description 起始日期过滤（可为 null，自动转换为当天 00:00:00）
+             */
+            start?: string;
+            /**
+             * Format: date
+             * @description 结束日期过滤（可为 null，自动转换为当天 23:59:59.999）
+             */
+            end?: string;
+            /**
+             * Format: date-time
+             * @description 起始时间过滤（可为 null，优先于 #start 使用）
+             */
+            startTime?: string;
+            /**
+             * Format: date-time
+             * @description 结束时间过滤（可为 null，优先于 #end 使用）
+             */
+            endTime?: string;
+        };
+        /** @description 社交平台客户端配置分页查询参数（P1-1）。 */
+        SocialClientPageQuery: {
+            /** @description 平台标识（精确匹配） */
+            platform?: string;
+            /** @description 平台显示名称（模糊查询） */
+            platformName?: string;
+            /** @description 状态过滤：ENABLED / DISABLED */
+            status?: string;
+        };
+        /**
+         * @description 社交平台客户端配置统一 DTO（P1-1 CUD 入参）。
+         *
+         *     同时用于创建和更新场景：创建时 `platform` 必填，更新时 `id` 必填。
+         *
+         *     安全注意：appSecret 明文仅在创建/更新请求中传输（由 HTTPS 保护），服务端接收后
+         *     通过 BCrypt 加密存储。更新时如果 appSecret 为空则保留原值（不修改密钥）。
+         */
+        SocialClientDTO: {
+            /** @description 平台 ID（更新时必填） */
+            id?: string;
+            /** @description 平台标识（如 GITHUB/DINGTALK/ENTERPRISE_WECHAT/FEISHU） */
+            platform: string;
+            /** @description 平台显示名称 */
+            platformName?: string;
+            /** @description 应用 ID */
+            appId: string;
+            /** @description 应用明文密钥（BCrypt 加密后存储） */
+            appSecret?: string;
+            /** @description OAuth2 授权范围（scope） */
+            scope?: string;
+            /** @description 回调地址（redirectUri），可为 null */
+            redirectUri?: string;
+            /** @description 状态：ENABLED / DISABLED */
+            status?: string;
+            /**
+             * Format: int32
+             * @description 排序权重
+             */
+            sort?: number;
+            /** @description 备注说明 */
+            remark?: string;
+        };
+        /** @description TokenExchangeRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        TokenExchangeRequest: Record<string, never>;
+        /** @description LogoutNotifyRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        LogoutNotifyRequest: Record<string, never>;
+        /**
+         * @description 用户分页查询参数。
+         *
+         *     用于 `GET /api/user/page` 接口，支持多条件组合筛选用户列表。 继承 PageQuery 获取分页参数（`pageNum`
+         *     / `pageSize`）。
+         *
+         *     筛选条件：所有字段均为可选，未传则不作为筛选条件。
+         */
+        UserAccountPageQuery: {
+            /** @description 登录用户名（模糊查询） */
+            username?: string;
+            /** @description 真实姓名（模糊查询） */
+            realName?: string;
+            /** @description 手机号（模糊查询） */
+            phone?: string;
+            /** @description 邮箱（模糊查询） */
+            email?: string;
+            /** @description 账号状态（`"ENABLED"`=启用 / `"DISABLED"`=禁用，继承自 BaseQuery） */
+            status?: string;
+            /** @description 用户类型（精确匹配，如 PLATFORM/TENANT_ADMIN/REGULAR） */
+            userType?: string;
+            /** @description 所属公司 ID（精确匹配） */
+            companyId?: string;
+            /** @description 所属部门 ID（精确匹配） */
+            deptId?: string;
+            /** @description 直属上级用户 ID（精确匹配） */
+            leaderId?: string;
+            /** @description 岗位编码（精确匹配，如 PM/DEV/QA/SA） */
+            positionCode?: string;
+        };
+        /**
+         * @description 用户账号统一 DTO（P1-1 CUD 入参）。
+         *
+         *     同时用于创建和更新场景：创建时 `username`/`password` 必填，更新时 `id` 必填。
+         *
+         *     不可更新字段：`username`（登录名创建后不可修改）、`password`（请使用专用修改密码接口）。
+         */
+        UserAccountDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 用户 ID（更新时必填，指定更新的目标用户） */
+            id: string;
+            /** @description 登录用户名（全局唯一，创建时必填，创建后不可修改） */
+            username: string;
+            /** @description 用户名（SCIM 兼容字段，与 username 同义） */
+            userName?: string;
+            /** @description 外部系统标识（SCIM externalId，用于与 HR 系统关联） */
+            externalId?: string;
+            /** @description 登录密码（明文传入，服务端 BCrypt 加密存储，创建时必填） */
+            password: string;
+            /** @description 真实姓名（用于展示和审批人显示） */
+            realName: string;
+            /** @description 手机号（用于短信验证/找回密码） */
+            phone?: string;
+            /** @description 邮箱（用于邮件通知/找回密码） */
+            email?: string;
+            /** @description 头像 URL */
+            avatar?: string;
+            /**
+             * @description 账号状态（UserLifecycleStatusEnum#ENABLED=启用 / UserLifecycleStatusEnum#DISABLED=禁用）
+             * @enum {string}
+             */
+            status?: never;
+            /** @description 用户类型（`PLATFORM`=平台用户 / `TENANT_ADMIN`=租户管理员 / `REGULAR`=普通用户） */
+            userType?: string;
+            /** @description 所属公司 ID（关联 `ydsz_org_company.id`） */
+            companyId?: string;
+            /** @description 所属部门 ID（关联 `ydsz_org_department.id`，支持审批人展开） */
+            deptId?: string;
+            /** @description 直属上级用户 ID（关联 `ydsz_acct_user.id`，支持 leader: 审批人展开） */
+            leaderId?: string;
+            /** @description 岗位编码（如 PM/DEV/QA/SA，支持 position: 审批人展开） */
+            positionCode?: string;
+            /** @description 角色 ID 列表（创建时一次性分配角色，可空表示暂不分配） */
+            roleIds?: string[];
+            /** @description 租户 ID（多租户场景下指定归属租户，通常由系统自动填充） */
+            tenantId?: string;
+            /**
+             * Format: int32
+             * @description 乐观锁版本号（P1-6）。
+             *
+             *     由前端在编辑页面携带（从查询响应获取），更新时用于乐观锁冲突检测。
+             *     为 null 时保持原行为（由 Service 层填充当前版本）；携带后若与 DB 当前版本不一致，
+             *     更新将被拒绝并提示"数据已被他人修改"。
+             */
+            revision?: number;
+        };
+        /**
+         * @description 修改密码请求 DTO（用户自助修改）。
+         *
+         *     用于 `Post /api/user/change-password` 接口，用户自行修改登录密码。 服务端会校验旧密码是否正确，新密码须符合密码策略（长度+复杂度）。
+         *
+         *     安全说明：修改密码成功后，当前会话 Token 不会被撤销， 如需强制下线请调用管理员重置密码接口。
+         */
+        ChangePasswordDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 用户 ID（指定修改密码的目标用户） */
+            userId: string;
+            /** @description 旧密码（明文传入，服务端 BCrypt 比对验证） */
+            oldPassword: string;
+            /** @description 新密码（明文传入，服务端 BCrypt 加密存储，须符合密码策略） */
+            newPassword: string;
+        };
+        /**
+         * @description 重置密码请求 DTO（管理员操作）。
+         *
+         *     用于 `Post /api/user/reset-password` 接口，管理员重置指定用户的密码。 无需提供旧密码，重置后可选择通过指定通道通知用户。
+         *
+         *     安全说明：重置密码成功后，目标用户的所有活跃会话将被撤销， 须使用新密码重新登录。该接口需要管理员权限。
+         */
+        ResetPasswordDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 用户 ID（指定重置密码的目标用户） */
+            userId: string;
+            /** @description 新密码（明文传入，服务端 BCrypt 加密存储，须符合密码策略） */
+            newPassword: string;
+            /** @description 通知渠道（重置后通知用户，如 `SMS` / `EMAIL`，不传则不通知） */
+            notifyChannel?: string;
+        };
+        /**
+         * @description 分配用户角色请求 DTO。
+         *
+         *     用于 `Post /api/user/{userId`/roles} 接口，为指定用户分配角色。 采用全量覆盖策略：传入的角色 ID
+         *     列表将完全替换用户原有角色关联。
+         *
+         *     注意事项：
+         *
+         *
+         *     传入空列表表示清除用户所有角色
+         *     角色 ID 必须为系统中已存在的有效角色
+         */
+        AssignRolesDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 角色 ID 列表（全量覆盖，空列表表示清除所有角色） */
+            roleIds?: string[];
+        };
+        /**
+         * @description 批量用户状态操作 DTO。
+         *
+         *     用于批量启用/禁用/删除用户账号。单次操作用户数量受 `ydsz.userinfo.batch-size-limit` 限制
+         *     （默认 500），超出时需分批调用。
+         */
+        BatchUserStatusDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 用户 ID 列表 */
+            ids: string[];
+        };
+        /**
+         * @description 敏感操作二次认证请求 DTO。
+         *
+         *     用于 `Post /api/user/sensitive-verify` 接口，管理员在执行敏感操作前 通过密码确认身份。验证通过后，后端在 Redis 写入一条短期有效（5 分钟）的标记。
+         *
+         *     安全说明：
+         *
+         *
+         *     密码仅用于身份校验，不做任何持久化
+         *     验证标记存储在 Redis，TTL 5 分钟，过期后需重新验证
+         *     标记以当前登录用户 ID 为 Key，不跨用户共享
+         */
+        SensitiveVerifyDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 当前登录用户的明文密码（用于身份校验） */
+            password: string;
+        };
+        /**
+         * @description 用户搜索查询参数。
+         *
+         *     封装用户搜索接口的查询参数（keyword / 分页），请求头中的用户上下文通过
+         *     javax.servlet.http.HttpServletRequest 读取。
+         */
+        UserSearchQuery: {
+            /**
+             * Format: int32
+             * @description 默认页码
+             */
+            DEFAULT_PAGE?: number;
+            /**
+             * Format: int32
+             * @description 默认每页条数
+             */
+            DEFAULT_PAGE_SIZE?: number;
+            /** @description 搜索关键字（必填） */
+            keyword?: string;
+            /**
+             * Format: int32
+             * @description 页码（默认 1）
+             */
+            page?: number;
+            /**
+             * Format: int32
+             * @description 每页条数（默认 20）
+             */
+            pageSize?: number;
+        };
+        /**
+         * @description 用户偏好保存 DTO
+         *
+         *     前端用户偏好（默认首页/语言/主题/布局等）的写入载体，
+         *     对齐前端 `UserPreferenceDTO` 契约。字段全部可选，
+         *     后端整体覆盖式保存（PUT 语义）。
+         */
+        UserPreferenceDTO: {
+            accordionMenu?: boolean;
+            /** @description 默认首页路径 */
+            defaultIndex?: string;
+            /** @description 语言设置（如 zh-CN / en-US） */
+            language?: string;
+            /** @description 主题模式（light / dark / auto） */
+            theme?: string;
+            /** @description 主题色 */
+            themeColor?: string;
+            /** @description 菜单布局 */
+            menuLayout?: string;
+            /** @description 菜单手风琴模式（true = 手风琴） */
+            isAccordionMenu?: boolean;
+            /** @description 表格密度 */
+            tableSize?: string;
+            /** @description 字体大小 */
+            fontSize?: string;
+        };
+        /**
+         * @description 用户资料更新 DTO（当前登录用户修改自己的资料）。
+         *
+         *     与 com.njydsz.userinfo.domain.dto.UserAccountDTO 不同，此 DTO 不包含状态、角色等管理字段，仅包含用户可自助修改的基本信息。
+         */
+        UserProfileUpdateDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 真实姓名 */
+            realName?: string;
+            /** @description 手机号 */
+            phone?: string;
+            /**
+             * Format: email
+             * @description 邮箱
+             */
+            email?: string;
+            /** @description 头像 URL */
+            avatar?: string;
+        };
+        /** @description Valid  ChangePasswordDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        "Valid  ChangePasswordDTO": Record<string, never>;
+        /**
+         * @description MFA 动态码操作 DTO。
+         *
+         *     用于 MFA 绑定激活/解除场景，携带用户输入的一次性动态码（Authenticator 应用生成）。
+         */
+        MfaOperationDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description TOTP 动态码（6 位数字，由 Authenticator 应用生成） */
+            code: string;
+        };
+        /**
+         * @description 自助注册请求 DTO。
+         *
+         *     用户通过前端注册页面提交注册申请，包含基本信息和验证码。 注册成功后账号状态为"待审核"或"已启用"（取决于配置）。
+         */
+        SelfRegisterDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 用户名（全局唯一） */
+            username: string;
+            /** @description 真实姓名 */
+            realName: string;
+            /** @description 密码（明文，须符合密码策略） */
+            password: string;
+            /** @description 手机号 */
+            phone?: string;
+            /** @description 邮箱 */
+            email?: string;
+            /** @description 手机/邮箱验证码 */
+            verifyCode: string;
+            /** @description 图形验证码 key（P0-5：防批量注册，前端先调用 /api/captcha 获取） */
+            captchaKey: string;
+            /** @description 图形验证码用户输入（P0-5：防批量注册） */
+            captcha: string;
+        };
+        /**
+         * @description 找回密码请求 DTO。
+         *
+         *     用户通过手机号 + 验证码验证身份后，设置新密码。
+         */
+        ForgotPasswordDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 用户名 */
+            username: string;
+            /** @description 手机号（用于验证身份） */
+            phone: string;
+            /** @description 手机验证码 */
+            verifyCode: string;
+            /** @description 新密码（明文，须符合密码策略） */
+            newPassword: string;
+            /** @description 图形验证码 key（P0-5：防撞库找回密码，前端先调用 /api/captcha 获取） */
+            captchaKey: string;
+            /** @description 图形验证码用户输入（P0-5：防撞库找回密码） */
+            captcha: string;
+        };
+        /**
+         * @description 账号解锁请求 DTO。
+         *
+         *     用户自助解锁被锁定的账号，支持手机验证码/邮箱验证码两种身份验证方式。
+         *
+         *     使用方式：
+         *
+         *
+         *     手机验证：`target` 填手机号，`targetType` 为 `PHONE`
+         *     邮箱验证：`target` 填邮箱地址，`targetType` 为 `EMAIL`
+         */
+        AccountUnlockDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 用户名（需与验证方式绑定的用户匹配） */
+            username: string;
+            /** @description 验证目标类型：PHONE（手机）/ EMAIL（邮箱） */
+            targetType: string;
+            /** @description 验证目标（手机号或邮箱地址） */
+            target: string;
+            /** @description 验证码 */
+            verifyCode: string;
+            /** @description 图形验证码 key（防暴力破解，前端先调用 /api/captcha 获取） */
+            captchaKey: string;
+            /** @description 图形验证码用户输入 */
+            captcha: string;
+        };
+        /** @description TenantSwitchRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        TenantSwitchRequest: Record<string, never>;
+        /**
+         * @description 账号封禁信息 VO。
+         *
+         *     供管理端 API 返回，展示封禁类型、原因、到期时间、操作人等信息。
+         *
+         *     字段语义：
+         *
+         *
+         *     `banned`：当前是否处于封禁状态（临时封禁过期后自动为 false）
+         *     `banType`：封禁类型（TEMPORARY/PERMANENT），未封禁时为 null
+         *     `banReason`：封禁原因
+         *     `banExpireAt`：封禁到期时间（永久封禁为 null）
+         *     `bannedBy`：操作人标识
+         *     `bannedAt`：封禁操作时间
+         */
+        BanInfoVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 当前是否处于封禁状态 */
+            isBanned?: boolean;
+            /** @description 封禁类型（TEMPORARY/PERMANENT），未封禁时为 null */
+            banType?: string;
+            /** @description 封禁原因 */
+            banReason?: string;
+            /**
+             * Format: date-time
+             * @description 封禁到期时间（永久封禁为 null）
+             */
+            banExpireAt?: string;
+            /** @description 操作人标识 */
+            bannedBy?: string;
+            /**
+             * Format: date-time
+             * @description 封禁操作时间
+             */
+            bannedAt?: string;
+        };
+        /**
+         * @description 用户会话信息 VO。
+         *
+         *     用于展示用户当前活跃的会话列表，支持管理员查看和强制下线指定设备。
+         */
+        UserSessionVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 会话 accessToken（脱敏展示） */
+            accessToken?: string;
+            /** @description 登录时间（ISO 8601 格式） */
+            loginTime?: string;
+            /** @description 登录 IP */
+            loginIp?: string;
+            /** @description 设备/浏览器 User-Agent */
+            userAgent?: string;
+            /** @description 会话过期时间（ISO 8601 格式） */
+            expireTime?: string;
+            /** @description 设备类型编码（web/app/api/unknown） */
+            device?: string;
+            /** @description 用户名 */
+            username?: string;
+        };
+        /**
+         * @description 会话统计信息。
+         *
+         *     封装平台级会话统计数据，用于管理员仪表盘展示。
+         *
+         *     字段语义：
+         *
+         *
+         *     `totalActiveSessions`：当前活跃会话总数
+         *     `activeUserCount`：当前活跃用户数（去重）
+         *     `sessionsPerDevice`：分端会话统计（key=deviceType, value=会话数）
+         *
+         *
+         *     @param totalActiveSessions 当前活跃会话总数
+         *     @param activeUserCount 当前活跃用户数（去重）
+         *     @param sessionsPerDevice 分端会话统计
+         */
+        UserSessionStatisticsVO: {
+            /** Format: int32 */
+            totalActiveSessions: number;
+            /** Format: int32 */
+            activeUserCount: number;
+            sessionsPerDevice: {
+                [key: string]: Record<string, never>;
+            };
+        };
+        /**
+         * @description API Key 视图对象（列表查询返回）。
+         *
+         *     注意：出于安全考虑，`apiKey` 字段仅在创建时返回明文，列表/详情均为 null。
+         */
+        ApiKeyVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /**
+             * Format: int64
+             * @description 主键 ID
+             */
+            id?: number;
+            /** @description API Key 明文（仅创建时返回，其余场景为 null） */
+            apiKey?: string;
+            /** @description API Key 前缀（用于识别） */
+            apiKeyPrefix?: string;
+            /** @description Key 名称 */
+            keyName?: string;
+            /** @description 授权范围 */
+            scopes?: string;
+            /**
+             * Format: date-time
+             * @description 过期时间
+             */
+            expireAt?: string;
+            /**
+             * Format: date-time
+             * @description 最后使用时间
+             */
+            lastUsedAt?: string;
+            /**
+             * Format: int32
+             * @description 每分钟限流阈值
+             */
+            rateLimit?: number;
+            /** @description 是否启用 */
+            isEnabled?: boolean;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+        };
+        /**
+         * @description 登录结果 VO，遵循 OAuth2 Token Response 规范（RFC 6749 §5.1）。
+         *
+         *     登录成功后由 `AuthServiceImpl.login()` 组装， 包含访问令牌、刷新令牌和当前登录用户的基本信息。
+         */
+        LoginVO: {
+            /** @description 访问令牌（Access Token），用于后续 API 请求的 Bearer 认证 */
+            accessToken?: string;
+            /** @description 刷新令牌（Refresh Token），用于在 accessToken 过期后换取新的令牌 */
+            refreshToken?: string;
+            /** @description 令牌类型，固定为 `Bearer` */
+            tokenType?: string;
+            /**
+             * Format: int64
+             * @description 访问令牌有效期（秒），到期前需使用 refreshToken 刷新
+             */
+            expiresIn?: number;
+            /** @description 授权范围，如 `read write`，空表示全部权限 */
+            scope?: string;
+            userInfo?: components["schemas"]["UserInfoVO"];
+            /** @description 用户唯一标识 */
+            userId?: string;
+            /** @description 登录用户名 */
+            username?: string;
+            /** @description 用户真实姓名 */
+            realName?: string;
+            /** @description 主角色编码，用于前端权限路由判断 */
+            roleCode?: string;
+            /** @description 主角色名称 */
+            roleName?: string;
+            /** @description 租户 ID，多租户场景下标识所属租户 */
+            tenantId?: string;
+            /** @description 用户头像 URL */
+            avatar?: string;
+        };
+        /**
+         * @description 当前登录用户的基本信息。
+         *
+         *     仅包含前端首屏渲染所需的最小字段集， 权限列表和详细用户资料通过单独接口获取。
+         */
+        UserInfoVO: {
+            /** @description 用户唯一标识 */
+            userId?: string;
+            /** @description 登录用户名 */
+            username?: string;
+            /** @description 用户真实姓名 */
+            realName?: string;
+            /** @description 主角色编码，用于前端权限路由判断 */
+            roleCode?: string;
+            /** @description 主角色名称 */
+            roleName?: string;
+            /** @description 租户 ID，多租户场景下标识所属租户 */
+            tenantId?: string;
+            /** @description 用户头像 URL */
+            avatar?: string;
+        };
+        /**
+         * @description 当前登录用户信息 VO
+         *
+         *     供 `GET /api/auth/userinfo` 返回，对齐前端 `BasicUserInfo`
+         *     所需最小字段集：登录后拉取用户资料、渲染头像/昵称、进行角色级路由判断。
+         *
+         *     注意：`roles` 为角色编码数组（区别于登录响应 `LoginVO.UserInfoVO.roleCode`
+         *     的逗号拼接字符串），由前端权限库直接消费。
+         */
+        CurrentUserInfoVO: {
+            /** @description 用户唯一标识 */
+            userId?: string;
+            /** @description 登录用户名 */
+            username?: string;
+            /** @description 用户真实姓名 */
+            realName?: string;
+            /** @description 用户头像 URL */
+            avatar?: string;
+            /** @description 用户角色编码列表（用于前端权限路由判断） */
+            roles?: string[];
+            /** @description 租户 ID，多租户场景下标识所属租户 */
+            tenantId?: string;
+        };
+        /**
+         * @description 认证策略视图对象（P3-1 多租户认证域隔离）。
+         *
+         *     封装租户级认证策略配置，供管理端查询接口返回。每个租户最多一条策略，未配置时回退到全局默认策略。
+         *
+         *     关键字段说明：
+         *
+         *
+         *     `tenantId` — 租户 ID（为空表示全局默认策略）
+         *     `passwordMinLength` — 密码最小长度（>= 6）
+         *     `isPasswordRequireUppercase` — 密码必须包含大写字母
+         *     `isPasswordRequireDigit` — 密码必须包含数字
+         *     `isMfaEnabled` — 是否启用双因素认证
+         *     `isCaptchaEnabled` — 登录是否启用图形验证码
+         *     `allowedIdentityProviders` — 允许的身份提供者类型（如 LOCAL,LDAP,SAML）
+         *     `maxSessionsPerUser` — 单用户最大并发会话数
+         *     `sessionTimeoutSeconds` — 会话超时时间（秒）
+         */
+        AuthPolicyVO: {
+            /** @description 策略 ID */
+            id?: string;
+            /** @description 租户 ID（为空表示全局默认策略） */
+            tenantId?: string;
+            /** @description 策略名称 */
+            name?: string;
+            /**
+             * Format: int32
+             * @description 密码最小长度
+             */
+            passwordMinLength?: number;
+            /** @description 密码必须包含大写字母 */
+            isPasswordRequireUppercase?: boolean;
+            /** @description 密码必须包含数字 */
+            isPasswordRequireDigit?: boolean;
+            /** @description 是否启用双因素认证 */
+            isMfaEnabled?: boolean;
+            /** @description 登录是否启用图形验证码 */
+            isCaptchaEnabled?: boolean;
+            /** @description 允许的身份提供者类型 */
+            allowedIdentityProviders?: string;
+            /**
+             * Format: int32
+             * @description 最大会话数
+             */
+            maxSessionsPerUser?: number;
+            /**
+             * Format: int32
+             * @description 会话超时时间（秒）
+             */
+            sessionTimeoutSeconds?: number;
+            /** @description 备注说明 */
+            remark?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description 公司视图对象。
+         *
+         *     表示组织架构中的公司/子公司节点。公司采用树形结构（通过 parentId 自关联），
+         *     支持集团-子公司多层嵌套。不包含 deleted、createdBy 等内部维护字段。
+         *
+         *     字段语义：
+         *
+         *
+         *     `companyCode` — 公司编码（全局唯一，业务侧引用）
+         *     `parentId` — 上一级公司 ID（顶级公司为 null）
+         *     `contactPerson` — 公司联系人
+         *     `status` — 状态（ENABLE-启用、DISABLE-禁用）
+         */
+        CompanyVO: {
+            /** @description 公司唯一标识 */
+            id?: string;
+            /** @description 公司名称 */
+            companyName?: string;
+            /** @description 公司编码，全局唯一 */
+            companyCode?: string;
+            /** @description 父公司 ID */
+            parentId?: string;
+            /** @description 联系人 */
+            contactPerson?: string;
+            /** @description 联系电话 */
+            contactPhone?: string;
+            /** @description 地址 */
+            address?: string;
+            /** @description 状态：ENABLE-启用、DISABLE-禁用 */
+            status?: string;
+        };
+        /**
+         * @description 公司树形 VO，用于前端集团-子公司组织架构树渲染。
+         *
+         *     由 impl.CompanyServiceImpl#tree() 使用 {@link
+         *     com.njydsz.common.domain.tree.TreeBuilder#buildSimple} 构建，自动填充 `level`/`path` 元数据。
+         *
+         *     与 CompanyVO 的区别：
+         *
+         *
+         *     `children` — 子公司节点列表（递归嵌套）
+         *     `level` — 层级深度（根节点=1，逐层+1）
+         *     `path` — 节点路径（如 "/1/5/12/"）
+         *
+         *
+         *     架构说明：本类仅保留纯业务字段，Swagger 注解下沉至 Web 层的 CompanyTreeResponse DTO，
+         *     避免 domain 层对 swagger-annotations 的编译期依赖（符合 DDD 分层纯净性约束）。
+         */
+        CompanyTreeVO: {
+            /** @description 公司唯一标识 */
+            id?: string;
+            /** @description 上级公司 ID（顶级公司为 "0" 或 null） */
+            parentId?: string;
+            /** @description 子公司列表 */
+            children?: components["schemas"]["CompanyTreeVO"][];
+            /**
+             * Format: int32
+             * @description 层级深度（根节点=1，由 TreeBuilder 自动填充）
+             */
+            level?: number;
+            /** @description 节点路径（如 "/1/5/12/"，由 TreeBuilder 自动填充） */
+            path?: string;
+            /** @description 公司名称（前端展示） */
+            companyName?: string;
+            /** @description 公司编码（业务侧引用，全局唯一） */
+            companyCode?: string;
+            /** @description 联系人姓名 */
+            contactPerson?: string;
+            /** @description 联系电话 */
+            contactPhone?: string;
+            /** @description 注册地址 */
+            address?: string;
+            /** @description 启用状态（ENABLED / DISABLED） */
+            status?: string;
+        };
+        /**
+         * @description 部门视图对象（扁平结构）。
+         *
+         *     用于 Controller 列表查询接口。部门通过 parentId 自关联形成树形组织架构，
+         *     支持多级嵌套（如 集团 → 事业部 → 部门 → 小组）。
+         *
+         *     不包含 deleted、createdBy 等内部维护字段。
+         *     树形结构请使用 DepartmentTreeVO。
+         */
+        DepartmentVO: {
+            /** @description 部门唯一标识 */
+            id?: string;
+            /** @description 父部门 ID，根部门为 0 或 null */
+            parentId?: string;
+            /** @description 部门名称 */
+            deptName?: string;
+            /** @description 部门编码，全局唯一 */
+            deptCode?: string;
+            /** @description 部门描述 */
+            description?: string;
+            /**
+             * Format: int32
+             * @description 排序序号
+             */
+            sort?: number;
+            /** @description 状态：ENABLE-启用、DISABLE-禁用 */
+            status?: string;
+            /** @description 部门负责人用户 ID */
+            leaderId?: string;
+        };
+        /**
+         * @description 部门树形结构 VO，用于前端组织架构树渲染。
+         *
+         *     由 `DepartmentServiceImpl.buildDeptTree()` 构建递归树， 包含部门路径 `deptPath` 用于快速查询子树。
+         */
+        DepartmentTreeVO: {
+            /**
+             * Format: int32
+             * @description 子部门列表初始容量
+             */
+            CHILDREN_CAPACITY?: number;
+            /** @description 部门唯一标识 */
+            id?: string;
+            /** @description 父部门 ID */
+            parentId?: string;
+            /** @description 部门编码 */
+            deptCode?: string;
+            /** @description 部门名称 */
+            deptName?: string;
+            /** @description 部门全路径，如 /1/2/3/，用于快速查询子树 */
+            deptPath?: string;
+            /**
+             * Format: int32
+             * @description 排序序号
+             */
+            sort?: number;
+            /** @description 状态：ENABLE-启用、DISABLE-禁用 */
+            status?: string;
+            /** @description 子部门列表 */
+            children?: components["schemas"]["DepartmentTreeVO"][];
+        };
+        /**
+         * @description 用户账号 VO，用于 Controller 返回，不包含密码、盐值等敏感字段。
+         *
+         *     由 `UserInfoConverter.entityToVO()` 从 `UserAccount` 实体转换而来， 供前端展示和跨模块查询使用。
+         */
+        UserAccountVO: {
+            /**
+             * Format: int32
+             * @description 启用状态对应的整数值（1=启用）。
+             */
+            ENABLED_INT_VALUE?: number;
+            /**
+             * Format: int32
+             * @description 禁用状态对应的整数值（0=禁用）。
+             */
+            DISABLED_INT_VALUE?: number;
+            /** @description 用户唯一标识 */
+            id?: string;
+            /** @description 登录用户名 */
+            username?: string;
+            /** @description 真实姓名 */
+            realName?: string;
+            /** @description 手机号码 */
+            phone?: string;
+            /** @description 邮箱地址 */
+            email?: string;
+            /** @description 头像 URL */
+            avatar?: string;
+            /**
+             * Format: int32
+             * @description 账号状态：1-启用、0-停用
+             */
+            status?: number;
+            /** @description 用户类型，如 SYS（系统）、BIZ（业务） */
+            userType?: string;
+            /** @description 所属公司 ID */
+            companyId?: string;
+            /** @description 所属部门 ID（关联 ydsz_org_department.id，支持 dept: 审批人展开） */
+            deptId?: string;
+            /** @description 直属上级用户 ID（关联 ydsz_acct_user.id，支持 leader: 审批人展开） */
+            leaderId?: string;
+            /** @description 岗位编码（如 PM/DEV/QA/SA，支持 position: 审批人展开） */
+            positionCode?: string;
+            /** @description 租户 ID */
+            tenantId?: string;
+            /**
+             * Format: date-time
+             * @description 最后登录时间
+             */
+            lastLoginAt?: string;
+            /** @description 最后登录 IP */
+            lastLoginIp?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+            /**
+             * Format: int32
+             * @description 登录失败次数
+             */
+            loginFailCount?: number;
+            /**
+             * Format: date-time
+             * @description 锁定截止时间（未锁定为 null，用于自助解锁功能）
+             */
+            lockedUntil?: string;
+            /**
+             * Format: int32
+             * @description 乐观锁版本号（P1-6）。
+             *
+             *     由查询响应返回给前端，前端编辑时原样回传，服务端据此做乐观锁冲突检测。
+             */
+            revision?: number;
+            /** @description 封禁类型（TEMPORARY/PERMANENT/null），null 表示未封禁 */
+            banType?: string;
+            /** @description 封禁原因 */
+            banReason?: string;
+            /**
+             * Format: date-time
+             * @description 封禁到期时间（临时封禁使用，永久封禁为 null）
+             */
+            banExpireAt?: string;
+            /** @description 封禁操作人标识 */
+            bannedBy?: string;
+            /**
+             * Format: date-time
+             * @description 封禁操作时间
+             */
+            bannedAt?: string;
+        };
+        /**
+         * @description 语言配置视图对象。
+         *
+         *     管理多语言支持的启用的语言列表，供用户选择语言偏好和前端 i18n 加载。
+         *     不包含 deleted、createdBy 等内部维护字段。
+         *
+         *     字段语义：
+         *
+         *
+         *     `languageCode` — 语言编码（如 zh-CN、en-US、ja-JP）
+         *     `languageName` — 语言名称（如"简体中文"、"English"）
+         *     `isDefault` — 是否默认语言（1=是、0=否，用户未指定语言偏好时回退）
+         *     `sort` — 排序序号（越小越靠前）
+         *     `status` — 状态（ENABLE-启用、DISABLE-禁用）
+         */
+        LanguageVO: {
+            /** @description 语言唯一标识 */
+            id?: string;
+            /** @description 语言编码，如 zh-CN、en-US */
+            languageCode?: string;
+            /** @description 语言名称，如 简体中文 */
+            languageName?: string;
+            /**
+             * Format: int32
+             * @description 是否默认语言：1-是、0-否
+             */
+            isDefault?: number;
+            /**
+             * Format: int32
+             * @description 排序序号
+             */
+            sort?: number;
+            /** @description 状态：ENABLE-启用、DISABLE-禁用 */
+            status?: string;
+        };
+        /** @description SyncResultVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        SyncResultVO: Record<string, never>;
+        /** @description SyncStatusVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        SyncStatusVO: Record<string, never>;
+        /** @description SyncLogVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        SyncLogVO: Record<string, never>;
+        /**
+         * @description 用户登录历史视图对象。
+         *
+         *     记录用户的每次登录尝试（成功/失败），用于登录审计和安全分析。
+         *     敏感信息（密码、Token）不包含在返回字段中。
+         *
+         *     字段语义：
+         *
+         *
+         *     `userId` — 用户 ID
+         *     `username` — 登录用户名
+         *     `loginIp` — 登录来源 IP 地址
+         *     `loginResult` — 登录结果（SUCCESS/FAILED）
+         *     `failReason` — 失败原因（成功时为 null，如 PASSWORD_INCORRECT/ACCOUNT_LOCKED）
+         *     `userAgent` — 浏览器/设备信息
+         *     `createdAt` — 登录时间
+         */
+        UserLoginHistoryVO: {
+            /** @description 记录唯一标识 */
+            id?: string;
+            /** @description 用户 ID */
+            userId?: string;
+            /** @description 用户名 */
+            username?: string;
+            /** @description 登录 IP 地址 */
+            loginIp?: string;
+            /** @description 登录结果：SUCCESS / FAILED */
+            loginResult?: string;
+            /** @description 失败原因（成功时为 null） */
+            failReason?: string;
+            /** @description 用户代理（浏览器/设备信息） */
+            userAgent?: string;
+            /**
+             * Format: date-time
+             * @description 登录时间
+             */
+            createdAt?: string;
+            /** @description 浏览器名称（由 User-Agent 解析） */
+            browser?: string;
+            /** @description 操作系统（由 User-Agent 解析） */
+            os?: string;
+            /** @description IP 归属地 */
+            location?: string;
+        };
+        /**
+         * @description 菜单 VO，扁平结构，用于 Controller 列表返回。
+         *
+         *     不包含 deleted、createdBy 等内部维护字段。 树形结构请使用 MenuTreeVO。
+         */
+        MenuVO: {
+            /** @description 菜单唯一标识 */
+            id?: string;
+            /** @description 父菜单 ID，根菜单为 0 或 null */
+            parentId?: string;
+            /** @description 菜单名称 */
+            menuName?: string;
+            /** @description 菜单编码，全局唯一 */
+            menuCode?: string;
+            /** @description 菜单类型：DIRECTORY-目录、Menu-菜单、BUTTON-按钮 */
+            menuType?: string;
+            /** @description 前端路由路径 */
+            path?: string;
+            /** @description 前端组件路径 */
+            component?: string;
+            /** @description 菜单图标 */
+            icon?: string;
+            /**
+             * Format: int32
+             * @description 排序序号，越小越靠前
+             */
+            sort?: number;
+            /** @description 权限标识，用于按钮级权限控制 */
+            permissionCode?: string;
+            /**
+             * Format: int32
+             * @description 是否可见：1-可见、0-隐藏
+             */
+            visible?: number;
+            /** @description 状态：ENABLE-启用、DISABLE-禁用 */
+            status?: string;
+        };
+        /**
+         * @description 菜单树形结构 VO，用于前端动态路由渲染。
+         *
+         *     由 `MenuServiceImpl.buildMenuTree()` 构建递归树， 前端根据该树渲染侧边栏菜单和路由配置。
+         */
+        MenuTreeVO: {
+            /** @description 菜单唯一标识 */
+            id?: string;
+            /** @description 父菜单 ID，根菜单为 0 或 null */
+            parentId?: string;
+            /** @description 菜单名称 */
+            menuName?: string;
+            /** @description 菜单编码 */
+            menuCode?: string;
+            /** @description 菜单类型：DIRECTORY-目录、Menu-菜单、BUTTON-按钮 */
+            menuType?: string;
+            /** @description 前端路由路径 */
+            path?: string;
+            /** @description 前端组件路径 */
+            component?: string;
+            /** @description 菜单图标 */
+            icon?: string;
+            /**
+             * Format: int32
+             * @description 排序序号
+             */
+            sort?: number;
+            /** @description 权限标识 */
+            permissionCode?: string;
+            /**
+             * Format: int32
+             * @description 是否可见：1-可见、0-隐藏
+             */
+            visible?: number;
+            /** @description 状态：ENABLE-启用、DISABLE-禁用 */
+            status?: string;
+            /** @description 子菜单列表 */
+            children?: components["schemas"]["MenuTreeVO"][];
+        };
+        /**
+         * @description 前端动态路由 VO（vben 路由形态）
+         *
+         *     当前用户可访问菜单转换为前端路由配置：`component` 为字符串组件标识
+         *     （布局组件名如 `BasicLayout`，或视图路径如 `system/user/index`），
+         *     由前端 `generateAccessible` 通过 `pageMap/layoutMap` 解析为真实组件。
+         *
+         *     映射规则（`MenuVO` → `MenuRouteVO`）：
+         *
+         *
+         *     `name` ← `menuCode`（路由唯一标识；为空时回退 `menu-{id`}）
+         *     `path` / `component` ← 同名字段直传
+         *     `meta.title` ← `menuName`，`meta.icon` ← `icon`
+         *     `meta.order` ← `sort`，`meta.hideInMenu` ← `visible == 0`
+         *     `children` ← 按 `parentId` 递归构建，按 `sort` 升序
+         */
+        MenuRouteVO: {
+            hideInMenu?: boolean;
+            /** @description 路由名称（唯一标识，取 menuCode，为空时回退 menu-{id}） */
+            name?: string;
+            /** @description 路由路径 */
+            path?: string;
+            /** @description 组件标识（字符串）：布局组件名或视图路径 */
+            component?: string;
+            /** @description 重定向路径（可选，目录节点使用） */
+            redirect?: string;
+            meta?: components["schemas"]["Meta"];
+            /** @description 子路由 */
+            children?: components["schemas"]["MenuRouteVO"][];
+            /** @description 菜单标题（取 menuName） */
+            title?: string;
+            /** @description 菜单图标 */
+            icon?: string;
+            /**
+             * Format: int32
+             * @description 排序权重（取 sort，前端据此排序菜单）
+             */
+            order?: number;
+            /** @description 是否在菜单中隐藏（visible == 0 时为 true，路由仍可访问） */
+            isHideInMenu?: boolean;
+        };
+        /** @description 路由元信息（对齐前端 `RouteMeta` 所需最小字段集）。 */
+        Meta: {
+            hideInMenu?: boolean;
+            /** @description 菜单标题（取 menuName） */
+            title?: string;
+            /** @description 菜单图标 */
+            icon?: string;
+            /**
+             * Format: int32
+             * @description 排序权重（取 sort，前端据此排序菜单）
+             */
+            order?: number;
+            /** @description 是否在菜单中隐藏（visible == 0 时为 true，路由仍可访问） */
+            isHideInMenu?: boolean;
+        };
+        /**
+         * @description 岗位视图对象。
+         *
+         *     岗位是组织架构中的职位分类（如产品经理/开发工程师/测试工程师），用于审批人展开与用户标记。
+         *     不包含 deleted、createdBy 等内部维护字段。
+         *
+         *     字段语义：
+         *
+         *
+         *     `postCode` — 岗位编码（全局唯一，如 PM/DEV/QA/SA），支持 position: 审批人展开
+         *     `postName` — 岗位名称（如"产品经理"、"开发工程师"）
+         *     `description` — 岗位描述
+         *     `sort` — 排序序号（越小越靠前）
+         *     `status` — 状态（ENABLE-启用、DISABLE-禁用）
+         */
+        PostVO: {
+            /** @description 岗位唯一标识 */
+            id?: string;
+            /** @description 岗位名称 */
+            postName?: string;
+            /** @description 岗位编码，全局唯一 */
+            postCode?: string;
+            /** @description 岗位描述 */
+            description?: string;
+            /**
+             * Format: int32
+             * @description 排序序号，越小越靠前
+             */
+            sort?: number;
+            /** @description 状态：ENABLE-启用、DISABLE-禁用 */
+            status?: string;
+        };
+        /**
+         * @description 角色 VO，用于 Controller 返回，不包含 deleted、createdBy 等内部维护字段。
+         *
+         *     由 `UserInfoConverter.entityToVO()` 从 `Role` 实体转换而来。
+         */
+        RoleVO: {
+            /** @description 角色唯一标识 */
+            id?: string;
+            /** @description 角色编码，全局唯一，用于权限匹配 */
+            roleCode?: string;
+            /** @description 角色名称 */
+            roleName?: string;
+            /** @description 角色描述 */
+            description?: string;
+            /**
+             * Format: int32
+             * @description 排序序号，越小越靠前
+             */
+            sort?: number;
+            /** @description 状态：ENABLE-启用、DISABLE-禁用 */
+            status?: string;
+            /** @description 是否内置角色，内置角色不允许删除 */
+            isBuiltIn?: boolean;
+        };
+        /**
+         * @description SAML 2.0 身份提供者（IdP）配置视图对象（P2-1）。
+         *
+         *     展示已配置的外部 SAML IdP 信息，供管理端 IdP 配置管理界面展示和编辑。
+         *
+         *     字段语义：
+         *
+         *
+         *     `name` — IdP 显示名称（如"公司 ADFS"、"Okta"）
+         *     `entityId` — IdP Entity ID（唯一标识 URI）
+         *     `ssoUrl` — IdP SSO 端点 URL（SP 重定向用户至此发起 SSO）
+         *     `certificate` — IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名）
+         *     `emailAttribute` — SAML Assertion 中邮箱属性名（如 emailAddress）
+         *     `displayNameAttribute` — SAML Assertion 中显示名称属性名（如 displayName）
+         *     `status` — 状态（ENABLED/DISABLED），禁用后该 IdP 不可登录
+         */
+        SamlIdpConfigVO: {
+            /** @description 配置 ID */
+            id?: string;
+            /** @description IdP 显示名称 */
+            name?: string;
+            /** @description IdP Entity ID */
+            entityId?: string;
+            /** @description IdP SSO 端点 URL */
+            ssoUrl?: string;
+            /** @description IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名） */
+            certificate?: string;
+            /** @description 邮箱属性名 */
+            emailAttribute?: string;
+            /** @description 显示名称属性名 */
+            displayNameAttribute?: string;
+            /** @description 状态：ENABLED / DISABLED */
+            status?: string;
+            /**
+             * Format: int32
+             * @description 排序权重
+             */
+            sort?: number;
+            /** @description 备注说明 */
+            remark?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+            /** @description 创建者用户 ID */
+            createdBy?: string;
+        };
+        /**
+         * @description 安全仪表盘总览数据。
+         *
+         *     聚合平台级安全指标，为管理员仪表盘提供一站式数据源。
+         *
+         *     字段语义：
+         *
+         *
+         *     `totalUsers`：平台注册用户总数（不含逻辑删除）
+         *     `activeUsers`：状态为启用的用户数
+         *     `onlineUsers`：当前在线会话数（从 Redis 计数器读取）
+         *     `mfaEnabledUsers`：已绑定双因素认证的用户数
+         *     `lockedUsers`：当前处于锁定状态的用户数
+         *     `bannedUsers`：当前处于封禁状态的用户数
+         *     `todayLoginCount`：今日登录成功次数
+         *     `todayLoginSuccessRate`：今日登录成功率（0.0-1.0）
+         *     `riskScoreAverage`：全平台用户平均风险评分（0-100）
+         *
+         *
+         *     @param totalUsers 平台注册用户总数
+         *     @param activeUsers 状态为启用的用户数
+         *     @param onlineUsers 当前在线会话数
+         *     @param mfaEnabledUsers 已绑定双因素认证的用户数
+         *     @param lockedUsers 当前处于锁定状态的用户数
+         *     @param bannedUsers 当前处于封禁状态的用户数
+         *     @param todayLoginCount 今日登录成功次数
+         *     @param todayLoginSuccessRate 今日登录成功率（0.0-1.0）
+         *     @param riskScoreAverage 全平台用户平均风险评分
+         */
+        SecurityDashboardVO: {
+            /** Format: int64 */
+            totalUsers: number;
+            /** Format: int64 */
+            activeUsers: number;
+            /** Format: int64 */
+            onlineUsers: number;
+            /** Format: int64 */
+            mfaEnabledUsers: number;
+            /** Format: int64 */
+            lockedUsers: number;
+            /** Format: int64 */
+            bannedUsers: number;
+            /** Format: int64 */
+            todayLoginCount: number;
+            todayLoginSuccessRate: number;
+            riskScoreAverage: number;
+        };
+        /**
+         * @description 单日登录成功率统计。
+         *
+         *     用于登录成功率趋势图，展示指定日期范围内的成功/失败分布。
+         *
+         *     @param date 统计日期
+         *     @param successCount 登录成功次数
+         *     @param failCount 登录失败次数
+         *     @param successRate 成功率（0.0-1.0）
+         */
+        LoginSuccessRateVO: {
+            /** Format: date */
+            date: string;
+            /** Format: int64 */
+            successCount: number;
+            /** Format: int64 */
+            failCount: number;
+            successRate: number;
+        };
+        /**
+         * @description 登录失败原因分布 VO。
+         *
+         *     统计指定日期内各失败原因的分布情况，用于饼图展示。
+         *
+         *     使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。
+         *
+         *     @param reason 失败原因描述
+         *     @param count 失败次数
+         *     @param percentage 占比（0.0-1.0）
+         */
+        LoginFailDistributionVO: {
+            reason: string;
+            /** Format: int32 */
+            count: number;
+            percentage: number;
+        };
+        /**
+         * @description MFA 覆盖率统计 VO。
+         *
+         *     统计平台用户中已启用 MFA（多因素认证）的比例。
+         *
+         *     使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。
+         *
+         *     @param totalUsers 总用户数
+         *     @param mfaEnabledUsers 已启用 MFA 的用户数
+         *     @param coverageRate MFA 覆盖率（0.0-1.0）
+         */
+        MfaCoverageVO: {
+            /** Format: int64 */
+            totalUsers: number;
+            /** Format: int64 */
+            mfaEnabledUsers: number;
+            coverageRate: number;
+        };
+        /**
+         * @description 风险等级分布 VO。
+         *
+         *     按风险等级（高/中/低）聚合用户数量。
+         *
+         *     使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。
+         *
+         *     @param highRisk 高风险用户数
+         *     @param mediumRisk 中风险用户数
+         *     @param lowRisk 低风险用户数
+         */
+        RiskLevelDistributionVO: {
+            /** Format: int32 */
+            highRisk: number;
+            /** Format: int32 */
+            mediumRisk: number;
+            /** Format: int32 */
+            lowRisk: number;
+        };
+        /**
+         * @description 安全事件 VO。
+         *
+         *     记录异常登录、账号锁定等安全相关事件。
+         *
+         *     使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。
+         *
+         *     @param eventType 事件类型编码
+         *     @param username 用户名
+         *     @param ip 来源 IP
+         *     @param timestamp 事件发生时间
+         *     @param description 事件描述
+         */
+        SecurityEventVO: {
+            eventType: string;
+            username: string;
+            ip: string;
+            /** Format: date-time */
+            timestamp: string;
+            description: string;
+        };
+        /**
+         * @description 会话活跃度概览。
+         *
+         *     聚合平台级会话活跃度指标，为管理员仪表盘提供会话维度的实时数据。
+         *
+         *     字段语义：
+         *
+         *
+         *     `totalActiveSessions`：当前活跃会话总数
+         *     `activeUserCount`：当前活跃用户数（去重）
+         *     `avgSessionDuration`：平均会话持续时长（分钟）
+         *
+         *
+         *     @param totalActiveSessions 当前活跃会话总数
+         *     @param activeUserCount 当前活跃用户数（去重）
+         *     @param avgSessionDuration 平均会话持续时长（分钟）
+         */
+        SessionActivityVO: {
+            /** Format: int32 */
+            totalActiveSessions: number;
+            /** Format: int32 */
+            activeUserCount: number;
+            avgSessionDuration: number;
+        };
+        /**
+         * @description 活跃用户排行 VO。
+         *
+         *     基于最近登录次数的用户排名数据。
+         *
+         *     使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。
+         *
+         *     @param userId 用户 ID
+         *     @param username 用户名
+         *     @param loginCount 登录次数
+         *     @param lastLoginTime 最近登录时间
+         */
+        ActiveUserVO: {
+            userId: string;
+            username: string;
+            /** Format: int32 */
+            loginCount: number;
+            /** Format: date-time */
+            lastLoginTime: string;
+        };
+        /**
+         * @description 会话趋势 VO。
+         *
+         *     按日期统计的新增会话和活跃会话数据。
+         *
+         *     使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。
+         *
+         *     @param date 统计日期
+         *     @param newSessions 新增会话数
+         *     @param activeSessions 活跃会话数
+         */
+        SessionTrendVO: {
+            /** Format: date */
+            date: string;
+            /** Format: int32 */
+            newSessions: number;
+            /** Format: int32 */
+            activeSessions: number;
+        };
+        /**
+         * @description 设备分布 VO。
+         *
+         *     按设备类型（Web/App/API/Unknown）聚合的会话分布。
+         *
+         *     使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。
+         *
+         *     @param deviceType 设备类型
+         *     @param percentage 占比（0.0-1.0）
+         *     @param count 会话数量
+         */
+        DeviceDistributionVO: {
+            deviceType: string;
+            percentage: number;
+            /** Format: int32 */
+            count: number;
+        };
+        /**
+         * @description 异常会话 VO。
+         *
+         *     记录检测到的异常会话信息，包括多地登录、异常活跃、长时间未活动等。
+         *
+         *     使用 com.njydsz.common.json.YdszJson 进行 JSON 序列化，字段名即为 JSON key。
+         *
+         *     @param userId 用户 ID
+         *     @param username 用户名
+         *     @param anomalyType 异常类型（MULTI_IP/HIGH_ACTIVITY/STALE_SESSION）
+         *     @param description 异常描述
+         *     @param riskLevel 风险等级（HIGH/MEDIUM/LOW）
+         */
+        AnomalySessionVO: {
+            userId: string;
+            username: string;
+            anomalyType: string;
+            description: string;
+            riskLevel: string;
+        };
+        /**
+         * @description 社交账号绑定信息 VO。
+         *
+         *     用于返回用户社交账号绑定列表，不包含 access_token、refresh_token 等敏感字段。
+         *     由 `SocialAccountRepository` 从 DO 转换后返回。
+         */
+        SocialAccountVO: {
+            /** @description 绑定记录 ID */
+            id?: string;
+            /** @description 关联用户 ID */
+            userId?: string;
+            /** @description 平台标识（WECHAT/DINGTALK/ENTERPRISE_WECHAT/GITHUB） */
+            platform?: string;
+            /** @description 平台用户唯一标识 */
+            openId?: string;
+            /** @description 平台统一应用标识（可为 null） */
+            unionId?: string;
+            /** @description 社交昵称 */
+            nickname?: string;
+            /** @description 头像 URL */
+            avatarUrl?: string;
+            /**
+             * Format: date-time
+             * @description 令牌过期时间（可为 null）
+             */
+            expiresAt?: string;
+            /**
+             * Format: date-time
+             * @description 绑定时间
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /** @description PlatformBindingStatusVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        PlatformBindingStatusVO: Record<string, never>;
+        /**
+         * @description 社交平台客户端配置视图对象（P1-1 社交认证配置管理）。
+         *
+         *     展示第三方社交平台（企业微信、钉钉、飞书等）的 OAuth2 客户端配置信息，
+         *     供管理端配置管理界面展示和编辑。
+         *
+         *     字段语义：
+         *
+         *
+         *     `platform` — 平台标识（如 ENTERPRISE_WECHAT/DINGTALK/FEISHU）
+         *     `platformName` — 平台显示名称（如"企业微信"、"钉钉"）
+         *     `appId` — 平台分配的应用 ID
+         *     `scope` — OAuth2 授权范围
+         *     `redirectUri` — 授权回调地址（必须与平台管理后台注册一致）
+         *     `status` — 状态（ENABLED/DISABLED），禁用后该平台不可登录
+         */
+        SocialClientVO: {
+            /** @description 客户端配置 ID */
+            id?: string;
+            /** @description 平台标识 */
+            platform?: string;
+            /** @description 平台显示名称 */
+            platformName?: string;
+            /** @description 应用 ID */
+            appId?: string;
+            /** @description OAuth2 授权范围（scope） */
+            scope?: string;
+            /** @description 回调地址（redirectUri） */
+            redirectUri?: string;
+            /** @description 状态：ENABLED / DISABLED */
+            status?: string;
+            /**
+             * Format: int32
+             * @description 排序权重
+             */
+            sort?: number;
+            /** @description 备注说明 */
+            remark?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+            /** @description 创建者用户 ID */
+            createdBy?: string;
+        };
+        /** @description SsoMetricsVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        SsoMetricsVO: Record<string, never>;
+        /** @description TokenExchangeVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        TokenExchangeVO: Record<string, never>;
+        /** @description TokenValidateVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        TokenValidateVO: Record<string, never>;
+        /** @description LogoutNotifyVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        LogoutNotifyVO: Record<string, never>;
+        /**
+         * @description 用户批量导入结果 DTO。
+         *
+         *     封装批量导入的执行结果，继承通用 ExcelImportResult 基类。
+         */
+        UserImportResultDTO: {
+            /** @description 失败明细列表（行号 + 原因） */
+            failDetails?: string;
+        };
+        /** @description 统一搜索响应 */
+        SearchResponse: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 搜索结果列表 */
+            hits?: components["schemas"]["SearchHit"][];
+            /**
+             * Format: int64
+             * @description 总匹配数
+             */
+            total?: number;
+            /**
+             * Format: int32
+             * @description 当前页码
+             */
+            page?: number;
+            /**
+             * Format: int32
+             * @description 每页大小
+             */
+            pageSize?: number;
+            /**
+             * Format: int64
+             * @description 搜索耗时（毫秒）
+             */
+            tookMs?: number;
+            /** @description 聚合结果列表 */
+            aggregations?: components["schemas"]["SearchAggregation"][];
+            /**
+             * @description 搜索建议（"您是不是要找"）
+             * @enum {string}
+             */
+            suggestion?: "AUTOCOMPLETE" | "DID_YOU_MEAN" | "HOT_SEARCH";
+            /** @description 使用的搜索引擎名称 */
+            engine?: string;
+            /** @description 是否为降级结果 */
+            isDegraded?: boolean;
+            /** @description P3-21: 下一页游标（为空表示无更多数据） */
+            nextCursor?: string;
+            /** @description P5-13: 各阶段耗时详情（毫秒），用于可观测性分析与性能诊断 */
+            timing?: {
+                [key: string]: number;
+            };
+            error?: components["schemas"]["SearchError"];
+        };
+        /** @description 搜索命中条目 */
+        SearchHit: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 文档 ID */
+            id?: string;
+            /** @description 实体类型（project/contract/wiki/...） */
+            type?: string;
+            /** @description 标题 */
+            title?: string;
+            /** @description 副标题 */
+            subtitle?: string;
+            /** @description 摘要/片段 */
+            snippet?: string;
+            /** @description 内容高亮片段（HTML 格式，含 &lt;em&gt; 标签） */
+            highlight?: string;
+            /** @description 匹配分数（越高越相关） */
+            score?: number;
+            /** @description 跳转路径（前端路由） */
+            path?: string;
+            /** @description 状态 */
+            status?: string;
+            /** @description 标签列表 */
+            tags?: string[];
+            /** @description 扩展字段 */
+            metadata?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 创建时间（ISO 格式字符串） */
+            createdAt?: string;
+            /** @description 更新时间（ISO 格式字符串） */
+            updatedAt?: string;
+        };
+        /**
+         * @description 搜索聚合/分面结果
+         *
+         *     封装搜索引擎返回的聚合数据，用于前端分面导航（Faceted Search）。
+         *     每个聚合对象对应一个 `field`，包含多个 Bucket（桶），
+         *     每个桶表示一个分面值及其命中数（doc count）。
+         *
+         *     典型用途：商品搜索的分类筛选、标签汇总、价格区间分布等。
+         */
+        SearchAggregation: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 聚合字段名 */
+            field?: string;
+            /** @description 聚合标签（如"类型"、"标签"） */
+            label?: string;
+            /** @description 聚合桶列表 */
+            buckets?: components["schemas"]["Bucket"][];
+            /** @description 桶键值 */
+            key?: string;
+            /**
+             * Format: int64
+             * @description 桶文档数
+             */
+            count?: number;
+        };
+        /** @description 聚合桶 */
+        Bucket: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 桶键值 */
+            key?: string;
+            /**
+             * Format: int64
+             * @description 桶文档数
+             */
+            count?: number;
+        };
+        /**
+         * @description 搜索请求被拒绝 / 出错时的错误信息。
+         *
+         *     当 SearchResponse#error 非 `null` 时，表示请求未能正常检索（限流、参数错误、引擎故障）， 调用方应据此决定 UX 展示（如： toast 提示 vs. 展示空结果页）。
+         *
+         *     该错误码采用"不抛异常"风格返回，永不因错误码导致搜索链路抛出运行时异常。
+         */
+        SearchError: {
+            /**
+             * Format: int32
+             * @description 错误码（参见 SearchErrorCode）
+             */
+            code?: number;
+            /** @description i18n 消息 key */
+            messageKey?: string;
+            /** @description 面向开发者的兜底英文描述（可用于日志，不应直接给终端用户看） */
+            detail?: string;
+        };
+        /**
+         * @description 用户偏好 VO
+         *
+         *     供 `GET /api/user/preferences` 与 `POST /api/user/preferences/reset`
+         *     返回，字段与 com.njydsz.userinfo.domain.dto.UserPreferenceDTO 对齐。
+         *     重置场景返回全默认值的空 VO（前端按缺省字段回退本地默认）。
+         */
+        UserPreferenceVO: {
+            accordionMenu?: boolean;
+            /** @description 默认首页路径 */
+            defaultIndex?: string;
+            /** @description 语言设置（如 zh-CN / en-US） */
+            language?: string;
+            /** @description 主题模式（light / dark / auto） */
+            theme?: string;
+            /** @description 主题色 */
+            themeColor?: string;
+            /** @description 菜单布局 */
+            menuLayout?: string;
+            /** @description 菜单手风琴模式（true = 手风琴） */
+            isAccordionMenu?: boolean;
+            /** @description 表格密度 */
+            tableSize?: string;
+            /** @description 字体大小 */
+            fontSize?: string;
+        };
+        /**
+         * @description 双因素认证（TOTP）绑定信息 VO。
+         *
+         *     返回给前端的绑定初始数据：Base32 密钥（供手动录入）与 otpauth URI（供生成二维码，兼容 Google /
+         *     Microsoft Authenticator）。
+         */
+        MfaSetupVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description Base32 编码的 TOTP 密钥（仅供绑定当次展示，绑定成功后服务端留存） */
+            secret?: string;
+            /** @description otpauth:// 协议 URI，前端可渲染为二维码（如 qrcode.js） */
+            otpauthUri?: string;
+        };
+        /**
+         * @description WebAuthn 凭证视图对象
+         *
+         *     存储用户注册的无密码认证凭证（公钥凭证），用于后续认证时验证签名。
+         */
+        WebAuthnCredentialVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 凭证 ID（Base64URL 编码） */
+            credentialId?: string;
+            /** @description 用户 ID */
+            userId?: string;
+            /** @description 公钥（COSE 密钥格式，Base64URL 编码） */
+            publicKey?: string;
+            /**
+             * Format: int64
+             * @description 签名计数器（防克隆检测）
+             */
+            signCount?: number;
+            /** @description 凭证类型（如 "public-key"） */
+            credentialType?: string;
+            /** @description AAGUID（认证器唯一标识） */
+            aaguid?: string;
+            /** @description 凭证友好名称（如 "iPhone FaceID"） */
+            displayName?: string;
+            /**
+             * Format: date-time
+             * @description 注册时间
+             */
+            registeredAt?: string;
+            /**
+             * Format: date-time
+             * @description 最后使用时间
+             */
+            lastUsedAt?: string;
+        };
+        /**
+         * @description 设备会话视图对象（P3-2）。
+         *
+         *     展示用户当前活跃的设备会话信息，用于设备管理页面。
+         */
+        DeviceSessionVO: {
+            currentSession?: boolean;
+            /** @description 会话标识（access_token 前 8 位掩码，用于前端展示） */
+            sessionId?: string;
+            /** @description 设备类型编码（web/app/api/unknown） */
+            deviceType?: string;
+            /** @description 设备类型描述 */
+            deviceTypeDesc?: string;
+            /** @description 登录 IP */
+            loginIp?: string;
+            /**
+             * Format: date-time
+             * @description 登录时间
+             */
+            loginTime?: string;
+            /**
+             * Format: date-time
+             * @description 最后活跃时间
+             */
+            lastActiveTime?: string;
+            /** @description 是否为当前会话（用户正在使用的会话） */
+            isCurrentSession?: boolean;
+            /** @description 设备指纹（User-Agent 摘要） */
+            deviceFingerprint?: string;
+            /** @description 地理位置（基于 IP 解析，可能为空） */
+            location?: string;
+        };
+        /** @description DeviceAuthorizationResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        DeviceAuthorizationResponse: Record<string, never>;
+        /** @description TenantSwitchResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        TenantSwitchResponse: Record<string, never>;
     };
-    /**
-     * @description 用户封禁请求 DTO。
-     *
-     *     用于管理员封禁用户账号，支持临时封禁（指定到期时间）和永久封禁。
-     */
-    UserBanRequestDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 封禁类型（TEMPORARY/PERMANENT），必填 */
-      banType?: string;
-      /** @description 封禁原因，必填 */
-      banReason?: string;
-      /**
-       * Format: date-time
-       * @description 封禁到期时间（临时封禁必填，永久封禁不填）
-       */
-      banExpireAt?: string;
-    };
-    /**
-     * @description 发送验证码请求 DTO。
-     *
-     *     用于自助注册/找回密码流程中，向用户手机或邮箱发送验证码。
-     *
-     *     使用方式：
-     *
-     *
-     *     手机验证：`target` 填手机号，`targetType` 为 `PHONE`
-     *     邮箱验证：`target` 填邮箱地址，`targetType` 为 `EMAIL`
-     */
-    SendVerifyCodeDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 发送类型：REGISTER（注册）/ FORGOT_PASSWORD（找回密码）/ UNLOCK（账号解锁） */
-      type?: string;
-      /** @description 验证码目标类型：PHONE（手机）/ EMAIL（邮箱） */
-      targetType?: string;
-      /** @description 目标标识（手机号或邮箱地址） */
-      target?: string;
-      /** @description 图形验证码 key（P0-5：防短信轰炸，前端先调用 /api/captcha 获取） */
-      captchaKey?: string;
-      /** @description 图形验证码用户输入（P0-5：防短信轰炸） */
-      captcha?: string;
-      phone?: string;
-      email?: string;
-    };
-    /**
-     * @description 登录请求 DTO。
-     *
-     *     用于 `Post /api/auth/login` 接口，支持用户名+密码登录， 可选携带图形验证码进行人机校验。
-     *
-     *     校验规则：
-     *
-     *
-     *     `username` — 必填，登录用户名
-     *     `password` — 必填，明文密码（传输层由 HTTPS 保护，服务端 BCrypt 比对）
-     *     `captchaKey` / `captcha` — 可选，当系统开启验证码或登录风险为 MEDIUM 及以上时必填
-     *     `mfaCode` — 可选，当登录风险为 HIGH 时必填（TOTP 动态码或短信验证码）
-     */
-    LoginDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 登录用户名（全局唯一） */
-      username?: string;
-      /** @description 登录密码（明文，传输层由 HTTPS 保护，服务端 BCrypt 比对） */
-      password?: string;
-      /** @description 验证码 Redis Key（由 `GET /api/auth/captcha` 返回，开启验证码时必填） */
-      captchaKey?: string;
-      /** @description 用户输入的图形验证码（不区分大小写，开启验证码时必填） */
-      captcha?: string;
-      /** @description 双因素认证动态码（TOTP 或短信验证码，登录风险为 HIGH 时必填） */
-      mfaCode?: string;
-      /** @description 租户 ID（多租户场景下指定登录归属租户，单租户模式可不传） */
-      tenantId?: string;
-      /** @description 客户端 IP（由 Controller 从 HttpServletRequest 提取并填充，用于登录历史记录与 IP 封禁） */
-      loginIp?: string;
-      /** @description User-Agent（由 Controller 从请求头提取，用于登录历史审计） */
-      userAgent?: string;
-      /**
-       * @description X-Platform 请求头（由 Controller 从请求头提取，用于分端会话控制）。
-       *
-       *     可选值：`web` / `app` / `api`。
-       *     未传时从 #userAgent 推断设备类型。
-       */
-      platform?: string;
-      /**
-       * @description 是否开启「记住我」功能，默认 false。
-       *
-       *     开启后每次访问自动续期 Token TTL（滑动过期），关闭浏览器则按原 Cookie 有效期失效。
-       *     开启时服务端会签发 Remember-Me Cookie（存储加密后的用户 ID）。
-       */
-      rememberMe?: boolean;
-    };
-    /**
-     * @description 刷新 Token 请求体
-     *
-     *     封装 refreshToken 字段，避免与 com.njydsz.userinfo.domain.dto.LoginDTO 耦合。
-     *
-     *     由 com.njydsz.userinfo.web.controller.AuthController#refresh(RefreshRequest) 使用。
-     */
-    RefreshRequest: {
-      /** @description 刷新令牌（来自上一次登录或上一次 refresh 响应） */
-      refreshToken?: string;
-    };
-    /**
-     * @description 场景化二级认证请求体（P0-2 标准化）。
-     *
-     *     前端调用 `Post /api/auth/secondary-auth` 接口时传入，包含当前用户密码和目标场景标识。
-     */
-    SecondaryAuthRequest: {
-      /**
-       * @description 当前登录用户的明文密码。
-       *
-       *     用于验证用户身份，验证通过后写入场景化安全标记。
-       */
-      password?: string;
-      /**
-       * @description 场景标识（scene）。
-       *
-       *     用于区分不同业务场景的二级认证，每个场景独立验证、独立过期。
-       *     常用值：`password_change`、`role_assign`、`data_export`、`tenant_config`
-       */
-      scene?: string;
-      /**
-       * Format: int32
-       * @description 二级认证有效期（秒）。
-       *
-       *     默认 300 秒（5 分钟）。CRITICAL 级别会自动缩短为 40%。
-       */
-      ttlSeconds?: number;
-      /**
-       * @description 敏感操作等级。
-       *
-       *     默认 HIGH。CRITICAL 级别使用更短的验证窗口（TTL 的 40%，最小 60 秒）。
-       * @enum {string}
-       */
-      level?: 'MEDIUM' | 'HIGH' | 'CRITICAL';
-    };
-    /** @description 认证策略分页查询参数（P3-1）。 */
-    AuthPolicyPageQuery: {
-      /** @description 租户 ID */
-      tenantId?: string;
-      /** @description 策略名称（模糊查询） */
-      name?: string;
-    };
-    /**
-     * @description 认证策略统一 DTO（P3-1 多租户认证域隔离）。
-     *
-     *     同时用于创建和更新场景：创建时 `tenantId` 可不传（为空表示全局默认策略），
-     *     更新时 `tenantId` 必填。
-     */
-    AuthPolicyDTO: {
-      /** @description 租户 ID（为空表示全局默认策略） */
-      tenantId?: string;
-      /** @description 策略名称 */
-      name?: string;
-      /**
-       * Format: int32
-       * @description 密码最小长度（≥ 6）
-       */
-      passwordMinLength?: number;
-      /** @description 密码必须包含大写字母 */
-      passwordRequireUppercase?: boolean;
-      /** @description 密码必须包含数字 */
-      passwordRequireDigit?: boolean;
-      /** @description 密码是否启用双因素认证 */
-      mfaEnabled?: boolean;
-      /** @description 登录是否启用图形验证码 */
-      captchaEnabled?: boolean;
-      /** @description 允许的身份提供者类型（逗号分隔，如 "LDAP,SAML,OAUTH2"） */
-      allowedIdentityProviders?: string;
-      /**
-       * Format: int32
-       * @description 最大会话数（每个用户同时在线的最大会话数）
-       */
-      maxSessionsPerUser?: number;
-      /**
-       * Format: int32
-       * @description 会话超时时间（秒）
-       */
-      sessionTimeoutSeconds?: number;
-      /** @description 备注说明 */
-      remark?: string;
-    };
-    /**
-     * @description 公司请求 DTO。
-     *
-     *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
-     */
-    CompanyDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 公司 ID（更新时必填） */
-      id?: string;
-      /** @description 公司名称 */
-      companyName?: string;
-      /** @description 公司编码（全局唯一，建议格式 `COMP_XXX`） */
-      companyCode?: string;
-      /** @description 上级公司 ID（`"0"` 表示顶级公司） */
-      parentId?: string;
-      /** @description 联系人姓名 */
-      contactPerson?: string;
-      /** @description 联系电话 */
-      contactPhone?: string;
-      /** @description 公司地址 */
-      address?: string;
-      /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
-      status?: string;
-    };
-    /**
-     * @description 部门请求 DTO。
-     *
-     *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
-     *     部门通过 parentId 自关联形成树形组织架构，"0" 表示根节点。
-     *
-     *     字段语义：
-     *
-     *
-     *     `deptCode` — 部门编码（全局唯一，建议格式 DEPT_XXX），业务侧引用
-     *     `parentId` — 父部门 ID（"0" 表示根部门）
-     *     `tenantId` — 租户 ID（多租户场景下区分归属租户）
-     */
-    DepartmentDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 部门 ID（更新时必填） */
-      id?: string;
-      /** @description 部门编码（全局唯一，建议格式 `DEPT_XXX`） */
-      deptCode?: string;
-      /** @description 部门名称（前端展示） */
-      deptName?: string;
-      /** @description 父部门 ID（`"0"` 表示根部门） */
-      parentId?: string;
-      /** @description 部门描述 */
-      description?: string;
-      /**
-       * Format: int32
-       * @description 同级排序序号（升序）
-       */
-      sort?: number;
-      /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
-      status?: string;
-      /** @description 租户 ID */
-      tenantId?: string;
-    };
-    /** @description 语言分页查询参数，继承 PageQuery 提供分页基础字段。 */
-    LanguagePageQuery: {
-      /** @description 语言编码，如 zh-CN */
-      languageCode?: string;
-      /** @description 语言名称 */
-      languageName?: string;
-      /** @description 状态过滤：ENABLE/DISABLE */
-      status?: string;
-    };
-    /**
-     * @description 语言配置请求 DTO。
-     *
-     *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
-     *
-     *     字段语义：
-     *
-     *
-     *     `languageCode` — 语言编码（ISO 639-1 + ISO 3166-1，如 zh-CN / en-US）
-     *     `isDefault` — 是否默认语言（1=是，全局仅允许一个默认语言）
-     *     `status` — 启用状态（ENABLED/DISABLED），禁用后该语言不在用户切换器中显示
-     */
-    LanguageDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 语言 ID（更新时必填） */
-      id?: string;
-      /** @description 语言编码（ISO 639-1 + ISO 3166-1，如 `zh-CN` / `en-US`） */
-      languageCode?: string;
-      /** @description 语言名称（前端展示，如「简体中文」/「English」） */
-      languageName?: string;
-      /**
-       * Format: int32
-       * @description 是否默认语言（`1=是`，全局仅允许一个默认语言）
-       */
-      isDefault?: number;
-      /**
-       * Format: int32
-       * @description 排序序号（升序，决定语言切换器展示顺序）
-       */
-      sort?: number;
-      /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
-      status?: string;
-    };
-    /**
-     * @description 菜单请求 DTO。
-     *
-     *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
-     */
-    MenuDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 菜单 ID（更新时必填） */
-      id?: string;
-      /** @description 父菜单 ID（`"0"` 表示根节点） */
-      parentId?: string;
-      /** @description 菜单名称（前端展示） */
-      menuName?: string;
-      /** @description 菜单编码（全局唯一） */
-      menuCode?: string;
-      /** @description 菜单类型（DIR=目录 / YdMenu=菜单 / BUTTON=按钮） */
-      menuType?: string;
-      /** @description 前端路由路径（menuType=YdMenu 时必填） */
-      path?: string;
-      /** @description 前端组件路径（menuType=YdMenu 时必填，如 `"system/user/index"`） */
-      component?: string;
-      /** @description 菜单图标（Iconify / Element Plus 图标名） */
-      icon?: string;
-      /**
-       * Format: int32
-       * @description 同级排序序号（升序）
-       */
-      sort?: number;
-      /** @description 权限码（`"system:user:create"` 格式） */
-      permissionCode?: string;
-      /**
-       * Format: int32
-       * @description 是否前端可见（0=隐藏，1=可见）
-       */
-      visible?: number;
-      /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
-      status?: string;
-    };
-    /**
-     * @description OAuth2 授权端点请求参数值对象。
-     *
-     *     封装 `GET /authorize` 端点的全部请求参数，避免方法参数数量超限（云顶编码规范 5.4 节）。
-     *     通过组件级绑定注解映射到 HTTP 请求。
-     *
-     *     @param authorization Authorization 请求头（Bearer access_token）
-     *     @param clientId 客户端 ID（必须已注册）
-     *     @param redirectUri 回调地址（必须在 clientId 的白名单中）
-     *     @param state 客户端防 CSRF 随机串（服务端存储并校验）
-     *     @param scope 授权范围（可选，OIDC 流程需包含 `openid`）
-     *     @param nonce OIDC nonce（可选，用于防重放攻击）
-     *     @param codeChallenge PKCE 码挑战值（可选，用于公共客户端）
-     *     @param codeChallengeMethod PKCE 码挑战方法（可选，仅支持 S256）
-     */
-    OAuth2AuthorizeRequest: Record<string, never>;
-    /**
-     * @description OAuth2 token 端点请求参数值对象。
-     *
-     *     封装 `POST /token` 端点的全部表单参数，避免方法参数数量超限（云顶编码规范 5.4 节）。
-     *
-     *     @param grantType 授权类型（authorization_code / refresh_token）
-     *     @param code 授权码（authorization_code 必填）
-     *     @param refreshToken 刷新令牌（refresh_token 必填）
-     *     @param clientId 客户端 ID
-     *     @param clientSecret 客户端密钥（confidential 客户端必填）
-     *     @param codeVerifier PKCE 码验证器（public 客户端 authorization_code 必填）
-     *     @param state OAuth2 CSRF 防护 state 参数（可选）
-     */
-    OAuth2TokenRequest: {
-      grantType: Record<string, never>;
-      false: Record<string, never>;
-    };
-    /**
-     * @description 岗位请求 DTO。
-     *
-     *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
-     */
-    PostDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 岗位 ID（更新时必填） */
-      id?: string;
-      /** @description 岗位名称（前端展示，如「项目经理」「后端开发工程师」） */
-      postName?: string;
-      /** @description 岗位编码（全局唯一，建议使用英文枚举值如 `PM` / `DEV`） */
-      postCode?: string;
-      /** @description 岗位描述 */
-      description?: string;
-      /**
-       * Format: int32
-       * @description 同级排序序号（升序）
-       */
-      sort?: number;
-      /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
-      status?: string;
-    };
-    /** @description 角色分页查询参数，继承 PageQuery 提供分页基础字段。 */
-    RolePageQuery: {
-      /** @description 角色编码，模糊查询 */
-      roleCode?: string;
-      /** @description 角色名称，模糊查询 */
-      roleName?: string;
-      /** @description 状态过滤：ENABLE/DISABLE */
-      status?: string;
-      /** @description 租户 ID */
-      tenantId?: string;
-    };
-    /**
-     * @description 角色请求 DTO。
-     *
-     *     同时用于创建和更新场景：创建时 `id` 可不传，更新时 `id` 必填。
-     *
-     *     字段语义：
-     *
-     *
-     *     `roleCode` — 角色编码（全局唯一，建议格式 ROLE_XXX），用于权限匹配
-     *     `dataScope` — 数据权限范围（ALL/DEPT_AND_CHILD/DEPT/SELF/CUSTOM），控制角色可见数据范围
-     *     `builtIn` — 是否内置角色（true 时禁止删除与修改编码）
-     *     `tenantId` — 租户 ID（"0" = 平台级角色，跨租户可见）
-     */
-    RoleDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 角色 ID（更新时必填） */
-      id?: string;
-      /** @description 角色编码（全局唯一，建议格式 `ROLE_XXX`） */
-      roleCode?: string;
-      /** @description 角色名称（前端展示） */
-      roleName?: string;
-      /** @description 角色描述 */
-      description?: string;
-      /**
-       * Format: int32
-       * @description 同级排序序号（升序）
-       */
-      sort?: number;
-      /** @description 数据权限范围（ALL / DEPT_AND_CHILD / DEPT / SELF / CUSTOM） */
-      dataScope?: string;
-      /** @description 启用状态（`"ENABLED"` / `"DISABLED"`） */
-      status?: string;
-      /** @description 是否内置角色（`true` 时禁止删除与修改编码） */
-      builtIn?: boolean;
-      /** @description 租户 ID（`"0"` = 平台级角色） */
-      tenantId?: string;
-    };
-    /**
-     * @description 分配角色权限请求 DTO。
-     *
-     *     用于 `Post /api/Role/{roleId`/permissions} 接口，为指定角色分配权限。 采用全量覆盖策略：传入的权限 ID
-     *     列表将完全替换角色原有权限关联。
-     *
-     *     注意事项：
-     *
-     *
-     *     传入空列表表示清除角色所有权限
-     *     权限 ID 必须为系统中已存在的有效权限（菜单/按钮/API）
-     */
-    AssignPermissionsDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 权限 ID 列表（全量覆盖，空列表表示清除所有权限） */
-      permissionIds?: string[];
-    };
-    /** @description SAML 身份提供者配置分页查询参数（P2-1）。 */
-    SamlIdpPageQuery: {
-      /** @description 状态过滤：ENABLED / DISABLED */
-      status?: string;
-      /** @description IdP 显示名称（模糊查询） */
-      name?: string;
-    };
-    /**
-     * @description SAML 2.0 身份提供者（IdP）配置统一 DTO（P2-1 CUD 入参）。
-     *
-     *     同时用于创建和更新场景：创建时 `entityId` 必填，更新时 `entityId` 必填。
-     *
-     *     字段语义：
-     *
-     *
-     *     `entityId` — IdP Entity ID（唯一标识 URI，作为主键）
-     *     `ssoUrl` — IdP SSO 端点 URL（SP 重定向用户至此发起 SSO）
-     *     `certificate` — IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名）
-     *     `emailAttribute` — SAML Assertion 中邮箱属性名（默认 emailAddress）
-     *     `displayNameAttribute` — SAML Assertion 中显示名称属性名（默认 displayName）
-     *     `status` — 状态（ENABLED/DISABLED），禁用后该 IdP 不可登录
-     */
-    SamlIdpDTO: {
-      /** @description IdP Entity ID（唯一标识） */
-      entityId?: string;
-      /** @description IdP 显示名称（如 "企业微信 SAML"、"飞书 SAML"） */
-      name?: string;
-      /** @description IdP SSO 端点 URL */
-      ssoUrl?: string;
-      /** @description IdP 公钥证书（PEM 格式，用于验证 SAML Response 签名） */
-      certificate?: string;
-      /** @description 用户邮箱对应的 SAML Attribute 名称（默认 email） */
-      emailAttribute?: string;
-      /** @description 用户显示名称对应的 SAML Attribute 名称（默认 displayName） */
-      displayNameAttribute?: string;
-      /** @description 状态：ENABLED / DISABLED */
-      status?: string;
-      /**
-       * Format: int32
-       * @description 排序权重
-       */
-      sort?: number;
-      /** @description 备注说明 */
-      remark?: string;
-    };
-    /**
-     * @description SCIM 2.0 User 资源表示。
-     *
-     *     遵循 RFC 7643 Section 4.1 Core User Schema（`urn:ietf:params:scim:schemas:core:2.0:User`），
-     *     是 SCIM 协议中最核心的资源类型，用于 HR 系统与身份管理系统之间的用户数据同步。
-     *
-     *     字段映射：
-     *
-     *
-     *     `userName` → ydsz `username`（登录名）
-     *     `externalId` → HR 系统员工编号等外部标识
-     *     `name.formatted` → ydsz `realName`（真实姓名）
-     *     `emails[0].value` → ydsz `email`
-     *     `phoneNumbers[0].value` → ydsz `phone`
-     *     `active` → ydsz 启用/禁用状态反推
-     */
-    ScimUser: {
-      /** @description SCIM Schema 标识（固定值）。 */
-      schemas?: string[];
-      /** @description SCIM 资源唯一标识（对应 ydsz 用户 ID）。 */
-      id?: string;
-      /** @description 外部系统标识（如 HR 系统员工编号）。 */
-      externalId?: string;
-      /** @description 登录用户名（唯一）。 */
-      userName?: string;
-      name?: components['schemas']['ScimName'];
-      /** @description 显示名称。 */
-      displayName?: string;
-      /** @description 账号是否启用。 */
-      active?: boolean;
-      /** @description 电子邮箱列表。 */
-      emails?: components['schemas']['ScimEmail'][];
-      /** @description 电话号码列表。 */
-      phoneNumbers?: components['schemas']['ScimPhone'][];
-      meta?: components['schemas']['ScimMeta'];
-    };
-    /**
-     * @description SCIM 用户姓名组件（name 子属性）。
-     *
-     *     对应 SCIM Core Schema `urn:ietf:params:scim:schemas:core:2.0:User` 的 `name` 属性，
-     *     遵循 RFC 7643 Section 4.1.1。
-     */
-    ScimName: {
-      /** @description 完整格式化姓名（如 "张三" 或 "Dr. John Jonas, Jr."）。 */
-      formatted?: string;
-      /** @description 姓氏（family name / surname）。 */
-      familyName?: string;
-      /** @description 名字（given name / first name）。 */
-      givenName?: string;
-    };
-    /**
-     * @description SCIM 电子邮箱子属性。
-     *
-     *     对应 SCIM Core Schema `urn:ietf:params:scim:schemas:core:2.0:User` 的 `emails`
-     *     属性元素，遵循 RFC 7643 Section 4.1.1。
-     */
-    ScimEmail: {
-      /** @description 电子邮箱地址。 */
-      value?: string;
-      /** @description 显示名称（可选）。 */
-      display?: string;
-      /** @description 是否为主邮箱。 */
-      primary?: boolean;
-    };
-    /**
-     * @description SCIM 电话号码子属性。
-     *
-     *     对应 SCIM Core Schema `urn:ietf:params:scim:schemas:core:2.0:User` 的 `phoneNumbers`
-     *     属性元素，遵循 RFC 7643 Section 4.1.1。
-     */
-    ScimPhone: {
-      /** @description 电话号码。 */
-      value?: string;
-      /** @description 显示名称（可选）。 */
-      display?: string;
-      /** @description 是否为主要电话号码。 */
-      primary?: boolean;
-    };
-    /**
-     * @description SCIM 资源元数据。
-     *
-     *     对应 SCIM Core Schema 的 `meta` 属性，记录资源类型、创建时间和最后修改时间，
-     *     遵循 RFC 7643 Section 3.1。
-     */
-    ScimMeta: {
-      /** @description 资源类型（如 "User"、"Group"）。 */
-      resourceType?: string;
-      /** @description 资源创建时间（ISO 8601 格式）。 */
-      created?: string;
-      /** @description 资源最后修改时间（ISO 8601 格式）。 */
-      lastModified?: string;
-    };
-    /**
-     * @description SCIM 2.0 PATCH 操作请求体。
-     *
-     *     遵循 RFC 7644 Section 3.5.2（PATCH），支持对资源的部分更新。
-     *
-     *     操作类型：
-     *
-     *
-     *     `add` — 添加属性值（不存在则创建，存在则替换）
-     *     `remove` — 移除属性值（指定 path 时移除对应属性，否则报错）
-     *     `replace` — 替换属性值（不存在则报错）
-     *
-     *
-     *     示例：
-     *
-     *     <pre>
-     *     {
-     *     "schemas": ["urn:ietf:params:scim:schemas:core:2.0:PatchOp"],
-     *     "Operations": [
-     *     {"op": "replace", "path": "displayName", "value": "张三"},
-     *     {"op": "replace", "path": "emails[value eq \"old@test.com\"].value", "value": "new@test.com"},
-     *     {"op": "add", "path": "phoneNumbers", "value": "1*********0"},
-     *     {"op": "remove", "path": "phoneNumbers[value eq \"1*********0\"]"}
-     *     ]
-     *     }
-     *     </pre>
-     */
-    ScimPatchOp: {
-      Operations?: Record<string, never>[];
-      /**
-       * @description 操作类型。
-       *
-       *     可选值：add、remove、replace（大小写不敏感）。
-       */
-      op?: string;
-      /**
-       * @description 目标属性路径（可选）。
-       *
-       *     支持 SCIM 标准路径语法，如 `displayName`、`emails`、
-       *     `emails[value eq "xxx"].value`。为 null 时表示操作整个资源。
-       */
-      path?: string;
-      /**
-       * @description 操作值（可选）。
-       *
-       *     用于 add/replace 操作。当 op 为 remove 时，value 应为 null。
-       */
-      value?: Record<string, never>;
-      /** @description PATCH 操作 Schema 标识。 */
-      PATCH_OP_SCHEMA?: string[];
-      /** @description Schema 标识（固定值）。 */
-      schemas?: string[];
-      /** @description PATCH 操作列表（按顺序执行）。 */
-      operations?: Record<string, never>[];
-    };
-    /**
-     * @description 安全告警分页查询参数。
-     *
-     *     用于安全告警分页查询接口，封装过滤条件与分页参数。 所有过滤条件均为可选，未设置则不作为筛选条件。
-     */
-    SecurityAlertPageQuery: {
-      /** @description 告警状态过滤（可为 null 表示不过滤） */
-      alertStatus?: Record<string, never>;
-      /** @description 风险等级过滤（可为 null 表示不过滤） */
-      riskLevel?: Record<string, never>;
-      /**
-       * Format: date
-       * @description 起始日期过滤（可为 null，自动转换为当天 00:00:00）
-       */
-      start?: string;
-      /**
-       * Format: date
-       * @description 结束日期过滤（可为 null，自动转换为当天 23:59:59.999）
-       */
-      end?: string;
-      /**
-       * Format: date-time
-       * @description 起始时间过滤（可为 null，优先于 #start 使用）
-       */
-      startTime?: string;
-      /**
-       * Format: date-time
-       * @description 结束时间过滤（可为 null，优先于 #end 使用）
-       */
-      endTime?: string;
-    };
-    /** @description 社交平台客户端配置分页查询参数（P1-1）。 */
-    SocialClientPageQuery: {
-      /** @description 平台标识（精确匹配） */
-      platform?: string;
-      /** @description 平台显示名称（模糊查询） */
-      platformName?: string;
-      /** @description 状态过滤：ENABLED / DISABLED */
-      status?: string;
-    };
-    /**
-     * @description 社交平台客户端配置统一 DTO（P1-1 CUD 入参）。
-     *
-     *     同时用于创建和更新场景：创建时 `platform` 必填，更新时 `id` 必填。
-     *
-     *     安全注意：appSecret 明文仅在创建/更新请求中传输（由 HTTPS 保护），服务端接收后
-     *     通过 BCrypt 加密存储。更新时如果 appSecret 为空则保留原值（不修改密钥）。
-     */
-    SocialClientDTO: {
-      /** @description 平台 ID（更新时必填） */
-      id?: string;
-      /** @description 平台标识（如 GITHUB/DINGTALK/ENTERPRISE_WECHAT/FEISHU） */
-      platform?: string;
-      /** @description 平台显示名称 */
-      platformName?: string;
-      /** @description 应用 ID */
-      appId?: string;
-      /** @description 应用明文密钥（BCrypt 加密后存储） */
-      appSecret?: string;
-      /** @description OAuth2 授权范围（scope） */
-      scope?: string;
-      /** @description 回调地址（redirectUri），可为 null */
-      redirectUri?: string;
-      /** @description 状态：ENABLED / DISABLED */
-      status?: string;
-      /**
-       * Format: int32
-       * @description 排序权重
-       */
-      sort?: number;
-      /** @description 备注说明 */
-      remark?: string;
-    };
-    /**
-     * @description 用户分页查询参数。
-     *
-     *     用于 `GET /api/user/page` 接口，支持多条件组合筛选用户列表。 继承 PageQuery 获取分页参数（`pageNum`
-     *     / `pageSize`）。
-     *
-     *     筛选条件：所有字段均为可选，未传则不作为筛选条件。
-     */
-    UserAccountPageQuery: {
-      /** @description 登录用户名（模糊查询） */
-      username?: string;
-      /** @description 真实姓名（模糊查询） */
-      realName?: string;
-      /** @description 手机号（模糊查询） */
-      phone?: string;
-      /** @description 邮箱（模糊查询） */
-      email?: string;
-      /** @description 账号状态（`"ENABLED"`=启用 / `"DISABLED"`=禁用，继承自 BaseQuery） */
-      status?: string;
-      /** @description 用户类型（精确匹配，如 PLATFORM/TENANT_ADMIN/REGULAR） */
-      userType?: string;
-      /** @description 所属公司 ID（精确匹配） */
-      companyId?: string;
-      /** @description 所属部门 ID（精确匹配） */
-      deptId?: string;
-      /** @description 直属上级用户 ID（精确匹配） */
-      leaderId?: string;
-      /** @description 岗位编码（精确匹配，如 PM/DEV/QA/SA） */
-      positionCode?: string;
-    };
-    /**
-     * @description 用户账号统一 DTO（P1-1 CUD 入参）。
-     *
-     *     同时用于创建和更新场景：创建时 `username`/`password` 必填，更新时 `id` 必填。
-     *
-     *     不可更新字段：`username`（登录名创建后不可修改）、`password`（请使用专用修改密码接口）。
-     */
-    UserAccountDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 用户 ID（更新时必填，指定更新的目标用户） */
-      id?: string;
-      /** @description 登录用户名（全局唯一，创建时必填，创建后不可修改） */
-      username?: string;
-      /** @description 用户名（SCIM 兼容字段，与 username 同义） */
-      userName?: string;
-      /** @description 外部系统标识（SCIM externalId，用于与 HR 系统关联） */
-      externalId?: string;
-      /** @description 登录密码（明文传入，服务端 BCrypt 加密存储，创建时必填） */
-      password?: string;
-      /** @description 真实姓名（用于展示和审批人显示） */
-      realName?: string;
-      /** @description 手机号（用于短信验证/找回密码） */
-      phone?: string;
-      /** @description 邮箱（用于邮件通知/找回密码） */
-      email?: string;
-      /** @description 头像 URL */
-      avatar?: string;
-      /**
-       * @description 账号状态（EnableStatusEnum#ENABLED=启用 / EnableStatusEnum#DISABLED=禁用）
-       * @enum {string}
-       */
-      status?: never;
-      /** @description 用户类型（`PLATFORM`=平台用户 / `TENANT_ADMIN`=租户管理员 / `REGULAR`=普通用户） */
-      userType?: string;
-      /** @description 所属公司 ID（关联 `ydsz_org_company.id`） */
-      companyId?: string;
-      /** @description 所属部门 ID（关联 `ydsz_org_department.id`，支持审批人展开） */
-      deptId?: string;
-      /** @description 直属上级用户 ID（关联 `ydsz_acct_user.id`，支持 leader: 审批人展开） */
-      leaderId?: string;
-      /** @description 岗位编码（如 PM/DEV/QA/SA，支持 position: 审批人展开） */
-      positionCode?: string;
-      /** @description 角色 ID 列表（创建时一次性分配角色，可空表示暂不分配） */
-      roleIds?: string[];
-      /** @description 租户 ID（多租户场景下指定归属租户，通常由系统自动填充） */
-      tenantId?: string;
-      /**
-       * Format: int32
-       * @description 乐观锁版本号（P1-6）。
-       *
-       *     由前端在编辑页面携带（从查询响应获取），更新时用于乐观锁冲突检测。
-       *     为 null 时保持原行为（由 Service 层填充当前版本）；携带后若与 DB 当前版本不一致，
-       *     更新将被拒绝并提示"数据已被他人修改"。
-       */
-      revision?: number;
-    };
-    /**
-     * @description 修改密码请求 DTO（用户自助修改）。
-     *
-     *     用于 `Post /api/user/change-password` 接口，用户自行修改登录密码。 服务端会校验旧密码是否正确，新密码须符合密码策略（长度+复杂度）。
-     *
-     *     安全说明：修改密码成功后，当前会话 Token 不会被撤销， 如需强制下线请调用管理员重置密码接口。
-     */
-    ChangePasswordDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 用户 ID（指定修改密码的目标用户） */
-      userId?: string;
-      /** @description 旧密码（明文传入，服务端 BCrypt 比对验证） */
-      oldPassword?: string;
-      /** @description 新密码（明文传入，服务端 BCrypt 加密存储，须符合密码策略） */
-      newPassword?: string;
-    };
-    /**
-     * @description 重置密码请求 DTO（管理员操作）。
-     *
-     *     用于 `Post /api/user/reset-password` 接口，管理员重置指定用户的密码。 无需提供旧密码，重置后可选择通过指定通道通知用户。
-     *
-     *     安全说明：重置密码成功后，目标用户的所有活跃会话将被撤销， 须使用新密码重新登录。该接口需要管理员权限。
-     */
-    ResetPasswordDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 用户 ID（指定重置密码的目标用户） */
-      userId?: string;
-      /** @description 新密码（明文传入，服务端 BCrypt 加密存储，须符合密码策略） */
-      newPassword?: string;
-      /** @description 通知渠道（重置后通知用户，如 `SMS` / `EMAIL`，不传则不通知） */
-      notifyChannel?: string;
-    };
-    /**
-     * @description 分配用户角色请求 DTO。
-     *
-     *     用于 `Post /api/user/{userId`/roles} 接口，为指定用户分配角色。 采用全量覆盖策略：传入的角色 ID
-     *     列表将完全替换用户原有角色关联。
-     *
-     *     注意事项：
-     *
-     *
-     *     传入空列表表示清除用户所有角色
-     *     角色 ID 必须为系统中已存在的有效角色
-     */
-    AssignRolesDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 角色 ID 列表（全量覆盖，空列表表示清除所有角色） */
-      roleIds?: string[];
-    };
-    /**
-     * @description 批量用户状态操作 DTO。
-     *
-     *     用于批量启用/禁用/删除用户账号。单次操作用户数量受 `ydsz.userinfo.batch-size-limit` 限制
-     *     （默认 500），超出时需分批调用。
-     */
-    BatchUserStatusDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 用户 ID 列表 */
-      ids?: string[];
-    };
-    /**
-     * @description 敏感操作二次认证请求 DTO。
-     *
-     *     用于 `Post /api/user/sensitive-verify` 接口，管理员在执行敏感操作前 通过密码确认身份。验证通过后，后端在 Redis 写入一条短期有效（5 分钟）的标记。
-     *
-     *     安全说明：
-     *
-     *
-     *     密码仅用于身份校验，不做任何持久化
-     *     验证标记存储在 Redis，TTL 5 分钟，过期后需重新验证
-     *     标记以当前登录用户 ID 为 Key，不跨用户共享
-     */
-    SensitiveVerifyDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 当前登录用户的明文密码（用于身份校验） */
-      password?: string;
-    };
-    /**
-     * @description 用户搜索查询参数。
-     *
-     *     封装用户搜索接口的查询参数（keyword / 分页），请求头中的用户上下文通过
-     *     javax.servlet.http.HttpServletRequest 读取。
-     */
-    UserSearchQuery: {
-      /**
-       * Format: int32
-       * @description 默认页码
-       */
-      DEFAULT_PAGE?: number;
-      /**
-       * Format: int32
-       * @description 默认每页条数
-       */
-      DEFAULT_PAGE_SIZE?: number;
-      /** @description 搜索关键字（必填） */
-      keyword?: string;
-      /**
-       * Format: int32
-       * @description 页码（默认 1）
-       */
-      page?: number;
-      /**
-       * Format: int32
-       * @description 每页条数（默认 20）
-       */
-      pageSize?: number;
-    };
-    /**
-     * @description 用户资料更新 DTO（当前登录用户修改自己的资料）。
-     *
-     *     与 com.njydsz.userinfo.domain.dto.UserAccountDTO 不同，此 DTO 不包含状态、角色等管理字段，仅包含用户可自助修改的基本信息。
-     */
-    UserProfileUpdateDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 真实姓名 */
-      realName?: string;
-      /** @description 手机号 */
-      phone?: string;
-      /** @description 邮箱 */
-      email?: string;
-      /** @description 头像 URL */
-      avatar?: string;
-    };
-    /**
-     * @description MFA 动态码操作 DTO。
-     *
-     *     用于 MFA 绑定激活/解除场景，携带用户输入的一次性动态码（Authenticator 应用生成）。
-     */
-    MfaOperationDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description TOTP 动态码（6 位数字，由 Authenticator 应用生成） */
-      code?: string;
-    };
-    /**
-     * @description 自助注册请求 DTO。
-     *
-     *     用户通过前端注册页面提交注册申请，包含基本信息和验证码。 注册成功后账号状态为"待审核"或"已启用"（取决于配置）。
-     */
-    SelfRegisterDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 用户名（全局唯一） */
-      username?: string;
-      /** @description 真实姓名 */
-      realName?: string;
-      /** @description 密码（明文，须符合密码策略） */
-      password?: string;
-      /** @description 手机号 */
-      phone?: string;
-      /** @description 邮箱 */
-      email?: string;
-      /** @description 手机/邮箱验证码 */
-      verifyCode?: string;
-      /** @description 图形验证码 key（P0-5：防批量注册，前端先调用 /api/captcha 获取） */
-      captchaKey?: string;
-      /** @description 图形验证码用户输入（P0-5：防批量注册） */
-      captcha?: string;
-    };
-    /**
-     * @description 找回密码请求 DTO。
-     *
-     *     用户通过手机号 + 验证码验证身份后，设置新密码。
-     */
-    ForgotPasswordDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 用户名 */
-      username?: string;
-      /** @description 手机号（用于验证身份） */
-      phone?: string;
-      /** @description 手机验证码 */
-      verifyCode?: string;
-      /** @description 新密码（明文，须符合密码策略） */
-      newPassword?: string;
-      /** @description 图形验证码 key（P0-5：防撞库找回密码，前端先调用 /api/captcha 获取） */
-      captchaKey?: string;
-      /** @description 图形验证码用户输入（P0-5：防撞库找回密码） */
-      captcha?: string;
-    };
-    /**
-     * @description 账号解锁请求 DTO。
-     *
-     *     用户自助解锁被锁定的账号，支持手机验证码/邮箱验证码两种身份验证方式。
-     *
-     *     使用方式：
-     *
-     *
-     *     手机验证：`target` 填手机号，`targetType` 为 `PHONE`
-     *     邮箱验证：`target` 填邮箱地址，`targetType` 为 `EMAIL`
-     */
-    AccountUnlockDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 用户名（需与验证方式绑定的用户匹配） */
-      username?: string;
-      /** @description 验证目标类型：PHONE（手机）/ EMAIL（邮箱） */
-      targetType?: string;
-      /** @description 验证目标（手机号或邮箱地址） */
-      target?: string;
-      /** @description 验证码 */
-      verifyCode?: string;
-      /** @description 图形验证码 key（防暴力破解，前端先调用 /api/captcha 获取） */
-      captchaKey?: string;
-      /** @description 图形验证码用户输入 */
-      captcha?: string;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 };
 export type $defs = Record<string, never>;
 export interface operations {
-  banUser: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UserBanRequestDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  unbanUser: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getBanInfo: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getUserSessions: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  forceLogout: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-        accessToken: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getAllActiveSessions: {
-    parameters: {
-      query?: {
-        page?: number;
-        size?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getSessionStatistics: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  sendMfaCode: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SendVerifyCodeDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  sendMfaEmailCode: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SendVerifyCodeDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  login: {
-    parameters: {
-      query?: {
-        servletRequest?: Record<string, never>;
-        servletResponse?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['LoginDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  logout: {
-    parameters: {
-      query?: never;
-      header?: {
-        token?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  refresh: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RefreshRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  generateDeviceCode: {
-    parameters: {
-      query?: never;
-      header?: {
-        authorization?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  exchangeDeviceCode: {
-    parameters: {
-      query?: {
-        code?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listActiveSessions: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  kickOutOtherSessions: {
-    parameters: {
-      query?: never;
-      header?: {
-        currentToken?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  kickOutSession: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        token: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  secondaryAuth: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SecondaryAuthRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['AuthPolicyPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getByTenantId: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        tenantId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        tenantId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AuthPolicyDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        tenantId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AuthPolicyDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  generate: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  validate: {
-    parameters: {
-      query?: {
-        captchaKey?: string;
-        captcha?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  login: {
-    parameters: {
-      query?: {
-        service?: string;
-        username?: string;
-        password?: string;
-        request?: Record<string, never>;
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  loginPost: {
-    parameters: {
-      query?: {
-        service?: string;
-        username?: string;
-        password?: string;
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  serviceValidate: {
-    parameters: {
-      query?: {
-        ticket?: string;
-        service?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  serviceValidateJson: {
-    parameters: {
-      query?: {
-        ticket?: string;
-        service?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  logout: {
-    parameters: {
-      query?: {
-        service?: string;
-        request?: Record<string, never>;
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  tree: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CompanyDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CompanyDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  tree: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DepartmentDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DepartmentDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getUserInfo: {
-    parameters: {
-      query?: {
-        userId?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getDeptTree: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getDeptList: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listUserIdsByRole: {
-    parameters: {
-      query?: {
-        roleCode?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listRoleCodesByUserId: {
-    parameters: {
-      query?: {
-        userId?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listDeptIdsByUserId: {
-    parameters: {
-      query?: {
-        userId?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getLeaderByUserId: {
-    parameters: {
-      query?: {
-        userId?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listUserIdsByPosition: {
-    parameters: {
-      query?: {
-        positionCode?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getDeptLeaderByDeptId: {
-    parameters: {
-      query?: {
-        deptId?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getDeptLeaderByDeptCode: {
-    parameters: {
-      query?: {
-        deptCode?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchUserNames: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': string[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchDeptNames: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': string[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchRoleNames: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': string[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchPostNames: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': string[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchCompanyNames: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': string[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['LanguagePageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['LanguageDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['LanguageDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  triggerSync: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getStatus: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getLogs: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  tree: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['MenuDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['MenuDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        status?: string;
-        keyword?: string;
-        pageNum?: number;
-        pageSize?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  register: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  resetSecret: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  authorize: {
-    parameters: {
-      query?: {
-        request?: components['schemas']['OAuth2AuthorizeRequest'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getConsentInfo: {
-    parameters: {
-      query?: {
-        clientId?: string;
-        redirectUri?: string;
-        scope?: string;
-      };
-      header?: {
-        authorization?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  submitConsent: {
-    parameters: {
-      query?: {
-        request?: components['schemas']['OAuth2AuthorizeRequest'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  token: {
-    parameters: {
-      query?: {
-        request?: components['schemas']['OAuth2TokenRequest'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  revoke: {
-    parameters: {
-      query?: {
-        token?: string;
-        tokenTypeHint?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  introspect: {
-    parameters: {
-      query?: {
-        token?: string;
-        clientId?: string;
-        clientSecret?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  userinfo: {
-    parameters: {
-      query?: never;
-      header?: {
-        authorization?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  discovery: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  jwks: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['PostDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['PostDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['RolePageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RoleDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RoleDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getRolePermissions: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        roleId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  assignPermissions: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        roleId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AssignPermissionsDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  metadata: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  initiateSso: {
-    parameters: {
-      query?: {
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never> | null;
-        };
-      };
-    };
-  };
-  assertionConsumerService: {
-    parameters: {
-      query?: {
-        SAMLResponse?: string;
-        relayState?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  initiateSsoByEntityId: {
-    parameters: {
-      query?: {
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path: {
-        idpEntityId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never> | null;
-        };
-      };
-    };
-  };
-  assertionConsumerServiceByEntityId: {
-    parameters: {
-      query?: {
-        SAMLResponse?: string;
-        relayState?: string;
-      };
-      header?: never;
-      path: {
-        idpEntityId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listIdps: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['SamlIdpPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listEnabled: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SamlIdpDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        entityId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SamlIdpDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        entityId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listUsers: {
-    parameters: {
-      query?: {
-        startIndex?: number;
-        count?: number;
-        filter?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  createUser: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ScimUser'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  getUser: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  updateUser: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ScimUser'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  deleteUser: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  patchUser: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ScimPatchOp'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  listGroups: {
-    parameters: {
-      query?: {
-        startIndex?: number;
-        count?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  getServiceProviderConfig: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  getResourceTypes: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  getSchemas: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  pageAlerts: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['SecurityAlertPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getPendingAlerts: {
-    parameters: {
-      query?: {
-        riskLevel?: string;
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  acknowledgeAlert: {
-    parameters: {
-      query?: {
-        note?: string;
-      };
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  resolveAlert: {
-    parameters: {
-      query?: {
-        note?: string;
-      };
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  ignoreAlert: {
-    parameters: {
-      query?: {
-        note?: string;
-      };
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getDashboard: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getLoginSuccessRate: {
-    parameters: {
-      query?: {
-        start?: string;
-        end?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getLoginFailDistribution: {
-    parameters: {
-      query?: {
-        date?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getMfaCoverage: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getRiskLevelDistribution: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getRecentSecurityEvents: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getSessionActivity: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getActiveUserRanking: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getSessionTrend: {
-    parameters: {
-      query?: {
-        start?: string;
-        end?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getDeviceDistribution: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  detectAnomalySessions: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getBindings: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getAvailablePlatforms: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  unbind: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        platform: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['SocialClientPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listEnabled: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SocialClientDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        platform: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SocialClientDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        platform: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getOverview: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  tokenExchange: {
-    parameters: {
-      query?: {
-        request?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  validate: {
-    parameters: {
-      query?: {
-        request?: Record<string, never>;
-        token?: string;
-      };
-      header?: {
-        authorization?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  logoutNotify: {
-    parameters: {
-      query?: {
-        request?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['UserAccountPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UserAccountDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UserAccountDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  changePassword: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ChangePasswordDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  resetPassword: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ResetPasswordDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getUserRoles: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  assignRoles: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AssignRolesDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  importUsers: {
-    parameters: {
-      query?: {
-        file?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  downloadImportTemplate: {
-    parameters: {
-      query?: {
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never> | null;
-        };
-      };
-    };
-  };
-  exportUsers: {
-    parameters: {
-      query?: {
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never> | null;
-        };
-      };
-    };
-  };
-  getLoginHistory: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchRemove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['BatchUserStatusDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchEnable: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['BatchUserStatusDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchDisable: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['BatchUserStatusDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  suspend: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  resume: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  disable: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  enable: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  resign: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        userId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  sensitiveVerify: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SensitiveVerifyDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  search: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['UserSearchQuery'];
-        request?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  rebuildIndex: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getCurrentUserProfile: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  updateCurrentUserProfile: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UserProfileUpdateDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  changePassword: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  uploadAvatar: {
-    parameters: {
-      query?: {
-        file?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getMfaStatus: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  setupMfa: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  activateMfa: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['MfaOperationDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  disableMfa: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['MfaOperationDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getPasskeyRegistrationOptions: {
-    parameters: {
-      query?: {
-        username?: string;
-        displayName?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getPasskeyAuthenticationOptions: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  verifyPasskeyAuthentication: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getRegistrationOptions: {
-    parameters: {
-      query?: {
-        username?: string;
-        displayName?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  verifyRegistration: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getAuthenticationOptions: {
-    parameters: {
-      query?: {
-        userId?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  verifyAuthentication: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listCredentials: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  deleteCredential: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        credentialId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listMyDevices: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  revokeDevice: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        sessionId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  sendVerifyCode: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SendVerifyCodeDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  register: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SelfRegisterDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  forgotPassword: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ForgotPasswordDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  unlockAccount: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AccountUnlockDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  streamEvents: {
-    parameters: {
-      query?: {
-        request?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
+    banUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserBanRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    unbanUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getBanInfo: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getUserSessions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    forceLogout: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+                accessToken: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getAllActiveSessions: {
+        parameters: {
+            query?: {
+                page?: number;
+                size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getSessionStatistics: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    pageKeys: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["ApiKeyPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createKey: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ApiKeyCreateDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    revokeKeys: {
+        parameters: {
+            query?: {
+                ids?: number[];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listMyKeys: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    updateEnabled: {
+        parameters: {
+            query?: {
+                enabled?: boolean;
+            };
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    sendMfaCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SendVerifyCodeDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    sendMfaEmailCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SendVerifyCodeDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    login: {
+        parameters: {
+            query?: {
+                servletRequest?: components["schemas"]["HttpServletRequest"];
+                servletResponse?: components["schemas"]["HttpServletResponse"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoginDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getUserInfo: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getAccessCodes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    logout: {
+        parameters: {
+            query?: never;
+            header?: {
+                token?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    refresh: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RefreshRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    generateDeviceCode: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exchangeDeviceCode: {
+        parameters: {
+            query?: {
+                code?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listActiveSessions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    kickOutOtherSessions: {
+        parameters: {
+            query?: never;
+            header?: {
+                currentToken?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    kickOutSession: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    secondaryAuth: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SecondaryAuthRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getWebAuthnChallenge: {
+        parameters: {
+            query?: {
+                scene?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    webAuthnSecondaryAuth: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WebAuthnSecondaryAuthDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["AuthPolicyPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getByTenantId: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tenantId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tenantId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AuthPolicyDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tenantId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AuthPolicyDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    generate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    validate: {
+        parameters: {
+            query?: {
+                captchaKey?: string;
+                captcha?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    login: {
+        parameters: {
+            query?: {
+                service?: string;
+                username?: string;
+                password?: string;
+                request?: Record<string, never>;
+                response?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ResponseEntity"];
+                };
+            };
+        };
+    };
+    loginPost: {
+        parameters: {
+            query?: {
+                service?: string;
+                username?: string;
+                password?: string;
+                response?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    serviceValidate: {
+        parameters: {
+            query?: {
+                ticket?: string;
+                service?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    serviceValidateJson: {
+        parameters: {
+            query?: {
+                ticket?: string;
+                service?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    logout: {
+        parameters: {
+            query?: {
+                service?: string;
+                request?: Record<string, never>;
+                response?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    tree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CompanyDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CompanyDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    tree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DepartmentDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DepartmentDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getUserInfo: {
+        parameters: {
+            query?: {
+                userId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getDeptTree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getDeptList: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listUserIdsByRole: {
+        parameters: {
+            query?: {
+                roleCode?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listRoleCodesByUserId: {
+        parameters: {
+            query?: {
+                userId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listDeptIdsByUserId: {
+        parameters: {
+            query?: {
+                userId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getLeaderByUserId: {
+        parameters: {
+            query?: {
+                userId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listUserIdsByPosition: {
+        parameters: {
+            query?: {
+                positionCode?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getDeptLeaderByDeptId: {
+        parameters: {
+            query?: {
+                deptId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getDeptLeaderByDeptCode: {
+        parameters: {
+            query?: {
+                deptCode?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchUserNames: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchDeptNames: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchRoleNames: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchPostNames: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchCompanyNames: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    verifyPassword: {
+        parameters: {
+            query?: {
+                userId?: string;
+                password?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["LanguagePageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LanguageDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LanguageDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    triggerSync: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getLogs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["LoginLogPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    tree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    routes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MenuDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MenuDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                status?: string;
+                keyword?: string;
+                pageNum?: number;
+                pageSize?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    register: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RegisterApplicationDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateApplicationDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    resetSecret: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    authorize: {
+        parameters: {
+            query?: {
+                request?: components["schemas"]["OAuth2AuthorizeRequest"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getConsentInfo: {
+        parameters: {
+            query?: {
+                clientId?: string;
+                redirectUri?: string;
+                scope?: string;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    submitConsent: {
+        parameters: {
+            query?: {
+                request?: components["schemas"]["OAuth2AuthorizeRequest"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    token: {
+        parameters: {
+            query?: {
+                request?: components["schemas"]["OAuth2TokenRequest"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    revoke: {
+        parameters: {
+            query?: {
+                token?: string;
+                tokenTypeHint?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    introspect: {
+        parameters: {
+            query?: {
+                token?: string;
+                clientId?: string;
+                clientSecret?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    userinfo: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    discovery: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    jwks: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PostDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PostDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["RolePageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RoleDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RoleDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getRolePermissions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roleId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    assignPermissions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roleId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignPermissionsDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    metadata: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    initiateSso: {
+        parameters: {
+            query?: {
+                response?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    assertionConsumerService: {
+        parameters: {
+            query?: {
+                SAMLResponse?: string;
+                relayState?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    initiateSsoByEntityId: {
+        parameters: {
+            query?: {
+                response?: Record<string, never>;
+            };
+            header?: never;
+            path: {
+                idpEntityId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    assertionConsumerServiceByEntityId: {
+        parameters: {
+            query?: {
+                SAMLResponse?: string;
+                relayState?: string;
+            };
+            header?: never;
+            path: {
+                idpEntityId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listIdps: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["SamlIdpPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listEnabled: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SamlIdpDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                entityId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SamlIdpDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                entityId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listUsers: {
+        parameters: {
+            query?: {
+                startIndex?: number;
+                count?: number;
+                filter?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    createUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ScimUser"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    getUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    updateUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ScimUser"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    deleteUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    patchUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ScimPatchOp"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    listGroups: {
+        parameters: {
+            query?: {
+                startIndex?: number;
+                count?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    getServiceProviderConfig: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    getResourceTypes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    getSchemas: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    pageAlerts: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["SecurityAlertPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getPendingAlerts: {
+        parameters: {
+            query?: {
+                riskLevel?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    acknowledgeAlert: {
+        parameters: {
+            query?: {
+                note?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    resolveAlert: {
+        parameters: {
+            query?: {
+                note?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    ignoreAlert: {
+        parameters: {
+            query?: {
+                note?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getDashboard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getLoginSuccessRate: {
+        parameters: {
+            query?: {
+                start?: string;
+                end?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getLoginFailDistribution: {
+        parameters: {
+            query?: {
+                date?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getMfaCoverage: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getRiskLevelDistribution: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getRecentSecurityEvents: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getSessionActivity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getActiveUserRanking: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getSessionTrend: {
+        parameters: {
+            query?: {
+                start?: string;
+                end?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getDeviceDistribution: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    detectAnomalySessions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getBindings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getAvailablePlatforms: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    unbind: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                platform: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["SocialClientPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listEnabled: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SocialClientDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                platform: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SocialClientDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                platform: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getOverview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    tokenExchange: {
+        parameters: {
+            query?: {
+                request?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TokenExchangeRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    validate: {
+        parameters: {
+            query?: {
+                request?: Record<string, never>;
+                token?: string;
+            };
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    logoutNotify: {
+        parameters: {
+            query?: {
+                request?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LogoutNotifyRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["UserAccountPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserAccountDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserAccountDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    changePassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChangePasswordDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    resetPassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ResetPasswordDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getUserRoles: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    assignRoles: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignRolesDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    importUsers: {
+        parameters: {
+            query?: {
+                file?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    downloadImportTemplate: {
+        parameters: {
+            query?: {
+                response?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    exportUsers: {
+        parameters: {
+            query?: {
+                response?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    getLoginHistory: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchRemove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BatchUserStatusDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchEnable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BatchUserStatusDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchDisable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BatchUserStatusDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    suspend: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    resume: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    disable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    enable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    resign: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    sensitiveVerify: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SensitiveVerifyDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    search: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["UserSearchQuery"];
+                request?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    rebuildIndex: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserPreferenceDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    reset: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getCurrentUserProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    updateCurrentUserProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserProfileUpdateDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    changePassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Valid  ChangePasswordDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    uploadAvatar: {
+        parameters: {
+            query?: {
+                file?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getMfaStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    setupMfa: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    activateMfa: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MfaOperationDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    disableMfa: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MfaOperationDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getPasskeyRegistrationOptions: {
+        parameters: {
+            query?: {
+                username?: string;
+                displayName?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getPasskeyAuthenticationOptions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    verifyPasskeyAuthentication: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getRegistrationOptions: {
+        parameters: {
+            query?: {
+                username?: string;
+                displayName?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    verifyRegistration: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getAuthenticationOptions: {
+        parameters: {
+            query?: {
+                userId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    verifyAuthentication: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listCredentials: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deleteCredential: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                credentialId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listMyDevices: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    revokeDevice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sessionId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deviceAuthorization: {
+        parameters: {
+            query?: {
+                client_id?: string;
+                scope?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    sendVerifyCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SendVerifyCodeDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    register: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SelfRegisterDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    forgotPassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ForgotPasswordDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    unlockAccount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AccountUnlockDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    streamEvents: {
+        parameters: {
+            query?: {
+                request?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    switchTenant: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TenantSwitchRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
 }

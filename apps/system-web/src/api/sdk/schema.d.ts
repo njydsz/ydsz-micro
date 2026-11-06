@@ -6,3135 +6,4828 @@
  */
 
 export type paths = {
-  '/api/app/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/permission/api/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/app/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/permission/api/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/app': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/permission/api/scan": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["triggerScan"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put: operations['update'];
-    post: operations['save'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/audit/logs': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/permission/api/{id}/enable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["enable"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['queryByTimeRange'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/audit/operator/{operatorId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/permission/api/{id}/disable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["disable"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['queryByOperator'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/audit/action/{action}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/app/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['queryByAction'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/audit/trace/{traceId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/app/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['queryByTraceId'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/admin/audit/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/app": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["save"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/admin/audit/logs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["queryByTimeRange"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/cursor': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/admin/audit/operator/{operatorId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["queryByOperator"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['pageByCursor'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/admin/audit/action/{action}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["queryByAction"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/admin/audit/trace/{traceId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["queryByTraceId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put: operations['update'];
-    post: operations['save'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/batch': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/admin/audit/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['batchSave'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/key/{configKey}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/approval/pending": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPending"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getByKey'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/group/{configGroup}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/approval/submitted": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listSubmitted"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getConfigsByGroup'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/public': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/approval/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAll"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listPublicConfigs'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/export': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/approval/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["submit"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['exportConfigs'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/import': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/approval/{id}/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["approve"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['importConfigs'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/version/{resourceKey}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/approval/{id}/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["reject"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listByResourceKey'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/config/version/{resourceKey}/rollback': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/approval/{id}/withdraw": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["withdraw"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['rollback'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/type/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/approval/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["detail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/type/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/type': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/cursor": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["pageByCursor"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put: operations['update'];
-    post: operations['save'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/type/all': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listAll'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/item/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["save"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/item/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/batch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchSave"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/item/lookup': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/key/{configKey}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getByKey"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['lookup'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/item/type/{typeCode}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/group/{configGroup}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getConfigsByGroup"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listByType'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/item/children/{parentId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/public": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPublicConfigs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listChildren'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/item/tree/{typeCode}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportConfigs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['buildTree'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/item': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["importConfigs"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put: operations['update'];
-    post: operations['save'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/item/batch': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/version/{resourceKey}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listByResourceKey"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['batchSave'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/version/{typeCode}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/version/{resourceKey}/diff": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["diffVersions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listByTypeCode'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/version/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/config/version/{resourceKey}/rollback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rollback"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['pageByTypeCode'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/dict/version/{typeCode}/rollback': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dashboard/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["overview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['rollback'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/system/init': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dashboard/workspace": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["workspace"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['init'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/system/init/dicts': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/type/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['initWithDicts'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/config/get': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/type/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['getConfig'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/dict/item': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/type": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["save"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['getDictItem'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/dict/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/type/all": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAll"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['listDictItems'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/internal/app/validate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/item/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['validateClient'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/tenant/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/item/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/tenant/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/item/lookup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["lookup"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/tenant': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/item/type/{typeCode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listByType"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put: operations['update'];
-    post: operations['save'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/tenant-plan/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/item/children/{parentId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listChildren"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/tenant-plan/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/item/tree/{typeCode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["buildTree"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listAll'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/tenant-plan/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/item": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["save"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/tenant-plan': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/item/batch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchSave"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put: operations['update'];
-    post: operations['save'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/tenant-plan/{planId}/menus': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/version/{typeCode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listByTypeCode"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listMenus'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/tenant-plan/menus': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/version/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["pageByTypeCode"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['updateMenus'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/variable/page': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/dict/version/{typeCode}/rollback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rollback"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['page'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/variable/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/feature-flags/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["me"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['remove'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/variable/key/{variableKey}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/system/init": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["init"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getByKey'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/variable': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/system/init/dicts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["initWithDicts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put: operations['update'];
-    post: operations['save'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/variable/version/{resourceKey}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/internal/config/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["getConfig"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listByResourceKey'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/variable/version/{resourceKey}/rollback': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/internal/dict/item": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["getDictItem"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['rollback'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
+    "/internal/dict/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["listDictItems"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/app/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["validateClient"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/system/metrics/dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["dashboard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "//monitor/error": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["reportErrors"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "//monitor/web-vitals": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["reportWebVitals"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["uploadSourcemap"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/repeat-submit/token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getToken"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/secondary-auth": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["verify"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tenant/accessible": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAccessible"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tenant/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tenant/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tenant": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["save"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tenant-plan/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tenant-plan/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAll"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tenant-plan/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tenant-plan": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["save"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tenant-plan/{planId}/menus": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listMenus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tenant-plan/menus": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["updateMenus"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/variable/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/variable/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/variable/key/{variableKey}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getByKey"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/variable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["update"];
+        post: operations["save"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/variable/version/{resourceKey}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listByResourceKey"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/variable/version/{resourceKey}/rollback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rollback"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 };
 export type webhooks = Record<string, never>;
 export type components = {
-  schemas: {
-    /**
-     * @description 统一API返回结果封装类
-     *
-     *     用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。
-     *
-     *     响应结构：
-     *
-     *
-     *     code: 响应码，A00000表示成功，其他表示失败
-     *     msg: 响应消息
-     *     data: 响应数据
-     *     timestamp: 响应时间戳
-     *
-     *
-     *     使用示例：
-     *
-     *     <pre>{@code
-     *     // 返回成功
-     *     return YdszResponse.success(user);
-     *
-     *     // 返回失败（走 i18n）
-     *     return YdszResponse.error(YdszResultCode.NOT_FOUND);
-     *     }</pre>
-     *
-     *     @param <T> 数据泛型
-     */
-    YdszResponse: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 返回编码 */
-      code?: string;
-      /** @description 返回信息 */
-      msg?: string;
-      /**
-       * @description 返回数据
-       *
-       *     泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。
-       */
-      data?: Record<string, never>;
-      /**
-       * @description 链路追踪 ID。
-       *
-       *     首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。
-       */
-      traceId?: Record<string, never>;
-      /**
-       * @description 请求 ID（用于客户端/前端精准排障，单个请求唯一）。
-       *
-       *     volatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。
-       */
-      requestId?: Record<string, never>;
-      /**
-       * @description 当前服务调用的 Span ID（W3C Trace Context span ID）。
-       *
-       *     volatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link
-       *     com.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。
-       */
-      spanId?: Record<string, never>;
-      /**
-       * Format: int64
-       * @description 时间戳
-       */
-      timestamp?: number;
-      /**
-       * @description 扩展字段（可选）。
-       *
-       *     用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
-       */
-      extensions?: {
-        [key: string]: Record<string, never>;
-      };
-      /**
-       * @description 国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。
-       *
-       *     采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。
-       */
-      RESOLVER?: Record<string, never>;
+    schemas: {
+        /**
+         * @description 统一API返回结果封装类
+         *
+         *     用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。
+         *
+         *     响应结构：
+         *
+         *
+         *     code: 响应码，A00000表示成功，其他表示失败
+         *     msg: 响应消息
+         *     data: 响应数据
+         *     timestamp: 响应时间戳
+         *
+         *
+         *     使用示例：
+         *
+         *     <pre>{@code
+         *     // 返回成功
+         *     return YdszResponse.success(user);
+         *
+         *     // 返回失败（走 i18n）
+         *     return YdszResponse.error(YdszResultCode.NOT_FOUND);
+         *     }</pre>
+         *
+         *     @param <T> 数据泛型
+         */
+        YdszResponse: {
+            /**
+             * Format: int64
+             * @description 序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。
+             */
+            serialVersionUID?: number;
+            /** @description 返回编码 */
+            code?: string;
+            /** @description 返回信息 */
+            msg?: string;
+            /**
+             * @description 异常级别。
+             *
+             *     取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：
+             *
+             *
+             *     INFO — 静默处理，不展示 toast
+             *     WARN — 轻量 toast 提示（auto-close 3s）
+             *     ERROR — toast 提示，需用户点击关闭
+             *     FATAL — 弹窗提示，阻断用户当前操作
+             *
+             *
+             *     成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
+             */
+            level?: string;
+            /**
+             * @description 返回数据
+             *
+             *     泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。
+             */
+            data?: Record<string, never>;
+            /**
+             * @description 链路追踪 ID。
+             *
+             *     首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。
+             */
+            traceId?: Record<string, never>;
+            /**
+             * @description 请求 ID（用于客户端/前端精准排障，单个请求唯一）。
+             *
+             *     volatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。
+             */
+            requestId?: Record<string, never>;
+            /**
+             * @description 当前服务调用的 Span ID（W3C Trace Context span ID）。
+             *
+             *     volatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link
+             *     com.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。
+             */
+            spanId?: Record<string, never>;
+            /**
+             * Format: int64
+             * @description 时间戳
+             */
+            timestamp?: number;
+            /**
+             * @description 扩展字段（可选）。
+             *
+             *     用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
+             */
+            extensions?: {
+                [key: string]: Record<string, never>;
+            };
+            /**
+             * @description 国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。
+             *
+             *     采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。
+             */
+            RESOLVER?: Record<string, never>;
+        };
+        /**
+         * @description 接口权限分页查询参数
+         *
+         *     对应 `ydsz_sys_api_permission` 表的分页查询条件，由 Controller 接收并透传给 `ApiPermissionService.page()`。
+         *     继承自 PageQuery，自带 `pageNum` / `pageSize` / `orderBy` / `sort` 等通用分页参数。
+         *
+         *     字段语义：
+         *
+         *
+         *     `apiCode` — 权限码模糊匹配（`LIKE %xxx%`）
+         *     `apiName` — 接口名称模糊匹配
+         *     `controllerClass` — Controller 类名模糊匹配
+         *     `status` — 启用状态精确匹配（`=`），可空
+         *
+         *
+         *     多租户：租户过滤由 MyBatis 拦截器自动注入。
+         */
+        ApiPermissionQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 权限码模糊匹配 */
+            apiCode?: string;
+            /** @description 接口名称模糊匹配 */
+            apiName?: string;
+            /** @description Controller 类名模糊匹配 */
+            controllerClass?: string;
+            /** @description 状态精确匹配 */
+            status?: string;
+        };
+        /**
+         * @description 应用信息分页查询参数
+         *
+         *     对应 `ydsz_sys_app_info` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
+         *     `pageSize` / `orderBy` / `sort` 等通用分页参数。
+         *
+         *     字段语义：
+         *
+         *
+         *     `appName` — 应用名称模糊匹配（可选）
+         *     `status` — 启用状态精确匹配（可选）
+         */
+        AppInfoPageQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            appName?: string;
+            status?: string;
+        };
+        /**
+         * @description 应用注册创建/更新 DTO
+         *
+         *     对应 `ydsz_sys_app_info` 表的写入参数，对标 OAuth 2.0 客户端注册模型。 创建时 `id` 为空（由雪花算法自动生成），更新时 {@code
+         *     id} 必填。
+         *
+         *     字段约束：
+         *
+         *
+         *     `appCode` — 应用编码，租户内唯一，最长 64 字符
+         *     `appName` — 应用名称，最长 128 字符
+         *     `appKey` — 客户端 ID（`client_id`），最长 128 字符
+         *     `appSecret` — 客户端密钥（`client_secret`），BCrypt 加密存储，最长 256 字符
+         *     `redirectUrl` — 授权回调地址，最长 512 字符，需 URL 合法
+         *     `scopes` — OAuth2 授权范围（CSV），如 `"user.read,order.write"`
+         *     `boundIps` — IP 绑定白名单（CSV），如 `"192.168.1.0/24,10.0.0.1"`，为空表示不限制
+         *     `status` — 启用状态：`ENABLED / DISABLED`
+         *
+         *
+         *     安全约束：
+         *
+         *
+         *     `appSecret` 在 Service 层 BCrypt 加密后存储，明文不落库
+         *     接口权限校验：`ydsz:app:create / ydsz:app:update`
+         */
+        AppInfoDTO: {
+            id?: string;
+            appCode: string;
+            appName: string;
+            appKey: string;
+            appSecret?: string;
+            redirectUrl?: string;
+            scopes?: string;
+            boundIps?: string;
+            description?: string;
+            status?: string;
+        };
+        /**
+         * @description 配置变更审批单据查询参数。
+         *
+         *     支持分页、状态筛选和资源类型筛选。
+         */
+        ConfigApprovalQuery: {
+            /**
+             * Format: int32
+             * @description 默认每页大小
+             */
+            DEFAULT_PAGE_SIZE?: number;
+            /**
+             * Format: int32
+             * @description 页码（从 1 开始）
+             */
+            pageNum?: number;
+            /**
+             * Format: int32
+             * @description 每页大小
+             */
+            pageSize?: number;
+            /** @description 审批状态筛选（PENDING / APPROVED / REJECTED / WITHDRAWN，为空表示全部） */
+            status?: string;
+            /** @description 资源类型筛选（CONFIG / DICT / VARIABLE，为空表示全部） */
+            resourceType?: string;
+            /** @description 按发起人 ID 筛选（查询「我已发起的」时使用） */
+            submitterId?: string;
+            /** @description 按当前审批人 ID 筛选（查询「待我审批的」时使用） */
+            approverId?: string;
+        };
+        /**
+         * @description 配置变更提交审批请求 DTO。
+         *
+         *     前端在配置管理页面发起审批流时提交，包含资源标识、变更前后值和原因。
+         */
+        ConfigApprovalSubmitDTO: {
+            /** @description 资源类型（CONFIG / DICT / VARIABLE） */
+            resourceType: string;
+            /** @description 资源唯一标识（如配置键、字典类型编码、变量键） */
+            resourceKey: string;
+            /** @description 资源分组（仅 CONFIG 类型有值） */
+            resourceGroup?: string;
+            /** @description 变更操作类型（CREATE / UPDATE / DELETE） */
+            changeType: string;
+            /** @description 变更前的 JSON 值（CREATE 时为空） */
+            beforeJson?: string;
+            /** @description 变更后的 JSON 值（DELETE 时为空） */
+            afterJson?: string;
+            /** @description 变更原因 */
+            reason?: string;
+        };
+        /**
+         * @description 系统配置分页查询参数
+         *
+         *     对应 `ydsz_sys_config` 表的分页查询条件，由 Controller 接收并透传给 `ConfigService.page()`。继承自 {@link
+         *     PageQuery}，自带 `pageNum` / `pageSize` / `orderBy` / `sort` 等通用分页参数。
+         *
+         *     字段语义：
+         *
+         *
+         *     `configGroup` — 配置分组精确匹配（`=`），如 `ydsz.workflow`
+         *     `configKey` — 配置键模糊匹配（`LIKE %xxx%`）
+         *     `status` — 启用状态精确匹配（`=`），可空
+         *
+         *
+         *     多租户：租户过滤由 MyBatis 拦截器自动注入。
+         *
+         *     索引利用：`(configGroup, configKey)` 命中 `uk_tenant_group_key` 唯一索引的前缀；典型查询模式
+         *     「按分组列出」走该索引范围扫描，性能可控。
+         */
+        ConfigPageQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            configGroup?: string;
+            configKey?: string;
+            status?: string;
+        };
+        /**
+         * @description 系统配置创建/更新 DTO
+         *
+         *     对应 `ydsz_sys_config` 表的写入参数，是「系统配置中心」创建 / 更新接口的入参载体。 创建时 `id` 为空（由雪花算法自动生成），更新时
+         *     `id` 必填。
+         *
+         *     P1-5 字段重叠处理：本类与 ConfigVO 字段完全一致，遵循《云顶编码规范》"VO 兼 DTO"模式（字段无差异时不作三分离）。 作为
+         *     Repository 层的写入契约存在，避免 infra 层直接依赖 ConfigVO（保持分层边界清晰）。
+         *
+         *     维护约定：新增字段时需同步 ConfigVO，确保两者结构一致。
+         *
+         *     字段语义：
+         *
+         *
+         *     `configGroup` — 配置分组，按业务域分类管理
+         *     `configKey` — 配置键，同组内唯一标识
+         *     `configValue` — 配置值
+         *     `valueType` — 值类型: STRING/NUMBER/BOOLEAN/JSON
+         *     `defaultValue` — 默认值（配置未设置时使用）
+         *     `public` — 是否对前端公开: true 公开 / false 仅后端
+         *     `sort` — 排序序号
+         *     `status` — 启用状态: ENABLED/DISABLED
+         */
+        ConfigDTO: {
+            id?: string;
+            configGroup: string;
+            configKey: string;
+            configValue?: string;
+            valueType: string;
+            defaultValue?: string;
+            description?: string;
+            isPublic?: boolean;
+            /** Format: int32 */
+            sort?: number;
+            status?: string;
+        };
+        /**
+         * @description 系统配置批量操作 DTO
+         *
+         *     用于批量创建配置项（运营初始化场景），单次最多 500 条。
+         */
+        ConfigBatchDTO: {
+            items: components["schemas"]["ConfigVO"][];
+        };
+        /**
+         * @description 系统配置 VO（视图对象）
+         *
+         *     对应 `ydsz_sys_config` 表的展示视图，是「系统配置中心」列表 / 详情接口的响应载体。
+         *     由 SystemConverter 从 {@link
+         *     Config} 实体转换而来。
+         *
+         *     字段语义：
+         *
+         *
+         *     `configValue` — 配置值，序列化时按 `valueType` 转换： `STRING` 原样输出；{@code NUMBER /
+         *     BOOLEAN / JSON} 解析为对应类型
+         *     `defaultValue` — 默认值（`configValue` 为空时回退）
+         *     `isPublic` — 是否对前端公开：`true` 公开 / `false` 仅后端； 前端「公开配置」接口仅返回 `isPublic=true`
+         *     的项
+         *
+         *
+         *     使用场景：
+         *
+         *
+         *     配置中心列表 / 详情 / 编辑回显
+         *     业务参数动态下发（`ydsz.workflow.sla-default-hours` 等）
+         *     前端「公开配置」接口返回值（开关、限流阈值、特性开关等）
+         *
+         *
+         *     缓存策略：读取通过 ydsz-common-cache 进程内本地缓存（键 `value:{tenantId`:{configKey}}）；
+         *     写入时 `@CacheEvict` 精准失效；TTL 通过 `ydsz.cache.caches.system:config` 配置（默认 5 分钟）。
+         *
+         *     注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link
+         *     com.njydsz.system.domain.dto.ConfigDTO} 负责。
+         */
+        ConfigVO: {
+            id?: string;
+            configGroup?: string;
+            configKey?: string;
+            configValue?: string;
+            valueType?: string;
+            defaultValue?: string;
+            description?: string;
+            isPublic?: boolean;
+            /** Format: int32 */
+            sort?: number;
+            status?: string;
+        };
+        /** @description HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        HttpServletResponse: Record<string, never>;
+        /**
+         * @description 字典类型分页查询参数
+         *
+         *     对应 `ydsz_sys_dict_type` 表的分页查询条件，由 Controller 接收并透传给 `DictTypeService.page()`。继承自
+         *     PageQuery，自带 `pageNum` / `pageSize` / `orderBy` / `sort` 等通用分页参数。
+         *
+         *     字段语义：
+         *
+         *
+         *     `typeCode` — 类型编码精确匹配（`=`），用于「按编码快速定位」
+         *     `typeName` — 类型名称模糊匹配（`LIKE %xxx%`），用于「按名称搜索」
+         *     `status` — 启用状态精确匹配（`=`），可空（`null` 表示全部）
+         *
+         *
+         *     多租户：租户过滤由 MyBatis 拦截器（`ydsz-common-jdbc`）自动注入， 本类无需显式声明 `tenantId`。
+         *
+         *     索引利用：`typeCode` 命中 `uk_tenant_type_code` 唯一索引； `typeName`
+         *     模糊匹配走全表扫描（数据量可控，小于 1000 条无影响）。
+         */
+        DictPageQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            typeCode?: string;
+            typeName?: string;
+            status?: string;
+        };
+        /**
+         * @description 字典类型 DTO
+         *
+         *     用于字典类型的创建和更新操作，作为 Repository 接口 CUD 方法的入参。
+         *
+         *     字段语义：
+         *
+         *
+         *     `id` — 主键 ID（更新时必填）
+         *     `typeCode` — 字典类型编码，租户内唯一
+         *     `typeName` — 字典类型名称
+         *     `description` — 字典类型业务说明
+         *     `status` — 启用状态: ENABLED/DISABLED
+         */
+        DictTypeDTO: {
+            id?: string;
+            typeCode: string;
+            typeName: string;
+            description?: string;
+            status?: string;
+        };
+        /**
+         * @description 字典项分页查询参数
+         *
+         *     对应 `ydsz_sys_dict_item` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
+         *     `pageSize` / `orderBy` / `sort` 等通用分页参数。
+         *
+         *     字段语义：
+         *
+         *
+         *     `typeCode` — 字典类型编码精确匹配（可选）
+         *     `itemCode` — 字典项编码模糊匹配（可选）
+         *     `status` — 启用状态精确匹配（可选）
+         */
+        DictItemPageQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            typeCode?: string;
+            itemCode?: string;
+            status?: string;
+        };
+        /**
+         * @description 字典项 DTO
+         *
+         *     用于字典项的创建和更新操作，作为 Repository 接口 CUD 方法的入参。
+         *
+         *     字段语义：
+         *
+         *
+         *     `id` — 主键 ID（更新时必填）
+         *     `typeCode` — 所属字典类型编码
+         *     `itemCode` — 字典项编码
+         *     `itemValue` — 字典项展示值
+         *     `parentId` — 父级 ID
+         *     `sort` — 排序号
+         *     `description` — 字典项业务说明
+         *     `extJson` — 扩展属性 JSON
+         *     `status` — 启用状态: ENABLED/DISABLED
+         */
+        DictItemDTO: {
+            id?: string;
+            parentId?: string;
+            typeCode: string;
+            itemCode: string;
+            itemValue: string;
+            /** Format: int32 */
+            sort?: number;
+            description?: string;
+            extJson?: string;
+            status?: string;
+        };
+        /**
+         * @description 字典项批量操作 DTO
+         *
+         *     用于批量新增字典项（运营初始化场景），单次最多 500 条。
+         */
+        DictItemBatchDTO: {
+            items: components["schemas"]["DictItemVO"][];
+        };
+        /**
+         * @description 字典项 VO（视图对象）
+         *
+         *     对应 `ydsz_sys_dict_item` 表的展示视图，是「字典中心」列表 / 详情接口的响应载体，
+         *     也是前端下拉框、单选框、级联选择器、Tag 组件的核心数据载体。
+         *
+         *     使用 com.njydsz.common.domain.tree.TreeBuilder#buildSimple 构建树形结构，无需继承 `TreeNode` 基类，
+         *     保持 VO 类的纯粹性（无框架耦合），同时通过 `level`/`path` 回调自动填充层级元数据。
+         *
+         *     字段语义：
+         *
+         *
+         *     `typeCode` — 所属字典类型编码，与 DictTypeVO#typeCode 关联
+         *     `itemCode` — 字典项编码（业务存储值，`<el-option :value="...">`）
+         *     `itemValue` — 字典项展示值（前端展示文本）
+         *     `parentId` — 父级 ID（`0` = 根），支持「省 / 市 / 区县」三级级联
+         *     `sort` — 同类型内排序号（升序），直接作为 TreeBuilder 排序字段
+         *     `extJson` — 扩展属性 JSON（如地区码、颜色值、图标等），前端按需解析
+         *
+         *
+         *     使用场景：
+         *
+         *
+         *     字典中心列表 / 详情
+         *     前端通用下拉框 / 单选框 / 多选框 / 级联选择 / 树形字典渲染
+         *     业务表单中的「枚举字段」数据源
+         *
+         *
+         *     缓存策略：读取时按 `ydsz:dict:item:{typeCode`} 整体缓存至 Redis； 列表查询支持本地缓存（Caffeine），TTL 5min。
+         *
+         *     注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link
+         *     com.njydsz.system.domain.dto.DictItemDTO} 负责。
+         *
+         *     构建树形结构，消除业务 VO 与框架基类的耦合
+         */
+        DictItemVO: {
+            /** @description 字典项唯一标识 */
+            id?: string;
+            /** @description 父级 ID（`0` = 根），支持「省 / 市 / 区县」三级级联 */
+            parentId?: string;
+            /** @description 子节点列表（树形构建时由 TreeBuilder 自动填充） */
+            children?: components["schemas"]["DictItemVO"][];
+            /**
+             * Format: int32
+             * @description 层级深度（根节点=1，由 TreeBuilder 自动填充）
+             */
+            level?: number;
+            /** @description 节点路径（如 "/1/2/5/"，由 TreeBuilder 自动填充） */
+            path?: string;
+            typeCode?: string;
+            itemCode?: string;
+            itemValue?: string;
+            /**
+             * Format: int32
+             * @description 排序号（同类型内升序），直接作为 TreeBuilder 排序字段
+             */
+            sort?: number;
+            description?: string;
+            extJson?: string;
+            status?: string;
+        };
+        /**
+         * @description 实体版本分页查询条件（P2-3 分页优化）。
+         *
+         *     用于 EntityVersion 的分页查询，统一管理 Config/Dict/Variable 版本的翻页参数。
+         *
+         *     设计要点：
+         *
+         *
+         *     继承 BaseQuery 获取标准分页参数（pageNum / pageSize）
+         *     资源类型 + 资源键为必填条件（版本按资源隔离）
+         */
+        EntityVersionPageQuery: {
+            /** @description 资源类型（CONFIG/DICT/VARIABLE） */
+            resourceType?: string;
+            /** @description 资源唯一标识（如配置键、字典类型编码、变量键） */
+            resourceKey?: string;
+            /**
+             * Format: int32
+             * @description 页码（1-based，默认 1）
+             */
+            pageNum?: number;
+            /**
+             * Format: int32
+             * @description 默认每页条数
+             */
+            DEFAULT_PAGE_SIZE?: number;
+            /**
+             * Format: int32
+             * @description 每页条数（默认 20，最大 500）
+             */
+            pageSize?: number;
+        };
+        /** @description 配置查询请求 DTO。 */
+        ConfigGetRequest: {
+            /** @description 配置键 */
+            key: string;
+        };
+        /** @description 字典项查询请求 DTO。 */
+        DictItemGetRequest: {
+            /** @description 字典类型编码 */
+            typeCode: string;
+            /** @description 字典项编码 */
+            itemCode: string;
+        };
+        /**
+         * @description 字典项列表查询请求 DTO。
+         *
+         *     用于 InternalApiController 内部 API 的字典项列表查询，通过 POST body 传输参数，
+         *     与同模块其他请求 DTO 保持风格一致（DictItemGetRequest、ConfigGetRequest、
+         *     AppValidateRequest）。
+         */
+        DictListRequest: {
+            /** @description 字典类型编码 */
+            typeCode: string;
+        };
+        /** @description 应用密钥校验请求 DTO。 */
+        AppValidateRequest: {
+            /** @description 应用 Key（client_id） */
+            appKey: string;
+            /** @description 应用密钥（client_secret） */
+            appSecret: string;
+        };
+        /**
+         * @description 前端错误批量上报 DTO
+         *
+         *     对应 ydsz-micro 中 `@ydsz/monitor` 上报体 `{ "errors": [...] `}，
+         *     上报端点为 `POST /monitor/error`。前端批量通道上限为单批 20 条，
+         *     服务端放宽至 50 条以兼容自定义上报端点的场景，同时限制单请求体规模。
+         */
+        MonitorErrorBatchDTO: {
+            /** @description 错误条目列表（单批上限 50 条，超出返回参数校验失败） */
+            errors: components["schemas"]["MonitorErrorDTO"][];
+        };
+        /**
+         * @description 前端错误上报条目 DTO
+         *
+         *     对应 ydsz-micro 中 `@ydsz/monitor` 的 ErrorReport 结构。前端经
+         *     `navigator.sendBeacon` 批量上报（降级通道为 keepalive fetch）到
+         *     `POST /monitor/error`，字段命名与前端契约保持 camelCase 一致。
+         *
+         *     容量约束：单条报文的 `stack` 与 `message`
+         *     已设置长度上限，防止异常客户端提交超大报文导致内存与存储压力。
+         */
+        MonitorErrorDTO: {
+            /** @description 错误类型：vue（Vue 组件异常）/ window（全局异常）/ promise（未处理拒绝）/ resource（资源加载失败） */
+            type?: string;
+            /** @description 错误消息（截断上限 4000 字符） */
+            message?: string;
+            /** @description 错误堆栈（截断上限 20000 字符，后端结合 sourcemap 做符号化） */
+            stack?: string;
+            /** @description 出错脚本文件路径 */
+            filename?: string;
+            /**
+             * Format: int32
+             * @description 出错行号（1 起）
+             */
+            lineno?: number;
+            /**
+             * Format: int32
+             * @description 出错列号（1 起）
+             */
+            colno?: number;
+            /** @description 出错页面 URL */
+            url?: string;
+            /**
+             * Format: int64
+             * @description 采集时间戳（epoch 毫秒）
+             */
+            timestamp?: number;
+            /** @description 浏览器 User-Agent */
+            userAgent?: string;
+            /** @description 应用版本号 */
+            appVersion?: string;
+            /** @description 用户标识（脱敏由前端 beforeSend 钩子负责） */
+            userId?: string;
+            /** @description 错误发生时的前端路由路径 */
+            route?: string;
+            /** @description 会话 ID（单次页面生命周期唯一） */
+            sessionId?: string;
+            /** @description 错误追踪 ID（单条错误唯一，便于与后端 traceId 关联） */
+            traceId?: string;
+            /** @description 发布版本（commit hash），用于关联已上传的 sourcemap */
+            release?: string;
+            /** @description 错误发生前的用户行为面包屑（前端最多 30 条） */
+            breadcrumbs?: components["schemas"]["MonitorBreadcrumbDTO"][];
+            /** @description 附加信息（前端自定义键值对） */
+            extra?: {
+                [key: string]: Record<string, never>;
+            };
+        };
+        /**
+         * @description 前端错误面包屑 DTO
+         *
+         *     对应 ydsz-micro 中 `@ydsz/monitor` 的 Breadcrumb 结构，记录错误发生前的
+         *     用户行为轨迹（前端为环形缓冲，最多保留 30 条）。字段全部为前端可选项，
+         *     服务端不做非空约束，缺失时按空处理。
+         */
+        MonitorBreadcrumbDTO: {
+            /**
+             * Format: int64
+             * @description 采集时间戳（epoch 毫秒）
+             */
+            timestamp?: number;
+            /** @description 面包屑类别：ui / navigation / http / log / user */
+            category?: string;
+            /** @description 级别：debug / info / warning / error */
+            level?: string;
+            /** @description 消息文本，例如“点击按钮：提交” */
+            message?: string;
+            /** @description 附加数据（键值对，由前端自定义，服务端不解析其内部结构） */
+            data?: {
+                [key: string]: Record<string, never>;
+            };
+        };
+        /**
+         * @description Web Vitals 批量上报 DTO
+         *
+         *     对应 ydsz-micro 中 `@ydsz/monitor` 上报体 `{ "vitals": [...] `}，
+         *     上报端点为 `POST /monitor/web-vitals`（超出性能阈值时附加 `?alert=true`）。
+         *     前端批量缓冲上限为 6 条，服务端放宽至 20 条以兼容自定义上报端点场景。
+         */
+        MonitorWebVitalBatchDTO: {
+            /** @description 指标条目列表（单批上限 20 条，超出返回参数校验失败） */
+            vitals: components["schemas"]["MonitorWebVitalDTO"][];
+        };
+        /**
+         * @description Web Vitals 指标条目 DTO
+         *
+         *     对应 ydsz-micro 中 `@ydsz/monitor` 的 WebVitalReport 结构。前端基于
+         *     PerformanceObserver 采集 Core Web Vitals，批量上报至 `POST /monitor/web-vitals`。
+         *
+         *     单位约定：`LCP` / `FID` / `INP` / `FCP` /
+         *     `TTFB` / `LT`（长任务）为毫秒；`CLS` 为无量纲累计得分；
+         *     `RT`（资源耗时）为毫秒。
+         */
+        MonitorWebVitalDTO: {
+            /** @description 指标名：LCP / FID / CLS / INP / FCP / TTFB / LT / RT */
+            name?: string;
+            /** @description 指标值（单位见类注释：毫秒或无量纲得分） */
+            value?: number;
+            /** @description 评级：good / needs-improvement / poor（阈值遵循 Google Web Vitals 标准） */
+            rating?: string;
+            /** @description 相对上次上报的增量（CLS 为累计增量，其余通常等于 value） */
+            delta?: number;
+            /** @description 指标唯一 ID（前端生成，用于去重） */
+            id?: string;
+            /** @description 采集页面路径 */
+            page?: string;
+            /**
+             * Format: int64
+             * @description 采集时间戳（epoch 毫秒）
+             */
+            timestamp?: number;
+        };
+        /**
+         * @description 场景化二级认证请求体（P0-2 标准化）。
+         *
+         *     前端调用 `Post /api/auth/secondary-auth` 接口时传入，包含当前用户密码和目标场景标识。
+         */
+        SecondaryAuthRequest: {
+            /**
+             * @description 当前登录用户的明文密码。
+             *
+             *     用于验证用户身份，验证通过后写入场景化安全标记。
+             */
+            password: string;
+            /**
+             * @description 场景标识（scene）。
+             *
+             *     用于区分不同业务场景的二级认证，每个场景独立验证、独立过期。
+             *     常用值：`password_change`、`role_assign`、`data_export`、`tenant_config`
+             */
+            scene: string;
+            /**
+             * Format: int32
+             * @description 二级认证有效期（秒）。
+             *
+             *     默认 300 秒（5 分钟）。CRITICAL 级别会自动缩短为 40%。
+             */
+            ttlSeconds?: number;
+            /**
+             * @description 敏感操作等级。
+             *
+             *     默认 HIGH。CRITICAL 级别使用更短的验证窗口（TTL 的 40%，最小 60 秒）。
+             * @enum {string}
+             */
+            level?: "MEDIUM" | "HIGH" | "CRITICAL";
+        };
+        /**
+         * @description 租户分页查询参数
+         *
+         *     对应 `ydsz_sys_tenant` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
+         *     `pageSize` / `orderBy` / `sort` 等通用分页参数。
+         *
+         *     字段语义：
+         *
+         *
+         *     `tenantName` — 租户名称模糊匹配（可选）
+         *     `status` — 启用状态精确匹配（可选）
+         *
+         *
+         *     多租户：租户过滤由 MyBatis 拦截器（`ydsz-common-jdbc`）自动注入， 本类无需显式声明 `tenantId`。
+         */
+        TenantPageQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            tenantName?: string;
+            tenantCode?: string;
+            status?: string;
+        };
+        /**
+         * @description 租户创建/更新 DTO
+         *
+         *     对应 `ydsz_sys_tenant` 表的写入参数。 创建时 `id` 为空（由雪花算法自动生成），更新时 `id` 必填。
+         *
+         *     字段约束：
+         *
+         *
+         *     `tenantCode` — 租户编码，全局唯一，最长 64 字符
+         *     `tenantName` — 租户名称，最长 128 字符
+         */
+        TenantDTO: {
+            id?: string;
+            tenantCode: string;
+            tenantName: string;
+            contactName?: string;
+            contactPhone?: string;
+            /** Format: email */
+            contactEmail?: string;
+            planId?: string;
+            /** Format: date-time */
+            expireAt?: string;
+            datasourceKey?: string;
+            status?: string;
+            remark?: string;
+        };
+        /**
+         * @description 租户套餐分页查询参数
+         *
+         *     对应 `ydsz_sys_tenant_plan` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
+         *     `pageSize` / `orderBy` / `sort` 等通用分页参数。
+         *
+         *     字段语义：
+         *
+         *
+         *     `planName` — 套餐名称模糊匹配（可选）
+         *     `status` — 启用状态精确匹配（可选）
+         */
+        TenantPlanPageQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            planName?: string;
+            status?: string;
+        };
+        /**
+         * @description 租户套餐创建/更新 DTO
+         *
+         *     对应 `ydsz_sys_tenant_plan` 表的写入参数，是「套餐管理」创建 / 更新接口的入参载体。
+         *     创建时 `id` 为空（由雪花算法自动生成），更新时 `id` 必填。
+         *
+         *     字段语义：
+         *
+         *
+         *     `planCode` — 套餐编码，全局唯一标识
+         *     `sort` — 排序号（升序，影响前端套餐选择器顺序）
+         */
+        TenantPlanDTO: {
+            id?: string;
+            planCode: string;
+            planName: string;
+            description?: string;
+            /** Format: int32 */
+            sort?: number;
+            quotaJson?: string;
+            featureJson?: string;
+            status?: string;
+        };
+        /**
+         * @description 租户套餐-菜单关联 DTO
+         *
+         *     用于为套餐批量配置可访问菜单列表。 通过套餐 ID + 菜单 ID 列表一次性设置套餐的菜单权限。
+         */
+        TenantPlanMenuDTO: {
+            planId: string;
+            menuIds?: string[];
+        };
+        /**
+         * @description 系统变量分页查询参数
+         *
+         *     对应 `ydsz_sys_variable` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
+         *     `pageSize` / `orderBy` / `sort` 等通用分页参数。
+         *
+         *     字段语义：
+         *
+         *
+         *     `variableKey` — 变量键模糊匹配（可选）
+         *     `status` — 启用状态精确匹配（可选）
+         */
+        VariablePageQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            variableKey?: string;
+            status?: string;
+        };
+        /**
+         * @description 系统变量创建/更新 DTO
+         *
+         *     对应 `ydsz_sys_variable` 表的写入参数，是「系统变量中心」创建 / 更新接口的入参载体。
+         *     创建时 `id` 为空（由雪花算法自动生成），更新时 `id` 必填。
+         *
+         *     字段语义：
+         *
+         *
+         *     `variableKey` — 变量键，租户内唯一
+         *     `variableValue` — 变量值
+         *     `valueType` — 值类型: STRING/NUMBER/BOOLEAN/JSON
+         *     `status` — 启用状态: ENABLED/DISABLED
+         */
+        VariableDTO: {
+            id?: string;
+            variableKey: string;
+            variableValue?: string;
+            valueType: string;
+            description?: string;
+            status?: string;
+        };
+        /**
+         * @description 接口权限 VO（视图对象）
+         *
+         *     对应 `ydsz_sys_api_permission` 表的展示视图，是「接口权限注册中心」列表 / 详情接口的响应载体。
+         *
+         *     字段语义：
+         *
+         *
+         *     `apiCode` — 权限码（如 sys:config:list）
+         *     `httpMethod` — HTTP 方法
+         *     `urlPattern` — URL 模式
+         *     `controllerClass` — Controller 完全限定名
+         *     `methodName` — Controller 方法名
+         *     `status` — 启用状态: ENABLED/DISABLED
+         */
+        ApiPermissionVO: {
+            id?: string;
+            apiCode?: string;
+            apiName?: string;
+            httpMethod?: string;
+            urlPattern?: string;
+            controllerClass?: string;
+            methodName?: string;
+            description?: string;
+            status?: string;
+            createdBy?: string;
+            createdAt?: string;
+            updatedBy?: string;
+            updatedAt?: string;
+        };
+        /**
+         * @description 应用注册 VO
+         *
+         *     对应 `ydsz_sys_app_info` 表的展示视图，是「应用注册中心」列表 / 详情接口的返回值类型。 由 {@link
+         *     com.njydsz.system.domain.converter.SystemConverter} 从 {@link
+         *     com.njydsz.system.domain.entity.AppInfo} 实体转换而来。
+         *
+         *     安全约束（关键）：
+         *
+         *
+         *     不暴露 `appSecret` 字段，BCrypt 哈希永远不出现在 VO 中， 即便数据库被拖库也不可逆
+         *     管理后台「查看密钥」入口走单独的 `/app/{id`/secret} 接口， 该接口需 `ydsz:app:secret:view` 权限码 +
+         *     二次密码确认 + 操作审计
+         *     列表接口在 `YdszJson` 序列化层强制忽略 `appSecret` 字段 （如未来误加
+         *     `@com.njydsz.common.json.annotation.JsonProperty`，需通过单元测试拦截）
+         *
+         *
+         *     使用场景：
+         *
+         *
+         *     应用管理列表 / 详情 / 编辑回显
+         *     OAuth 2.0 客户端注册信息展示
+         *     第三方应用对接时的「应用信息」展示
+         */
+        AppInfoVO: {
+            id?: string;
+            appCode?: string;
+            appName?: string;
+            appKey?: string;
+            /**
+             * @description 应用密钥（BCrypt 哈希），仅供内部密钥校验使用。
+             *
+             *     标记 `@JsonIgnore` 确保序列化时不暴露给前端。
+             */
+            appSecret?: string;
+            redirectUrl?: string;
+            scopes?: string;
+            boundIps?: string;
+            description?: string;
+            status?: string;
+        };
+        /**
+         * @description 审计日志实体
+         *
+         *     封装完整的审计轨迹信息，包括操作人、行为、状态、上下文、参数、结果等。 该实体在审计切面、记录器、存储层之间传递，字段名直接映射数据库列。
+         *
+         *     字段使用约束：
+         *
+         *
+         *     #requestParams 和 #responseResult 默认仅记录截断/脱敏后的数据， 避免日志膨胀和敏感信息泄露
+         *     #operatorId 从 `RequestContext` 透传，避免在审计上下文中重复存储
+         *     #appKey 为应用标识（合并原 appId/appCode/appName），从配置中心读取
+         */
+        AuditLog: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 审计记录唯一标识（雪花算法生成） */
+            id?: string;
+            /**
+             * Format: int32
+             * @description 审计类型（com.njydsz.common.audit.enums.AuditType 编码）
+             */
+            auditType?: number;
+            /**
+             * Format: int32
+             * @description 操作行为（com.njydsz.common.audit.enums.AuditAction 编码）
+             */
+            action?: number;
+            /**
+             * Format: int32
+             * @description 审计状态（com.njydsz.common.audit.enums.AuditStatus 编码）
+             */
+            status?: number;
+            /** @description 模块名称（如用户管理、订单管理等） */
+            module?: string;
+            /** @description 操作内容描述（经 SpEL 解析后的最终文本） */
+            content?: string;
+            /** @description 业务流水号（关联业务单据，便于端到端追踪） */
+            businessNo?: string;
+            /** @description 操作人 ID */
+            operatorId?: string;
+            /** @description 操作人姓名 */
+            operatorName?: string;
+            /**
+             * Format: date-time
+             * @description 操作时间（业务方法执行时刻）
+             */
+            operationTime?: string;
+            /** @description 请求 IP 地址 */
+            ipAddress?: string;
+            /** @description 请求参数（已脱敏/截断） */
+            requestParams?: string;
+            /** @description 响应结果（已脱敏/截断；默认不记录） */
+            responseResult?: string;
+            /**
+             * @description 变更前快照（JSON）。
+             *
+             *     仅当 com.njydsz.common.audit.annotation.Audit#recordDiff() = true 时
+             *     在方法执行前由切面查询记录。用于 diff 追溯（如：更新前的用户信息）。
+             */
+            diffBeforeSnapshot?: string;
+            /**
+             * @description 变更后快照（JSON）。
+             *
+             *     方法执行后由切面捕获（含方法返回值）。与 #diffBeforeSnapshot 配合
+             *     记录完整的变更 diff。
+             */
+            diffAfterSnapshot?: string;
+            /** @description 错误信息（业务方法抛异常时记录） */
+            errorMessage?: string;
+            /**
+             * Format: int64
+             * @description 执行耗时（毫秒）
+             */
+            costTime?: number;
+            /** @description 应用标识（合并原 appId/appCode/appName，从配置中心读取） */
+            appKey?: string;
+            /** @description 租户 ID（多租户场景下用于数据隔离） */
+            tenantId?: string;
+            /** @description 链路追踪 ID（独立列，支持索引查询） */
+            traceId?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间（审计日志落库时刻）
+             */
+            createdAt?: string;
+        };
+        /**
+         * @description 配置变更审批单视图对象（返回前端）。
+         *
+         *     封装审批单的完整展示信息，包括审计日志时间线（JSON 解析后填充）。
+         */
+        ConfigApprovalVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 审批单唯一 ID */
+            id?: string;
+            /** @description 审批标题 */
+            title?: string;
+            /** @description 资源类型（CONFIG / DICT / VARIABLE） */
+            resourceType?: string;
+            /** @description 资源唯一标识 */
+            resourceKey?: string;
+            /** @description 资源分组 */
+            resourceGroup?: string;
+            /** @description 变更操作类型（CREATE / UPDATE / DELETE） */
+            changeType?: string;
+            /** @description 变更前的 JSON 值 */
+            beforeJson?: string;
+            /** @description 变更后的 JSON 值 */
+            afterJson?: string;
+            /** @description 审批状态（PENDING / APPROVED / REJECTED / WITHDRAWN） */
+            status?: string;
+            /** @description 发起人 ID */
+            submitterId?: string;
+            /** @description 发起人姓名 */
+            submitterName?: string;
+            /**
+             * Format: date-time
+             * @description 发起时间
+             */
+            submittedAt?: string;
+            /** @description 当前审批人姓名 */
+            currentApproverName?: string;
+            /** @description 变更原因 */
+            reason?: string;
+            /** @description 拒绝原因 */
+            rejectionReason?: string;
+            /**
+             * Format: date-time
+             * @description 审批单关闭时间
+             */
+            closedAt?: string;
+        };
+        /**
+         * @description 导入结果 VO（系统模块）。
+         *
+         *     封装 Excel 导入的结果统计信息，继承通用 ExcelImportResult 基类。
+         *
+         *     结构化错误（#errorItems）与旧错误（#errors）并存： #errorItems 供前端精准定位错误行/字段； #errors 供旧版前端展示纯文本错误。
+         */
+        ImportResultVO: {
+            /** @description 导入结果消息 */
+            message?: string;
+            /**
+             * @description 结构化错误列表（含行号、字段名、错误码、消息）。
+             *
+             *     前端可按此渲染错误定位单元格，无需解析字符串。若为空则兼容旧的 #errors 纯文本列表。
+             */
+            errorItems?: components["schemas"]["ImportErrorItem"][];
+            /**
+             * Format: int32
+             * @description Excel 行号（从 2 开始，第 1 行为表头）
+             */
+            row?: number;
+            /** @description 出错字段名（如 typeCode / itemCode / configValue） */
+            field?: string;
+            /** @description 错误码（如 DUPLICATE / REQUIRED / INVALID_FORMAT） */
+            code?: string;
+        };
+        /**
+         * @description 导入错误项 DTO（结构化表示单条错误的位置和原因）。
+         *
+         *     供前端精准定位到 Excel 的具体行和字段，渲染高亮单元格和错误提示。
+         */
+        ImportErrorItem: {
+            /**
+             * Format: int32
+             * @description Excel 行号（从 2 开始，第 1 行为表头）
+             */
+            row?: number;
+            /** @description 出错字段名（如 typeCode / itemCode / configValue） */
+            field?: string;
+            /** @description 错误码（如 DUPLICATE / REQUIRED / INVALID_FORMAT） */
+            code?: string;
+            /** @description 错误描述（中文可读文案） */
+            message?: string;
+        };
+        /**
+         * @description 统一实体版本 VO
+         *
+         *     对应 `ydsz_sys_entity_version` 表的展示视图，是「版本管理」列表 / 详情接口的返回值类型。
+         */
+        EntityVersionVO: {
+            id?: string;
+            resourceType?: string;
+            resourceKey?: string;
+            resourceGroup?: string;
+            version?: string;
+            changeLog?: string;
+            /** Format: date-time */
+            effectiveDate?: string;
+            snapshotJson?: string;
+        };
+        /**
+         * @description 工作台概览统计项 VO
+         *
+         *     供 `GET /api/dashboard/overview` 返回，对齐前端
+         *     `OverviewItem` 契约（analytics 页顶部统计卡片）。
+         */
+        DashboardOverviewItemVO: {
+            /** @description 统计项标题（如「租户总数」） */
+            title?: string;
+            /** @description 累计总值标题（如「累计租户」） */
+            totalTitle?: string;
+            /**
+             * Format: int64
+             * @description 累计总值
+             */
+            totalValue?: number;
+            /**
+             * Format: int64
+             * @description 今日/增量值
+             */
+            value?: number;
+        };
+        /**
+         * @description 工作台聚合数据 VO
+         *
+         *     供 `GET /api/dashboard/workspace` 返回，对齐前端 `WorkspaceData` 契约。
+         *     当前版本提供后端可真实计算的「时段化问候语」；项目/待办/动态等列表字段由前端
+         *     按字段粒度回退本地默认值（前端 useWorkspaceData 已内置该合并逻辑），
+         *     待各业务模块沉淀出真实的待办/动态聚合能力后再逐字段接入。
+         */
+        DashboardWorkspaceVO: {
+            /** @description 问候文案（按时段 + 当前用户名生成，如「下午好，admin」） */
+            greeting?: string;
+        };
+        /**
+         * @description 字典类型 VO（视图对象）
+         *
+         *     对应 `ydsz_sys_dict_type` 表的展示视图，是「字典中心」列表 / 详情接口的响应载体。
+         *
+         *     字段语义：
+         *
+         *
+         *     `typeCode` — 字典类型编码，租户内唯一，业务存储 / 接口传输主键
+         *     `typeName` — 字典类型名称（前端展示文本，如「订单状态」「行业类型」）
+         *
+         *
+         *     使用场景：
+         *
+         *
+         *     字典中心列表 / 详情 / 编辑回显
+         *     前端「字典类型选择器」数据源（管理员配置字典项前的下拉框）
+         *     字典项管理页的「按类型筛选」下拉框
+         *
+         *
+         *     关联关系：1 个 `DictTypeVO` 对应 N 个 DictItemVO，构成「类型 → 项」两级结构。
+         *
+         *     注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link
+         *     com.njydsz.system.domain.dto.DictTypeDTO} 负责。
+         */
+        DictTypeVO: {
+            id?: string;
+            typeCode?: string;
+            typeName?: string;
+            description?: string;
+            status?: string;
+        };
+        /**
+         * @description 前端初始化聚合响应 VO
+         *
+         *     聚合前端初始化所需的数据，减少前端启动时的请求次数。
+         *
+         *     包含：
+         *
+         *
+         *     公开配置（前端可读的系统配置）
+         *     字典类型下拉数据（常用字典）
+         */
+        FrontendInitVO: {
+            /** @description 公开配置 Map（key-value 形式，前端直接使用） */
+            publicConfigs?: {
+                [key: string]: string;
+            };
+            /** @description 字典类型下拉数据（typeCode -> 字典项列表） */
+            dictMap?: {
+                [key: string]: components["schemas"]["DictItemVO"][];
+            };
+            /** @description 系统版本号 */
+            systemVersion?: string;
+            /** @description 当前租户 ID */
+            tenantId?: string;
+            /** @description 当前用户 ID */
+            userId?: string;
+        };
+        /**
+         * @description 二次认证响应 VO。
+         *
+         *     密码校验通过后颁发的短期令牌，前端在后续敏感操作请求头 `X-Secondary-Auth` 中携带该令牌。
+         */
+        SecondaryAuthVO: {
+            /** @description 认证通过令牌（后续请求头 X-Secondary-Auth 携带） */
+            token?: string;
+            /**
+             * Format: int64
+             * @description 有效期（毫秒）
+             */
+            expiresIn?: number;
+            /**
+             * Format: int64
+             * @description 过期时间戳（Unix 毫秒）
+             */
+            expiresAt?: number;
+        };
+        /**
+         * @description 租户 VO
+         *
+         *     对应 `ydsz_sys_tenant` 表的展示视图，是「租户管理」列表 / 详情接口的返回值类型。 由 {@link
+         *     com.njydsz.system.domain.converter.SystemConverter} 从 {@link
+         *     com.njydsz.system.domain.entity.Tenant} 实体转换而来。
+         *
+         *     字段语义：
+         *
+         *
+         *     `tenantCode` — 租户编码，全局唯一标识
+         *     `planId` — 关联套餐 ID
+         *     `expireAt` — 套餐到期时间，到期后自动降级为基础版
+         */
+        TenantVO: {
+            id?: string;
+            tenantCode?: string;
+            tenantName?: string;
+            contactName?: string;
+            contactPhone?: string;
+            contactEmail?: string;
+            planId?: string;
+            /** Format: date-time */
+            expireAt?: string;
+            datasourceKey?: string;
+            status?: string;
+            remark?: string;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        /**
+         * @description 租户套餐 VO（视图对象）
+         *
+         *     对应 `ydsz_sys_tenant_plan` 表的展示视图，是「套餐管理」列表 / 详情接口的响应载体。
+         *
+         *     字段语义：
+         *
+         *
+         *     `planCode` — 套餐编码，全局唯一标识
+         *     `sort` — 排序号（升序，影响前端套餐选择器顺序）
+         *
+         *
+         *     注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link
+         *     com.njydsz.system.domain.dto.TenantPlanDTO} 负责。
+         */
+        TenantPlanVO: {
+            id?: string;
+            planCode?: string;
+            planName?: string;
+            description?: string;
+            /** Format: int32 */
+            sort?: number;
+            quotaJson?: string;
+            featureJson?: string;
+        };
+        /**
+         * @description 租户套餐-菜单关联 VO
+         *
+         *     对应 `ydsz_sys_tenant_plan_menu` 表的展示视图，记录套餐与菜单的关联关系。 租户购买套餐后自动获得关联菜单的访问权限，是 RBAC 的「套餐级」权限分配。
+         */
+        TenantPlanMenuVO: {
+            id?: string;
+            planId?: string;
+            menuId?: string;
+        };
+        /**
+         * @description 系统变量 VO（视图对象）
+         *
+         *     对应 `ydsz_sys_variable` 表的展示视图，是「系统变量中心」列表 / 详情接口的响应载体。
+         *
+         *     字段语义：
+         *
+         *
+         *     `variableKey` — 变量键，租户内唯一，业务存储 / 接口传输主键
+         *     `variableValue` — 变量值，序列化时按 `valueType` 转换： `STRING` 原样输出；{@code NUMBER /
+         *     BOOLEAN / JSON} 解析为对应类型
+         *
+         *
+         *     与 Config 的区别：`Variable` 是全局无分组的扁平结构， 适合「跨模块共享的环境变量」场景；`ConfigVO`
+         *     是按分组管理的结构， 适合「按业务域配置」场景。
+         *
+         *     使用场景：
+         *
+         *
+         *     系统变量中心列表 / 详情 / 编辑回显
+         *     运行时动态配置（如外部 API endpoint、限流阈值）
+         *     Spring 占位符解析：`@Value("${ydsz.variable.xxx`")}
+         *
+         *
+         *     缓存策略：读取通过 `ydsz:variable:{key`} 缓存至 Redis； 写入时 `@CacheEvict` 主动失效。
+         *
+         *     注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link
+         *     com.njydsz.system.domain.dto.VariableDTO} 负责。
+         */
+        VariableVO: {
+            id?: string;
+            variableKey?: string;
+            variableValue?: string;
+            valueType?: string;
+            description?: string;
+            status?: string;
+        };
     };
-    /**
-     * @description 应用信息分页查询参数
-     *
-     *     对应 `ydsz_sys_app_info` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
-     *     `pageSize` / `orderBy` / `sort` 等通用分页参数。
-     *
-     *     字段语义：
-     *
-     *
-     *     `appName` — 应用名称模糊匹配（可选）
-     *     `status` — 启用状态精确匹配（可选）
-     */
-    AppInfoPageQuery: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      appName?: string;
-      status?: string;
-    };
-    /**
-     * @description 应用注册创建/更新 DTO
-     *
-     *     对应 `ydsz_sys_app_info` 表的写入参数，对标 OAuth 2.0 客户端注册模型。 创建时 `id` 为空（由雪花算法自动生成），更新时 {@code
-     *     id} 必填。
-     *
-     *     字段约束：
-     *
-     *
-     *     `appCode` — 应用编码，租户内唯一，最长 64 字符
-     *     `appName` — 应用名称，最长 128 字符
-     *     `appKey` — 客户端 ID（`client_id`），最长 128 字符
-     *     `appSecret` — 客户端密钥（`client_secret`），BCrypt 加密存储，最长 256 字符
-     *     `redirectUrl` — 授权回调地址，最长 512 字符，需 URL 合法
-     *     `scopes` — OAuth2 授权范围（CSV），如 `"user.read,order.write"`
-     *     `boundIps` — IP 绑定白名单（CSV），如 `"192.168.1.0/24,10.0.0.1"`，为空表示不限制
-     *     `status` — 启用状态：`ENABLED / DISABLED`
-     *
-     *
-     *     安全约束：
-     *
-     *
-     *     `appSecret` 在 Service 层 BCrypt 加密后存储，明文不落库
-     *     接口权限校验：`ydsz:app:create / ydsz:app:update`
-     */
-    AppInfoDTO: {
-      id?: string;
-      appCode?: string;
-      appName?: string;
-      appKey?: string;
-      appSecret?: string;
-      redirectUrl?: string;
-      scopes?: string;
-      boundIps?: string;
-      description?: string;
-      status?: string;
-    };
-    /**
-     * @description 系统配置分页查询参数
-     *
-     *     对应 `ydsz_sys_config` 表的分页查询条件，由 Controller 接收并透传给 `ConfigService.page()`。继承自 {@link
-     *     PageQuery}，自带 `pageNum` / `pageSize` / `orderBy` / `sort` 等通用分页参数。
-     *
-     *     字段语义：
-     *
-     *
-     *     `configGroup` — 配置分组精确匹配（`=`），如 `ydsz.workflow`
-     *     `configKey` — 配置键模糊匹配（`LIKE %xxx%`）
-     *     `status` — 启用状态精确匹配（`=`），可空
-     *
-     *
-     *     多租户：租户过滤由 MyBatis 拦截器自动注入。
-     *
-     *     索引利用：`(configGroup, configKey)` 命中 `uk_tenant_group_key` 唯一索引的前缀；典型查询模式
-     *     「按分组列出」走该索引范围扫描，性能可控。
-     */
-    ConfigPageQuery: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      configGroup?: string;
-      configKey?: string;
-      status?: string;
-    };
-    /**
-     * @description 系统配置创建/更新 DTO
-     *
-     *     对应 `ydsz_sys_config` 表的写入参数，是「系统配置中心」创建 / 更新接口的入参载体。 创建时 `id` 为空（由雪花算法自动生成），更新时
-     *     `id` 必填。
-     *
-     *     P1-5 字段重叠处理：本类与 ConfigVO 字段完全一致，遵循《云顶编码规范》"VO 兼 DTO"模式（字段无差异时不作三分离）。 作为
-     *     Repository 层的写入契约存在，避免 infra 层直接依赖 ConfigVO（保持分层边界清晰）。
-     *
-     *     维护约定：新增字段时需同步 ConfigVO，确保两者结构一致。
-     *
-     *     字段语义：
-     *
-     *
-     *     `configGroup` — 配置分组，按业务域分类管理
-     *     `configKey` — 配置键，同组内唯一标识
-     *     `configValue` — 配置值
-     *     `valueType` — 值类型: STRING/NUMBER/BOOLEAN/JSON
-     *     `defaultValue` — 默认值（配置未设置时使用）
-     *     `isPublic` — 是否对前端公开: 1 公开 / 0 仅后端
-     *     `sortOrder` — 排序序号
-     *     `status` — 启用状态: ENABLED/DISABLED
-     */
-    ConfigDTO: {
-      id?: string;
-      configGroup?: string;
-      configKey?: string;
-      configValue?: string;
-      valueType?: string;
-      defaultValue?: string;
-      description?: string;
-      /** Format: int32 */
-      isPublic?: number;
-      /** Format: int32 */
-      sortOrder?: number;
-      status?: string;
-    };
-    /**
-     * @description 系统配置批量操作 DTO
-     *
-     *     用于批量创建配置项（运营初始化场景），单次最多 500 条。
-     */
-    ConfigBatchDTO: {
-      items?: components['schemas']['ConfigVO'][];
-    };
-    /**
-     * @description 系统配置 VO（视图对象）
-     *
-     *     对应 `ydsz_sys_config` 表的展示视图，是「系统配置中心」列表 / 详情接口的响应载体。
-     *     由 com.njydsz.system.infra.converter.SystemConverter 从 {@link
-     *     com.njydsz.system.infra.entity.Config} 实体转换而来。
-     *
-     *     字段语义：
-     *
-     *
-     *     `configValue` — 配置值，序列化时按 `valueType` 转换： `STRING` 原样输出；{@code NUMBER /
-     *     BOOLEAN / JSON} 解析为对应类型
-     *     `defaultValue` — 默认值（`configValue` 为空时回退）
-     *     `isPublic` — 是否对前端公开：`1` 公开 / `0` 仅后端； 前端「公开配置」接口仅返回 `isPublic=1`
-     *     的项
-     *
-     *
-     *     使用场景：
-     *
-     *
-     *     配置中心列表 / 详情 / 编辑回显
-     *     业务参数动态下发（`ydsz.workflow.sla-default-hours` 等）
-     *     前端「公开配置」接口返回值（开关、限流阈值、特性开关等）
-     *
-     *
-     *     缓存策略：读取通过 ydsz-common-cache 进程内本地缓存（键 `value:{tenantId`:{configKey}}）；
-     *     写入时 `@CacheEvict` 精准失效；TTL 通过 `ydsz.cache.caches.system:config` 配置（默认 5 分钟）。
-     *
-     *     注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link
-     *     com.njydsz.system.domain.dto.ConfigDTO} 负责。
-     */
-    ConfigVO: {
-      id?: string;
-      configGroup?: string;
-      configKey?: string;
-      configValue?: string;
-      valueType?: string;
-      defaultValue?: string;
-      description?: string;
-      /** Format: int32 */
-      isPublic?: number;
-      /** Format: int32 */
-      sortOrder?: number;
-      status?: string;
-    };
-    /**
-     * @description 字典类型分页查询参数
-     *
-     *     对应 `ydsz_sys_dict_type` 表的分页查询条件，由 Controller 接收并透传给 `DictTypeService.page()`。继承自
-     *     PageQuery，自带 `pageNum` / `pageSize` / `orderBy` / `sort` 等通用分页参数。
-     *
-     *     字段语义：
-     *
-     *
-     *     `typeCode` — 类型编码精确匹配（`=`），用于「按编码快速定位」
-     *     `typeName` — 类型名称模糊匹配（`LIKE %xxx%`），用于「按名称搜索」
-     *     `status` — 启用状态精确匹配（`=`），可空（`null` 表示全部）
-     *
-     *
-     *     多租户：租户过滤由 MyBatis 拦截器（`ydsz-common-jdbc`）自动注入， 本类无需显式声明 `tenantId`。
-     *
-     *     索引利用：`typeCode` 命中 `uk_tenant_type_code` 唯一索引； `typeName`
-     *     模糊匹配走全表扫描（数据量可控，小于 1000 条无影响）。
-     */
-    DictPageQuery: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      typeCode?: string;
-      typeName?: string;
-      status?: string;
-    };
-    /**
-     * @description 字典类型 DTO
-     *
-     *     用于字典类型的创建和更新操作，作为 Repository 接口 CUD 方法的入参。
-     *
-     *     字段语义：
-     *
-     *
-     *     `id` — 主键 ID（更新时必填）
-     *     `typeCode` — 字典类型编码，租户内唯一
-     *     `typeName` — 字典类型名称
-     *     `description` — 字典类型业务说明
-     *     `status` — 启用状态: ENABLED/DISABLED
-     */
-    DictTypeDTO: {
-      id?: string;
-      typeCode?: string;
-      typeName?: string;
-      description?: string;
-      status?: string;
-    };
-    /**
-     * @description 字典项分页查询参数
-     *
-     *     对应 `ydsz_sys_dict_item` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
-     *     `pageSize` / `orderBy` / `sort` 等通用分页参数。
-     *
-     *     字段语义：
-     *
-     *
-     *     `typeCode` — 字典类型编码精确匹配（可选）
-     *     `itemCode` — 字典项编码模糊匹配（可选）
-     *     `status` — 启用状态精确匹配（可选）
-     */
-    DictItemPageQuery: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      typeCode?: string;
-      itemCode?: string;
-      status?: string;
-    };
-    /**
-     * @description 字典项 DTO
-     *
-     *     用于字典项的创建和更新操作，作为 Repository 接口 CUD 方法的入参。
-     *
-     *     字段语义：
-     *
-     *
-     *     `id` — 主键 ID（更新时必填）
-     *     `typeCode` — 所属字典类型编码
-     *     `itemCode` — 字典项编码
-     *     `itemValue` — 字典项展示值
-     *     `parentId` — 父级 ID
-     *     `sortOrder` — 排序号
-     *     `description` — 字典项业务说明
-     *     `extJson` — 扩展属性 JSON
-     *     `status` — 启用状态: ENABLED/DISABLED
-     */
-    DictItemDTO: {
-      id?: string;
-      parentId?: string;
-      typeCode?: string;
-      itemCode?: string;
-      itemValue?: string;
-      /** Format: int32 */
-      sortOrder?: number;
-      description?: string;
-      extJson?: string;
-      status?: string;
-    };
-    /**
-     * @description 字典项批量操作 DTO
-     *
-     *     用于批量新增字典项（运营初始化场景），单次最多 500 条。
-     */
-    DictItemBatchDTO: {
-      items?: components['schemas']['DictItemVO'][];
-    };
-    /**
-     * @description 字典项 VO（视图对象）
-     *
-     *     对应 `ydsz_sys_dict_item` 表的展示视图，是「字典中心」列表 / 详情接口的响应载体，
-     *     也是前端下拉框、单选框、级联选择器、Tag 组件的核心数据载体。
-     *
-     *     使用 com.njydsz.common.domain.tree.TreeBuilder#buildSimple 构建树形结构，无需继承 `TreeNode` 基类，
-     *     保持 VO 类的纯粹性（无框架耦合），同时通过 `level`/`path` 回调自动填充层级元数据。
-     *
-     *     字段语义：
-     *
-     *
-     *     `typeCode` — 所属字典类型编码，与 DictTypeVO#typeCode 关联
-     *     `itemCode` — 字典项编码（业务存储值，`<el-option :value="...">`）
-     *     `itemValue` — 字典项展示值（前端展示文本）
-     *     `parentId` — 父级 ID（`0` = 根），支持「省 / 市 / 区县」三级级联
-     *     `sortOrder` — 同类型内排序号（升序），直接作为 TreeBuilder 排序字段
-     *     `extJson` — 扩展属性 JSON（如地区码、颜色值、图标等），前端按需解析
-     *
-     *
-     *     使用场景：
-     *
-     *
-     *     字典中心列表 / 详情
-     *     前端通用下拉框 / 单选框 / 多选框 / 级联选择 / 树形字典渲染
-     *     业务表单中的「枚举字段」数据源
-     *
-     *
-     *     缓存策略：读取时按 `ydsz:dict:item:{typeCode`} 整体缓存至 Redis； 列表查询支持本地缓存（Caffeine），TTL 5min。
-     *
-     *     注意：本类为视图对象，不包含输入校验逻辑。输入校验由 {@link
-     *     com.njydsz.system.domain.dto.DictItemDTO} 负责。
-     *
-     *     构建树形结构，消除业务 VO 与框架基类的耦合
-     */
-    DictItemVO: {
-      /** @description 字典项唯一标识 */
-      id?: string;
-      /** @description 父级 ID（`0` = 根），支持「省 / 市 / 区县」三级级联 */
-      parentId?: string;
-      /** @description 子节点列表（树形构建时由 TreeBuilder 自动填充） */
-      children?: components['schemas']['DictItemVO'][];
-      /**
-       * Format: int32
-       * @description 层级深度（根节点=1，由 TreeBuilder 自动填充）
-       */
-      level?: number;
-      /** @description 节点路径（如 "/1/2/5/"，由 TreeBuilder 自动填充） */
-      path?: string;
-      typeCode?: string;
-      itemCode?: string;
-      itemValue?: string;
-      /**
-       * Format: int32
-       * @description 排序号（同类型内升序），直接作为 TreeBuilder 排序字段
-       */
-      sortOrder?: number;
-      description?: string;
-      extJson?: string;
-      status?: string;
-    };
-    /**
-     * @description 实体版本分页查询条件（P2-3 分页优化）。
-     *
-     *     用于 EntityVersion 的分页查询，统一管理 Config/Dict/Variable 版本的翻页参数。
-     *
-     *     设计要点：
-     *
-     *
-     *     继承 BaseQuery 获取标准分页参数（pageNum / pageSize）
-     *     资源类型 + 资源键为必填条件（版本按资源隔离）
-     */
-    EntityVersionPageQuery: {
-      /** @description 资源类型（CONFIG/DICT/VARIABLE） */
-      resourceType?: string;
-      /** @description 资源唯一标识（如配置键、字典类型编码、变量键） */
-      resourceKey?: string;
-      /**
-       * Format: int32
-       * @description 页码（1-based，默认 1）
-       */
-      pageNum?: number;
-      /**
-       * Format: int32
-       * @description 默认每页条数
-       */
-      DEFAULT_PAGE_SIZE?: number;
-      /**
-       * Format: int32
-       * @description 每页条数（默认 20，最大 500）
-       */
-      pageSize?: number;
-    };
-    /** @description 配置查询请求 DTO。 */
-    ConfigGetRequest: {
-      /** @description 配置键 */
-      key?: string;
-    };
-    /** @description 字典项查询请求 DTO。 */
-    DictItemGetRequest: {
-      /** @description 字典类型编码 */
-      typeCode?: string;
-      /** @description 字典项编码 */
-      itemCode?: string;
-    };
-    /**
-     * @description 字典项列表查询请求 DTO。
-     *
-     *     用于 InternalApiController 内部 API 的字典项列表查询，通过 POST body 传输参数，
-     *     与同模块其他请求 DTO 保持风格一致（DictItemGetRequest、ConfigGetRequest、
-     *     AppValidateRequest）。
-     */
-    DictListRequest: {
-      /** @description 字典类型编码 */
-      typeCode?: string;
-    };
-    /** @description 应用密钥校验请求 DTO。 */
-    AppValidateRequest: {
-      /** @description 应用 Key（client_id） */
-      appKey?: string;
-      /** @description 应用密钥（client_secret） */
-      appSecret?: string;
-    };
-    /**
-     * @description 租户分页查询参数
-     *
-     *     对应 `ydsz_sys_tenant` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
-     *     `pageSize` / `orderBy` / `sort` 等通用分页参数。
-     *
-     *     字段语义：
-     *
-     *
-     *     `tenantName` — 租户名称模糊匹配（可选）
-     *     `status` — 启用状态精确匹配（可选）
-     *
-     *
-     *     多租户：租户过滤由 MyBatis 拦截器（`ydsz-common-jdbc`）自动注入， 本类无需显式声明 `tenantId`。
-     */
-    TenantPageQuery: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      tenantName?: string;
-      tenantCode?: string;
-      status?: string;
-    };
-    /**
-     * @description 租户创建/更新 DTO
-     *
-     *     对应 `ydsz_sys_tenant` 表的写入参数。 创建时 `id` 为空（由雪花算法自动生成），更新时 `id` 必填。
-     *
-     *     字段约束：
-     *
-     *
-     *     `tenantCode` — 租户编码，全局唯一，最长 64 字符
-     *     `tenantName` — 租户名称，最长 128 字符
-     */
-    TenantDTO: {
-      id?: string;
-      tenantCode?: string;
-      tenantName?: string;
-      contactName?: string;
-      contactPhone?: string;
-      contactEmail?: string;
-      planId?: string;
-      /** Format: date-time */
-      expireAt?: string;
-      datasourceKey?: string;
-      status?: string;
-      remark?: string;
-    };
-    /**
-     * @description 租户套餐分页查询参数
-     *
-     *     对应 `ydsz_sys_tenant_plan` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
-     *     `pageSize` / `orderBy` / `sort` 等通用分页参数。
-     *
-     *     字段语义：
-     *
-     *
-     *     `planName` — 套餐名称模糊匹配（可选）
-     *     `status` — 启用状态精确匹配（可选）
-     */
-    TenantPlanPageQuery: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      planName?: string;
-      status?: string;
-    };
-    /**
-     * @description 租户套餐创建/更新 DTO
-     *
-     *     对应 `ydsz_sys_tenant_plan` 表的写入参数，是「套餐管理」创建 / 更新接口的入参载体。
-     *     创建时 `id` 为空（由雪花算法自动生成），更新时 `id` 必填。
-     *
-     *     字段语义：
-     *
-     *
-     *     `planCode` — 套餐编码，全局唯一标识
-     *     `sortOrder` — 排序号（升序，影响前端套餐选择器顺序）
-     */
-    TenantPlanDTO: {
-      id?: string;
-      planCode?: string;
-      planName?: string;
-      description?: string;
-      /** Format: int32 */
-      sortOrder?: number;
-      quotaJson?: string;
-      featureJson?: string;
-      status?: string;
-    };
-    /**
-     * @description 租户套餐-菜单关联 DTO
-     *
-     *     用于为套餐批量配置可访问菜单列表。 通过套餐 ID + 菜单 ID 列表一次性设置套餐的菜单权限。
-     */
-    TenantPlanMenuDTO: {
-      planId?: string;
-      menuIds?: string[];
-    };
-    /**
-     * @description 系统变量分页查询参数
-     *
-     *     对应 `ydsz_sys_variable` 表的分页查询条件。继承自 PageQuery，自带 `pageNum` /
-     *     `pageSize` / `orderBy` / `sort` 等通用分页参数。
-     *
-     *     字段语义：
-     *
-     *
-     *     `variableKey` — 变量键模糊匹配（可选）
-     *     `status` — 启用状态精确匹配（可选）
-     */
-    VariablePageQuery: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      variableKey?: string;
-      status?: string;
-    };
-    /**
-     * @description 系统变量创建/更新 DTO
-     *
-     *     对应 `ydsz_sys_variable` 表的写入参数，是「系统变量中心」创建 / 更新接口的入参载体。
-     *     创建时 `id` 为空（由雪花算法自动生成），更新时 `id` 必填。
-     *
-     *     字段语义：
-     *
-     *
-     *     `variableKey` — 变量键，租户内唯一
-     *     `variableValue` — 变量值
-     *     `valueType` — 值类型: STRING/NUMBER/BOOLEAN/JSON
-     *     `status` — 启用状态: ENABLED/DISABLED
-     */
-    VariableDTO: {
-      id?: string;
-      variableKey?: string;
-      variableValue?: string;
-      valueType?: string;
-      description?: string;
-      status?: string;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 };
 export type $defs = Record<string, never>;
 export interface operations {
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['AppInfoPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AppInfoDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  save: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AppInfoDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  queryByTimeRange: {
-    parameters: {
-      query?: {
-        startTime?: string;
-        endTime?: string;
-        page?: number;
-        size?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  queryByOperator: {
-    parameters: {
-      query?: {
-        page?: number;
-        size?: number;
-      };
-      header?: never;
-      path: {
-        operatorId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  queryByAction: {
-    parameters: {
-      query?: {
-        page?: number;
-        size?: number;
-      };
-      header?: never;
-      path: {
-        action: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  queryByTraceId: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        traceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['ConfigPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  pageByCursor: {
-    parameters: {
-      query?: {
-        configGroup?: string;
-        configKey?: string;
-        pageSize?: number;
-        cursor?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ConfigDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  save: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ConfigDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchSave: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ConfigBatchDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getByKey: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        configKey: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getConfigsByGroup: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        configGroup: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listPublicConfigs: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  exportConfigs: {
-    parameters: {
-      query?: {
-        configGroup?: string;
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never> | null;
-        };
-      };
-    };
-  };
-  importConfigs: {
-    parameters: {
-      query?: {
-        file?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listByResourceKey: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        resourceKey: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  rollback: {
-    parameters: {
-      query?: {
-        targetVersion?: string;
-      };
-      header?: {
-        operatorId?: string;
-      };
-      path: {
-        resourceKey: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['DictPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DictTypeDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  save: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DictTypeDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listAll: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['DictItemPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  lookup: {
-    parameters: {
-      query?: {
-        typeCode?: string;
-        itemCode?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listByType: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        typeCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listChildren: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        parentId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  buildTree: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        typeCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DictItemDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  save: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DictItemDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchSave: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DictItemBatchDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listByTypeCode: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        typeCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  pageByTypeCode: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['EntityVersionPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  rollback: {
-    parameters: {
-      query?: {
-        targetVersion?: string;
-      };
-      header?: {
-        operatorId?: string;
-      };
-      path: {
-        typeCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  init: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  initWithDicts: {
-    parameters: {
-      query?: {
-        dictTypes?: string[];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getConfig: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ConfigGetRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getDictItem: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DictItemGetRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listDictItems: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DictListRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  validateClient: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AppValidateRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['TenantPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['TenantDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  save: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['TenantDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['TenantPlanPageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listAll: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['TenantPlanDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  save: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['TenantPlanDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listMenus: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        planId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  updateMenus: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['TenantPlanMenuDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  page: {
-    parameters: {
-      query?: {
-        query?: components['schemas']['VariablePageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  remove: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getByKey: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        variableKey: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['VariableDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  save: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['VariableDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listByResourceKey: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        resourceKey: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  rollback: {
-    parameters: {
-      query?: {
-        targetVersion?: string;
-      };
-      header?: {
-        operatorId?: string;
-      };
-      path: {
-        resourceKey: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["ApiPermissionQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    triggerScan: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    enable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    disable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["AppInfoPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AppInfoDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AppInfoDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    queryByTimeRange: {
+        parameters: {
+            query?: {
+                startTime?: string;
+                endTime?: string;
+                page?: number;
+                size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    queryByOperator: {
+        parameters: {
+            query?: {
+                page?: number;
+                size?: number;
+            };
+            header?: never;
+            path: {
+                operatorId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    queryByAction: {
+        parameters: {
+            query?: {
+                page?: number;
+                size?: number;
+            };
+            header?: never;
+            path: {
+                action: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    queryByTraceId: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                traceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listPending: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["ConfigApprovalQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listSubmitted: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["ConfigApprovalQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listAll: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["ConfigApprovalQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    submit: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConfigApprovalSubmitDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    approve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    reject: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    withdraw: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    detail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["ConfigPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    pageByCursor: {
+        parameters: {
+            query?: {
+                configGroup?: string;
+                configKey?: string;
+                pageSize?: number;
+                cursor?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConfigDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConfigDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchSave: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConfigBatchDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getByKey: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                configKey: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getConfigsByGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                configGroup: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listPublicConfigs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportConfigs: {
+        parameters: {
+            query?: {
+                configGroup?: string;
+                response?: components["schemas"]["HttpServletResponse"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    importConfigs: {
+        parameters: {
+            query?: {
+                file?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listByResourceKey: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                resourceKey: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    diffVersions: {
+        parameters: {
+            query?: {
+                fromVersion?: string;
+                toVersion?: string;
+            };
+            header?: never;
+            path: {
+                resourceKey: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    rollback: {
+        parameters: {
+            query?: {
+                targetVersion?: string;
+            };
+            header?: {
+                operatorId?: string;
+            };
+            path: {
+                resourceKey: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    overview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    workspace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["DictPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DictTypeDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DictTypeDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listAll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["DictItemPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    lookup: {
+        parameters: {
+            query?: {
+                typeCode?: string;
+                itemCode?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listByType: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                typeCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listChildren: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                parentId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    buildTree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                typeCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DictItemDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DictItemDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchSave: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DictItemBatchDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listByTypeCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                typeCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    pageByTypeCode: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["EntityVersionPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    rollback: {
+        parameters: {
+            query?: {
+                targetVersion?: string;
+            };
+            header?: {
+                operatorId?: string;
+            };
+            path: {
+                typeCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    me: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    init: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    initWithDicts: {
+        parameters: {
+            query?: {
+                dictTypes?: string[];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getConfig: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConfigGetRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getDictItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DictItemGetRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listDictItems: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DictListRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    validateClient: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AppValidateRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    dashboard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    reportErrors: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MonitorErrorBatchDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    reportWebVitals: {
+        parameters: {
+            query?: {
+                alert?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MonitorWebVitalBatchDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    uploadSourcemap: {
+        parameters: {
+            query?: {
+                release?: string;
+                file?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": number[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getToken: {
+        parameters: {
+            query?: {
+                ttlMillis?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    verify: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SecondaryAuthRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listAccessible: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["TenantPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TenantDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TenantDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["TenantPlanPageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listAll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TenantPlanDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TenantPlanDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listMenus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                planId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    updateMenus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TenantPlanMenuDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    page: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["VariablePageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getByKey: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                variableKey: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VariableDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VariableDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listByResourceKey: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                resourceKey: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    rollback: {
+        parameters: {
+            query?: {
+                targetVersion?: string;
+            };
+            header?: {
+                operatorId?: string;
+            };
+            path: {
+                resourceKey: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
 }

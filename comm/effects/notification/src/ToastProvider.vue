@@ -207,20 +207,24 @@ onBeforeUnmount(() => {
   opacity: 0;
   transform: translateX(100%);
 }
+
 .ydsz-toast-enter-active {
   transition:
     transform var(--duration-enter) var(--ease-spring),
     opacity var(--duration-enter) var(--ease-out);
 }
+
 .ydsz-toast-leave-to {
   opacity: 0;
   transform: translateX(100%);
 }
+
 .ydsz-toast-leave-active {
   transition:
     transform var(--duration-leave) var(--ease-in),
     opacity var(--duration-leave) var(--ease-in);
 }
+
 .ydsz-toast-move {
   transition: transform var(--duration-default) var(--ease-out);
 }

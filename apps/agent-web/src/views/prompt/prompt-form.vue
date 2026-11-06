@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * Prompt 模板表单
  * <p>支持 {{variable}} 语法的变量定义与自动提取。
@@ -128,11 +129,11 @@ function resetForm(): void {
 /** 提交表单 */
 async function handleSubmit(): Promise<void> {
   if (!formData.templateCode?.trim()) {
-    showToast.warning('请输入模板编码');
+    showToast.warning($t('validation.required.templateCode'));
     return;
   }
   if (!formData.templateName?.trim()) {
-    showToast.warning('请输入模板名称');
+    showToast.warning($t('validation.required.templateName'));
     return;
   }
   if (!formData.content?.trim()) {

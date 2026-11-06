@@ -1,0 +1,2048 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "ydsz-generator",
+  "version": "1.0.0",
+  "description": "static contract extracted from ydsz-cloud generator"
+ },
+ "paths": {
+  "/generator/code/preview": {
+   "get": {
+    "operationId": "preview",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "datasourceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "templateGroupId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "tableName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/code/preview/zip": {
+   "get": {
+    "operationId": "downloadPreviewZip",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ResponseEntity"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "datasourceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "templateGroupId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "tableName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/code/generate": {
+   "post": {
+    "operationId": "generate",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GenCodeGenerateQuery"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/generator/code/generate/all": {
+   "post": {
+    "operationId": "generateAll",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "datasourceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "templateGroupId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "outputDir",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "conflictStrategy",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string",
+       "enum": [],
+       "description": "文件冲突策略枚举。\n\n当生成代码时目标文件已存在，采用哪种策略处理。"
+      }
+     },
+     {
+      "name": "triggeredBy",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/datasources": {
+   "get": {
+    "operationId": "list",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "operationId": "create",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GenDatasource"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/generator/datasources/default": {
+   "get": {
+    "operationId": "getDefault",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/generator/datasources/test": {
+   "post": {
+    "operationId": "testConnection",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GenDatasource"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/generator/datasources/update": {
+   "post": {
+    "operationId": "update",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GenDatasource"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/generator/datasources/{id}": {
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/history": {
+   "get": {
+    "operationId": "listRecent",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/history/{id}": {
+   "get": {
+    "operationId": "getById",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "delete",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/history/{id}/files": {
+   "get": {
+    "operationId": "listFiles",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/history/{id}/rollback": {
+   "post": {
+    "operationId": "rollback",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/import-export/export": {
+   "get": {
+    "operationId": "exportTemplates",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "groupId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/import-export/import": {
+   "post": {
+    "operationId": "importTemplates",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "groupId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "overwrite",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/reverse/analyze": {
+   "post": {
+    "operationId": "analyze",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "sourceFilePath",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "templateGroupId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "outputDir",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/reverse/analyze-batch": {
+   "post": {
+    "operationId": "analyzeBatch",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "sourceDirPath",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "templateGroupId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "outputDir",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/tables": {
+   "get": {
+    "operationId": "listTables",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "datasourceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/tables/refresh": {
+   "post": {
+    "operationId": "refreshTables",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "datasourceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/tables/columns": {
+   "get": {
+    "operationId": "getColumns",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "tableMetaId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/tables/columns/refresh": {
+   "post": {
+    "operationId": "refreshColumns",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "datasourceId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "tableName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/groups": {
+   "get": {
+    "operationId": "listGroups",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "operationId": "createGroup",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GenTemplateGroup"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/generator/groups/active": {
+   "get": {
+    "operationId": "getActiveGroup",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/generator/groups/{id}/activate": {
+   "post": {
+    "operationId": "activateGroup",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/groups/{id}": {
+   "delete": {
+    "operationId": "deleteGroup",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/templates": {
+   "get": {
+    "operationId": "listTemplates",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "groupId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/templates/{id}": {
+   "get": {
+    "operationId": "getTemplate",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/templates/update": {
+   "post": {
+    "operationId": "updateTemplate",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GenTemplate"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/generator/templates/search": {
+   "get": {
+    "operationId": "search",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "groupId",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "keyword",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/generator/templates/validate": {
+   "post": {
+    "operationId": "validateTemplate",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/generator/templates/diff": {
+   "post": {
+    "operationId": "diffTemplates",
+    "tags": [
+     "generator"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/YdszResponse"
+        }
+       }
+      }
+     }
+    },
+    "parameters": [
+     {
+      "name": "oldContent",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "newContent",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "YdszResponse": {
+    "type": "object",
+    "properties": {
+     "serialVersionUID": {
+      "type": "integer",
+      "format": "int64",
+      "description": "序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。"
+     },
+     "code": {
+      "type": "string",
+      "description": "返回编码"
+     },
+     "msg": {
+      "type": "string",
+      "description": "返回信息"
+     },
+     "level": {
+      "type": "string",
+      "description": "异常级别。\n\n取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：\n\n\nINFO — 静默处理，不展示 toast\nWARN — 轻量 toast 提示（auto-close 3s）\nERROR — toast 提示，需用户点击关闭\nFATAL — 弹窗提示，阻断用户当前操作\n\n\n成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。"
+     },
+     "data": {
+      "type": "object",
+      "description": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。"
+     },
+     "traceId": {
+      "type": "object",
+      "description": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。"
+     },
+     "requestId": {
+      "type": "object",
+      "description": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。"
+     },
+     "spanId": {
+      "type": "object",
+      "description": "当前服务调用的 Span ID（W3C Trace Context span ID）。\n\nvolatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link\ncom.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。"
+     },
+     "timestamp": {
+      "type": "integer",
+      "format": "int64",
+      "description": "时间戳"
+     },
+     "extensions": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "object"
+      },
+      "description": "扩展字段（可选）。\n\n用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。"
+     },
+     "RESOLVER": {
+      "type": "object",
+      "description": "国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。\n\n采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。"
+     }
+    },
+    "description": "统一API返回结果封装类\n\n用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。\n\n响应结构：\n\n\ncode: 响应码，A00000表示成功，其他表示失败\nmsg: 响应消息\ndata: 响应数据\ntimestamp: 响应时间戳\n\n\n使用示例：\n\n<pre>{@code\n// 返回成功\nreturn YdszResponse.success(user);\n\n// 返回失败（走 i18n）\nreturn YdszResponse.error(YdszResultCode.NOT_FOUND);\n}</pre>\n\n@param <T> 数据泛型",
+    "x-field-docs": {
+     "serialVersionUID": "序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。",
+     "SUCCESS": "成功状态码（复用 YdszResultCode#SUCCESS，与错误码体系保持一致）。\n\n该常量表示操作成功（0），用于构造成功响应或判断响应是否成功。",
+     "UNKNOWN_CODE": "未知错误状态码（复用 YdszResultCode#UNKNOWN，与错误码体系保持一致）。\n\n该常量表示系统未知错误（C99999），用于与 #SUCCESS 进行反向校验场景。 命名明确区分\"通用错误\"与\"未知错误\"语义，避免与 `error()`\n方法名混淆。",
+     "MSG_OPERATION_SUCCESS": "操作成功国际化消息 key（core 模块）。",
+     "MSG_OPERATION_FAIL": "操作失败国际化消息 key（core 模块）。",
+     "code": "返回编码",
+     "msg": "返回信息",
+     "level": "异常级别。\n\n取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：\n\n\nINFO — 静默处理，不展示 toast\nWARN — 轻量 toast 提示（auto-close 3s）\nERROR — toast 提示，需用户点击关闭\nFATAL — 弹窗提示，阻断用户当前操作\n\n\n成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。",
+     "data": "返回数据\n\n泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。",
+     "traceId": "链路追踪 ID。\n\n首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。",
+     "requestId": "请求 ID（用于客户端/前端精准排障，单个请求唯一）。\n\nvolatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。",
+     "spanId": "当前服务调用的 Span ID（W3C Trace Context span ID）。\n\nvolatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link\ncom.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。",
+     "timestamp": "时间戳",
+     "extensions": "扩展字段（可选）。\n\n用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。",
+     "RESOLVER": "国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。\n\n采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。",
+     "tid": "ensure traceId resolved first so we know if it's present"
+    }
+   },
+   "ResponseEntity": {
+    "type": "object",
+    "x-placeholder": true,
+    "description": "ResponseEntity（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏）"
+   },
+   "GenCodeGenerateQuery": {
+    "type": "object",
+    "properties": {
+     "datasourceId": {
+      "type": "string",
+      "description": "数据源 ID。"
+     },
+     "templateGroupId": {
+      "type": "string",
+      "description": "模板分组 ID。"
+     },
+     "tableName": {
+      "type": "string",
+      "description": "表名。"
+     },
+     "outputDir": {
+      "type": "string",
+      "description": "输出目录。"
+     },
+     "conflictStrategy": {
+      "type": "string",
+      "description": "冲突策略（SKIP/OVERRIDE/MERGE），可空，默认 SKIP。",
+      "pattern": "SKIP|OVERRIDE|MERGE"
+     },
+     "triggeredBy": {
+      "type": "string",
+      "description": "触发人，可空。"
+     }
+    },
+    "description": "代码正式生成请求 Query。\n\n承载正式生成代码所需的全部参数，避免 Feign 接口方法参数超限（YDIZ-OOP-002）。",
+    "x-field-docs": {
+     "datasourceId": "数据源 ID。",
+     "templateGroupId": "模板分组 ID。",
+     "tableName": "表名。",
+     "outputDir": "输出目录。",
+     "conflictStrategy": "冲突策略（SKIP/OVERRIDE/MERGE），可空，默认 SKIP。",
+     "triggeredBy": "触发人，可空。"
+    },
+    "required": [
+     "datasourceId",
+     "templateGroupId",
+     "tableName",
+     "outputDir"
+    ]
+   },
+   "GenDatasource": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "isDeleted": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "name": {
+      "type": "string",
+      "description": "数据源名称。",
+      "maxLength": 64
+     },
+     "jdbcUrl": {
+      "type": "string",
+      "description": "JDBC URL。",
+      "maxLength": 512
+     },
+     "username": {
+      "type": "string",
+      "description": "用户名。",
+      "maxLength": 64
+     },
+     "password": {
+      "type": "string",
+      "description": "密码（加密存储，不序列化到外向响应）。",
+      "maxLength": 128
+     },
+     "dialect": {
+      "type": "string",
+      "description": "数据库方言。",
+      "maxLength": 32
+     },
+     "isDefault": {
+      "type": "boolean",
+      "description": "是否默认数据源。"
+     },
+     "description": {
+      "type": "string",
+      "description": "描述。"
+     }
+    },
+    "description": "数据源配置领域实体。\n\n对应 ydsz_gen_datasource 表。\n密码字段不会出现在 `toString` 和 `equals/hashCode` 中，\n防止序列化/比较时意外泄露。",
+    "x-field-docs": {
+     "name": "数据源名称。",
+     "jdbcUrl": "JDBC URL。",
+     "username": "用户名。",
+     "password": "密码（加密存储，不序列化到外向响应）。",
+     "dialect": "数据库方言。",
+     "isDefault": "是否默认数据源。",
+     "description": "描述。"
+    },
+    "required": [
+     "name",
+     "jdbcUrl",
+     "username"
+    ]
+   },
+   "GenTemplateGroup": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "isDeleted": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "name": {
+      "type": "string",
+      "description": "分组名（UNIQUE，如 default、mybatis-plus）。",
+      "maxLength": 64
+     },
+     "description": {
+      "type": "string",
+      "description": "分组描述。",
+      "maxLength": 255
+     },
+     "isSystem": {
+      "type": "boolean",
+      "description": "是否为系统分组（系统分组不可删除）。"
+     },
+     "isActive": {
+      "type": "boolean",
+      "description": "是否激活为当前使用分组。"
+     }
+    },
+    "description": "代码生成器模板分组领域实体。\n\n对应 ydsz_gen_template_group 表。模板按技术栈/风格分组，\n如 default（标准 DDD）、mybatis-plus、mongodb 等。\n同一时间只有一个分组处于激活状态。",
+    "x-field-docs": {
+     "name": "分组名（UNIQUE，如 default、mybatis-plus）。",
+     "description": "分组描述。",
+     "isSystem": "是否为系统分组（系统分组不可删除）。",
+     "isActive": "是否激活为当前使用分组。"
+    },
+    "required": [
+     "name"
+    ]
+   },
+   "GenTemplate": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "isDeleted": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "groupId": {
+      "type": "string",
+      "description": "所属模板分组 ID。"
+     },
+     "fileName": {
+      "type": "string",
+      "description": "文件名（如 entity.vm、vue/api.vm）。",
+      "maxLength": 255
+     },
+     "description": {
+      "type": "string",
+      "description": "模板用途描述。",
+      "maxLength": 255
+     },
+     "content": {
+      "type": "string",
+      "description": "模板内容（Velocity 语法）。",
+      "maxLength": 1048576
+     },
+     "isFolder": {
+      "type": "boolean",
+      "description": "是否为虚拟文件夹标记。"
+     },
+     "parentPath": {
+      "type": "string",
+      "description": "父路径（如 vue/ 表示前端子目录）。"
+     },
+     "version": {
+      "type": "integer",
+      "format": "int32",
+      "description": "当前版本号。"
+     },
+     "hash": {
+      "type": "string",
+      "description": "内容 MD5 哈希（版本对比）。"
+     },
+     "isActive": {
+      "type": "boolean",
+      "description": "是否启用。"
+     },
+     "fileType": {
+      "type": "string",
+      "description": "模板类型码（BACKEND/FRONTEND，对应 TemplateFileTypeEnum.code）。"
+     }
+    },
+    "description": "代码生成器模板领域实体。\n\n对应 ydsz_gen_template 表，存储 Velocity 模板文件内容。",
+    "x-field-docs": {
+     "groupId": "所属模板分组 ID。",
+     "fileName": "文件名（如 entity.vm、vue/api.vm）。",
+     "description": "模板用途描述。",
+     "content": "模板内容（Velocity 语法）。",
+     "isFolder": "是否为虚拟文件夹标记。",
+     "parentPath": "父路径（如 vue/ 表示前端子目录）。",
+     "version": "当前版本号。",
+     "hash": "内容 MD5 哈希（版本对比）。",
+     "isActive": "是否启用。",
+     "fileType": "模板类型码（BACKEND/FRONTEND，对应 TemplateFileTypeEnum.code）。"
+    },
+    "required": [
+     "groupId",
+     "fileName"
+    ]
+   },
+   "CodePreviewVO": {
+    "type": "object",
+    "properties": {
+     "fileName": {
+      "type": "string",
+      "description": "文件名。"
+     },
+     "filePath": {
+      "type": "string",
+      "description": "文件路径。"
+     },
+     "content": {
+      "type": "string",
+      "description": "代码内容。"
+     },
+     "isConflict": {
+      "type": "boolean",
+      "description": "是否存在冲突（文件已存在）。"
+     }
+    },
+    "description": "代码预览 VO（模板渲染结果展示）。",
+    "x-field-docs": {
+     "fileName": "文件名。",
+     "filePath": "文件路径。",
+     "content": "代码内容。",
+     "isConflict": "是否存在冲突（文件已存在）。"
+    }
+   },
+   "GenResultVO": {
+    "type": "object",
+    "properties": {
+     "historyId": {
+      "type": "string",
+      "description": "任务 ID。"
+     },
+     "fileCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "生成文件数量。"
+     },
+     "successCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "成功文件数量。"
+     },
+     "skipCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "跳过文件数量。"
+     },
+     "failCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "失败文件数量。"
+     }
+    },
+    "description": "代码生成结果 VO。",
+    "x-field-docs": {
+     "historyId": "任务 ID。",
+     "fileCount": "生成文件数量。",
+     "successCount": "成功文件数量。",
+     "skipCount": "跳过文件数量。",
+     "failCount": "失败文件数量。"
+    }
+   },
+   "GenDatasourceRespVO": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string",
+      "description": "主键 ID。"
+     },
+     "name": {
+      "type": "string",
+      "description": "数据源名称。"
+     },
+     "jdbcUrl": {
+      "type": "string",
+      "description": "JDBC URL。"
+     },
+     "username": {
+      "type": "string",
+      "description": "用户名。"
+     },
+     "dialect": {
+      "type": "string",
+      "description": "数据库方言。"
+     },
+     "isDefault": {
+      "type": "boolean",
+      "description": "是否默认数据源。"
+     },
+     "description": {
+      "type": "string",
+      "description": "描述。"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "创建时间。"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "更新时间。"
+     }
+    },
+    "description": "数据源响应 VO（外向传输）。\n\n排除敏感字段 password，仅在系统内部需要时使用 `GenDatasource` 实体。",
+    "x-field-docs": {
+     "id": "主键 ID。",
+     "name": "数据源名称。",
+     "jdbcUrl": "JDBC URL。",
+     "username": "用户名。",
+     "dialect": "数据库方言。",
+     "isDefault": "是否默认数据源。",
+     "description": "描述。",
+     "createdAt": "创建时间。",
+     "updatedAt": "更新时间。"
+    }
+   },
+   "GenHistory": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "isDeleted": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "moduleName": {
+      "type": "string",
+      "description": "模块名称。"
+     },
+     "datasourceId": {
+      "type": "string",
+      "description": "使用的数据源 ID。"
+     },
+     "templateGroupId": {
+      "type": "string",
+      "description": "使用的模板分组 ID。"
+     },
+     "tableCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "涉及表数量。"
+     },
+     "fileCount": {
+      "type": "integer",
+      "format": "int32",
+      "description": "生成文件总数。"
+     },
+     "taskStatus": {
+      "type": "string",
+      "description": "任务执行状态码（RUNNING/SUCCESS/PARTIAL/FAILED）。"
+     },
+     "triggeredBy": {
+      "type": "string",
+      "description": "触发人。"
+     },
+     "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "开始时间。"
+     },
+     "finishedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "完成时间。"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息（失败时记录）。"
+     },
+     "genParams": {
+      "type": "string",
+      "description": "生成参数 JSON 快照。"
+     }
+    },
+    "description": "代码生成任务/历史领域实体。\n\n对应 ydsz_gen_history 表，记录一次完整代码生成任务的元信息。",
+    "x-field-docs": {
+     "moduleName": "模块名称。",
+     "datasourceId": "使用的数据源 ID。",
+     "templateGroupId": "使用的模板分组 ID。",
+     "tableCount": "涉及表数量。",
+     "fileCount": "生成文件总数。",
+     "taskStatus": "任务执行状态码（RUNNING/SUCCESS/PARTIAL/FAILED）。",
+     "triggeredBy": "触发人。",
+     "startedAt": "开始时间。",
+     "finishedAt": "完成时间。",
+     "errorMessage": "错误信息（失败时记录）。",
+     "genParams": "生成参数 JSON 快照。"
+    }
+   },
+   "GenHistoryFile": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "isDeleted": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "historyId": {
+      "type": "string",
+      "description": "所属任务 ID。"
+     },
+     "filePath": {
+      "type": "string",
+      "description": "生成文件路径。"
+     },
+     "originalBackupPath": {
+      "type": "string",
+      "description": "原文件备份路径（用于回滚）。"
+     },
+     "fileHash": {
+      "type": "string",
+      "description": "文件内容 MD5 哈希。"
+     },
+     "action": {
+      "type": "string",
+      "description": "文件操作类型（CREATED/UPDATED/UNCHANGED）。"
+     }
+    },
+    "description": "代码生成任务文件明细领域实体。\n\n对应 ydsz_gen_history_file 表，记录某次任务中每个生成文件的操作结果。",
+    "x-field-docs": {
+     "historyId": "所属任务 ID。",
+     "filePath": "生成文件路径。",
+     "originalBackupPath": "原文件备份路径（用于回滚）。",
+     "fileHash": "文件内容 MD5 哈希。",
+     "action": "文件操作类型（CREATED/UPDATED/UNCHANGED）。"
+    }
+   },
+   "GenTableMeta": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "isDeleted": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "datasourceId": {
+      "type": "string",
+      "description": "数据源 ID。"
+     },
+     "tableName": {
+      "type": "string",
+      "description": "物理表名。"
+     },
+     "comment": {
+      "type": "string",
+      "description": "表注释。"
+     },
+     "aliasName": {
+      "type": "string",
+      "description": "别名（用于生成类名）。"
+     },
+     "moduleName": {
+      "type": "string",
+      "description": "模块名称。"
+     },
+     "cachedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "缓存时间。"
+     }
+    },
+    "description": "表元数据领域实体。\n\n对应 ydsz_gen_table_meta 表，缓存数据库表的结构信息。",
+    "x-field-docs": {
+     "datasourceId": "数据源 ID。",
+     "tableName": "物理表名。",
+     "comment": "表注释。",
+     "aliasName": "别名（用于生成类名）。",
+     "moduleName": "模块名称。",
+     "cachedAt": "缓存时间。"
+    }
+   },
+   "GenColumnMeta": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "sort": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "status": {
+      "type": "string"
+     },
+     "revision": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "tenantId": {
+      "type": "string"
+     },
+     "isDeleted": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "createdBy": {
+      "type": "string"
+     },
+     "createdAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "updatedBy": {
+      "type": "string"
+     },
+     "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+     },
+     "tableMetaId": {
+      "type": "string",
+      "description": "所属表 ID。"
+     },
+     "columnName": {
+      "type": "string",
+      "description": "列名。"
+     },
+     "dataType": {
+      "type": "string",
+      "description": "数据类型（数据库原生类型名，如 VARCHAR、BIGINT）。"
+     },
+     "javaType": {
+      "type": "string",
+      "description": "Java 类型（由 dataType 经 type-mapping 自动推断，可被 overrideJavaType 覆盖；非持久化字段）。"
+     },
+     "columnSize": {
+      "type": "integer",
+      "format": "int32",
+      "description": "字段长度。"
+     },
+     "isNullable": {
+      "type": "boolean",
+      "description": "是否可为空。"
+     },
+     "isPk": {
+      "type": "boolean",
+      "description": "是否主键。"
+     },
+     "comment": {
+      "type": "string",
+      "description": "字段注释。"
+     },
+     "overrideJavaType": {
+      "type": "string",
+      "description": "覆盖 Java 类型。"
+     },
+     "overrideFieldName": {
+      "type": "string",
+      "description": "覆盖字段名。"
+     },
+     "isDtoSkipped": {
+      "type": "boolean",
+      "description": "DTO 跳过标记。"
+     },
+     "isVoSkipped": {
+      "type": "boolean",
+      "description": "VO 跳过标记。"
+     },
+     "isQuerySkipped": {
+      "type": "boolean",
+      "description": "Query 跳过标记。"
+     },
+     "isAuditField": {
+      "type": "boolean",
+      "description": "是否为审计字段（非持久化字段，审计字段由基类 MpBaseAuditEntity 提供）。"
+     },
+     "enumValues": {
+      "type": "string",
+      "description": "枚举值列表（非持久化字段，从 extra_config JSON 中解析）。"
+     },
+     "extraConfig": {
+      "type": "string",
+      "description": "扩展配置 JSON。"
+     },
+     "tsType": {
+      "type": "string",
+      "description": "TypeScript 类型（非持久化字段，由 dataType 经 GeneratorTypeMapper 推断）。"
+     },
+     "enumValueList": {
+      "type": "string"
+     }
+    },
+    "description": "列元数据领域实体。\n\n对应 ydsz_gen_column_meta 表。",
+    "x-field-docs": {
+     "tableMetaId": "所属表 ID。",
+     "columnName": "列名。",
+     "dataType": "数据类型（数据库原生类型名，如 VARCHAR、BIGINT）。",
+     "javaType": "Java 类型（由 dataType 经 type-mapping 自动推断，可被 overrideJavaType 覆盖；非持久化字段）。",
+     "columnSize": "字段长度。",
+     "isNullable": "是否可为空。",
+     "isPk": "是否主键。",
+     "comment": "字段注释。",
+     "overrideJavaType": "覆盖 Java 类型。",
+     "overrideFieldName": "覆盖字段名。",
+     "isDtoSkipped": "DTO 跳过标记。",
+     "isVoSkipped": "VO 跳过标记。",
+     "isQuerySkipped": "Query 跳过标记。",
+     "isAuditField": "是否为审计字段（非持久化字段，审计字段由基类 MpBaseAuditEntity 提供）。",
+     "enumValues": "枚举值列表（非持久化字段，从 extra_config JSON 中解析）。",
+     "extraConfig": "扩展配置 JSON。",
+     "tsType": "TypeScript 类型（非持久化字段，由 dataType 经 GeneratorTypeMapper 推断）。"
+    }
+   },
+   "TemplateValidateVO": {
+    "type": "object",
+    "properties": {
+     "isValid": {
+      "type": "boolean",
+      "description": "是否通过校验。"
+     },
+     "errorMessage": {
+      "type": "string",
+      "description": "错误信息（校验通过时为空）。"
+     },
+     "errorLine": {
+      "type": "integer",
+      "format": "int32",
+      "description": "错误行号（无错误时为 null）。"
+     }
+    },
+    "description": "模板语法校验结果 VO。",
+    "x-field-docs": {
+     "isValid": "是否通过校验。",
+     "errorMessage": "错误信息（校验通过时为空）。",
+     "errorLine": "错误行号（无错误时为 null）。"
+    }
+   },
+   "DiffLineVO": {
+    "type": "object",
+    "properties": {
+     "lineNumber": {
+      "type": "integer",
+      "format": "int32",
+      "description": "行号。"
+     },
+     "oldContent": {
+      "type": "string",
+      "description": "原始内容。"
+     },
+     "newContent": {
+      "type": "string",
+      "description": "新内容。"
+     },
+     "changeType": {
+      "type": "string",
+      "description": "变更类型（UNCHANGED/ADDED/REMOVED）。"
+     }
+    },
+    "description": "Diff 行 VO（文件差异对比展示）。",
+    "x-field-docs": {
+     "lineNumber": "行号。",
+     "oldContent": "原始内容。",
+     "newContent": "新内容。",
+     "changeType": "变更类型（UNCHANGED/ADDED/REMOVED）。"
+    }
+   }
+  }
+ }
+}

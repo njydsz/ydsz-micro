@@ -16,7 +16,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { onMounted, ref } from 'vue';
+import { h, onMounted, ref } from 'vue';
 
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
@@ -35,7 +35,7 @@ import { useRouter } from 'vue-router';
 
 import { showToast } from '@ydsz/notification';
 
-import { listTables, refreshTables } from '#/api/table-meta';
+import { listTables, refreshTables } from '#/api/tableMeta';
 import type { GenTableMeta } from '#/api/models';
 import { listDatasources } from '#/api/datasource';
 import type { GenDatasourceRespVO } from '#/api/models';
@@ -49,9 +49,9 @@ const { t } = useI18n();
 defineOptions({ name: 'TableMetaManagement' });
 
 const datasourceList = ref<GenDatasourceRespVO[]>([]);
-const selectedDatasourceId = ref<number | undefined>(undefined);
+const selectedDatasourceId = ref<string | undefined>(undefined);
 const columnDialogVisible = ref(false);
-const selectedTableId = ref<number | undefined>(undefined);
+const selectedTableId = ref<string | undefined>(undefined);
 const selectedTableName = ref('');
 
 /** 加载数据源列表 */
@@ -59,7 +59,7 @@ async function loadDatasources() {
   try {
     datasourceList.value = await listDatasources();
     if (datasourceList.value.length > 0) {
-      const defaultDs = datasourceList.value.find((ds) => ds.defaultFlag);
+      const defaultDs = datasourceList.value.find((ds) => ds.isDefault);
       selectedDatasourceId.value = defaultDs?.id ?? datasourceList.value[0]?.id;
       if (selectedDatasourceId.value) {
         await gridApi.query();

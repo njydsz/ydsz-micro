@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 任务 DAG（表单组件）
  * <p>DAG 的创建/编辑弹窗，字段对应契约 JobDagPostDTO/JobDagPutDTO（src/api/jobDag.ts，auto-generated）：
@@ -126,10 +127,10 @@ const [Modal, modalApi] = useYdModal({
       if (isEdit.value) {
         const record = modalApi.getData<{ record?: JobDagVO }>().record;
         await updateDag({ dagId: record?.id ?? '' }, payload);
-        showToast.success('更新成功');
+        showToast.success($t('operation.update.success'));
       } else {
         await createDag(payload);
-        showToast.success('创建成功');
+        showToast.success($t('operation.create.success'));
       }
       emit('success');
       modalApi.close();
@@ -152,11 +153,11 @@ async function handleValidateDag() {
     if (ok) {
       showToast.success('DSL 校验通过');
     } else {
-      showToast.error('DSL 校验失败');
+      showToast.error($t('operation.failed'));
     }
   } catch {
     logger.warn('DSL校验请求失败', formData.dagKey);
-    showToast.error('DSL 校验失败');
+    showToast.error($t('operation.failed'));
   }
 }
 </script>

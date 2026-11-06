@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 任务连接器（连接测试弹窗）
  * <p>录入连接参数（类型、端点、认证方式、凭据等），调用契约 testConnection()（src/api/connector.ts，auto-generated）
@@ -106,7 +107,7 @@ const [Modal, modalApi] = useYdModal({
     try {
       const ok = await testConnection({ type: formData.type }, toConnectorConfig());
       if (ok) {
-        showToast.success('连接成功');
+        showToast.success($t('operation.connect.success'));
       } else {
         showToast.error('连接失败，请检查连接参数');
       }

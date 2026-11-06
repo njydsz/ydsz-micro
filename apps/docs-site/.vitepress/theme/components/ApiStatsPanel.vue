@@ -1,4 +1,6 @@
 <script setup lang="ts">
+defineOptions({ name: 'ApiStatsPanel' });
+
 import { ref } from 'vue';
 
 interface EngineApiStat {

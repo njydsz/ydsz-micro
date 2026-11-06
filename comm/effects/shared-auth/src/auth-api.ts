@@ -14,6 +14,10 @@ import { baseRequestClient, requestClient } from './request-setup';
 
 export { baseRequestClient, requestClient };
 
+// 兼容子路径导入：子应用长期从 @ydsz/shared-auth/auth-api 取用这些接口。
+export { getAllMenusApi, getMenuTreeApi } from './menu-api';
+export { getUserInfoApi } from './user-api';
+
 /**
  * 登录 — 调用后端账号密码登录接口
  *

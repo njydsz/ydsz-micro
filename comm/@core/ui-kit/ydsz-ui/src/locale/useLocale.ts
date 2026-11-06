@@ -6,8 +6,7 @@
  *  - 若未包裹 ConfigProvider 则回退到 'zh-CN'；
  *  - 业务方传入的 locale 覆写优先于内置双语包；
  *  - 提供 `t(key)` 函数，供组件模板内使用。
- *  - 14 种内置语种支持（zh-CN / en-US / ja-JP / zh-TW / ko-KR / fr-FR / de-DE /
- *    es-ES / pt-BR / ru-RU / ar-SA / hi-IN / th-TH / vi-VN）。
+ *  - 仅中文 / 英文双语支持（zh-CN / en-US）。
  *  - RTL 自动识别与 getDirection 工具函数。
  *
  * @path comm\@core\ui-kit\ydsz-ui\src\locale\useLocale.ts
@@ -22,36 +21,10 @@ import { computed, inject, readonly, ref } from 'vue';
 import { useSimpleLocale } from '@ydsz-core/composables';
 
 import { enUS } from './en-US';
-import { jaJP } from './ja-JP';
-import { koKR } from './ko-KR';
 import { zhCN } from './zh-CN';
-import { zhTW } from './zh-TW';
-import { frFR } from './fr-FR';
-import { deDE } from './de-DE';
-import { esES } from './es-ES';
-import { ptBR } from './pt-BR';
-import { ruRU } from './ru-RU';
-import { arSA } from './ar-SA';
-import { hiIN } from './hi-IN';
-import { thTH } from './th-TH';
-import { viVN } from './vi-VN';
 
-/** 支持的语种类型 */
-export type LocaleLang =
-  | 'zh-CN'
-  | 'en-US'
-  | 'ja-JP'
-  | 'zh-TW'
-  | 'ko-KR'
-  | 'fr-FR'
-  | 'de-DE'
-  | 'es-ES'
-  | 'pt-BR'
-  | 'ru-RU'
-  | 'ar-SA'
-  | 'hi-IN'
-  | 'th-TH'
-  | 'vi-VN';
+/** 支持的语种类型（仅中文 / 英文双语） */
+export type LocaleLang = 'zh-CN' | 'en-US';
 
 /** 文案表类型 */
 export type LocaleMessages = Record<string, string>;
@@ -92,43 +65,16 @@ type LocaleRegistry = Record<LocaleLang, LocaleMessages>;
 /** 注入 key —— 从 ConfigProvider 读取当前语种对象 */
 const LOCALE_LANG_KEY: InjectionKey<Ref<LocaleLangState | undefined>> = Symbol('ydsz-locale-lang');
 
-/** RTL 语言列表（预留扩展） */
-const rtlLanguages: LocaleLang[] = ['ar-SA'];
+/** RTL 语言列表（预留扩展；当前仅中英双语，无 RTL 语言） */
+const rtlLanguages: LocaleLang[] = [];
 
 /** 已内置词典的语种白名单，用于校验外部传入值 */
-const SUPPORTED_LOCALES: ReadonlySet<string> = new Set<LocaleLang>([
-  'ar-SA',
-  'de-DE',
-  'en-US',
-  'es-ES',
-  'fr-FR',
-  'hi-IN',
-  'ja-JP',
-  'ko-KR',
-  'pt-BR',
-  'ru-RU',
-  'th-TH',
-  'vi-VN',
-  'zh-CN',
-  'zh-TW',
-]);
+const SUPPORTED_LOCALES: ReadonlySet<string> = new Set<LocaleLang>(['en-US', 'zh-CN']);
 
-/** 内置默认语言包 —— 14 种语言 */
+/** 内置默认语言包 —— 中文 / 英文 */
 const BUILTIN_MESSAGES: LocaleRegistry = {
   'en-US': enUS,
-  'ja-JP': jaJP,
-  'ko-KR': koKR,
   'zh-CN': zhCN,
-  'zh-TW': zhTW,
-  'fr-FR': frFR,
-  'de-DE': deDE,
-  'es-ES': esES,
-  'pt-BR': ptBR,
-  'ru-RU': ruRU,
-  'ar-SA': arSA,
-  'hi-IN': hiIN,
-  'th-TH': thTH,
-  'vi-VN': viVN,
 };
 
 /**
@@ -142,7 +88,7 @@ const BUILTIN_MESSAGES: LocaleRegistry = {
  * import { getDirection } from './useLocale';
  *
  * // ConfigProvider 用法
- * const dir = getDirection('ar-SA'); // 'rtl'
+ * const dir = getDirection('zh-CN'); // 'ltr'
  * ```
  */
 export function getDirection(lang: LocaleLang): 'ltr' | 'rtl' {

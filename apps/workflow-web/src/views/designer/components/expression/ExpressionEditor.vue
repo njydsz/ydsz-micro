@@ -10,6 +10,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'ExpressionEditor',
+});
 /**
  * 可视化表达式编辑器
  * <p>支持 Aviator 表达式语法，提供可视化构建和文本编辑两种模式。

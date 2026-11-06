@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 社交客户端配置管理（列表页）
  * <p>社交登录客户端配置的列表页，消费后端契约 SocialClientConfigController
@@ -319,10 +320,10 @@ const [Modal, modalApi] = useYdModal({
       };
       if (isEdit.value) {
         await update({ platform: formData.platform }, payload);
-        showToast.success('更新成功');
+        showToast.success($t('operation.update.success'));
       } else {
         await create(payload);
-        showToast.success('创建成功');
+        showToast.success($t('operation.create.success'));
       }
       modalApi.close();
       gridApi.query();

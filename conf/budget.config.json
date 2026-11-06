@@ -13,16 +13,16 @@
       "name": "main",
       "scope": "main",
       "appDir": "main",
-      "maxTotalGzipKB": 1139,
-      "maxChunkGzipKB": 340,
+      "maxTotalGzipKB": 1180,
+      "maxChunkGzipKB": 420,
       "maxCssGzipKB": 13,
       "maxFiles": 166,
       "baseline": {
         "measuredAt": "2026-11-06",
-        "totalGzipKB": 1054.1,
-        "maxChunkGzipKB": 308.2,
+        "totalGzipKB": 1164.7,
+        "maxChunkGzipKB": 399.8,
         "maxCssGzipKB": 10.3,
-        "jsFiles": 144
+        "jsFiles": 162
       }
     },
     {

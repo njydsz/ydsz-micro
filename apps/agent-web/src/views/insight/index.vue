@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 洞察报告列表
  * <p>消费后端 InsightReportController（apps/agent-web/src/api/insightReport.ts）：
@@ -156,7 +157,7 @@ async function handleDelete(row: InsightReportResult) {
   }
   try {
     await deleteReport(row.reportId);
-    showToast.success('删除成功');
+    showToast.success($t('operation.delete.success'));
     gridApi.query();
   } catch {
     /* 错误已由请求拦截器展示，无需重复处理 */

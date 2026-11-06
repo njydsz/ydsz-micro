@@ -62,11 +62,9 @@ function handleCancel() {
 .yd-card {
   display: flex;
   flex-direction: column;
-
   background-color: hsl(var(--ydsz-surface-1));
   border: 1px solid hsl(var(--ydsz-border-subtle));
   border-radius: var(--ydsz-radius-lg);
-
   transition:
     box-shadow var(--ydsz-motion-duration-normal) var(--ydsz-motion-easing-standard),
     border-color var(--ydsz-motion-duration-normal) var(--ydsz-motion-easing-standard);
@@ -89,25 +87,6 @@ function handleCancel() {
   box-shadow: var(--ydsz-shadow-high);
 }
 
-/* ==================== 内边距 ==================== */
-.yd-card--padding-sm .yd-card__body,
-.yd-card--padding-sm .yd-card__header,
-.yd-card--padding-sm .yd-card__footer {
-  padding: var(--ydsz-spacing-sm);
-}
-
-.yd-card--padding-md .yd-card__body,
-.yd-card--padding-md .yd-card__header,
-.yd-card--padding-md .yd-card__footer {
-  padding: var(--ydsz-spacing-md);
-}
-
-.yd-card--padding-lg .yd-card__body,
-.yd-card--padding-lg .yd-card__header,
-.yd-card--padding-lg .yd-card__footer {
-  padding: var(--ydsz-spacing-lg);
-}
-
 /* ==================== Header / Footer ==================== */
 .yd-card__header {
   border-bottom: 1px solid hsl(var(--ydsz-border-subtle));
@@ -128,6 +107,25 @@ function handleCancel() {
   font-size: var(--ydsz-font-size-sm);
   color: hsl(var(--ydsz-text-secondary));
   line-height: var(--ydsz-line-height-relaxed);
+}
+
+/* ==================== 内边距 ==================== */
+.yd-card--padding-sm .yd-card__body,
+.yd-card--padding-sm .yd-card__header,
+.yd-card--padding-sm .yd-card__footer {
+  padding: var(--ydsz-spacing-sm);
+}
+
+.yd-card--padding-md .yd-card__body,
+.yd-card--padding-md .yd-card__header,
+.yd-card--padding-md .yd-card__footer {
+  padding: var(--ydsz-spacing-md);
+}
+
+.yd-card--padding-lg .yd-card__body,
+.yd-card--padding-lg .yd-card__header,
+.yd-card--padding-lg .yd-card__footer {
+  padding: var(--ydsz-spacing-lg);
 }
 
 /* ==================== 禁用态 ==================== */

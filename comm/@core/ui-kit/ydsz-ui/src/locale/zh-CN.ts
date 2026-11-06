@@ -505,9 +505,8 @@ export const zhCN = {
   'splitter.ariaLabel': '调整面板大小',
   'tag.close': '关闭标签',
   'timeline.ariaLabel': '时间轴',
-// === 补齐基线缺失键 ===
+  // === 补齐基线缺失键 ===
   'table.reset': '重置',
-
 } as const satisfies Record<string, string>;
 
 export default zhCN;

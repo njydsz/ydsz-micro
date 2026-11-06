@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 存储配额（展示页）
  * <p>消费后端契约 QuotaController（apps/nextwiki-web/src/api/quota.ts）：
@@ -62,7 +63,7 @@ async function handleQuery() {
       scopeType: queryForm.scopeType || undefined,
       scopeId: queryForm.scopeId || undefined,
     });
-    showToast.success('查询成功');
+    showToast.success($t('operation.query.success'));
   } catch (error) {
     logger.warn('查询配额失败: {}', error); /* 用户提示由请求拦截器统一处理 */
   }

@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * Agent 定义（表单组件）
  * <p>新增/编辑 Agent 定义弹窗，字段对齐后端 AgentDefinitionDTO。
@@ -129,10 +130,10 @@ const [Modal, modalApi] = useYdModal({
       formData.toolNames = selectedTools.value.join(',');
       if (isEdit.value) {
         await update({ ...formData });
-        showToast.success('更新成功');
+        showToast.success($t('operation.update.success'));
       } else {
         await create({ ...formData });
-        showToast.success('创建成功');
+        showToast.success($t('operation.create.success'));
       }
       emit('success');
       modalApi.close();

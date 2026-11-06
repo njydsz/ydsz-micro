@@ -8,6 +8,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'DesignerPalette',
+});
 /**
  * 流程设计器节点面板
  * <p>展示可拖拽的节点类型，支持拖拽到画布创建节点。

@@ -33,7 +33,14 @@
   "createTime": "创建时间",
   "actions": "操作",
   "validation": {
-    "required": "请输入{field}"
+    "required": {
+      "shareTitle": "请输入分享标题",
+      "workflowName": "请输入工作流名称",
+      "agentCode": "请输入Agent编码",
+      "memoryContent": "请输入记忆内容",
+      "templateCode": "请输入模板编码",
+      "templateName": "请输入模板名称"
+    }
   },
   "error": {
     "pageLoadFailed": "页面加载出错，请稍后重试"
@@ -57,5 +64,59 @@
     "confirm": "确认",
     "errorInvalid": "密码验证失败，请重新输入",
     "errorEmpty": "密码不能为空"
+  },
+  "operation": {
+    "update": {
+      "success": "更新成功"
+    },
+    "create": {
+      "success": "创建成功"
+    },
+    "delete": {
+      "success": "删除成功"
+    },
+    "publish": {
+      "success": "发布成功"
+    },
+    "save": {
+      "success": "保存成功"
+    },
+    "copy": {
+      "failed": "复制失败"
+    },
+    "export": {
+      "success": "导出成功",
+      "failed": "导出失败"
+    },
+    "query": {
+      "success": "查询成功"
+    },
+    "success": "新增记忆成功",
+    "import": {
+      "success": "导入成功",
+      "failed": "导入失败"
+    },
+    "connect": {
+      "success": "连接成功"
+    },
+    "rollback": {
+      "success": "回滚成功"
+    },
+    "trigger": {
+      "success": "触发成功"
+    },
+    "failed": "操作失败",
+    "enable": {
+      "success": "启用成功"
+    },
+    "disable": {
+      "success": "禁用成功"
+    },
+    "unbind": {
+      "success": "解绑成功"
+    },
+    "validate": {
+      "failed": "DSL校验失败"
+    }
   }
 }

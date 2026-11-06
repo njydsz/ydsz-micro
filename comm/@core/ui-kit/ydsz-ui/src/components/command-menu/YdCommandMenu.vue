@@ -237,7 +237,7 @@ function scrollIntoView(): void {
   align-items: flex-start;
   justify-content: center;
   padding-top: 15vh;
-  background: hsl(var(--ydsz-overlay-bg) / 0.5);
+  background: hsl(var(--ydsz-overlay-bg) / 50%);
   backdrop-filter: blur(4px);
 }
 

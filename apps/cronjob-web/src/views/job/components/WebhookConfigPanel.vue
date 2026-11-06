@@ -8,6 +8,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'WebhookConfigPanel',
+});
 /**
  * WebHook 配置面板
  * <p>消费后端契约 JobWebhookController（apps/cronjob-web/src/api/jobWebhook.ts）：

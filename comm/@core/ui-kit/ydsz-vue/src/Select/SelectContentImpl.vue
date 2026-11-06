@@ -51,7 +51,6 @@ export interface SelectContentImplProps extends PopperContentProps {
    */
   bodyLock?: boolean;
 }
-
 </script>
 
 <script setup lang="ts">

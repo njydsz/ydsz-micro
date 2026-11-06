@@ -28,10 +28,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from '@ydsz-core/ydsz-vue';
-import {
-  YdDropdownMenu as DropdownMenu,
-  YdDropdownMenuTrigger,
-} from '../dropdown-menu';
+import { YdDropdownMenu as DropdownMenu, YdDropdownMenuTrigger } from '../dropdown-menu';
 
 interface Props {
   /** 菜单项列表 */
@@ -117,11 +114,7 @@ function handleKeydown(event: KeyboardEvent): void {
 </script>
 
 <template>
-  <div
-    role="menubar"
-    :class="cn('flex items-center gap-1', props.class)"
-    @keydown="handleKeydown"
-  >
+  <div role="menubar" :class="cn('flex items-center gap-1', props.class)" @keydown="handleKeydown">
     <template v-for="item in items" :key="item.key">
       <!-- 分组标题 -->
       <div

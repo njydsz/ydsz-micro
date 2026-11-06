@@ -2,6 +2,9 @@
 apps\cronjob-web\src\components\cron-builder\CronMultiSelect.vue * @author ydsz-team * @since 1.0.0
 */
 <script lang="ts" setup name="CronMultiSelect">
+defineOptions({
+  name: 'CronMultiSelect',
+});
 import { YdCheckbox, YdLabel } from '@ydsz-core/ydsz-ui';
 
 interface OptionItem {

@@ -34,7 +34,8 @@ import {
   YdDescriptions,
   YdDescriptionsItem,
 } from '@ydsz-core/ydsz-ui';
-import { h, onMounted, ref } from 'vue';
+import { computed, h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { YdConfirm } from '@ydsz-core/popup-ui';
 
@@ -53,6 +54,8 @@ const logger = createLogger('literule-rule-template');
 
 defineOptions({ name: 'RuleTemplateManagement' });
 
+const { t } = useI18n();
+
 /** ========== 状态 ========== */
 const loading = ref(false);
 const templateList = ref<RuleTemplateVO[]>([]);
@@ -66,31 +69,31 @@ const currentTemplate = ref<RuleTemplateVO | null>(null);
 const importResult = ref<RuleDefinitionVO | null>(null);
 
 /** 类目树（静态硬编码，实际可从后端加载） */
-const categoryTree = ref([
-  { label: '全部分类', value: 'all' },
-  { label: '风控规则', value: 'risk' },
-  { label: '营销规则', value: 'marketing' },
-  { label: '财务规则', value: 'finance' },
-  { label: '合规规则', value: 'compliance' },
+const categoryTree = computed(() => [
+  { label: t('ruleTemplateCategoryAll'), value: 'all' },
+  { label: t('ruleTemplateCategoryRisk'), value: 'risk' },
+  { label: t('ruleTemplateCategoryMarketing'), value: 'marketing' },
+  { label: t('ruleTemplateCategoryFinance'), value: 'finance' },
+  { label: t('ruleTemplateCategoryCompliance'), value: 'compliance' },
 ]);
 
-const industryTree = ref([
-  { label: '全部行业', value: 'all' },
-  { label: '金融', value: 'finance' },
-  { label: '电商', value: 'ecommerce' },
-  { label: '医疗', value: 'healthcare' },
-  { label: '制造', value: 'manufacturing' },
+const industryTree = computed(() => [
+  { label: t('ruleTemplateIndustryAll'), value: 'all' },
+  { label: t('ruleTemplateIndustryFinance'), value: 'finance' },
+  { label: t('ruleTemplateIndustryEcommerce'), value: 'ecommerce' },
+  { label: t('ruleTemplateIndustryHealthcare'), value: 'healthcare' },
+  { label: t('ruleTemplateIndustryManufacturing'), value: 'manufacturing' },
 ]);
 
 /** ========== 模板列表 ========== */
 const templateGridOptions: VxeTableGridOptions<RuleTemplateVO> = {
   columns: [
     { type: 'seq', width: 50, title: '#' },
-    { field: 'templateCode', title: '模板编码', width: 150 },
-    { field: 'templateName', title: '模板名称', minWidth: 160 },
+    { field: 'templateCode', title: t('ruleTemplateColumnCode'), width: 150 },
+    { field: 'templateName', title: t('ruleTemplateColumnName'), minWidth: 160 },
     {
       field: 'category',
-      title: '分类',
+      title: t('ruleTemplateColumnCategory'),
       width: 100,
       slots: {
         default: ({ row }) => h(YdBadge, { variant: 'primary' }, () => row.category ?? '-'),
@@ -98,16 +101,16 @@ const templateGridOptions: VxeTableGridOptions<RuleTemplateVO> = {
     },
     {
       field: 'industry',
-      title: '行业',
+      title: t('ruleTemplateColumnIndustry'),
       width: 100,
       slots: {
         default: ({ row }) => h(YdBadge, { variant: 'success' }, () => row.industry ?? '-'),
       },
     },
-    { field: 'description', title: '描述', minWidth: 160 },
+    { field: 'description', title: t('ruleTemplateColumnDescription'), minWidth: 160 },
     {
       field: 'createdBy',
-      title: '创建人',
+      title: t('ruleTemplateColumnCreatedBy'),
       width: 100,
       slots: {
         default: ({ row }) => h('span', {}, row.createdBy ?? '-'),
@@ -115,12 +118,12 @@ const templateGridOptions: VxeTableGridOptions<RuleTemplateVO> = {
     },
     {
       field: 'createdAt',
-      title: '创建时间',
+      title: t('ruleTemplateColumnCreatedAt'),
       width: 160,
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('ruleTemplateColumnAction'),
       width: 160,
       fixed: 'right',
       slots: {
@@ -129,12 +132,12 @@ const templateGridOptions: VxeTableGridOptions<RuleTemplateVO> = {
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleImport(row) },
-              () => '导入',
+              () => t('ruleTemplateActionImport'),
             ),
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handlePreview(row) },
-              () => '预览',
+              () => t('ruleTemplateActionPreview'),
             ),
           ]),
       },
@@ -214,7 +217,8 @@ function handlePreview(row: RuleTemplateVO): void {
 async function handleImport(row: RuleTemplateVO): Promise<void> {
   if (!row.templateCode) return;
   try {
-    await YdConfirm(`确认导入模板 "${row.templateName}"？将基于模板创建新规则。`, '导入确认', {
+    await YdConfirm(t('ruleTemplateImportConfirm', [row.templateName]), {
+      title: t('ruleTemplateImportConfirmTitle'),
       type: 'warning',
     });
   } catch {

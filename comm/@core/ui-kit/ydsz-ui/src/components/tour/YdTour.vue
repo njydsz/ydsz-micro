@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * YdTour —— 漫游引导主控制器。
  *
  * 对标 EP Tour / ANT Tour 的完整引导能力：
@@ -336,5 +336,3 @@ const effectiveCloseOnClickMask = computed(() => {
     </template>
   </div>
 </template>
-
-<style scoped></style>

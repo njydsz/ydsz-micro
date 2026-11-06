@@ -8,6 +8,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'TaskOperationDialog',
+});
 /**
  * 任务操作弹窗
  * <p>支持任务跳转（指定节点跳转/自由跳转）、沟通（发送消息给相关人员）、草稿保存。

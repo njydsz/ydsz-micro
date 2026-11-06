@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * RAG 文档导入（弹窗组件）
  * <p>向知识库导入单个文档，字段对齐后端 DocumentIngestDTO（documentId/content/documentTitle/source），
@@ -50,7 +51,7 @@ const [Modal, modalApi] = useYdModal({
     modalApi.lock();
     try {
       await ingest({ ...formData });
-      showToast.success('导入成功');
+      showToast.success($t('operation.import.success'));
       emit('success');
       modalApi.close();
     } finally {

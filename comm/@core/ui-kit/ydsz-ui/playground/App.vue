@@ -61,7 +61,13 @@ const COMPONENTS: ComponentEntry[] = [
   {
     category: '表单',
     defaultProps: JSON.stringify(
-      { multiple: false, options: [{ label: '选项 A', value: 'a' }, { label: '选项 B', value: 'b' }] },
+      {
+        multiple: false,
+        options: [
+          { label: '选项 A', value: 'a' },
+          { label: '选项 B', value: 'b' },
+        ],
+      },
       null,
       2,
     ),
@@ -125,7 +131,13 @@ const COMPONENTS: ComponentEntry[] = [
   {
     category: '导航',
     defaultProps: JSON.stringify(
-      { items: [{ key: '1', label: '标签一' }, { key: '2', label: '标签二' }], modelValue: '1' },
+      {
+        items: [
+          { key: '1', label: '标签一' },
+          { key: '2', label: '标签二' },
+        ],
+        modelValue: '1',
+      },
       null,
       2,
     ),
@@ -322,7 +334,10 @@ async function copyThemeCss(): Promise<void> {
                 :value="tokenEdits[token.key] ?? ''"
                 class="pg__token-input"
                 placeholder="HSL 三元组"
-                @input="tokenEdits[token.key] = ($event.target as HTMLInputElement).value; applyToken(token.key, ($event.target as HTMLInputElement).value)"
+                @input="
+                  tokenEdits[token.key] = ($event.target as HTMLInputElement).value;
+                  applyToken(token.key, ($event.target as HTMLInputElement).value);
+                "
               />
               <span class="pg__token-desc">{{ token.description }}</span>
             </div>
@@ -343,7 +358,9 @@ async function copyThemeCss(): Promise<void> {
             <YdProgress :value="60" />
           </div>
           <h3 class="pg__section-subtitle">导出 CSS</h3>
-          <pre class="pg__code"><code>{{ exportedCss || '（编辑 token 后此处显示 CSS）' }}</code></pre>
+          <pre
+            class="pg__code"
+          ><code>{{ exportedCss || '（编辑 token 后此处显示 CSS）' }}</code></pre>
         </section>
       </div>
 
@@ -469,7 +486,7 @@ async function copyThemeCss(): Promise<void> {
 }
 
 .pg__item--active {
-  background: hsl(var(--ydsz-primary) / 0.1);
+  background: hsl(var(--ydsz-primary) / 10%);
   color: hsl(var(--ydsz-primary));
   font-weight: var(--ydsz-font-weight-medium, 500);
 }
@@ -513,7 +530,7 @@ async function copyThemeCss(): Promise<void> {
   padding: 4px 8px;
   border: none;
   border-radius: 4px;
-  background: hsl(var(--ydsz-primary) / 0.1);
+  background: hsl(var(--ydsz-primary) / 10%);
   color: hsl(var(--ydsz-primary));
   cursor: pointer;
   font-size: var(--ydsz-font-size-xs, 0.75rem);
@@ -536,7 +553,7 @@ async function copyThemeCss(): Promise<void> {
   padding: 8px 12px;
   color: hsl(var(--ydsz-error, #ef4444));
   font-size: var(--ydsz-font-size-xs, 0.75rem);
-  background: hsl(var(--ydsz-error, #ef4444) / 0.05);
+  background: hsl(var(--ydsz-error, #ef4444) / 5%);
 }
 
 .pg__code {
@@ -574,7 +591,7 @@ async function copyThemeCss(): Promise<void> {
   background: hsl(var(--ydsz-surface-1));
   color: hsl(var(--ydsz-text-primary));
   font-weight: var(--ydsz-font-weight-medium, 500);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
 }
 
 /* ==================== 主题设计器 ==================== */
@@ -664,7 +681,7 @@ async function copyThemeCss(): Promise<void> {
   gap: var(--ydsz-spacing-sm, 8px);
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .pg__theme {
     grid-template-columns: 1fr;
   }

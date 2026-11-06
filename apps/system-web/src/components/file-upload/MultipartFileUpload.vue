@@ -1,4 +1,7 @@
 <script setup lang="ts">
+defineOptions({
+  name: 'MultipartFileUpload',
+});
 /**
  * MultipartFileUpload —— 分片上传组件（P1-2 文件分片上传前端化）。
  *
@@ -258,6 +261,7 @@ defineExpose({ startUpload, cancelUpload, reset: resetState });
 .multipart-upload {
   transition: border-color 0.2s;
 }
+
 .multipart-upload:hover {
   border-color: var(--color-primary, #3b82f6);
 }

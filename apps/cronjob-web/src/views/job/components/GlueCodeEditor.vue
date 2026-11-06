@@ -8,6 +8,10 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
+defineOptions({
+  name: 'GlueCodeEditor',
+});
 /**
  * GLUE 在线代码编辑器
  * <p>支持 Java/Groovy/Python 等语言的 GLUE 任务代码编辑。
@@ -33,6 +37,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from '@ydsz/icons';
 import { computed, onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { diff, latest, rollback, save, template, test, versions } from '#/api/glueCode';
@@ -46,6 +51,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   jobId: '',
 });
+
+const { t } = useI18n();
 
 const emit = defineEmits<{
   success: [];
@@ -141,7 +148,7 @@ async function loadVersions(): Promise<void> {
 async function handleSave(): Promise<void> {
   if (!props.jobId) return;
   if (!codeContent.value.trim()) {
-    showToast.warning('请输入代码内容');
+    showToast.warning(t('business.glueCodeRequired'));
     return;
   }
   saving.value = true;
@@ -151,7 +158,7 @@ async function handleSave(): Promise<void> {
       codeContent: codeContent.value,
       language: codeLanguage.value,
     });
-    showToast.success('保存成功');
+    showToast.success($t('operation.save.success'));
     emit('success');
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -163,7 +170,7 @@ async function handleSave(): Promise<void> {
 /** 执行测试 */
 async function handleTest(): Promise<void> {
   if (!props.jobId || !codeContent.value.trim()) {
-    showToast.warning('请先输入代码内容');
+    showToast.warning(t('business.glueTestCodeRequired'));
     return;
   }
   testing.value = true;
@@ -177,7 +184,7 @@ async function handleTest(): Promise<void> {
     });
     testResult.value = JSON.stringify(result, null, 2);
   } catch {
-    testResult.value = '测试执行失败';
+    testResult.value = t('business.glueTestFailed');
   } finally {
     testing.value = false;
   }
@@ -188,8 +195,8 @@ async function handleRollback(version: GlueCodeVO): Promise<void> {
   if (!props.jobId || !version.version) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定回滚到版本 ${version.version} 吗？`, {
-      title: '回滚确认',
+    await YdConfirm(t('business.glueRollbackConfirm', [version.version]), {
+      title: t('business.glueRollbackTitle'),
       type: 'warning',
     });
   } catch {
@@ -201,7 +208,7 @@ async function handleRollback(version: GlueCodeVO): Promise<void> {
       jobId: props.jobId,
       version: version.version,
     });
-    showToast.success('回滚成功');
+    showToast.success($t('operation.rollback.success'));
     await loadLatest();
     await loadVersions();
   } catch {
@@ -214,7 +221,7 @@ async function handleDiff(versionA: number, versionB: number): Promise<void> {
   if (!props.jobId) return;
   try {
     await diff({ jobId: props.jobId, versionA, versionB });
-    showToast.info('差异对比功能开发中');
+    showToast.info(t('business.glueDiffInDevelopment'));
   } catch {
     // 错误提示由请求拦截器统一处理
   }
@@ -234,19 +241,22 @@ onMounted(() => {
 </script>
 
 <template>
-  <Modal title="GLUE 代码编辑器" width="900px">
+  <Modal :title="t('business.glueEditorTitle')" width="900px">
     <YdTabs v-model="activeTab">
       <YdTabsList class="mt-2">
-        <YdTabsTrigger value="editor">代码编辑</YdTabsTrigger>
-        <YdTabsTrigger value="versions">版本管理</YdTabsTrigger>
-        <YdTabsTrigger value="test">测试执行</YdTabsTrigger>
+        <YdTabsTrigger value="editor">{{ t('business.glueTabEditor') }}</YdTabsTrigger>
+        <YdTabsTrigger value="versions">{{ t('business.glueTabVersions') }}</YdTabsTrigger>
+        <YdTabsTrigger value="test">{{ t('business.glueTabTest') }}</YdTabsTrigger>
       </YdTabsList>
       <!-- 代码编辑 -->
       <YdTabsContent value="editor">
         <div class="editor-container mt-3">
           <div class="mb-3 flex items-center gap-3">
             <YdSelectBase v-model="codeLanguage">
-              <YdSelectTriggerBase class="w-32" placeholder="语言" />
+              <YdSelectTriggerBase
+                class="w-32"
+                :placeholder="t('business.glueLanguagePlaceholder')"
+              />
               <YdSelectContentBase>
                 <YdSelectItemBase
                   v-for="opt in languageOptions"
@@ -257,24 +267,28 @@ onMounted(() => {
                 </YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
-            <YdButton size="sm" variant="outline" @click="loadTemplate">加载模板</YdButton>
-            <span v-if="currentVersion > 0" class="text-xs text-gray-500"
-              >当前版本：v{{ currentVersion }}</span
-            >
+            <YdButton size="sm" variant="outline" @click="loadTemplate">{{
+              t('business.glueLoadTemplate')
+            }}</YdButton>
+            <span v-if="currentVersion > 0" class="text-xs text-gray-500">{{
+              t('business.glueCurrentVersion', [currentVersion])
+            }}</span>
           </div>
           <div class="code-editor-wrapper">
             <textarea
               v-model="codeContent"
               class="code-editor"
-              :placeholder="`请输入 ${codeLanguage.toUpperCase()} 代码...`"
+              :placeholder="t('business.glueCodePlaceholder', [codeLanguage.toUpperCase()])"
               spellcheck="false"
             />
           </div>
           <div class="mt-3 flex justify-end gap-2">
-            <YdButton variant="outline" @click="modalApi.close()">取消</YdButton>
+            <YdButton variant="outline" @click="modalApi.close()">
+              {{ t('business.glueCancel') }}
+            </YdButton>
             <YdButton :disabled="saving" @click="handleSave">
               <Loader2 v-if="saving" class="mr-2 h-4 w-4 animate-spin" />
-              保存
+              {{ t('business.glueSave') }}
             </YdButton>
           </div>
         </div>
@@ -284,7 +298,7 @@ onMounted(() => {
       <YdTabsContent value="versions">
         <div class="mt-3">
           <div v-if="versionList.length === 0" class="py-8 text-center text-gray-400">
-            暂无版本记录
+            {{ t('business.glueNoVersions') }}
           </div>
           <div
             v-for="version in versionList"
@@ -292,7 +306,9 @@ onMounted(() => {
             class="mb-2 flex items-center justify-between rounded border p-3"
           >
             <div>
-              <p class="text-sm font-medium">版本 v{{ version.version }}</p>
+              <p class="text-sm font-medium">
+                {{ t('business.glueVersionItem', [version.version]) }}
+              </p>
               <p class="text-xs text-gray-500">{{ version.createdAt }}</p>
               <p v-if="version.remark" class="mt-1 text-xs text-gray-600">{{ version.remark }}</p>
             </div>
@@ -301,10 +317,10 @@ onMounted(() => {
                 size="sm"
                 variant="outline"
                 @click="handleDiff(version.version ?? 0, (version.version ?? 0) - 1)"
-                >对比</YdButton
+                >{{ t('business.glueDiff') }}</YdButton
               >
               <YdButton size="sm" variant="destructive" @click="handleRollback(version)"
-                >回滚</YdButton
+                >{{ t('business.glueRollback') }}</YdButton
               >
             </div>
           </div>
@@ -315,10 +331,10 @@ onMounted(() => {
       <YdTabsContent value="test">
         <div class="mt-3">
           <YdForm label-width="80px">
-            <YdFormItem label="测试参数">
+            <YdFormItem :label="t('business.glueTestParamsLabel')">
               <YdTextarea
                 v-model="testParams"
-                placeholder="请输入测试参数（JSON格式，选填）"
+                :placeholder="t('business.glueTestParamsPlaceholder')"
                 :rows="3"
               />
             </YdFormItem>
@@ -326,11 +342,13 @@ onMounted(() => {
           <div class="mb-3 flex justify-end">
             <YdButton :disabled="testing" @click="handleTest">
               <Loader2 v-if="testing" class="mr-2 h-4 w-4 animate-spin" />
-              执行测试
+              {{ t('business.glueRunTest') }}
             </YdButton>
           </div>
           <div v-if="testResult" class="rounded border bg-gray-50 p-3">
-            <p class="mb-1 text-xs font-medium text-gray-600">测试结果：</p>
+            <p class="mb-1 text-xs font-medium text-gray-600">
+              {{ t('business.glueTestResultLabel') }}
+            </p>
             <pre class="overflow-auto whitespace-pre-wrap text-sm">{{ testResult }}</pre>
           </div>
         </div>

@@ -48,10 +48,7 @@ const msg = showNotification.success('ok');
       result.includes(`import { YdButton, YdInput } from '@ydsz-core/ydsz-ui';`),
       '应迁移组件 import',
     );
-    assert.ok(
-      result.includes(`import { Search } from 'lucide-vue-next';`),
-      '应迁移图标 import',
-    );
+    assert.ok(result.includes(`import { Search } from 'lucide-vue-next';`), '应迁移图标 import');
     assert.ok(result.includes('<yd-button'), '应迁移 el-button 标签');
     assert.ok(result.includes('</yd-button>'), '应迁移结束标签');
     assert.ok(result.includes('<YdInput'), '应迁移 ElInput 标签');

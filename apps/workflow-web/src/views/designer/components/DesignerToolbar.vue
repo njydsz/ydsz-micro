@@ -8,6 +8,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'DesignerToolbar',
+});
 /**
  * 流程设计器工具栏
  * <p>提供撤销/重做、缩放控制、对齐操作、保存等功能。

@@ -222,6 +222,7 @@
   --warning: var(--ydsz-warning);
   --warning-foreground: var(--ydsz-warning-foreground);
   --sidebar: var(--ydsz-sidebar);
+
   /* 语义化背景/文本/边框 → 桥接 Tailwind config 中 surface/text/border */
   --bg-canvas: var(--ydsz-bg-canvas);
   --bg-surface-1: var(--ydsz-bg-surface-1);
@@ -235,6 +236,7 @@
   --border-default: var(--ydsz-border-default);
   --border-strong: var(--ydsz-border-strong);
   --border-subtle: var(--ydsz-border-subtle);
+
   /* 其他 */
   --header: var(--ydsz-header);
   --main: var(--ydsz-main);
@@ -275,6 +277,7 @@
   --secondary-desc: 215.4 16.3% 46.9%;
   --background-deep: var(--ydsz-background-deep);
   --sidebar-deep: var(--ydsz-sidebar-deep);
+
   /* 字号系统 */
   --text-10: 0.625rem;
   --text-12: 0.75rem;
@@ -294,20 +297,24 @@
   --h4-size: 1.125rem;
   --h5-size: 1rem;
   --h6-size: 0.875rem;
+
   /* 行高 */
   --text-line-height-tight: 1.25;
   --text-line-height-default: 1.5;
   --text-line-height-relaxed: 1.625;
+
   /* 字间距 */
   --tracking-tight: -0.025em;
   --tracking-default: 0;
   --tracking-wide: 0.025em;
+
   /* 排版 */
   --font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC',
+    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, 'Noto Sans SC',
     sans-serif;
   --font-family-code:
-    'Fira Code', 'JetBrains Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+    'Fira Code', 'JetBrains Mono', menlo, monaco, consolas, 'Courier New', monospace;
+
   /* 间距 */
   --height-header: 3.5rem;
   --width-sidebar: 16rem;
@@ -317,14 +324,16 @@
   --space-group: 1rem;
   --space-inline: 0.75rem;
   --space-tight: 0.25rem;
+
   /* 阴影 */
-  --shadow-raised-100: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-raised-200: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-raised-300: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-overlay-100: 0 25px 50px -12px rgb(0 0 0 / 0.25), 0 0 0 1px rgb(0 0 0 / 0.05);
-  --shadow-overlay-200: 0 35px 60px -15px rgb(0 0 0 / 0.3), 0 0 0 1px rgb(0 0 0 / 0.05);
-  --shadow-direction-left: -10px 0 30px rgb(0 0 0 / 0.12);
-  --shadow-direction-right: 10px 0 30px rgb(0 0 0 / 0.12);
+  --shadow-raised-100: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+  --shadow-raised-200: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+  --shadow-raised-300: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+  --shadow-overlay-100: 0 25px 50px -12px rgb(0 0 0 / 25%), 0 0 0 1px rgb(0 0 0 / 5%);
+  --shadow-overlay-200: 0 35px 60px -15px rgb(0 0 0 / 30%), 0 0 0 1px rgb(0 0 0 / 5%);
+  --shadow-direction-left: -10px 0 30px rgb(0 0 0 / 12%);
+  --shadow-direction-right: 10px 0 30px rgb(0 0 0 / 12%);
+
   /* 圆角 */
   --radius-sm: calc(0.5rem - 4px);
   --radius-md: calc(0.5rem - 2px);
@@ -332,16 +341,19 @@
   --radius-xl: calc(0.5rem + 4px);
   --radius-2xl: calc(0.5rem + 8px);
   --radius-full: 9999px;
+
   /* 动效 */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
   /* 过渡时长 */
   --duration-fast: 150ms;
   --duration-default: 200ms;
   --duration-slow: 300ms;
   --duration-slower: 500ms;
+
   /* z-index 系统 */
   --z-base: 0;
   --z-sticky: 100;
@@ -402,14 +414,16 @@
   --heavy-foreground: var(--ydsz-heavy-foreground);
   --background-deep: var(--ydsz-background-deep);
   --sidebar-deep: var(--ydsz-sidebar-deep);
+
   /* 暗色下阴影更柔和 */
-  --shadow-raised-100: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
-  --shadow-raised-200: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-  --shadow-raised-300: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
-  --shadow-overlay-100: 0 25px 50px -12px rgb(0 0 0 / 0.5), 0 0 0 1px rgb(0 0 0 / 0.1);
-  --shadow-overlay-200: 0 35px 60px -15px rgb(0 0 0 / 0.6), 0 0 0 1px rgb(0 0 0 / 0.1);
-  --shadow-direction-left: -10px 0 30px rgb(0 0 0 / 0.4);
-  --shadow-direction-right: 10px 0 30px rgb(0 0 0 / 0.4);
+  --shadow-raised-100: 0 1px 3px 0 rgb(0 0 0 / 30%), 0 1px 2px -1px rgb(0 0 0 / 30%);
+  --shadow-raised-200: 0 4px 6px -1px rgb(0 0 0 / 30%), 0 2px 4px -2px rgb(0 0 0 / 30%);
+  --shadow-raised-300: 0 10px 15px -3px rgb(0 0 0 / 40%), 0 4px 6px -4px rgb(0 0 0 / 40%);
+  --shadow-overlay-100: 0 25px 50px -12px rgb(0 0 0 / 50%), 0 0 0 1px rgb(0 0 0 / 10%);
+  --shadow-overlay-200: 0 35px 60px -15px rgb(0 0 0 / 60%), 0 0 0 1px rgb(0 0 0 / 10%);
+  --shadow-direction-left: -10px 0 30px rgb(0 0 0 / 40%);
+  --shadow-direction-right: 10px 0 30px rgb(0 0 0 / 40%);
+
   /* 品牌色色阶（暗色下调整亮度） */
   --primary-50: 222 47% 17%;
   --primary-100: 222 47% 22%;

@@ -8,6 +8,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'DslEditor',
+});
 /**
  * DSL 编辑器
  * <p>基于文本编辑器的 DSL 语法高亮与自动补全实现。

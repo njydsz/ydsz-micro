@@ -39,6 +39,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from '@ydsz/icons';
 import { reactive, ref } from 'vue';
+import { $t } from '#/locales';
 import { createLogger } from '@ydsz/utils';
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
@@ -295,9 +296,9 @@ loadMfaStatus();
         <YdTabs v-model="activeTab">
           <!-- 基本信息 -->
           <YdTabsList class="grid w-full grid-cols-3">
-            <YdTabsTrigger value="profile">基本信息</YdTabsTrigger>
-            <YdTabsTrigger value="password">修改密码</YdTabsTrigger>
-            <YdTabsTrigger value="mfa">MFA设置</YdTabsTrigger>
+            <YdTabsTrigger value="profile">{{ $t('userProfile.basicInfo') }}</YdTabsTrigger>
+            <YdTabsTrigger value="password">{{ $t('userProfile.changePassword') }}</YdTabsTrigger>
+            <YdTabsTrigger value="mfa">{{ $t('userProfile.mfaSettings') }}</YdTabsTrigger>
           </YdTabsList>
           <YdTabsContent value="profile">
             <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
@@ -309,32 +310,32 @@ loadMfaStatus();
                   label-width="100px"
                   label-position="right"
                 >
-                  <YdFormItem label="真实姓名" prop="realName">
+                  <YdFormItem :label="$t('userProfile.realName')" prop="realName">
                     <YdInput
                       v-model="profileForm.realName"
-                      placeholder="请输入真实姓名"
+                      :placeholder="$t('userProfile.realNamePlaceholder')"
                       maxlength="32"
                       show-word-limit
                     />
                   </YdFormItem>
-                  <YdFormItem label="手机号码" prop="phone">
+                  <YdFormItem :label="$t('userProfile.phone')" prop="phone">
                     <YdInput
                       v-model="profileForm.phone"
-                      placeholder="请输入手机号码"
+                      :placeholder="$t('userProfile.phonePlaceholder')"
                       maxlength="20"
                     />
                   </YdFormItem>
-                  <YdFormItem label="邮箱地址" prop="email">
+                  <YdFormItem :label="$t('userProfile.email')" prop="email">
                     <YdInput
                       v-model="profileForm.email"
-                      placeholder="请输入邮箱地址"
+                      :placeholder="$t('userProfile.emailPlaceholder')"
                       maxlength="64"
                     />
                   </YdFormItem>
-                  <YdFormItem label="头像URL" prop="avatar">
+                  <YdFormItem :label="$t('userProfile.avatarUrl')" prop="avatar">
                     <YdInput
                       v-model="profileForm.avatar"
-                      placeholder="头像地址（上传后自动填充）"
+                      :placeholder="$t('userProfile.avatarPlaceholder')"
                     />
                   </YdFormItem>
                   <YdFormItem>
@@ -344,7 +345,7 @@ loadMfaStatus();
                       @click="handleUpdateProfile"
                     >
                       <Loader2 v-if="isProfileLoading" class="mr-2 h-4 w-4 animate-spin" />
-                      保存修改
+                      {{ $t('userProfile.saveChanges') }}
                     </YdButton>
                   </YdFormItem>
                 </YdForm>
@@ -361,16 +362,20 @@ loadMfaStatus();
                   v-else
                   class="bg-muted text-muted-foreground flex h-24 w-24 items-center justify-center rounded-full border-2 border-dashed"
                 >
-                  <span class="text-xs">无头像</span>
+                  <span class="text-xs">{{ $t('userProfile.noAvatar') }}</span>
                 </div>
                 <YdUpload
                   :show-file-list="false"
                   accept="image/png,image/jpeg,image/jpg,image/gif"
                   :http-request="handleAvatarUpload"
                 >
-                  <YdButton size="sm" variant="default">上传头像</YdButton>
+                  <YdButton size="sm" variant="default">{{
+                    $t('userProfile.uploadAvatar')
+                  }}</YdButton>
                 </YdUpload>
-                <span class="text-muted-foreground text-xs">支持 PNG/JPG/GIF，建议 200x200</span>
+                <span class="text-muted-foreground text-xs">{{
+                  $t('userProfile.avatarHint')
+                }}</span>
               </div>
             </div>
           </YdTabsContent>
@@ -386,27 +391,27 @@ loadMfaStatus();
                   label-width="100px"
                   label-position="right"
                 >
-                  <YdFormItem label="原密码" prop="oldPassword">
+                  <YdFormItem :label="$t('userProfile.oldPassword')" prop="oldPassword">
                     <YdInput
                       v-model="passwordForm.oldPassword"
                       type="password"
-                      placeholder="请输入原密码"
+                      :placeholder="$t('userProfile.oldPasswordPlaceholder')"
                       show-password
                     />
                   </YdFormItem>
-                  <YdFormItem label="新密码" prop="newPassword">
+                  <YdFormItem :label="$t('userProfile.newPassword')" prop="newPassword">
                     <YdInput
                       v-model="passwordForm.newPassword"
                       type="password"
-                      placeholder="请输入新密码"
+                      :placeholder="$t('userProfile.newPasswordPlaceholder')"
                       show-password
                     />
                   </YdFormItem>
-                  <YdFormItem label="确认密码" prop="confirmPassword">
+                  <YdFormItem :label="$t('userProfile.confirmPassword')" prop="confirmPassword">
                     <YdInput
                       v-model="passwordForm.confirmPassword"
                       type="password"
-                      placeholder="请再次输入新密码"
+                      :placeholder="$t('userProfile.confirmPasswordPlaceholder')"
                       show-password
                     />
                   </YdFormItem>
@@ -417,7 +422,7 @@ loadMfaStatus();
                       @click="handleChangePassword"
                     >
                       <Loader2 v-if="isPasswordLoading" class="mr-2 h-4 w-4 animate-spin" />
-                      修改密码
+                      {{ $t('userProfile.changePassword') }}
                     </YdButton>
                   </YdFormItem>
                 </YdForm>
@@ -430,12 +435,14 @@ loadMfaStatus();
             <div class="grid grid-cols-1 gap-8 md:grid-cols-5">
               <div class="md:col-span-4">
                 <div class="mb-4">
-                  <span class="mr-2 text-sm text-gray-600">MFA状态：</span>
+                  <span class="mr-2 text-sm text-gray-600">{{
+                    $t('userProfile.mfaStatus')
+                  }}</span>
                   <YdSwitch
                     :model-value="isMfaEnabled"
                     disabled
-                    active-text="已开启"
-                    inactive-text="未开启"
+                    :active-text="$t('userProfile.mfaEnabled')"
+                    :inactive-text="$t('userProfile.mfaDisabled')"
                   />
                 </div>
 
@@ -443,31 +450,33 @@ loadMfaStatus();
                 <div v-if="!isMfaEnabled">
                   <template v-if="!mfaSetupData">
                     <p class="mb-4 text-sm text-gray-500">
-                      双因素认证（MFA）为您的账号增加额外的安全保障。启用后，登录时需输入Authenticator应用生成的6位动态码。
+                      {{ $t('userProfile.mfaIntroduction') }}
                     </p>
                     <YdButton variant="default" :disabled="isMfaLoading" @click="handleSetupMfa">
                       <Loader2 v-if="isMfaLoading" class="mr-2 h-4 w-4 animate-spin" />
-                      启用MFA
+                      {{ $t('userProfile.enableMfa') }}
                     </YdButton>
                   </template>
 
                   <!-- MFA 设置引导 -->
                   <template v-else>
                     <div class="rounded-lg border bg-blue-50 p-5">
-                      <h4 class="mb-3 text-sm font-medium text-blue-800">步骤1：扫描二维码</h4>
+                      <h4 class="mb-3 text-sm font-medium text-blue-800">
+                        {{ $t('userProfile.step1Title') }}
+                      </h4>
                       <div class="mb-3 flex items-center gap-5">
                         <div
                           class="flex h-40 w-40 items-center justify-center rounded border bg-white"
                         >
-                          <span class="text-xs text-gray-400"
-                            >请使用<br />Authenticator<br />扫描</span
-                          >
+                          <span class="text-xs text-gray-400">
+                            {{ $t('userProfile.scanQrHint') }}<br />Authenticator<br />{{ $t('userProfile.scanAction') }}
+                          </span>
                         </div>
                         <div class="text-xs text-gray-500">
-                          <p class="mb-1">使用 Google Authenticator、</p>
-                          <p class="mb-1">Microsoft Authenticator 或</p>
-                          <p class="mb-1">任意兼容TOTP的应用扫描二维码。</p>
-                          <p class="mt-2">密钥（手动输入）：</p>
+                          <p class="mb-1">{{ $t('userProfile.authAppsLine1') }}</p>
+                          <p class="mb-1">{{ $t('userProfile.authAppsLine2') }}</p>
+                          <p class="mb-1">{{ $t('userProfile.authAppsLine3') }}</p>
+                          <p class="mt-2">{{ $t('userProfile.secretLabel') }}</p>
                           <code class="mt-1 block rounded bg-gray-100 p-1 text-xs">{{
                             mfaSetupData.secret
                           }}</code>
@@ -481,17 +490,21 @@ loadMfaStatus();
                       label-width="100px"
                       label-position="right"
                     >
-                      <YdFormItem label="动态码" prop="code">
+                      <YdFormItem :label="$t('userProfile.otpCode')" prop="code">
                         <YdInput
                           v-model="activateCode"
-                          placeholder="输入Authenticator中的6位动态码"
+                          :placeholder="$t('userProfile.otpCodePlaceholder')"
                           maxlength="6"
                           class="max-w-64"
                         />
                       </YdFormItem>
                       <YdFormItem>
-                        <YdButton variant="default" @click="handleActivateMfa">验证并激活</YdButton>
-                        <YdButton variant="ghost" @click="handleCancelMfaSetup">取消</YdButton>
+                        <YdButton variant="default" @click="handleActivateMfa">{{
+                          $t('userProfile.verifyAndActivate')
+                        }}</YdButton>
+                        <YdButton variant="ghost" @click="handleCancelMfaSetup">{{
+                          $t('userProfile.cancel')
+                        }}</YdButton>
                       </YdFormItem>
                     </YdForm>
                   </template>
@@ -500,9 +513,11 @@ loadMfaStatus();
                 <!-- 已开启 MFA -->
                 <div v-else>
                   <p class="mb-4 text-sm text-gray-500">
-                    MFA双因素认证已开启。如不再需要，可点击下方按钮禁用（需二次确认）。
+                    {{ $t('userProfile.mfaEnabledHint') }}
                   </p>
-                  <YdButton variant="destructive" @click="handleDisableMfa">禁用MFA</YdButton>
+                  <YdButton variant="destructive" @click="handleDisableMfa">{{
+                    $t('userProfile.disableMfa')
+                  }}</YdButton>
                 </div>
               </div>
             </div>

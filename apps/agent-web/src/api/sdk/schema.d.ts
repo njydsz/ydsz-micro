@@ -6,2160 +6,4592 @@
  */
 
 export type paths = {
-  '/api/agent/execute': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/execute": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["execute"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['execute'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/execute/stream': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/execute/stream": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["executeStream"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['executeStream'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/chat': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/chat": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["chat"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['chat'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/chat/stream': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/chat/stream": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["chatStream"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['chatStream'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/chat/batch': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/chat/batch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchChat"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['batchChat'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/history': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["history"];
+        put?: never;
+        post?: never;
+        delete: operations["clearHistory"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['history'];
-    put?: never;
-    post?: never;
-    delete: operations['clearHistory'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/definitions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/definitions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put: operations["update"];
+        post: operations["create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['list'];
-    put: operations['update'];
-    post: operations['create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/definitions/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/definitions/page": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPage"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getById'];
-    put?: never;
-    post?: never;
-    delete: operations['delete'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/definitions/code/{code}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/definitions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getById"];
+        put?: never;
+        post?: never;
+        delete: operations["delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getByCode'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/models': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/definitions/code/{code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getByCode"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['models'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/tools': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/definitions/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportAgentDefinitions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['tools'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/dag/execute': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/models": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["models"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['execute'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/dag/checkpoint/{executionId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/tools": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["tools"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getCheckpoint'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/dag/validate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/dag/execute": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["execute"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['validate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/debug/traces': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/dag/checkpoint/{executionId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getCheckpoint"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listTraces'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/debug/trace/{traceId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/dag/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["validate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getTrace'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/debug/trace/{traceId}/replay': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/dag-workflow/save": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["save"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['replayTrace'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/approvals/pending': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/dag-workflow/{code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getByCode"];
+        put?: never;
+        post?: never;
+        delete: operations["delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listPending'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/approvals/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/dag-workflow/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getApproval'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/approvals/{id}/approve': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/dag-workflow/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportDagWorkflows"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['approve'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/approvals/{id}/reject': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/debug/traces": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTraces"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['reject'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/observability/overview': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/debug/trace/{traceId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getTrace"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getOverview'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/observability/model-usage': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/debug/trace/{traceId}/replay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["replayTrace"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getModelUsage'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/prompt/evaluate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/approvals/pending": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPending"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['evaluate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/prompt/compare': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/approvals/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getApproval"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['compare'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/rag/ingest': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/approvals/{id}/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["approve"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['ingest'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/rag/search': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/approvals/{id}/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["reject"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['search'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/rag/documents/{documentId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/insight/report": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["generateReport"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['deleteDocument'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/rag/stats': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/insight/report/{reportId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getReport"];
+        put?: never;
+        post?: never;
+        delete: operations["deleteReport"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['stats'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/runtime/sessions/active': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/insight/report/{reportId}/html": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportHtml"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getActiveSessions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/runtime/sessions/recent': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/insight/reports": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listRecentReports"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getRecentSessions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/runtime/sessions/{executionId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/knowledge/ingest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["ingest"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getSession'];
-    put?: never;
-    post?: never;
-    delete: operations['forceRecycle'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/runtime/overview': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/knowledge/entity/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["searchEntities"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getOverview'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/teamruns': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/knowledge/entity/{entityId}/subgraph": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["querySubgraph"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listActiveTeamRuns'];
-    put?: never;
-    post: operations['createTeamRun'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/teamruns/{teamRunId}/members': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/knowledge/entity/{entityId}/relations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["queryRelations"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['addMember'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/teamruns/{teamRunId}/start': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/knowledge/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["stats"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['startTeamRun'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/teamruns/{teamRunId}/cancel': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/memory/{conversationId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["loadMemory"];
+        put?: never;
+        post: operations["saveMemory"];
+        delete: operations["clearMemory"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['cancelTeamRun'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/teamruns/{teamRunId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/memory/{conversationId}/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["countMessages"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getTeamRun'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/triggers': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/memory/{conversationId}/consolidate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["consolidate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['listTriggers'];
-    put?: never;
-    post: operations['createTrigger'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/triggers/{triggerId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/observability/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getOverview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations['getTrigger'];
-    put: operations['updateTrigger'];
-    post?: never;
-    delete: operations['deleteTrigger'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/triggers/{triggerId}/enable': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/observability/model-usage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getModelUsage"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['enableTrigger'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/agent/triggers/{triggerId}/disable': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/agent/observability/trace-context": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["getTraceContext"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations['disableTrigger'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
+    "/agent/observability/metrics/bot/{botId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getMetricsByBotId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/prompt/evaluate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["evaluate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/prompt/compare": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["compare"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/prompt/playground/invoke": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["invoke"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/prompt/playground/stream": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["invokeStream"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/prompt/playground/compare": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["compare"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/rag/ingest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["ingest"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/rag/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["search"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/rag/documents/{documentId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deleteDocument"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/rag/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["stats"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/rag/ingest-scanned-pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["ingestScannedPdf"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/rag/ingest-image": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["ingestImage"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/rag/hybrid-search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["hybridSearch"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/runtime/sessions/active": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getActiveSessions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/runtime/sessions/recent": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRecentSessions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/runtime/sessions/{executionId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSession"];
+        put?: never;
+        post?: never;
+        delete: operations["forceRecycle"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/runtime/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getOverview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/tool/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["searchTools"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/tool/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAllTools"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/async-task/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["submitTask"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/async-task/{taskId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getTask"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/async-task/{taskId}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["cancelTask"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/async-task/active": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listActiveTasks"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/skill/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listSkills"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/skill/{skillCode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSkillDetail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/skill/execute": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["executeSkill"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/skill/sandbox/invalidate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["invalidateSandbox"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/teamruns": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listActiveTeamRuns"];
+        put?: never;
+        post: operations["createTeamRun"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/teamruns/{teamRunId}/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["addMember"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/teamruns/{teamRunId}/start": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["startTeamRun"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/teamruns/{teamRunId}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["cancelTeamRun"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/teamruns/{teamRunId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getTeamRun"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/teamruns/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportTeamRuns"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/triggers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTriggers"];
+        put?: never;
+        post: operations["createTrigger"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/triggers/{triggerId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getTrigger"];
+        put: operations["updateTrigger"];
+        post?: never;
+        delete: operations["deleteTrigger"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/triggers/{triggerId}/enable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["enableTrigger"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/triggers/{triggerId}/disable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["disableTrigger"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/agent/triggers/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportTriggers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 };
 export type webhooks = Record<string, never>;
 export type components = {
-  schemas: {
-    /**
-     * @description 统一API返回结果封装类
-     *
-     *     用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。
-     *
-     *     响应结构：
-     *
-     *
-     *     code: 响应码，A00000表示成功，其他表示失败
-     *     msg: 响应消息
-     *     data: 响应数据
-     *     timestamp: 响应时间戳
-     *
-     *
-     *     使用示例：
-     *
-     *     <pre>{@code
-     *     // 返回成功
-     *     return YdszResponse.success(user);
-     *
-     *     // 返回失败（走 i18n）
-     *     return YdszResponse.error(YdszResultCode.NOT_FOUND);
-     *     }</pre>
-     *
-     *     @param <T> 数据泛型
-     */
-    YdszResponse: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 返回编码 */
-      code?: string;
-      /** @description 返回信息 */
-      msg?: string;
-      /**
-       * @description 返回数据
-       *
-       *     泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。
-       */
-      data?: Record<string, never>;
-      /**
-       * @description 链路追踪 ID。
-       *
-       *     首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。
-       */
-      traceId?: Record<string, never>;
-      /**
-       * @description 请求 ID（用于客户端/前端精准排障，单个请求唯一）。
-       *
-       *     volatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。
-       */
-      requestId?: Record<string, never>;
-      /**
-       * @description 当前服务调用的 Span ID（W3C Trace Context span ID）。
-       *
-       *     volatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link
-       *     com.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。
-       */
-      spanId?: Record<string, never>;
-      /**
-       * Format: int64
-       * @description 时间戳
-       */
-      timestamp?: number;
-      /**
-       * @description 扩展字段（可选）。
-       *
-       *     用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
-       */
-      extensions?: {
-        [key: string]: Record<string, never>;
-      };
-      /**
-       * @description 国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。
-       *
-       *     采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。
-       */
-      RESOLVER?: Record<string, never>;
+    schemas: {
+        /**
+         * @description 统一API返回结果封装类
+         *
+         *     用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。
+         *
+         *     响应结构：
+         *
+         *
+         *     code: 响应码，A00000表示成功，其他表示失败
+         *     msg: 响应消息
+         *     data: 响应数据
+         *     timestamp: 响应时间戳
+         *
+         *
+         *     使用示例：
+         *
+         *     <pre>{@code
+         *     // 返回成功
+         *     return YdszResponse.success(user);
+         *
+         *     // 返回失败（走 i18n）
+         *     return YdszResponse.error(YdszResultCode.NOT_FOUND);
+         *     }</pre>
+         *
+         *     @param <T> 数据泛型
+         */
+        YdszResponse: {
+            /**
+             * Format: int64
+             * @description 序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。
+             */
+            serialVersionUID?: number;
+            /** @description 返回编码 */
+            code?: string;
+            /** @description 返回信息 */
+            msg?: string;
+            /**
+             * @description 异常级别。
+             *
+             *     取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：
+             *
+             *
+             *     INFO — 静默处理，不展示 toast
+             *     WARN — 轻量 toast 提示（auto-close 3s）
+             *     ERROR — toast 提示，需用户点击关闭
+             *     FATAL — 弹窗提示，阻断用户当前操作
+             *
+             *
+             *     成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
+             */
+            level?: string;
+            /**
+             * @description 返回数据
+             *
+             *     泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。
+             */
+            data?: Record<string, never>;
+            /**
+             * @description 链路追踪 ID。
+             *
+             *     首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。
+             */
+            traceId?: Record<string, never>;
+            /**
+             * @description 请求 ID（用于客户端/前端精准排障，单个请求唯一）。
+             *
+             *     volatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。
+             */
+            requestId?: Record<string, never>;
+            /**
+             * @description 当前服务调用的 Span ID（W3C Trace Context span ID）。
+             *
+             *     volatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link
+             *     com.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。
+             */
+            spanId?: Record<string, never>;
+            /**
+             * Format: int64
+             * @description 时间戳
+             */
+            timestamp?: number;
+            /**
+             * @description 扩展字段（可选）。
+             *
+             *     用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
+             */
+            extensions?: {
+                [key: string]: Record<string, never>;
+            };
+            /**
+             * @description 国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。
+             *
+             *     采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。
+             */
+            RESOLVER?: Record<string, never>;
+        };
+        /**
+         * @description Agent 执行请求 DTO
+         *
+         *     封装通过指定 Agent 执行任务的请求参数， 支持 ReAct、Plan-Execute、Router 等多种 Agent 模式。
+         */
+        AgentExecutionRequestDTO: {
+            /** @description Agent 编码（指定使用哪个 Agent 执行） */
+            agentCode?: string;
+            /** @description 对话 ID（null 表示新建对话） */
+            conversationId?: string;
+            /** @description 请求幂等键（可选，防止重复调用 LLM 扣费） */
+            requestId?: string;
+            /** @description 用户输入内容（必填） */
+            userInput: string;
+            /** @description 系统提示词（可选，覆盖 Agent 默认配置） */
+            systemPrompt?: string;
+            /**
+             * Format: int32
+             * @description 最大迭代次数（ReAct 模式下生效，默认 10）
+             */
+            maxIterations?: number;
+            /** @description 启用的工具列表（可选，为空则使用 Agent 默认工具配置） */
+            enabledTools?: string[];
+            /** @description 是否流式输出（true 时通过 SSE 逐块返回结果） */
+            isStream?: boolean;
+        };
+        /**
+         * @description 对话请求 DTO
+         *
+         *     封装用户与 Agent 进行单轮/多轮对话的请求参数， 包括消息内容、模型选择、生成参数等。
+         *
+         *     支持两种消息输入方式：
+         *
+         *
+         *     纯文本：通过 #message 字段传入（向后兼容）
+         *     多模态（Vision 模型）：通过 #multimodalContent 传入内容段落列表（文本+图片）
+         *
+         *
+         *     当 `multimodalContent` 非空时，优先使用多模态格式，`message` 忽略。
+         */
+        ChatRequestDTO: {
+            /** @description 对话 ID（null 表示新建对话，非 null 表示续接已有对话） */
+            conversationId?: string;
+            /** @description 请求幂等键（可选，防止重复调用 LLM 扣费） */
+            requestId?: string;
+            /** @description 用户消息内容（必填，纯文本场景） */
+            message: string;
+            /**
+             * @description 多模态内容段落列表（Vision 模型场景，与 message 二选一）
+             *
+             *     当该字段非空时，优先使用多模态格式传递给 LLM，`message` 字段忽略。 每个段落可以是文本（type=text）或图片（type=image_url）。
+             */
+            multimodalContent?: components["schemas"]["ContentPartDTO"][];
+            /** @description 系统提示词（可选，覆盖 Agent 默认配置） */
+            systemPrompt?: string;
+            /** @description 模型名称（可选，覆盖默认模型配置） */
+            model?: string;
+            /** @description 温度参数（可选，取值范围 0-2，值越大生成越随机） */
+            temperature?: number;
+            /**
+             * Format: int32
+             * @description 最大生成 Token 数（可选）
+             */
+            maxTokens?: number;
+            /** @description 内容类型（text / image_url） */
+            type?: string;
+            /** @description 文本内容（type=text 时有效） */
+            text?: string;
+            /** @description 图片 URL（type=image_url 时有效，支持 http(s):// 或 data:image/... 内联格式） */
+            imageUrl?: string;
+        };
+        /**
+         * @description 多模态内容段落 DTO
+         *
+         *     每个段落可以是文本或图片之一，类型由 #type 标识。
+         */
+        ContentPartDTO: {
+            /** @description 内容类型（text / image_url） */
+            type?: string;
+            /** @description 文本内容（type=text 时有效） */
+            text?: string;
+            /** @description 图片 URL（type=image_url 时有效，支持 http(s):// 或 data:image/... 内联格式） */
+            imageUrl?: string;
+        };
+        /**
+         * @description 批量对话请求 DTO
+         *
+         *     封装一组对话请求，由服务端并行调用 LLM 后统一返回结果。
+         *
+         *     适用场景：
+         *
+         *
+         *     批量问答（离线评估、数据集标注）
+         *     多 Prompt 对比测试（A/B 测试不同 systemPrompt 效果）
+         *     批量内容生成（标题生成、摘要生成等）
+         *
+         *
+         *     限制：
+         *
+         *
+         *     单次最多 50 条（避免单次请求占用过久）
+         *     所有请求共享同一模型配置（model / temperature / maxTokens）
+         *     每条请求独立对话 ID，互不干扰
+         */
+        BatchChatRequestDTO: {
+            /** @description 请求幂等键（防重，建议每条请求唯一） */
+            requestId?: string;
+            /** @description 批量对话条目列表（至少 1 条，最多 50 条） */
+            items: components["schemas"]["BatchChatItem"][];
+            /** @description 模型名称（可选，覆盖默认模型配置） */
+            model?: string;
+            /** @description 温度参数（可选，取值范围 0-2） */
+            temperature?: number;
+            /**
+             * Format: int32
+             * @description 最大生成 Token 数（可选）
+             */
+            maxTokens?: number;
+            /** @description 系统提示词（可选，所有条目共享） */
+            systemPrompt?: string;
+            /** @description 条目唯一标识（用于响应中对应结果，由调用方保证唯一） */
+            itemId?: string;
+            /** @description 对话 ID（null 则新建） */
+            conversationId?: string;
+            /** @description 用户消息（纯文本，与 multimodalContent 二选一） */
+            message?: string;
+            /** @description 多模态内容段落（Vision 模型，与 message 二选一） */
+            multimodalContent?: Record<string, never>[];
+        };
+        /**
+         * @description 批量对话单条条目
+         *
+         *     每条包含独立的用户消息和对话 ID，共享外层模型配置。
+         */
+        BatchChatItem: {
+            /** @description 条目唯一标识（用于响应中对应结果，由调用方保证唯一） */
+            itemId?: string;
+            /** @description 对话 ID（null 则新建） */
+            conversationId?: string;
+            /** @description 用户消息（纯文本，与 multimodalContent 二选一） */
+            message?: string;
+            /** @description 多模态内容段落（Vision 模型，与 message 二选一） */
+            multimodalContent?: Record<string, never>[];
+            /** @description 系统提示词（可选，覆盖外层共享 systemPrompt） */
+            systemPrompt?: string;
+        };
+        /**
+         * @description 分页响应信封（YdszResponse 的子类型）。
+         *
+         *     将分页元信息（total / pageNum / pageSize）收口到专用的分页响应类型中， 使 YdszResponse
+         *     不再承担分页职责，同时提供类型明确的返回对象， 便于 Controller 声明 `PageResponse<UserVO>` 或 {@code
+         *     YdszResponse<PageResponse<UserVO>>}。
+         *
+         *     本类是 API 响应信封，用于 Controller 层返回分页数据。 新代码请直接返回 `PageResponse<T>`。
+         *
+         *     迁移提示：YdszResponse 上的分页字段与 `successPage()/emptyPage()` 方法已于 26.10.01
+         *     移除。新代码请直接返回 `PageResponse<T>`。
+         *
+         *     @param <T> 数据元素的类型
+         */
+        PageResponse: {
+            /**
+             * Format: int64
+             * @description 总记录数。
+             */
+            total?: number;
+            /**
+             * Format: int64
+             * @description 当前页码（从 1 开始）。
+             */
+            pageNum?: number;
+            /**
+             * Format: int64
+             * @description 每页记录数。
+             */
+            pageSize?: number;
+            /**
+             * @description 下一页游标（null 表示已无更多数据）。
+             *
+             *     仅游标分页模式有效，偏移量模式下为 null。
+             */
+            nextCursor?: string;
+            /**
+             * @description 是否有下一页。
+             *
+             *     仅游标分页模式有效，偏移量模式下参考 #getPages() 与当前 pageNum 判断。
+             */
+            isMore?: boolean;
+            pages?: string;
+        };
+        /**
+         * @description 分页查询参数封装类。
+         *
+         *     承载分页查询的请求参数（页码、页大小、排序项），提供偏移量计算、 排序操作、游标模式判定等基础能力。深度分页风险评估已解耦至 PageQueryRiskAssessor。
+         */
+        PageQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /**
+             * @description 排序列名安全校验正则：仅允许字母、数字、下划线，以及 table.column 点号格式。
+             *
+             *     此正则用于防御 SQL 注入：排序列名来自前端参数时，若直接拼接到 ORDER BY 子句可能导致注入攻击。
+             *     白名单策略拒绝一切非预期字符（包括空格、引号、分号、注释符等）。
+             *
+             *     示例：`user_name` ✅、`t.user_name` ✅、`user name` ❌、`name;DELETE` ❌。
+             */
+            SAFE_COLUMN_PATTERN?: Record<string, never>;
+            /**
+             * Format: int32
+             * @description 当前页码（从1开始）。
+             */
+            pageNum: number;
+            /**
+             * Format: int32
+             * @description 每页显示条数。
+             */
+            pageSize: number;
+            /** @description 排序项列表（结构化 OrderItem）。 */
+            orderItems?: ("ASC" | "DESC")[];
+            offset?: string;
+            offsetLong?: string;
+            limit?: string;
+        };
+        /**
+         * @description AgentDefinition 统一请求 DTO。
+         *
+         *     不区分 Create / Update，使用统一 DTO：创建时 `id` 字段不传，更新时传入 `id`。
+         *     `id` 字段不加 `@NotBlank`，通过 infra 层 Converter 的 `dtoToEntity`（ignore id，创建场景）
+         *     与 `dtoToEntityWithId`（保留 id，更新场景）区分行为。
+         *
+         *     线程安全：由 @Data 生成 setter，属可变入参载体；仅在单次请求绑定期间使用，框架按请求单线程处理，勿跨线程共享。
+         */
+        AgentDefinitionDTO: {
+            /**
+             * @description 主键 ID。
+             *
+             *     创建场景不传；更新场景必须传入。
+             */
+            id?: string;
+            /** @description Agent 编码 */
+            agentCode?: string;
+            /** @description Agent 名称 */
+            agentName?: string;
+            /** @description Agent 类型 */
+            agentType?: string;
+            /** @description 描述 */
+            description?: string;
+            /** @description 系统提示词 */
+            systemPrompt?: string;
+            /** @description 模型配置 JSON */
+            modelConfig?: string;
+            /** @description 工具名称列表 JSON */
+            toolNames?: string;
+            /** @description 温度参数 */
+            temperature?: number;
+            /**
+             * Format: int32
+             * @description 最大生成 Token 数
+             */
+            maxTokens?: number;
+        };
+        /**
+         * @description DAG 编排请求 DTO
+         *
+         *     封装基于 YAML DSL 的多 Agent DAG 编排执行请求， 支持定义节点间的依赖关系和数据流转。
+         */
+        DagExecutionDTO: {
+            /** @description YAML DSL 内容，定义 DAG 节点和边（必填） */
+            dsl?: string;
+            /** @description 用户输入内容（必填） */
+            userInput: string;
+            /**
+             * @description 续跑的执行 ID（可选）。
+             *
+             *     传入时尝试从已有检查点恢复，跳过已成功的节点，仅重试失败及未执行的节点。 为空时按全新编排执行。
+             */
+            resumeExecutionId?: string;
+        };
+        /** @description DAG 工作流保存 DTO。 */
+        DagWorkflowDTO: {
+            /** @description 工作流编码（唯一，更新时必填） */
+            workflowCode?: string;
+            /** @description 工作流名称（必填） */
+            workflowName: string;
+            /** @description 工作流描述 */
+            description?: string;
+            /** @description YAML DSL 内容（必填） */
+            dslContent: string;
+            /** @description 可视化布局 JSON（节点坐标等前端状态，可选） */
+            layoutJson?: string;
+            /** @description 分类标签 */
+            category?: string;
+        };
+        /**
+         * @description 洞察报告生成请求值对象（不可变 record）。
+         *
+         *     封装用户触发的 BI 洞察报告生成所需的全部输入参数，包括原始分析查询、数据分析结果、
+         *     期望输出格式等。作为 InsightReportService#generateReport 的入参。
+         *
+         *     @param userId 触发用户
+         *     @param conversationId 关联对话 ID（可选）
+         *     @param reportTitle 报告标题
+         *     @param query 原始分析查询
+         *     @param dataSourceType 数据源类型（sql / python / mixed）
+         *     @param dataJson 原始数据分析结果的 JSON 字符串
+         *     @param reportFormat 报告格式（html / pdf / markdown）
+         *     @param extraParams 额外参数
+         */
+        InsightReportRequest: {
+            userId: string;
+            conversationId: string;
+            reportTitle: string;
+            query: string;
+            dataSourceType: string;
+            dataJson: string;
+            reportFormat: string;
+            extraParams: {
+                [key: string]: Record<string, never>;
+            };
+        };
+        /** @description ResponseEntity（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        ResponseEntity: Record<string, never>;
+        /**
+         * @description 保存对话记忆请求 DTO。
+         *
+         *     封装写入单条对话记忆的消息数据。
+         */
+        SaveMemoryRequest: {
+            /** @description 消息角色（SYSTEM/USER/ASSISTANT/TOOL） */
+            role: string;
+            /** @description 消息内容 */
+            content?: string;
+            /** @description 工具调用 ID（Tool 角色必填） */
+            toolCallId?: string;
+        };
+        /**
+         * @description 记忆整合请求 DTO。
+         *
+         *     用于触发对指定对话的历史记忆执行整合（提取事实 + 画像刷新）。
+         */
+        ConsolidateMemoryRequest: {
+            /** @description 租户 ID（可选，缺省使用当前租户） */
+            tenantId?: string;
+        };
+        /** @description EvaluateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        EvaluateRequest: Record<string, never>;
+        /** @description CompareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        CompareRequest: Record<string, never>;
+        /** @description PromptInvokeRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        PromptInvokeRequest: Record<string, never>;
+        /** @description PromptCompareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        PromptCompareRequest: Record<string, never>;
+        /**
+         * @description 文档摄入请求 DTO
+         *
+         *     封装将文档内容写入 RAG 知识库的请求参数， 支持来自 nextwiki、project、contract 等不同来源的文档。
+         */
+        DocumentIngestDTO: {
+            /** @description 文档 ID（必填，唯一标识待摄入的文档） */
+            documentId: string;
+            /** @description 文档文本内容（必填，将被分块、向量化和索引） */
+            content: string;
+            /** @description 文档标题（可选，用于展示和检索） */
+            documentTitle?: string;
+            /** @description 文档来源（nextwiki/project/contract，用于来源过滤） */
+            source?: string;
+        };
+        /**
+         * @description RAG 查询请求 DTO
+         *
+         *     封装对 RAG 知识库的检索请求参数， 包括查询文本、返回数量、相似度阈值等。
+         */
+        RagQueryDTO: {
+            /** @description 查询文本（必填，将向量化后进行相似度检索） */
+            query: string;
+            /**
+             * Format: int32
+             * @description 返回前 K 条结果（默认 5）
+             */
+            topK?: number;
+            /** @description 最小相似度阈值（0-1，默认 0.7，低于此值的结果将被过滤） */
+            minScore?: number;
+            /** @description 是否包含上下文文本（默认 true，false 时仅返回元数据） */
+            isIncludeContext?: boolean;
+        };
+        /**
+         * @description 扫描版 PDF 摄入请求 DTO
+         *
+         *     封装扫描版 PDF 文档的摄入请求，文件内容以 Base64 编码传输，
+         *     服务端调用 OCR 引擎逐页提取文字后走正常 ingestion 流程。
+         */
+        ScannedPdfIngestDTO: {
+            /** @description 文件名（含后缀，用于格式检测和索引标识） */
+            fileName: string;
+            /** @description PDF 文件内容的 Base64 编码 */
+            base64Content: string;
+            /** @description 数据集 ID（可选，用于分组管理） */
+            datasetId?: string;
+        };
+        /**
+         * @description 图片摄入请求 DTO
+         *
+         *     封装图片文件的摄入请求，图片经 OCR 提取文字后存入向量库。
+         */
+        ImageIngestDTO: {
+            /** @description 图片文件内容的 Base64 编码 */
+            base64Content: string;
+            /** @description 图片格式（PNG/JPEG/BMP/TIFF） */
+            format: string;
+            /** @description 数据集 ID */
+            datasetId?: string;
+        };
+        /**
+         * @description 混合搜索请求 DTO
+         *
+         *     封装融合知识库 RAG 检索和 Web 搜索的请求参数。
+         */
+        HybridSearchDTO: {
+            /** @description 查询文本（必填） */
+            query: string;
+            /** @description 数据集 ID（可选，为 null 时仅执行 web 搜索） */
+            datasetId?: string;
+            /**
+             * Format: int32
+             * @description 返回前 K 条结果（默认 5）
+             */
+            topK?: number;
+        };
+        /**
+         * @description 异步任务提交请求 DTO
+         *
+         *     封装提交异步任务时客户端需要提供的参数：任务类型、输入参数 JSON 以及可选自定义超时秒数。
+         */
+        AsyncTaskSubmitDTO: {
+            /** @description 任务类型编码（REPORT_GENERATE / DOC_INGEST / BATCH_CHAT / CODE_EXECUTION） */
+            taskType: string;
+            /** @description 任务输入参数 JSON（可选，null 表示无输入） */
+            inputPayload?: string;
+            /** @description 租户编码（可选，多租户隔离标识） */
+            tenantCode?: string;
+            /** @description 触发用户 ID（可选） */
+            userId?: string;
+            /**
+             * Format: int64
+             * @description 自定义超时秒数（可选，null 时使用任务类型默认值）
+             */
+            timeoutSeconds?: number;
+        };
+        /**
+         * @description Skill 执行请求 DTO
+         *
+         *     封装通过编码执行 Skill 的请求参数，支持输入参数、超时配置和环境变量注入。
+         */
+        SkillExecutionRequestDTO: {
+            /** @description Skill 编码 */
+            skillCode: string;
+            /** @description 输入参数（key→value） */
+            inputParams?: {
+                [key: string]: Record<string, never>;
+            };
+            /**
+             * Format: int64
+             * @description 超时毫秒数（0 表示使用默认值）
+             */
+            timeoutMs?: number;
+            /** @description 环境变量注入 */
+            envVariables?: {
+                [key: string]: string;
+            };
+        };
+        /** @description CreateTeamRunRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        CreateTeamRunRequest: Record<string, never>;
+        /** @description AddMemberRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        AddMemberRequest: Record<string, never>;
+        /** @description CreateTriggerRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        CreateTriggerRequest: Record<string, never>;
+        /** @description UpdateTriggerRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        UpdateTriggerRequest: Record<string, never>;
+        /**
+         * @description 对话响应 DTO
+         *
+         *     封装 Agent 对话的响应结果，包括回复内容、 实际使用的模型、Token 用量统计和响应时间。
+         */
+        ChatResponseDTO: {
+            /** @description 对话 ID */
+            conversationId?: string;
+            /** @description 助手回复内容 */
+            content?: string;
+            /** @description 实际使用的模型名称 */
+            model?: string;
+            usage?: components["schemas"]["TokenUsageDTO"];
+            /**
+             * Format: date-time
+             * @description 响应时间
+             */
+            respondedAt?: string;
+            /**
+             * Format: int32
+             * @description 输入 Token 数量（prompt 消耗）
+             */
+            promptTokens?: number;
+            /**
+             * Format: int32
+             * @description 输出 Token 数量（completion 消耗）
+             */
+            completionTokens?: number;
+            /**
+             * Format: int32
+             * @description 总 Token 数量（prompt + completion）
+             */
+            totalTokens?: number;
+        };
+        /**
+         * @description Token 用量统计 DTO
+         *
+         *     记录单次 LLM 调用的 Token 消耗明细，用于成本分析和用量监控。
+         */
+        TokenUsageDTO: {
+            /**
+             * Format: int32
+             * @description 输入 Token 数量（prompt 消耗）
+             */
+            promptTokens?: number;
+            /**
+             * Format: int32
+             * @description 输出 Token 数量（completion 消耗）
+             */
+            completionTokens?: number;
+            /**
+             * Format: int32
+             * @description 总 Token 数量（prompt + completion）
+             */
+            totalTokens?: number;
+        };
+        /**
+         * @description 批量对话响应 DTO
+         *
+         *     封装一组对话结果，与请求条目一一对应。
+         *
+         *     每条结果独立返回成功或失败：成功的包含 content / usage，失败的包含 errorMessage。
+         *     调用方可通过 BatchResultItem#success 字段快速判断每条结果状态。
+         */
+        BatchChatResponseDTO: {
+            /** @description 批量结果列表（与请求 items 顺序一致） */
+            results?: components["schemas"]["BatchResultItem"][];
+            /**
+             * Format: int64
+             * @description 总耗时（毫秒）
+             */
+            totalDurationMs?: number;
+            /**
+             * Format: int32
+             * @description 成功条目数
+             */
+            successCount?: number;
+            /**
+             * Format: int32
+             * @description 失败条目数
+             */
+            failedCount?: number;
+            /** @description 条目标识（与请求中 itemId 对应） */
+            itemId?: string;
+            /** @description 是否成功 */
+            isSuccess?: boolean;
+            /** @description 响应内容（成功时非空） */
+            content?: string;
+            /** @description 使用模型（成功时非空） */
+            model?: string;
+            /** @description Token 用量（成功时非空） */
+            usage?: Record<string, never>;
+            /** @description 结束原因（成功时非空） */
+            finishReason?: string;
+            /** @description 错误信息（失败时非空） */
+            errorMessage?: string;
+        };
+        /**
+         * @description 批量对话单条结果
+         *
+         *     每条结果与请求中的 BatchChatRequestDTO.BatchChatItem 通过 #itemId 对应。
+         */
+        BatchResultItem: {
+            /** @description 条目标识（与请求中 itemId 对应） */
+            itemId?: string;
+            /** @description 是否成功 */
+            isSuccess?: boolean;
+            /** @description 响应内容（成功时非空） */
+            content?: string;
+            /** @description 使用模型（成功时非空） */
+            model?: string;
+            /** @description Token 用量（成功时非空） */
+            usage?: Record<string, never>;
+            /** @description 结束原因（成功时非空） */
+            finishReason?: string;
+            /** @description 错误信息（失败时非空） */
+            errorMessage?: string;
+        };
+        /**
+         * @description AgentDefinition 视图对象。
+         *
+         *     用于 Controller 层返回 Agent 定义的展示数据。
+         *
+         *     线程安全：由 @Data 生成 setter，属可变视图载体；在单次响应序列化前于单线程内填充，勿跨线程共享。
+         */
+        AgentDefinitionVO: {
+            /** @description 主键 ID */
+            id?: string;
+            /** @description Agent 编码 */
+            agentCode?: string;
+            /** @description Agent 名称 */
+            agentName?: string;
+            /** @description Agent 类型 */
+            agentType?: string;
+            /** @description 描述 */
+            description?: string;
+            /** @description 系统提示词 */
+            systemPrompt?: string;
+            /** @description 模型配置 JSON */
+            modelConfig?: string;
+            /** @description 工具名称列表 JSON */
+            toolNames?: string;
+            /** @description 温度参数（LLM 采样温度，范围 0~2） */
+            temperature?: number;
+            /**
+             * Format: int32
+             * @description 最大生成 Token 数
+             */
+            maxTokens?: number;
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 更新人 */
+            updatedBy?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /** @description DagExecutionResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        DagExecutionResult: Record<string, never>;
+        /**
+         * @description DAG 执行检查点
+         *
+         *     快照编排执行的中间状态，支持从断点续跑。 记录已完成节点的输出、失败节点集合以及原始请求上下文（DSL / 用户输入）， 以便在原执行超时或中断后跳过已成功的节点、仅重试失败及未执行的节点。
+         *
+         *     线程安全：所有字段 final，集合经不可变封装，实例不可变、可安全跨线程传递。
+         */
+        DagCheckpoint: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 执行 ID（与 DagOrchestrationExecutor.DagExecutionResult#executionId() 一致） */
+            executionId?: string;
+            /** @description DAG 名称 */
+            dagName?: string;
+            /** @description 原始 YAML DSL（用于续跑时重建 DAG 拓扑） */
+            dsl?: string;
+            /** @description 用户原始输入 */
+            userInput?: string;
+            /** @description 各节点执行结果（节点 ID → 输出），不可变映射 */
+            nodeResults?: {
+                [key: string]: string;
+            };
+            /** @description 成功完成的节点集合 */
+            completedNodes?: string[];
+            /** @description 执行失败的节点集合 */
+            failedNodes?: string[];
+            /**
+             * Format: date-time
+             * @description 快照时间（最后更新时间）
+             */
+            snapshotTime?: string;
+        };
+        /**
+         * @description DAG 工作流视图对象。
+         *
+         *     用于 Controller 层返回 DAG 工作流的展示数据（DDD-007：禁止将 Entity 泄露到 Web 层）。
+         */
+        DagWorkflowVO: {
+            /** @description 主键 ID */
+            id?: string;
+            /** @description 工作流编码（业务唯一标识） */
+            workflowCode?: string;
+            /** @description 工作流名称 */
+            workflowName?: string;
+            /** @description DAG 定义（YAML DSL） */
+            dslContent?: string;
+            /** @description 工作流描述 */
+            description?: string;
+            /** @description 分类（用于分组检索） */
+            category?: string;
+            /** @description 是否已发布 */
+            isPublished?: boolean;
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+        };
+        /**
+         * @description Agent 执行轨迹列表 DTO
+         *
+         *     用于列表展示 Agent 执行历史记录，包含执行状态、耗时和步骤数等摘要信息。
+         *
+         *     @param id 轨迹记录 ID
+         *     @param conversationId 会话 ID
+         *     @param agentType Agent 类型（CHAT/REACT/PLAN_EXECUTE/ROUTER）
+         *     @param status 执行状态（RUNNING/SUCCESS/FAILED/CANCELLED）
+         *     @param startedAt 开始时间
+         *     @param durationMs 执行耗时（毫秒）
+         *     @param stepCount 执行步骤数
+         */
+        AgentTraceListDTO: {
+            id: string;
+            conversationId: string;
+            agentType: string;
+            status: string;
+            /** Format: date-time */
+            startedAt: string;
+            /** Format: int64 */
+            durationMs: number;
+            /** Format: int32 */
+            stepCount: number;
+        };
+        /**
+         * @description Agent 执行轨迹详情 DTO
+         *
+         *     包含单次 Agent 执行的完整轨迹信息，用于调试和执行分析。
+         *
+         *     @param traceId 链路追踪 ID
+         *     @param agentType Agent 类型（CHAT/REACT/PLAN_EXECUTE/ROUTER）
+         *     @param plan 执行计划（JSON 格式，包含步骤列表）
+         */
+        AgentTraceDetailDTO: {
+            traceId: string;
+            agentType: string;
+            plan: string;
+        };
+        /** @description ApprovalRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        ApprovalRequest: Record<string, never>;
+        /**
+         * @description 洞察报告生成结果值对象（不可变 record）。
+         *
+         *     封装 BI 洞察报告生成的完整输出，包括报告 ID、标题、完整内容、结构化章节列表、
+         *     状态、存储路径和耗时。作为 InsightReportService#generateReport 的返回值。
+         *
+         *     @param reportId 报告唯一 ID
+         *     @param title 报告标题
+         *     @param content 生成的报告全文
+         *     @param sections 报告章节列表
+         *     @param status 报告状态
+         *     @param reportPath 存储路径/URL
+         *     @param createdAt 创建时间
+         *     @param durationMs 生成耗时（毫秒）
+         */
+        InsightReportResult: {
+            reportId: string;
+            title: string;
+            content: string;
+            sections: components["schemas"]["InsightSection"][];
+            /**
+             * @description 洞察报告状态枚举。
+             *
+             *     描述洞察报告从创建到导出全生命周期的状态流转。
+             * @enum {string}
+             */
+            status: never;
+            reportPath: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: int64 */
+            durationMs: number;
+        };
+        /**
+         * @description 洞察报告章节值对象（不可变 record）。
+         *
+         *     描述 BI 洞察报告中的一个结构化章节，每个章节有独立的类型、标题、内容和可选的结构化数据
+         *     （如图表数据 JSON）。章节按 `sort` 排序后组成完整报告。
+         *
+         *     支持类型：
+         *
+         *     summary — 数据摘要（总览概览）
+         *     data — 数据明细（表格展示）
+         *     chart — 图表可视化（含 chartType + datasets）
+         *     insight — 分析洞察（文字结论）
+         *     trend — 趋势分析（时序变化）
+         *     prediction — 预测推断
+         *
+         *
+         *     @param sectionType 章节类型
+         *     @param title 章节标题
+         *     @param content 章节内容（Markdown 或纯文本）
+         *     @param dataJson 结构化数据 JSON（可选）
+         *     @param sort 排序序号
+         */
+        InsightSection: {
+            sectionType: string;
+            title: string;
+            content: string;
+            dataJson: string;
+            /** Format: int32 */
+            sort: number;
+        };
+        /** @description EntityVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        EntityVO: Record<string, never>;
+        /** @description SubGraphVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        SubGraphVO: Record<string, never>;
+        /** @description RelationVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        RelationVO: Record<string, never>;
+        /**
+         * @description 对话记忆视图对象。
+         *
+         *     用于返回单条对话记忆消息的展示数据。
+         *
+         *     线程安全：由 @Data 生成 setter，属可变视图载体；在单次响应序列化前于单线程内填充，勿跨线程共享。
+         */
+        MemoryVO: {
+            /** @description 消息唯一 ID */
+            id?: string;
+            /** @description 消息角色（SYSTEM/USER/ASSISTANT/TOOL） */
+            role?: string;
+            /** @description 消息内容 */
+            content?: string;
+            /** @description 所属对话 ID */
+            conversationId?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 工具调用 ID（Tool 角色使用） */
+            toolCallId?: string;
+        };
+        /** @description DashboardOverviewDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        DashboardOverviewDTO: Record<string, never>;
+        /** @description ModelUsageDTO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        ModelUsageDTO: Record<string, never>;
+        /** @description PromptEvaluationResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        PromptEvaluationResult: Record<string, never>;
+        /** @description PromptComparisonResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        PromptComparisonResult: Record<string, never>;
+        /** @description PromptInvokeResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        PromptInvokeResult: Record<string, never>;
+        /**
+         * @description Agent 运行时会话值对象。
+         *
+         *     记录一次 Agent 执行会话的完整生命周期状态，包括执行元数据、进度信息、资源消耗。
+         *     不可变对象，所有字段均为 final。
+         */
+        RuntimeSession: {
+            executionId?: string;
+            conversationId?: string;
+            agentCode?: string;
+            agentType?: string;
+            tenantId?: string;
+            userId?: string;
+            model?: string;
+            status?: string;
+            currentStep?: string;
+            /** Format: int32 */
+            currentIteration?: number;
+            /** Format: int32 */
+            maxIterations?: number;
+            /** Format: int32 */
+            totalTokens?: number;
+            costUsd?: number;
+            /** Format: date-time */
+            startTime?: string;
+            /** Format: date-time */
+            lastActiveTime?: string;
+            source?: string;
+            errorMessage?: string;
+            elapsedMillis?: string;
+        };
+        /**
+         * @description 异步任务视图对象
+         *
+         *     用于向前端返回异步任务的当前状态、进度和执行结果。
+         *     由 AsyncTask 实体转换而来，仅暴露前端必要字段。
+         */
+        AsyncTaskVO: {
+            /** @description 任务唯一 ID */
+            id?: string;
+            /** @description 任务类型编码 */
+            taskType?: string;
+            /** @description 任务类型描述 */
+            taskTypeDesc?: string;
+            /** @description 当前状态编码 */
+            status?: string;
+            /** @description 当前状态描述 */
+            statusDesc?: string;
+            /** @description 租户编码 */
+            tenantCode?: string;
+            /** @description 触发用户 ID */
+            userId?: string;
+            /**
+             * Format: int32
+             * @description 当前进度百分比（0-100）
+             */
+            progressPercent?: number;
+            /** @description 执行结果（已完成时非空） */
+            outputPayload?: string;
+            /** @description 失败原因（失败时非空） */
+            errorMessage?: string;
+            /**
+             * Format: int32
+             * @description 已重试次数
+             */
+            retryCount?: number;
+            /**
+             * Format: int32
+             * @description 最大重试次数
+             */
+            maxRetry?: number;
+            /**
+             * Format: date-time
+             * @description 任务过期时间
+             */
+            expireAt?: string;
+            /**
+             * Format: date-time
+             * @description 任务开始执行时间
+             */
+            startedAt?: string;
+            /**
+             * Format: date-time
+             * @description 任务完成时间
+             */
+            completedAt?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+            /** @description 是否处于终态 */
+            isTerminal?: boolean;
+            /** @description 是否可重试 */
+            isRetryable?: boolean;
+        };
+        /** @description SkillDescriptorVO（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        SkillDescriptorVO: Record<string, never>;
+        /**
+         * @description Skill 执行结果视图对象
+         *
+         *     用于 Controller 层返回 Skill 执行结果的展示数据。
+         */
+        SkillExecutionResponseVO: {
+            success?: boolean;
+            /** @description Skill 编码 */
+            skillCode?: string;
+            /** @description 执行是否成功 */
+            isSuccess?: boolean;
+            /** @description 标准输出内容 */
+            stdout?: string;
+            /** @description 标准错误内容 */
+            stderr?: string;
+            /** @description 产物文件列表 */
+            outputFiles?: string[];
+            /** @description 执行指标（elapsedMs / exitCode 等） */
+            metrics?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 失败原因 */
+            errorMessage?: string;
+            /**
+             * Format: date-time
+             * @description 执行完成时间
+             */
+            completedAt?: string;
+        };
+        /**
+         * @description Team Run 聚合根。
+         *
+         *     代表一次多 Agent 协作执行，包含协作模式、成员列表、整体状态等。
+         *     借鉴 MateClaw 的 Team Runs 设计，支持顺序、并行、层级、协商等多种协作模式。
+         */
+        TeamRun: {
+            /**
+             * Format: int32
+             * @description 集合初始容量
+             */
+            COLLECTION_CAPACITY?: number;
+            teamRunId?: string;
+            tenantId?: string;
+            title?: string;
+            description?: string;
+            /**
+             * @description Team Run 协作模式枚举。
+             *
+             *     定义多 Agent 之间的协作方式。
+             * @enum {string}
+             */
+            pattern?: never;
+            members?: components["schemas"]["TeamRunMember"][];
+            /**
+             * @description Team Run 状态枚举。
+             *
+             *     定义多 Agent 协作执行的生命周期状态。
+             * @enum {string}
+             */
+            status?: never;
+            initiatedBy?: string;
+            finalResult?: string;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            startedAt?: string;
+            /** Format: date-time */
+            completedAt?: string;
+            context?: {
+                [key: string]: Record<string, never>;
+            };
+            nextPendingMember?: string;
+        };
+        /**
+         * @description Team Run 成员值对象。
+         *
+         *     记录单个 Agent 在 Team Run 中的执行信息和状态。
+         */
+        TeamRunMember: {
+            memberId?: string;
+            agentCode?: string;
+            agentName?: string;
+            role?: string;
+            /** Format: int32 */
+            executionOrder?: number;
+            inputContext?: string;
+            outputResult?: string;
+            executionId?: string;
+            /**
+             * @description Team Run 成员状态枚举。
+             *
+             *     定义单个 Agent 在 Team Run 中的执行状态。
+             * @enum {string}
+             */
+            status?: never;
+            errorMessage?: string;
+            /** Format: date-time */
+            startedAt?: string;
+            /** Format: date-time */
+            completedAt?: string;
+            metadata?: {
+                [key: string]: Record<string, never>;
+            };
+        };
+        /**
+         * @description Agent 触发器聚合根。
+         *
+         *     定义一个触发规则，当满足条件时自动启动指定的 Agent 执行。
+         *     支持多种触发类型：定时、Webhook、事件驱动等。
+         *
+         *     借鉴 MateClaw 的 Triggers 系统设计，包含事件治理机制：
+         *     去重、限速、递归守卫、失败关闭未知模式。
+         */
+        AgentTrigger: {
+            triggerId?: string;
+            tenantId?: string;
+            name?: string;
+            description?: string;
+            /**
+             * @description Agent 触发器类型枚举。
+             *
+             *     定义 Agent 可被外部事件触发执行的类型。
+             *     借鉴 MateClaw 的 Triggers 系统（6 种模式：cron / webhook / channel_message /
+             *     agent_lifecycle / content_match / workflow_completion），
+             *     并扩展了 Agent 特有的生命周期触发。
+             * @enum {string}
+             */
+            triggerType?: never;
+            targetAgentCode?: string;
+            targetAgentType?: string;
+            cronExpression?: string;
+            matchPattern?: string;
+            config?: {
+                [key: string]: Record<string, never>;
+            };
+            isEnabled?: boolean;
+            /** Format: int32 */
+            maxExecutionsPerHour?: number;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            lastTriggeredAt?: string;
+            /** Format: int32 */
+            totalTriggerCount?: number;
+            /**
+             * Format: int32
+             * @description 默认每小时最大执行次数
+             */
+            DEFAULT_MAX_EXECUTIONS_PER_HOUR?: number;
+        };
     };
-    /**
-     * @description Agent 执行请求 DTO
-     *
-     *     封装通过指定 Agent 执行任务的请求参数， 支持 ReAct、Plan-Execute、Router 等多种 Agent 模式。
-     */
-    AgentExecutionRequestDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description Agent 编码（指定使用哪个 Agent 执行） */
-      agentCode?: string;
-      /** @description 对话 ID（null 表示新建对话） */
-      conversationId?: string;
-      /** @description 请求幂等键（可选，防止重复调用 LLM 扣费） */
-      requestId?: string;
-      /** @description 用户输入内容（必填） */
-      userInput?: string;
-      /** @description 系统提示词（可选，覆盖 Agent 默认配置） */
-      systemPrompt?: string;
-      /**
-       * Format: int32
-       * @description 最大迭代次数（ReAct 模式下生效，默认 10）
-       */
-      maxIterations?: number;
-      /** @description 启用的工具列表（可选，为空则使用 Agent 默认工具配置） */
-      enabledTools?: string[];
-      /** @description 是否流式输出（true 时通过 SSE 逐块返回结果） */
-      stream?: boolean;
-    };
-    /**
-     * @description 对话请求 DTO
-     *
-     *     封装用户与 Agent 进行单轮/多轮对话的请求参数， 包括消息内容、模型选择、生成参数等。
-     *
-     *     支持两种消息输入方式：
-     *
-     *
-     *     纯文本：通过 #message 字段传入（向后兼容）
-     *     多模态（Vision 模型）：通过 #multimodalContent 传入内容段落列表（文本+图片）
-     *
-     *
-     *     当 `multimodalContent` 非空时，优先使用多模态格式，`message` 忽略。
-     */
-    ChatRequestDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 对话 ID（null 表示新建对话，非 null 表示续接已有对话） */
-      conversationId?: string;
-      /** @description 请求幂等键（可选，防止重复调用 LLM 扣费） */
-      requestId?: string;
-      /** @description 用户消息内容（必填，纯文本场景） */
-      message?: string;
-      /**
-       * @description 多模态内容段落列表（Vision 模型场景，与 message 二选一）
-       *
-       *     当该字段非空时，优先使用多模态格式传递给 LLM，`message` 字段忽略。 每个段落可以是文本（type=text）或图片（type=image_url）。
-       */
-      multimodalContent?: Record<string, never>[];
-      /** @description 系统提示词（可选，覆盖 Agent 默认配置） */
-      systemPrompt?: string;
-      /** @description 模型名称（可选，覆盖默认模型配置） */
-      model?: string;
-      /** @description 温度参数（可选，取值范围 0-2，值越大生成越随机） */
-      temperature?: number;
-      /**
-       * Format: int32
-       * @description 最大生成 Token 数（可选）
-       */
-      maxTokens?: number;
-      /** @description 内容类型（text / image_url） */
-      type?: string;
-      /** @description 文本内容（type=text 时有效） */
-      text?: string;
-      /** @description 图片 URL（type=image_url 时有效，支持 http(s):// 或 data:image/... 内联格式） */
-      imageUrl?: string;
-    };
-    /**
-     * @description 批量对话请求 DTO
-     *
-     *     封装一组对话请求，由服务端并行调用 LLM 后统一返回结果。
-     *
-     *     适用场景：
-     *
-     *
-     *     批量问答（离线评估、数据集标注）
-     *     多 Prompt 对比测试（A/B 测试不同 systemPrompt 效果）
-     *     批量内容生成（标题生成、摘要生成等）
-     *
-     *
-     *     限制：
-     *
-     *
-     *     单次最多 50 条（避免单次请求占用过久）
-     *     所有请求共享同一模型配置（model / temperature / maxTokens）
-     *     每条请求独立对话 ID，互不干扰
-     */
-    BatchChatRequestDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 请求幂等键（防重，建议每条请求唯一） */
-      requestId?: string;
-      /** @description 批量对话条目列表（至少 1 条，最多 50 条） */
-      items?: Record<string, never>[];
-      /** @description 模型名称（可选，覆盖默认模型配置） */
-      model?: string;
-      /** @description 温度参数（可选，取值范围 0-2） */
-      temperature?: number;
-      /**
-       * Format: int32
-       * @description 最大生成 Token 数（可选）
-       */
-      maxTokens?: number;
-      /** @description 系统提示词（可选，所有条目共享） */
-      systemPrompt?: string;
-      /** @description 条目唯一标识（用于响应中对应结果，由调用方保证唯一） */
-      itemId?: string;
-      /** @description 对话 ID（null 则新建） */
-      conversationId?: string;
-      /** @description 用户消息（纯文本，与 multimodalContent 二选一） */
-      message?: string;
-      /** @description 多模态内容段落（Vision 模型，与 message 二选一） */
-      multimodalContent?: Record<string, never>[];
-    };
-    /**
-     * @description AgentDefinition 统一请求 DTO。
-     *
-     *     不区分 Create / Update，使用统一 DTO：创建时 `id` 字段不传，更新时传入 `id`。
-     *     `id` 字段不加 `@NotBlank`，通过 infra 层 Converter 的 `dtoToEntity`（ignore id，创建场景）
-     *     与 `dtoToEntityWithId`（保留 id，更新场景）区分行为。
-     *
-     *     线程安全：由 @Data 生成 setter，属可变入参载体；仅在单次请求绑定期间使用，框架按请求单线程处理，勿跨线程共享。
-     */
-    AgentDefinitionDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /**
-       * @description 主键 ID。
-       *
-       *     创建场景不传；更新场景必须传入。
-       */
-      id?: string;
-      /** @description Agent 编码 */
-      agentCode?: string;
-      /** @description Agent 名称 */
-      agentName?: string;
-      /** @description Agent 类型 */
-      agentType?: string;
-      /** @description 描述 */
-      description?: string;
-      /** @description 系统提示词 */
-      systemPrompt?: string;
-      /** @description 模型配置 JSON */
-      modelConfig?: string;
-      /** @description 工具名称列表 JSON */
-      toolNames?: string;
-      /** @description 温度参数 */
-      temperature?: number;
-      /**
-       * Format: int32
-       * @description 最大生成 Token 数
-       */
-      maxTokens?: number;
-    };
-    /**
-     * @description DAG 编排请求 DTO
-     *
-     *     封装基于 YAML DSL 的多 Agent DAG 编排执行请求， 支持定义节点间的依赖关系和数据流转。
-     */
-    DagExecutionDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description YAML DSL 内容，定义 DAG 节点和边（必填） */
-      dsl?: string;
-      /** @description 用户输入内容（必填） */
-      userInput?: string;
-      /**
-       * @description 续跑的执行 ID（可选）。
-       *
-       *     传入时尝试从已有检查点恢复，跳过已成功的节点，仅重试失败及未执行的节点。 为空时按全新编排执行。
-       */
-      resumeExecutionId?: string;
-    };
-    /**
-     * @description 文档摄入请求 DTO
-     *
-     *     封装将文档内容写入 RAG 知识库的请求参数， 支持来自 nextwiki、project、contract 等不同来源的文档。
-     */
-    DocumentIngestDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 文档 ID（必填，唯一标识待摄入的文档） */
-      documentId?: string;
-      /** @description 文档文本内容（必填，将被分块、向量化和索引） */
-      content?: string;
-      /** @description 文档标题（可选，用于展示和检索） */
-      documentTitle?: string;
-      /** @description 文档来源（nextwiki/project/contract，用于来源过滤） */
-      source?: string;
-    };
-    /**
-     * @description RAG 查询请求 DTO
-     *
-     *     封装对 RAG 知识库的检索请求参数， 包括查询文本、返回数量、相似度阈值等。
-     */
-    RagQueryDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 查询文本（必填，将向量化后进行相似度检索） */
-      query?: string;
-      /**
-       * Format: int32
-       * @description 返回前 K 条结果（默认 5）
-       */
-      topK?: number;
-      /** @description 最小相似度阈值（0-1，默认 0.7，低于此值的结果将被过滤） */
-      minScore?: number;
-      /** @description 是否包含上下文文本（默认 true，false 时仅返回元数据） */
-      includeContext?: boolean;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 };
 export type $defs = Record<string, never>;
 export interface operations {
-  execute: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AgentExecutionRequestDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  executeStream: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AgentExecutionRequestDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  chat: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ChatRequestDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  chatStream: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ChatRequestDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  batchChat: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['BatchChatRequestDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  history: {
-    parameters: {
-      query?: {
-        conversationId?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  clearHistory: {
-    parameters: {
-      query?: {
-        conversationId?: string;
-        requestId?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AgentDefinitionDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AgentDefinitionDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getById: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getByCode: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        code: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  models: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  tools: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  execute: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DagExecutionDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getCheckpoint: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        executionId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  validate: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DagExecutionDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listTraces: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getTrace: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        traceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  replayTrace: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        traceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listPending: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getApproval: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  approve: {
-    parameters: {
-      query?: {
-        approver?: string;
-        comment?: string;
-      };
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  reject: {
-    parameters: {
-      query?: {
-        approver?: string;
-        comment?: string;
-      };
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getOverview: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getModelUsage: {
-    parameters: {
-      query?: {
-        days?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  evaluate: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  compare: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  ingest: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DocumentIngestDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  search: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RagQueryDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  deleteDocument: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        documentId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  stats: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getActiveSessions: {
-    parameters: {
-      query?: {
-        tenantId?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getRecentSessions: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getSession: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        executionId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  forceRecycle: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        executionId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getOverview: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listActiveTeamRuns: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  createTeamRun: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  addMember: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path: {
-        teamRunId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  startTeamRun: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path: {
-        teamRunId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  cancelTeamRun: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path: {
-        teamRunId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getTeamRun: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path: {
-        teamRunId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listTriggers: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  createTrigger: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getTrigger: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path: {
-        triggerId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  updateTrigger: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path: {
-        triggerId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  deleteTrigger: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path: {
-        triggerId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  enableTrigger: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path: {
-        triggerId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  disableTrigger: {
-    parameters: {
-      query?: never;
-      header?: {
-        tenantId?: string;
-      };
-      path: {
-        triggerId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
+    execute: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AgentExecutionRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    executeStream: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AgentExecutionRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    chat: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChatRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    chatStream: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChatRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    batchChat: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BatchChatRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    history: {
+        parameters: {
+            query?: {
+                conversationId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    clearHistory: {
+        parameters: {
+            query?: {
+                conversationId?: string;
+                requestId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AgentDefinitionDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AgentDefinitionDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listPage: {
+        parameters: {
+            query?: {
+                query?: components["schemas"]["PageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PageResponse"];
+                };
+            };
+        };
+    };
+    getById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getByCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportAgentDefinitions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    models: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    tools: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    execute: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DagExecutionDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getCheckpoint: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                executionId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    validate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DagExecutionDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DagWorkflowDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getByCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: {
+                category?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportDagWorkflows: {
+        parameters: {
+            query?: {
+                category?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    listTraces: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getTrace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                traceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    replayTrace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                traceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listPending: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getApproval: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    approve: {
+        parameters: {
+            query?: {
+                approver?: string;
+                comment?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    reject: {
+        parameters: {
+            query?: {
+                approver?: string;
+                comment?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    generateReport: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InsightReportRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getReport: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                reportId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deleteReport: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                reportId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportHtml: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                reportId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ResponseEntity"];
+                };
+            };
+        };
+    };
+    listRecentReports: {
+        parameters: {
+            query?: {
+                userId?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    ingest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: string;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    searchEntities: {
+        parameters: {
+            query?: {
+                query?: string;
+                depth?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    querySubgraph: {
+        parameters: {
+            query?: {
+                depth?: number;
+            };
+            header?: never;
+            path: {
+                entityId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    queryRelations: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                entityId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    stats: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    loadMemory: {
+        parameters: {
+            query?: {
+                maxMessages?: number;
+            };
+            header?: never;
+            path: {
+                conversationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    saveMemory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                conversationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SaveMemoryRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    clearMemory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                conversationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    countMessages: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                conversationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    consolidate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                conversationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConsolidateMemoryRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getOverview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getModelUsage: {
+        parameters: {
+            query?: {
+                days?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getTraceContext: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getMetricsByBotId: {
+        parameters: {
+            query?: {
+                days?: number;
+            };
+            header?: never;
+            path: {
+                botId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    evaluate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EvaluateRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    compare: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CompareRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    invoke: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PromptInvokeRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    invokeStream: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    compare: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PromptCompareRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    ingest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DocumentIngestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    search: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RagQueryDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deleteDocument: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                documentId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    stats: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    ingestScannedPdf: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ScannedPdfIngestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    ingestImage: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ImageIngestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    hybridSearch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["HybridSearchDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getActiveSessions: {
+        parameters: {
+            query?: {
+                tenantId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getRecentSessions: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getSession: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                executionId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    forceRecycle: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                executionId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getOverview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    searchTools: {
+        parameters: {
+            query?: {
+                query?: string;
+                topK?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listAllTools: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    submitTask: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AsyncTaskSubmitDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getTask: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                taskId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    cancelTask: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                taskId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listActiveTasks: {
+        parameters: {
+            query?: {
+                tenantCode?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listSkills: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getSkillDetail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                skillCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    executeSkill: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SkillExecutionRequestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    invalidateSandbox: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listActiveTeamRuns: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createTeamRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateTeamRunRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    addMember: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamRunId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AddMemberRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    startTeamRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamRunId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    cancelTeamRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamRunId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getTeamRun: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                teamRunId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportTeamRuns: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    listTriggers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createTrigger: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateTriggerRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getTrigger: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                triggerId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    updateTrigger: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                triggerId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateTriggerRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deleteTrigger: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                triggerId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    enableTrigger: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                triggerId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    disableTrigger: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                triggerId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportTriggers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
 }

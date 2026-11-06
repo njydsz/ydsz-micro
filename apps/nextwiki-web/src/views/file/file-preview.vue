@@ -23,6 +23,7 @@ import {
   YdBadge,
 } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
+import { $t } from '#/locales';
 import { fetchRaw } from '@ydsz/request';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { useI18n } from 'vue-i18n';
@@ -230,7 +231,7 @@ onMounted(async () => {
 <template>
   <div class="file-preview">
     <div v-if="!fileNode" class="flex h-64 items-center justify-center text-gray-400">
-      请选择要预览的文件
+      {{ $t('filePreview.selectFilePreview') }}
     </div>
     <YdSkeleton v-else-if="loading" :rows="6" animated />
     <div v-else class="preview-container">
@@ -239,9 +240,13 @@ onMounted(async () => {
         <div>
           <h3 class="text-base font-medium">{{ fileNode.name }}</h3>
           <p class="mt-1 text-xs text-gray-500">
-            {{ fileSuffix.toUpperCase() }} 格式
-            <YdBadge v-if="previewSupported" variant="default" class="ml-2">支持预览</YdBadge>
-            <YdBadge v-else variant="warning" class="ml-2">不支持预览</YdBadge>
+            {{ fileSuffix.toUpperCase() }} {{ $t('filePreview.formatLabel') }}
+            <YdBadge v-if="previewSupported" variant="default" class="ml-2">{{
+              $t('filePreview.previewSupported')
+            }}</YdBadge>
+            <YdBadge v-else variant="warning" class="ml-2">{{
+              $t('filePreview.previewUnsupported')
+            }}</YdBadge>
           </p>
         </div>
         <div class="flex gap-2">
@@ -251,13 +256,15 @@ onMounted(async () => {
             :loading="generating"
             @click="handleGeneratePreview"
           >
-            生成预览
+            {{ $t('filePreview.generatePreview') }}
           </YdButton>
           <YdButton v-if="aiEnabled" size="sm" :loading="aiLoading" @click="handleGenerateSummary">
-            AI 摘要
+            {{ $t('filePreview.aiSummary') }}
           </YdButton>
-          <YdButton size="sm" @click="handleDownload"> 下载 </YdButton>
-          <YdButton size="sm" variant="outline" @click="emit('close')">关闭</YdButton>
+          <YdButton size="sm" @click="handleDownload"> {{ $t('filePreview.download') }} </YdButton>
+          <YdButton size="sm" variant="outline" @click="emit('close')">
+            {{ $t('filePreview.close') }}
+          </YdButton>
         </div>
       </div>
 
@@ -301,9 +308,11 @@ onMounted(async () => {
 
         <!-- 不支持预览 -->
         <div v-else class="flex h-64 flex-col items-center justify-center text-gray-400">
-          <p class="text-lg">该文件格式暂不支持在线预览</p>
-          <p class="mt-2 text-sm">请下载后使用本地应用打开</p>
-          <YdButton class="mt-4" @click="handleDownload">立即下载</YdButton>
+          <p class="text-lg">{{ $t('filePreview.unsupportedFormat') }}</p>
+          <p class="mt-2 text-sm">{{ $t('filePreview.downloadPrompt') }}</p>
+          <YdButton class="mt-4" @click="handleDownload">
+            {{ $t('filePreview.downloadNow') }}
+          </YdButton>
         </div>
       </div>
 
@@ -311,16 +320,16 @@ onMounted(async () => {
       <YdCard v-if="aiSummary" class="mt-4">
         <YdCardHeader className="pb-3">
           <div class="flex items-center justify-between">
-            <span class="font-medium">AI 智能摘要</span>
+            <span class="font-medium">{{ $t('filePreview.aiSmartSummary') }}</span>
             <YdButton variant="ghost" size="sm" @click="aiPanelExpanded = !aiPanelExpanded">
-              {{ aiPanelExpanded ? '收起' : '展开' }}
+              {{ aiPanelExpanded ? $t('filePreview.collapse') : $t('filePreview.expand') }}
             </YdButton>
           </div>
         </YdCardHeader>
         <YdCardContent v-show="aiPanelExpanded" class="text-sm text-gray-700">
           <p class="whitespace-pre-wrap leading-relaxed">{{ aiSummary.summary }}</p>
           <p v-if="aiSummary.wordCount" class="mt-3 text-xs text-gray-500">
-            字数统计：{{ aiSummary.wordCount }}
+            {{ $t('filePreview.wordCount') }}: {{ aiSummary.wordCount }}
           </p>
         </YdCardContent>
       </YdCard>

@@ -38,6 +38,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { YdAlert, YdConfirm } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -60,6 +61,8 @@ import { scorePack } from '#/api/rulePackExtend';
 const logger = createLogger('literule-rule-pack');
 
 defineOptions({ name: 'RulePackManagement' });
+
+const { t } = useI18n();
 
 /**
  * 市场规则包行类型。
@@ -104,12 +107,12 @@ const statUpdatable = ref(0);
 const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
   columns: [
     { type: 'seq', width: 50, title: '#' },
-    { field: 'packCode', title: '包编码', width: 140 },
-    { field: 'packName', title: '名称', minWidth: 140 },
-    { field: 'packVersion', title: '版本', width: 90 },
+    { field: 'packCode', title: t('rulePackColumnPackCode'), width: 140 },
+    { field: 'packName', title: t('rulePackColumnName'), minWidth: 140 },
+    { field: 'packVersion', title: t('rulePackColumnVersion'), width: 90 },
     {
       field: 'rating',
-      title: '评分',
+      title: t('rulePackColumnRating'),
       width: 160,
       slots: {
         default: ({ row }) =>
@@ -120,11 +123,11 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
           }),
       },
     },
-    { field: 'author', title: '作者', width: 100 },
-    { field: 'downloadCount', title: '安装量', width: 90 },
+    { field: 'author', title: t('rulePackColumnAuthor'), width: 100 },
+    { field: 'downloadCount', title: t('rulePackColumnDownloadCount'), width: 90 },
     {
       field: 'description',
-      title: '描述',
+      title: t('rulePackColumnDescription'),
       minWidth: 160,
       slots: {
         default: ({ row }) =>
@@ -147,7 +150,7 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
     },
     {
       field: 'publishTime',
-      title: '发布时间',
+      title: t('rulePackColumnPublishTime'),
       width: 160,
       slots: {
         default: ({ row }) => h('span', {}, row.publishTime ?? '-'),
@@ -155,7 +158,7 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('rulePackColumnAction'),
       width: 300,
       fixed: 'right',
       slots: {
@@ -164,7 +167,7 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleInstall(row) },
-              () => '安装',
+              () => t('rulePackActionInstall'),
             ),
             h(
               YdButton,
@@ -174,12 +177,12 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
                 type: 'primary',
                 onClick: () => handleViewVersions(row),
               },
-              () => '版本历史',
+              () => t('rulePackActionVersionHistory'),
             ),
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleDiff(row) },
-              () => '版本对比',
+              () => t('rulePackActionVersionDiff'),
             ),
             h(
               YdButton,
@@ -189,7 +192,7 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
                 type: 'primary',
                 onClick: () => handleOpenScoreDialog(row),
               },
-              () => '质量评分',
+              () => t('rulePackActionQualityScore'),
             ),
           ]),
       },
@@ -209,15 +212,15 @@ const marketGridOptions: VxeTableGridOptions<MarketPackRow> = {
 const installedGridOptions: VxeTableGridOptions<RulePackVO> = {
   columns: [
     { type: 'seq', width: 50, title: '#' },
-    { field: 'packCode', title: '包编码', width: 140 },
-    { field: 'packName', title: '名称', minWidth: 140 },
-    { field: 'packVersion', title: '当前版本', width: 100 },
-    { field: 'industry', title: '行业', width: 100 },
-    { field: 'author', title: '作者', width: 100 },
-    { field: 'downloadCount', title: '安装量', width: 90 },
+    { field: 'packCode', title: t('rulePackColumnPackCode'), width: 140 },
+    { field: 'packName', title: t('rulePackColumnName'), minWidth: 140 },
+    { field: 'packVersion', title: t('rulePackColumnCurrentVersion'), width: 100 },
+    { field: 'industry', title: t('rulePackColumnIndustry'), width: 100 },
+    { field: 'author', title: t('rulePackColumnAuthor'), width: 100 },
+    { field: 'downloadCount', title: t('rulePackColumnDownloadCount'), width: 90 },
     {
       field: 'action',
-      title: '操作',
+      title: t('rulePackColumnAction'),
       width: 220,
       fixed: 'right',
       slots: {
@@ -231,17 +234,17 @@ const installedGridOptions: VxeTableGridOptions<RulePackVO> = {
                 type: 'primary',
                 onClick: () => handleViewVersions(row),
               },
-              () => '版本历史',
+              () => t('rulePackActionVersionHistory'),
             ),
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleDiff(row) },
-              () => '版本对比',
+              () => t('rulePackActionVersionDiff'),
             ),
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleUninstall(row) },
-              () => '卸载',
+              () => t('rulePackActionUninstall'),
             ),
           ]),
       },
@@ -261,25 +264,25 @@ const installedGridOptions: VxeTableGridOptions<RulePackVO> = {
 const updatableGridOptions: VxeTableGridOptions<PackUpdateInfoVO> = {
   columns: [
     { type: 'seq', width: 50, title: '#' },
-    { field: 'packCode', title: '包编码', width: 140 },
-    { field: 'packName', title: '名称', minWidth: 140 },
-    { field: 'installedVersion', title: '当前版本', width: 100 },
-    { field: 'latestVersion', title: '最新版本', width: 100 },
-    { field: 'industry', title: '行业', width: 100 },
+    { field: 'packCode', title: t('rulePackColumnPackCode'), width: 140 },
+    { field: 'packName', title: t('rulePackColumnName'), minWidth: 140 },
+    { field: 'installedVersion', title: t('rulePackColumnCurrentVersion'), width: 100 },
+    { field: 'latestVersion', title: t('rulePackColumnLatestVersion'), width: 100 },
+    { field: 'industry', title: t('rulePackColumnIndustry'), width: 100 },
     {
       field: 'hasUpdate',
-      title: '状态',
+      title: t('rulePackColumnStatus'),
       width: 90,
       slots: {
         default: ({ row }) =>
           h(YdBadge, { type: row.hasUpdate ? 'warning' : 'info' }, () =>
-            row.hasUpdate ? '可更新' : '已最新',
+            row.hasUpdate ? t('rulePackStatusUpdatable') : t('rulePackStatusLatest'),
           ),
       },
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('rulePackColumnAction'),
       width: 120,
       fixed: 'right',
       slots: {
@@ -287,7 +290,7 @@ const updatableGridOptions: VxeTableGridOptions<PackUpdateInfoVO> = {
           h(
             YdButton,
             { size: 'small', variant: 'link', onClick: () => handleUpdateSingle(row) },
-            () => '一键更新',
+            () => t('rulePackActionUpdate'),
           ),
       },
     },
@@ -366,10 +369,10 @@ async function handleInstall(row: RulePackVO): Promise<void> {
   try {
     await installPack({ packCode: row.packCode }, { version: row.packVersion });
     await YdAlert({
-      content: `规则包 ${row.packName} v${row.packVersion} 安装成功`,
-      title: '安装结果',
+      content: t('rulePackInstallSuccess', [row.packName, row.packVersion]),
+      title: t('rulePackInstallResultTitle'),
       icon: 'success',
-      confirmText: '确定',
+      confirmText: t('rulePackConfirmText'),
     });
     await loadAll();
   } catch (error) {
@@ -380,7 +383,10 @@ async function handleInstall(row: RulePackVO): Promise<void> {
 async function handleUninstall(row: RulePackVO): Promise<void> {
   if (!row.packCode) return;
   try {
-    await YdConfirm(`确认卸载规则包 "${row.packName}"？`, { title: '卸载确认', type: 'warning' });
+    await YdConfirm(t('rulePackUninstallConfirm', [row.packName]), {
+      title: t('rulePackUninstallTitle'),
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消卸载规则包');
     return;
@@ -404,7 +410,10 @@ async function handleViewVersions(row: RulePackVO): Promise<void> {
 async function handleRollback(version: string): Promise<void> {
   if (!currentPackCode.value) return;
   try {
-    await YdConfirm(`确认回滚到版本 ${version}？`, { title: '回滚确认', type: 'warning' });
+    await YdConfirm(t('rulePackRollbackConfirm', [version]), {
+      title: t('rulePackRollbackTitle'),
+      type: 'warning',
+    });
   } catch {
     logger.debug('用户取消回滚');
     return;
@@ -412,10 +421,10 @@ async function handleRollback(version: string): Promise<void> {
   try {
     await rollbackPack({ packCode: currentPackCode.value }, { version });
     await YdAlert({
-      content: `已回滚到版本 ${version}`,
-      title: '回滚成功',
+      content: t('rulePackRollbackSuccess', [version]),
+      title: t('rulePackRollbackResultTitle'),
       icon: 'success',
-      confirmText: '确定',
+      confirmText: t('rulePackConfirmText'),
     });
     versionDialogVisible.value = false;
     await loadAll();
@@ -466,20 +475,20 @@ function handleOpenPublishDialog(): void {
 async function handlePublish(): Promise<void> {
   if (!publishForm.value.packCode || !publishForm.value.packName) {
     await YdAlert({
-      content: '请填写包编码和名称',
-      title: '提示',
+      content: t('rulePackPublishValidate'),
+      title: t('rulePackPromptTitle'),
       icon: 'warning',
-      confirmText: '确定',
+      confirmText: t('rulePackConfirmText'),
     });
     return;
   }
   try {
     await publishPack(publishForm.value);
     await YdAlert({
-      content: '规则包发布成功',
-      title: '发布结果',
+      content: t('rulePackPublishSuccess'),
+      title: t('rulePackPublishResultTitle'),
       icon: 'success',
-      confirmText: '确定',
+      confirmText: t('rulePackConfirmText'),
     });
     publishDialogVisible.value = false;
     await loadAll();
@@ -493,10 +502,10 @@ async function handleUpdateSingle(row: PackUpdateInfoVO): Promise<void> {
   try {
     await installPack({ packCode: row.packCode }, { version: row.latestVersion });
     await YdAlert({
-      content: `规则包 ${row.packName} 已更新到 v${row.latestVersion}`,
-      title: '更新成功',
+      content: t('rulePackUpdateSuccess', [row.packName, row.latestVersion]),
+      title: t('rulePackUpdateResultTitle'),
       icon: 'success',
-      confirmText: '确定',
+      confirmText: t('rulePackConfirmText'),
     });
     await loadAll();
   } catch (error) {
@@ -508,20 +517,20 @@ async function handleBatchUpdate(): Promise<void> {
   const codes = updatablePacks.value.filter((p) => p.hasUpdate).map((p) => p.packCode ?? '');
   if (codes.length === 0) {
     await YdAlert({
-      content: '当前没有可更新的规则包',
-      title: '提示',
+      content: t('rulePackNoUpdatable'),
+      title: t('rulePackPromptTitle'),
       icon: 'info',
-      confirmText: '确定',
+      confirmText: t('rulePackConfirmText'),
     });
     return;
   }
   try {
     await batchUpdatePacks(codes);
     await YdAlert({
-      content: `已成功更新 ${codes.length} 个规则包`,
-      title: '批量更新成功',
+      content: t('rulePackBatchUpdateSuccess', [codes.length]),
+      title: t('rulePackBatchUpdateTitle'),
       icon: 'success',
-      confirmText: '确定',
+      confirmText: t('rulePackConfirmText'),
     });
     await loadAll();
   } catch (error) {
@@ -548,10 +557,10 @@ function handleOpenStressDialog(): void {
 async function handleStressTest(): Promise<void> {
   if (!stressPackCode.value.trim()) {
     await YdAlert({
-      content: '请输入需要压测的包编码',
-      title: '提示',
+      content: t('rulePackStressValidate'),
+      title: t('rulePackPromptTitle'),
       icon: 'warning',
-      confirmText: '确定',
+      confirmText: t('rulePackConfirmText'),
     });
     return;
   }
@@ -613,11 +622,11 @@ async function doScore(packId: string): Promise<void> {
 /** ========== 版本历史弹窗表格 ========== */
 const versionGridOptions: VxeTableGridOptions<RulePackVO> = {
   columns: [
-    { field: 'packVersion', title: '版本号', width: 100 },
-    { field: 'author', title: '发布者', width: 100 },
+    { field: 'packVersion', title: t('rulePackColumnVersionNo'), width: 100 },
+    { field: 'author', title: t('rulePackColumnPublisher'), width: 100 },
     {
       field: 'action',
-      title: '操作',
+      title: t('rulePackColumnAction'),
       width: 100,
       fixed: 'right',
       slots: {
@@ -629,7 +638,7 @@ const versionGridOptions: VxeTableGridOptions<RulePackVO> = {
               variant: 'link',
               onClick: () => handleRollback(row.packVersion ?? ''),
             },
-            () => '回滚',
+            () => t('rulePackActionRollback'),
           ),
       },
     },
@@ -666,17 +675,17 @@ onMounted(() => {
       <YdRow :gutter="12" class="mb-4">
         <YdCol :span="8">
           <YdCard shadow="never">
-            <YdCountToAnimator title="已发布包数" :value="statPublished" />
+            <YdCountToAnimator :title="t('rulePackPublishedCount')" :value="statPublished" />
           </YdCard>
         </YdCol>
         <YdCol :span="8">
           <YdCard shadow="never">
-            <YdCountToAnimator title="已安装包数" :value="statInstalled" />
+            <YdCountToAnimator :title="t('rulePackInstalledCount')" :value="statInstalled" />
           </YdCard>
         </YdCol>
         <YdCol :span="8">
           <YdCard shadow="never">
-            <YdCountToAnimator title="可更新数" :value="statUpdatable" />
+            <YdCountToAnimator :title="t('rulePackUpdatableCount')" :value="statUpdatable" />
           </YdCard>
         </YdCol>
       </YdRow>
@@ -685,36 +694,44 @@ onMounted(() => {
       <YdCard shadow="never">
         <YdTabs v-model="activeTab" @tab-change="handleTabChange">
           <!-- 包市场 -->
-          <YdTabsContent label="包市场" name="market">
+          <YdTabsContent :label="t('rulePackTabMarket')" name="market">
             <div class="mb-3 flex items-center gap-2">
               <YdInput
                 v-model="keyword"
-                placeholder="搜索编码/名称/描述"
+                :placeholder="t('rulePackSearchPlaceholder')"
                 clearable
                 style="width: 280px"
                 @keyup.enter="handleSearch"
               />
-              <YdButton type="primary" @click="handleSearch">搜索</YdButton>
-              <YdButton type="success" @click="handleOpenPublishDialog">发布规则包</YdButton>
-              <YdButton type="warning" @click="handleOpenStressDialog">压力测试</YdButton>
-              <YdButton @click="loadMarket">刷新</YdButton>
+              <YdButton type="primary" @click="handleSearch">{{
+                t('rulePackSearch')
+              }}</YdButton>
+              <YdButton type="success" @click="handleOpenPublishDialog">{{
+                t('rulePackPublish')
+              }}</YdButton>
+              <YdButton type="warning" @click="handleOpenStressDialog">{{
+                t('rulePackStressTest')
+              }}</YdButton>
+              <YdButton @click="loadMarket">{{ t('refresh') }}</YdButton>
             </div>
             <MarketGrid />
           </YdTabsContent>
 
           <!-- 已安装 -->
-          <YdTabsContent label="已安装" name="installed">
+          <YdTabsContent :label="t('rulePackTabInstalled')" name="installed">
             <div class="mb-2">
-              <YdButton @click="loadInstalled">刷新</YdButton>
+              <YdButton @click="loadInstalled">{{ t('refresh') }}</YdButton>
             </div>
             <InstalledGrid />
           </YdTabsContent>
 
           <!-- 可更新 -->
-          <YdTabsContent label="可更新" name="updatable">
+          <YdTabsContent :label="t('rulePackTabUpdatable')" name="updatable">
             <div class="mb-2 flex gap-2">
-              <YdButton @click="loadUpdatable">刷新</YdButton>
-              <YdButton type="success" @click="handleBatchUpdate">一键更新全部</YdButton>
+              <YdButton @click="loadUpdatable">{{ t('refresh') }}</YdButton>
+              <YdButton type="success" @click="handleBatchUpdate">{{
+                t('rulePackActionUpdateAll')
+              }}</YdButton>
             </div>
             <UpdatableGrid />
           </YdTabsContent>
@@ -724,96 +741,128 @@ onMounted(() => {
       <!-- 版本历史弹窗 -->
       <YdDialog
         v-model="versionDialogVisible"
-        :title="`版本历史 - ${currentPackCode}`"
+        :title="t('rulePackVersionHistoryTitle', [currentPackCode])"
         width="600px"
       >
         <VersionGrid />
       </YdDialog>
 
       <!-- 版本对比弹窗 -->
-      <YdDialog v-model="diffDialogVisible" :title="`版本对比 - ${currentPackCode}`" width="700px">
+      <YdDialog
+        v-model="diffDialogVisible"
+        :title="t('rulePackVersionDiffTitle', [currentPackCode])"
+        width="700px"
+      >
         <div v-if="diffData" class="space-y-3">
           <YdRow :gutter="12">
             <YdCol :span="12">
-              <span class="text-sm text-gray-500">源版本:</span>
+              <span class="text-sm text-gray-500">{{ t('rulePackDiffSourceVersion') }}</span>
               <YdBadge>{{ diffData.fromVersion }}</YdBadge>
             </YdCol>
             <YdCol :span="12">
-              <span class="text-sm text-gray-500">目标版本:</span>
+              <span class="text-sm text-gray-500">{{ t('rulePackDiffTargetVersion') }}</span>
               <YdBadge>{{ diffData.toVersion }}</YdBadge>
             </YdCol>
           </YdRow>
           <div>
             <p class="mb-1 text-sm font-medium">
-              <span class="text-green-600">新增规则</span> ({{ diffData.added?.length ?? 0 }})
+              <span class="text-green-600">{{ t('rulePackDiffAdded') }}</span>
+              ({{ diffData.added?.length ?? 0 }})
             </p>
             <YdBadge v-for="code in diffData.added" :key="code" type="success" class="mb-1 mr-1">
               {{ code }}
             </YdBadge>
-            <span v-if="!diffData.added?.length" class="text-xs text-gray-400">无</span>
+            <span v-if="!diffData.added?.length" class="text-xs text-gray-400">{{
+              t('rulePackDiffNone')
+            }}</span>
           </div>
           <div>
             <p class="mb-1 text-sm font-medium">
-              <span class="text-red-600">移除规则</span> ({{ diffData.removed?.length ?? 0 }})
+              <span class="text-red-600">{{ t('rulePackDiffRemoved') }}</span>
+              ({{ diffData.removed?.length ?? 0 }})
             </p>
             <YdBadge v-for="code in diffData.removed" :key="code" type="danger" class="mb-1 mr-1">
               {{ code }}
             </YdBadge>
-            <span v-if="!diffData.removed?.length" class="text-xs text-gray-400">无</span>
+            <span v-if="!diffData.removed?.length" class="text-xs text-gray-400">{{
+              t('rulePackDiffNone')
+            }}</span>
           </div>
           <div>
             <p class="mb-1 text-sm font-medium">
-              <span class="text-orange-600">变更规则</span> ({{ diffData.changed?.length ?? 0 }})
+              <span class="text-orange-600">{{ t('rulePackDiffChanged') }}</span>
+              ({{ diffData.changed?.length ?? 0 }})
             </p>
             <YdBadge v-for="code in diffData.changed" :key="code" type="warning" class="mb-1 mr-1">
               {{ code }}
             </YdBadge>
-            <span v-if="!diffData.changed?.length" class="text-xs text-gray-400">无</span>
+            <span v-if="!diffData.changed?.length" class="text-xs text-gray-400">{{
+              t('rulePackDiffNone')
+            }}</span>
           </div>
         </div>
       </YdDialog>
 
       <!-- 发布规则包弹窗 -->
-      <YdDialog v-model="publishDialogVisible" title="发布规则包" width="500px">
+      <YdDialog v-model="publishDialogVisible" :title="t('rulePackPublishTitle')" width="500px">
         <YdForm :model="publishForm" label-width="80px">
-          <YdFormItem label="包编码" required>
-            <YdInput v-model="publishForm.packCode" placeholder="如 finance-credit-score" />
+          <YdFormItem :label="t('rulePackFormPackCode')" required>
+            <YdInput
+              v-model="publishForm.packCode"
+              :placeholder="t('rulePackFormPackCodePlaceholder')"
+            />
           </YdFormItem>
-          <YdFormItem label="包名称" required>
-            <YdInput v-model="publishForm.packName" placeholder="如 金融信用评分包" />
+          <YdFormItem :label="t('rulePackFormPackName')" required>
+            <YdInput
+              v-model="publishForm.packName"
+              :placeholder="t('rulePackFormPackNamePlaceholder')"
+            />
           </YdFormItem>
-          <YdFormItem label="版本号">
+          <YdFormItem :label="t('rulePackFormVersion')">
             <YdInput v-model="publishForm.packVersion" />
           </YdFormItem>
-          <YdFormItem label="行业">
-            <YdInput v-model="publishForm.industry" placeholder="如 finance/ecommerce" />
+          <YdFormItem :label="t('rulePackFormIndustry')">
+            <YdInput
+              v-model="publishForm.industry"
+              :placeholder="t('rulePackFormIndustryPlaceholder')"
+            />
           </YdFormItem>
-          <YdFormItem label="标签">
-            <YdInput v-model="publishForm.tags" placeholder="逗号分隔" />
+          <YdFormItem :label="t('rulePackFormTags')">
+            <YdInput v-model="publishForm.tags" :placeholder="t('rulePackFormTagsPlaceholder')" />
           </YdFormItem>
-          <YdFormItem label="作者">
-            <YdInput v-model="publishForm.author" placeholder="作者工号或姓名" />
+          <YdFormItem :label="t('rulePackFormAuthor')">
+            <YdInput
+              v-model="publishForm.author"
+              :placeholder="t('rulePackFormAuthorPlaceholder')"
+            />
           </YdFormItem>
-          <YdFormItem label="描述">
+          <YdFormItem :label="t('rulePackFormDescription')">
             <YdInput v-model="publishForm.description" type="textarea" :rows="3" />
           </YdFormItem>
         </YdForm>
         <template #footer>
-          <YdButton @click="publishDialogVisible = false">取消</YdButton>
-          <YdButton type="primary" @click="handlePublish">确认发布</YdButton>
+          <YdButton @click="publishDialogVisible = false">
+            {{ t('rulePackFormCancel') }}
+          </YdButton>
+          <YdButton type="primary" @click="handlePublish">
+            {{ t('rulePackFormConfirmPublish') }}
+          </YdButton>
         </template>
       </YdDialog>
 
       <!-- 压力测试弹窗 -->
-      <YdDialog v-model="stressDialogVisible" title="规则包压力测试" width="520px">
+      <YdDialog v-model="stressDialogVisible" :title="t('rulePackStressTitle')" width="520px">
         <YdForm label-width="100px" label-position="right">
-          <YdFormItem label="包编码" required>
-            <YdInput v-model="stressPackCode" placeholder="请输入需要压测的包编码" />
+          <YdFormItem :label="t('rulePackStressPackCode')" required>
+            <YdInput
+              v-model="stressPackCode"
+              :placeholder="t('rulePackStressPackCodePlaceholder')"
+            />
           </YdFormItem>
-          <YdFormItem label="并发数">
+          <YdFormItem :label="t('rulePackStressConcurrency')">
             <YdNumberFieldInput v-model="stressConcurrency" :min="1" :max="1000" class="!w-full" />
           </YdFormItem>
-          <YdFormItem label="持续时长(秒)">
+          <YdFormItem :label="t('rulePackStressDuration')">
             <YdNumberFieldInput v-model="stressDuration" :min="1" :max="600" class="!w-full" />
           </YdFormItem>
         </YdForm>
@@ -822,15 +871,21 @@ onMounted(() => {
           class="mt-3 max-h-60 overflow-auto rounded border border-gray-300 bg-gray-50 p-3 text-xs"
           >{{ stressResultText }}</pre>
         <template #footer>
-          <YdButton @click="stressDialogVisible = false">关闭</YdButton>
+          <YdButton @click="stressDialogVisible = false">
+            {{ t('rulePackStressClose') }}
+          </YdButton>
           <YdButton type="primary" :loading="stressLoading" @click="handleStressTest"
-            >开始压测</YdButton
+            >{{ t('rulePackStressStart') }}</YdButton
           >
         </template>
       </YdDialog>
 
       <!-- 质量评分弹窗 -->
-      <YdDialog v-model="scoreDialogVisible" :title="`质量评分 - ${scorePackName}`" width="520px">
+      <YdDialog
+        v-model="scoreDialogVisible"
+        :title="t('rulePackScoreDialogTitle', [scorePackName])"
+        width="520px"
+      >
         <div v-loading="scoreLoading">
           <div v-if="scoreData" class="space-y-3">
             <div
@@ -842,7 +897,9 @@ onMounted(() => {
               <div class="mt-1 whitespace-pre-wrap text-sm">{{ formatUnknown(value) }}</div>
             </div>
           </div>
-          <div v-else class="py-8 text-center text-sm text-gray-400">暂无评分数据</div>
+          <div v-else class="py-8 text-center text-sm text-gray-400">
+            {{ t('rulePackNoScoreData') }}
+          </div>
         </div>
       </YdDialog>
     </div>

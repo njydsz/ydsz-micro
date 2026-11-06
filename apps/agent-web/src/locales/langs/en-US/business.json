@@ -44,6 +44,189 @@
   "exportSuccess": "Export successful",
   "exportFailed": "Export failed",
   "operationSuccess": "Success",
+  "dag": {
+    "validate": {
+      "dslRequired": "Please enter DSL content",
+      "executionIdRequired": "Please enter ExecutionId"
+    },
+    "workflowManagement": {
+      "hint": "Need to manage persistent workflow versions?",
+      "description": "Go to the workflow management page to create, edit, manage versions, and export.",
+      "button": "Workflow Management"
+    },
+    "tabs": {
+      "dsl": "DSL Orchestration",
+      "visual": "Visual Orchestration"
+    },
+    "dsl": {
+      "title": "DSL Orchestration Script",
+      "visualOrchestration": "Visual Orchestration",
+      "scriptPlaceholder": "Paste DSL orchestration script"
+    },
+    "execution": {
+      "title": "Execution Parameters",
+      "userInput": "User Input",
+      "userInputPlaceholder": "User input (optional)",
+      "validate": "Validate",
+      "execute": "Execute"
+    },
+    "checkpoint": {
+      "title": "Checkpoint Query",
+      "idPlaceholder": "Enter executionId",
+      "query": "Query",
+      "executionId": "ExecutionId",
+      "dagName": "DAG Name",
+      "userInput": "User Input",
+      "snapshotTime": "Snapshot Time",
+      "completedNodes": "Completed Nodes",
+      "failedNodes": "Failed Nodes",
+      "dsl": "DSL",
+      "nodeResults": "Node Results"
+    },
+    "result": {
+      "validate": "Validation Result",
+      "execute": "Execution Result"
+    },
+    "visual": {
+      "openDesigner": "Open Visual Workflow Designer",
+      "description": "Drag and drop to orchestrate Agent workflows, supporting LLM, tool invocation, conditional branching, and other node types."
+    }
+  },
+  "workflowDesigner": {
+    "title": "Agent Visual Workflow Orchestration",
+    "tabs": {
+      "designer": "Designer",
+      "dslPreview": "DSL Preview"
+    },
+    "toolbar": {
+      "save": "Save",
+      "exportDsl": "Export DSL",
+      "addNode": "Add Node:"
+    },
+    "node": {
+      "connect": "Connect",
+      "delete": "Delete"
+    },
+    "canvas": {
+      "empty": "Click Add Node in the toolbar to start orchestrating your workflow"
+    },
+    "property": {
+      "title": "Node Properties",
+      "name": "Name",
+      "namePlaceholder": "Node name",
+      "type": "Type",
+      "typePlaceholder": "Node type",
+      "model": "Model",
+      "modelPlaceholder": "Select model",
+      "prompt": "Prompt",
+      "promptPlaceholder": "Enter prompt",
+      "temperature": "Temperature",
+      "tool": "Tool",
+      "toolPlaceholder": "Tool name",
+      "params": "Parameters",
+      "paramsPlaceholder": "JSON format parameters",
+      "condition": "Condition",
+      "conditionPlaceholder": "Enter condition expression",
+      "xCoord": "X Coordinate",
+      "yCoord": "Y Coordinate",
+      "selectNode": "Please select a node"
+    },
+    "dsl": {
+      "workflowName": "Workflow Name",
+      "description": "Description",
+      "descriptionPlaceholder": "Please enter workflow description"
+    }
+  },
+  "observability": {
+    "overview": {
+      "totalRequests": "Total Requests",
+      "successRate": "Success Rate",
+      "avgLatency": "Avg Latency",
+      "tokenUsage": "Token Usage"
+    },
+    "tabs": {
+      "trace": "Trace",
+      "model": "Model Usage",
+      "performance": "Performance"
+    },
+    "status": {
+      "success": "Success",
+      "failed": "Failed",
+      "running": "Running"
+    },
+    "trace": {
+      "searchPlaceholder": "Search by Trace ID, Agent name, or input content...",
+      "statusFilter": "Status Filter",
+      "traceId": "Trace ID",
+      "agent": "Agent",
+      "startTime": "Start Time",
+      "duration": "Duration (ms)",
+      "model": "Model",
+      "tokens": "Tokens",
+      "status": "Status",
+      "actions": "Actions",
+      "detail": "Detail"
+    },
+    "model": {
+      "model": "Model",
+      "requestCount": "Request Count",
+      "tokenCount": "Token Count",
+      "avgLatency": "Avg Latency (ms)",
+      "cost": "Cost",
+      "noData": "No model usage data"
+    },
+    "performance": {
+      "availability": "Availability",
+      "p99Latency": "P99 Latency",
+      "qps": "QPS"
+    },
+    "traceDetail": {
+      "title": "Trace Detail",
+      "traceId": "Trace ID",
+      "agent": "Agent",
+      "startTime": "Start Time",
+      "duration": "Duration",
+      "model": "Model",
+      "tokens": "Tokens",
+      "input": "Input",
+      "output": "Output",
+      "close": "Close"
+    }
+  },
+  "memory": {
+    "conversationId": "Conversation ID",
+    "conversationIdPlaceholder": "Please enter Conversation ID",
+    "actions": {
+      "query": "Query",
+      "add": "Add Memory",
+      "clear": "Clear Memory",
+      "consolidate": "Consolidate"
+    },
+    "stats": {
+      "totalMessages": "Total Messages",
+      "currentConversation": "Current Conversation ID",
+      "loaded": "Loaded"
+    },
+    "table": {
+      "title": "Conversation Memory List",
+      "refresh": "Refresh",
+      "empty": "Please enter a Conversation ID and click Query"
+    },
+    "modal": {
+      "title": "Add Memory",
+      "role": "Role",
+      "content": "Memory Content",
+      "contentPlaceholder": "Please enter memory content",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "role": {
+      "user": "User",
+      "assistant": "Assistant",
+      "system": "System",
+      "tool": "Tool"
+    }
+  },
   "skill": {
     "title": "Skill Engine",
     "skillCode": "Skill Code",

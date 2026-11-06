@@ -10,5 +10,215 @@
   "route": "路由配置",
   "routeRule": "路由规则",
   "preference": "偏好设置",
-  "messagePreference": "消息偏好"
+  "messagePreference": "消息偏好",
+  "ops": {
+    "cache": {
+      "title": "模板缓存统计",
+      "hitRate": "缓存命中率",
+      "size": "缓存条目数",
+      "hitCount": "命中次数",
+      "missCount": "未命中次数",
+      "evictionCount": "淘汰次数",
+      "sizeLabel": "缓存大小",
+      "unit": "条"
+    },
+    "bloom": {
+      "title": "BloomFilter 统计",
+      "fillRate": "BF 填充率",
+      "fpp": "BF 误判率",
+      "expectedInsertions": "预期插入数",
+      "fppLabel": "当前误判率 (FPP)",
+      "primary": "是否主窗口",
+      "windowAgeSeconds": "窗口存活秒数"
+    },
+    "evict": {
+      "entry": "清理单条",
+      "title": "清理单条模板缓存",
+      "description": "输入模板编码清理对应的缓存条目",
+      "templateLabel": "模板编码",
+      "templatePlaceholder": "请输入要清理的模板编码",
+      "templateRequired": "请输入要清理的模板编码",
+      "confirm": "确定清理模板「{template}」的缓存吗？",
+      "confirmButton": "确认清理",
+      "success": "缓存清理成功"
+    },
+    "clearAll": {
+      "entry": "全量清理",
+      "title": "全量清理确认",
+      "confirm": "确定全量清理模板缓存吗？清理后所有模板将被重新加载，操作不可恢复。",
+      "confirmButton": "确认清理",
+      "success": "全量缓存清理成功"
+    }
+  },
+  "readReceipt": {
+    "shortCode": "短码",
+    "shortCodePlaceholder": "请输入回执短码（shortCode），如：a1b2c3",
+    "shortCodeRequired": "请输入短码（shortCode）",
+    "queryFailed": "查询失败，请检查短码是否正确",
+    "search": {
+      "title": "短码查询"
+    },
+    "detail": {
+      "title": "回执详情",
+      "empty": "请输入短码进行查询"
+    },
+    "msgId": "消息ID",
+    "readBy": "阅读人",
+    "readAt": "阅读时间",
+    "statusLabel": "回执状态",
+    "redirectUrl": "重定向地址",
+    "status": {
+      "read": "已读",
+      "delivered": "已送达",
+      "pending": "处理中",
+      "failed": "失败"
+    },
+    "result": {
+      "success": "成功",
+      "failed": "失败"
+    },
+    "recent": {
+      "title": "最近查询",
+      "empty": "暂无查询记录",
+      "emptyTitle": "暂无查询",
+      "hint": "点击记录可快速重新查询"
+    }
+  },
+  "reactive": {
+    "connection": {
+      "title": "连接状态",
+      "connected": "已连接",
+      "connecting": "连接中",
+      "disconnected": "未连接",
+      "connect": "连接",
+      "disconnect": "断开"
+    },
+    "health": {
+      "mode": "运行模式",
+      "bufferSize": "缓冲区",
+      "status": "运行状态"
+    },
+    "level": {
+      "INFO": "INFO",
+      "WARN": "WARN",
+      "ERROR": "ERROR",
+      "CRITICAL": "CRITICAL"
+    },
+    "publish": {
+      "title": "发布事件（试点测试）",
+      "eventType": "事件类型",
+      "eventTypePlaceholder": "默认 notification",
+      "level": "级别",
+      "targetUserId": "目标用户",
+      "targetUserIdPlaceholder": "留空则广播给所有订阅者",
+      "titleLabel": "标题",
+      "content": "正文",
+      "submit": "发布",
+      "success": "发布成功"
+    },
+    "recent": {
+      "title": "最近事件（近 50 条）",
+      "empty": "暂无事件",
+      "broadcast": "广播"
+    }
+  },
+  "recall": {
+    "requestPending": "召回请求已发送，但服务返回未完成",
+    "scope": {
+      "single": "单条召回",
+      "batch": "批次召回"
+    },
+    "notification": {
+      "tab": "通知召回",
+      "userId": "用户ID",
+      "userIdPlaceholder": "召回指定用户的通知（可选）",
+      "id": "通知ID",
+      "idPlaceholder": "站内通知ID",
+      "idRequired": "请输入通知ID或业务ID",
+      "bizType": "业务类型",
+      "bizTypePlaceholder": "业务类型（可选）",
+      "bizId": "业务ID",
+      "bizIdPlaceholder": "业务单据ID（可选）",
+      "scope": "召回范围",
+      "execute": "执行召回",
+      "confirmTitle": "召回确认",
+      "confirm": "确定召回通知（ID: {id}）吗？召回后接收人将无法查看该通知。",
+      "success": "通知召回成功"
+    },
+    "message": {
+      "tab": "消息召回",
+      "logId": "日志ID",
+      "logIdPlaceholder": "消息日志 logId（精准召回，与消息ID二选一）",
+      "logIdRequired": "请输入消息日志ID",
+      "msgId": "消息ID",
+      "msgIdPlaceholder": "消息 msgId（精准召回，与日志ID二选一）",
+      "msgIdRequired": "请输入消息ID",
+      "batchId": "批量ID",
+      "batchIdPlaceholder": "业务ID（配合批次召回使用）",
+      "bizType": "业务类型",
+      "bizTypePlaceholder": "业务类型（可选）",
+      "bizId": "业务ID",
+      "bizIdPlaceholder": "业务单据ID（可选）",
+      "byLogId": "按日志ID召回",
+      "byMsgId": "按消息ID召回",
+      "confirmTitle": "召回确认",
+      "confirmByLogId": "确定召回消息（logId: {logId}）吗？",
+      "confirmByMsgId": "确定召回消息（msgId: {msgId}）吗？",
+      "success": "消息召回成功"
+    },
+    "batch": {
+      "entry": "批量召回",
+      "idRequired": "请输入要召回的ID",
+      "confirmTitle": "批量召回确认",
+      "confirm": "确定执行批量召回吗？此操作将召回匹配范围内所有消息，不可撤销。",
+      "confirmButton": "确认召回",
+      "success": "批量召回完成，共召回 {count} 条记录"
+    },
+    "log": {
+      "title": "召回操作日志",
+      "empty": "暂无召回操作记录",
+      "typeNotification": "通知",
+      "typeMessage": "消息",
+      "success": "召回成功",
+      "pending": "服务返回未完成",
+      "byLogIdSuccess": "按 logId 召回成功",
+      "byMsgIdSuccess": "按 msgId 召回成功",
+      "batchSuccess": "批量召回 {count} 条"
+    }
+  },
+  "preference": {
+    "createTitle": "新增消息偏好",
+    "editTitle": "编辑消息偏好",
+    "channelRequired": "请输入通道",
+    "userId": "用户ID",
+    "userIdPlaceholder": "请输入用户ID",
+    "channel": "通道",
+    "channelPlaceholder": "请输入通道，如 SMS/EMAIL/IN_APP",
+    "bizType": "业务类型",
+    "bizTypePlaceholder": "请输入业务类型（可为空）",
+    "enabled": "启用",
+    "enabledOn": "启用",
+    "enabledOff": "停用",
+    "dndEnabled": "免打扰",
+    "dndOn": "开启",
+    "dndOff": "关闭",
+    "dndStart": "免打扰开始",
+    "dndStartPlaceholder": "如 22:00（可为空）",
+    "dndEnd": "免打扰结束",
+    "dndEndPlaceholder": "如 08:00（可为空）",
+    "dailyLimit": "每日上限",
+    "hourlyLimit": "每小时上限",
+    "digestEnabled": "摘要订阅",
+    "digestOn": "开启",
+    "digestOff": "关闭",
+    "digestFrequency": "摘要频率",
+    "digestFrequencyPlaceholder": "请选择摘要频率（可为空）",
+    "frequency": {
+      "daily": "每天",
+      "weekly": "每周",
+      "monthly": "每月"
+    },
+    "locale": "语言",
+    "localePlaceholder": "请输入语言（可为空）"
+  }
 }

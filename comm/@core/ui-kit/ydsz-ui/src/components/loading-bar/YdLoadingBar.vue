@@ -119,9 +119,11 @@ function handleClick(event: MouseEvent): void {
   0% {
     transform: translateX(-100%);
   }
+
   50% {
     transform: translateX(180%);
   }
+
   100% {
     transform: translateX(400%);
   }

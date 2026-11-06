@@ -1,28 +1,3 @@
-<script lang="ts">
-/**
- * YdDataTable —— 增强数据表格：行选择 / 单列与多列排序 / 固定列 / 多级表头 /
- * 列虚拟滚动 / 行虚拟滚动 / 行内编辑 / 单元格与表头插槽 / CSV·TSV 导出 / loading 态。
- *
- * <p>渲染序列由三个 composable 装配：useTableColumnLayout（列）、useTableRowView（行）、
- * useTableCellEdit（单元格编辑）；本文件只保留 props / 事件契约与模板编排。
- *
- * @path comm\@core\ui-kit\ydsz-ui\src\components\data-table\YdDataTable.vue
- * @author ydsz-team
- * @since 5.6.0
- */
-// @ts-nocheck
-export type {
-  CellEditOption,
-  CellEditType,
-  ColumnView,
-  DataTableColumnDef,
-  RowView,
-  SummaryRowFn,
-  TreeConfig,
-  TreeFlatRow,
-} from './types';
-</script>
-
 <script lang="ts" setup generic="T extends Record<string, unknown>">
 import { computed, ref, useTemplateRef, watch } from 'vue';
 
@@ -44,6 +19,8 @@ import { useTableColumnLayout } from './use-table-column-layout';
 import { useTableExport } from './use-table-export';
 import { useTableRowView } from './use-table-row-view';
 import { useTableResizePersistence } from './use-table-resize-persistence';
+import { useTableSortAndResize } from './use-table-sort-and-resize';
+import { useColumnDefIndex } from './use-column-def-index';
 import { useDataTableSelection } from './use-data-table-selection';
 import YdDataTableCell from './YdDataTableCell.vue';
 import YdDataTableHeadCell from './YdDataTableHeadCell.vue';
@@ -191,38 +168,8 @@ const tableScrollContainerRef = useTemplateRef<HTMLElement>('tableScrollContaine
 /* 列定义查找                                                    */
 /* ============================================================ */
 
-/** 列定义查找表（columnKey → 定义），覆盖多级表头的分组子列 */
-const columnDefByKey = computed<Map<string, DataTableColumnDef<T>>>(() => {
-  const map = new Map<string, DataTableColumnDef<T>>();
-
-  /**
-   * 递归收集分组子列。
-   *
-   * @param cols - 当前层列定义
-   * @returns 无
-   */
-  function collect(cols: DataTableColumnDef<T>[]): void {
-    for (const col of cols) {
-      map.set(col.key, col);
-      if (Array.isArray(col.children)) {
-        collect(col.children as DataTableColumnDef<T>[]);
-      }
-    }
-  }
-
-  collect(props.columns);
-  return map;
-});
-
-/**
- * 按 key 取列定义。
- *
- * @param columnKey - 列 key
- * @returns 列定义或 undefined
- */
-function findColumn(columnKey: string): DataTableColumnDef<T> | undefined {
-  return columnDefByKey.value.get(columnKey);
-}
+/** 列定义索引（含多级表头子列） */
+const { columnDefByKey, findColumn } = useColumnDefIndex<T>(() => props.columns);
 
 /* ============================================================ */
 /* 表格数据层（useTableData）                                    */
@@ -247,73 +194,25 @@ const table = useTableData<T>({
   rowSelection: rowSelectionConfig.value,
 });
 
-/** 受控排序：外部 sortState 变化时覆盖内部排序链 */
-watch(
-  () => props.sortState,
-  (next) => {
-    if (!next) return;
-    table.sortState.value = { order: next.order, prop: next.prop };
-  },
-  { immediate: true },
-);
-
 /* ============================================================ */
-/* 排序交互                                                      */
+/* 排序交互 + 列宽拖拽（useTableSortAndResize）                   */
 /* ============================================================ */
 
-/**
- * 表头点击排序：修饰键表示追加到多列排序链，否则替换当前排序。
- *
- * @param columnKey - 被点击的列 key
- * @param additive - 是否携带 Shift / Ctrl / Meta
- * @returns 无
- */
-function handleSort(columnKey: string, additive: boolean): void {
-  table.toggleSort(columnKey, additive);
-  emitSortState();
-}
+const {
+  handleSort,
+  clearSort,
+  emitSortState,
+  resizePersistence,
+  handleResizeStart: handleResizeStartInner,
+} = useTableSortAndResize<T>(table, emit as never, {
+  sortState: () => props.sortState,
+  storageKey: props.storageKey,
+  resizable: () => props.resizable,
+});
 
-/**
- * 清空排序并同步受控事件。
- *
- * @returns 无
- */
-function clearSort(): void {
-  table.clearSort();
-  emitSortState();
-}
-
-/** 把内部排序链变化广播给受控调用方 */
-function emitSortState(): void {
-  const chain = table.sortChain.value;
-  const primary = chain[0];
-  emit('sort-change', primary?.prop ?? '', primary?.order ?? null);
-  emit('sort-chain-change', [...chain]);
-  emit(
-    'update:sortState',
-    primary ? { order: primary.order, prop: primary.prop } : { order: null, prop: null },
-  );
-}
-
-/* ============================================================ */
-/* 列宽持久化（统一 useTableResizePersistence）                    */
-/* ============================================================ */
-
-/**
- * 列宽拖拽与持久化：统一走 useTableResizePersistence。
- */
-const resizePersistence = useTableResizePersistence<T>(props.storageKey);
-
-/**
- * 开始列宽拖拽，并在 pointerup 时回收 document 监听。
- *
- * @param columnKey - 列 key
- * @param event - 原生指针事件
- * @returns 无
- */
+/** 列宽变化时广播 */
 function handleResizeStart(columnKey: string, event: PointerEvent): void {
-  if (!props.resizable) return;
-  resizePersistence.handleResizeStart(columnKey, event, (key, newWidth) => {
+  handleResizeStartInner(columnKey, event, (key, newWidth) => {
     emit('columnResize', { columnKey: key, newWidth });
   });
 }

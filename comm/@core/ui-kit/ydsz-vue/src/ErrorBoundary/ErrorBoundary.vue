@@ -64,11 +64,7 @@ defineExpose({
 <template>
   <!-- 错误状态：展示错误 UI -->
   <div v-if="error" class="ydsz-error-boundary">
-    <slot
-      v-if="props.fallback"
-      :error="error"
-      :reset="handleRetry"
-    >
+    <slot v-if="props.fallback" :error="error" :reset="handleRetry">
       {{ props.fallback(error, handleRetry) }}
     </slot>
     <div v-else class="ydsz-error-boundary__content">
@@ -78,11 +74,7 @@ defineExpose({
         {{ error.message || '发生了未知错误，请稍后重试' }}
       </p>
       <div class="ydsz-error-boundary__actions">
-        <button
-          type="button"
-          class="ydsz-error-boundary__retry-btn"
-          @click="handleRetry"
-        >
+        <button type="button" class="ydsz-error-boundary__retry-btn" @click="handleRetry">
           重试
         </button>
       </div>

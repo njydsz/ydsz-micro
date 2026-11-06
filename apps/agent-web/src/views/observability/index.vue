@@ -40,11 +40,14 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const logger = createLogger('agent-observability');
 import { getModelUsage, getOverview } from '#/api/observability';
 
 defineOptions({ name: 'ObservabilityManagement' });
+
+const { t } = useI18n();
 
 /** 当前激活的标签页 */
 const activeTab = ref('trace');
@@ -157,7 +160,7 @@ onMounted(() => {
         <YdCard class="transition-shadow hover:shadow-md">
           <YdCardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-muted-foreground text-sm">总请求数</p>
+              <p class="text-muted-foreground text-sm">{{ t('business.observability.overview.totalRequests') }}</p>
               <p class="text-primary mt-1 text-2xl font-bold">
                 {{ (overviewData.totalRequests as number) ?? 0 }}
               </p>
@@ -171,7 +174,7 @@ onMounted(() => {
         <YdCard class="transition-shadow hover:shadow-md">
           <YdCardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-muted-foreground text-sm">成功率</p>
+              <p class="text-muted-foreground text-sm">{{ t('business.observability.overview.successRate') }}</p>
               <p class="mt-1 text-2xl font-bold text-green-600 dark:text-green-400">
                 {{ ((overviewData.successRate as number) ?? 0).toFixed(1) }}%
               </p>
@@ -185,7 +188,7 @@ onMounted(() => {
         <YdCard class="transition-shadow hover:shadow-md">
           <YdCardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-muted-foreground text-sm">平均延迟</p>
+              <p class="text-muted-foreground text-sm">{{ t('business.observability.overview.avgLatency') }}</p>
               <p class="mt-1 text-2xl font-bold text-purple-600 dark:text-purple-400">
                 {{ ((overviewData.avgLatency as number) ?? 0).toFixed(0) }}ms
               </p>
@@ -199,7 +202,7 @@ onMounted(() => {
         <YdCard class="transition-shadow hover:shadow-md">
           <YdCardContent class="flex items-center justify-between pt-6">
             <div>
-              <p class="text-muted-foreground text-sm">Token 消耗</p>
+              <p class="text-muted-foreground text-sm">{{ t('business.observability.overview.tokenUsage') }}</p>
               <p class="mt-1 text-2xl font-bold text-orange-600 dark:text-orange-400">
                 {{ ((overviewData.totalTokens as number) ?? 0).toLocaleString() }}
               </p>
@@ -220,21 +223,21 @@ onMounted(() => {
               size="sm"
               @click="activeTab = 'trace'"
             >
-              Trace 追踪
+              {{ t('business.observability.tabs.trace') }}
             </YdButton>
             <YdButton
               :variant="activeTab === 'model' ? 'default' : 'secondary'"
               size="sm"
               @click="activeTab = 'model'"
             >
-              模型使用
+              {{ t('business.observability.tabs.model') }}
             </YdButton>
             <YdButton
               :variant="activeTab === 'performance' ? 'default' : 'secondary'"
               size="sm"
               @click="activeTab = 'performance'"
             >
-              性能监控
+              {{ t('business.observability.tabs.performance') }}
             </YdButton>
           </div>
 
@@ -243,38 +246,40 @@ onMounted(() => {
             <div class="flex items-center gap-5">
               <YdInput
                 v-model="traceSearchQuery"
-                placeholder="搜索 Trace ID、Agent 名称或输入内容..."
+                :placeholder="t('business.observability.trace.searchPlaceholder')"
                 class="max-w-md"
               />
               <YdSelectBase>
                 <YdSelectTriggerBase class="w-32">
-                  <YdSelectValueBase placeholder="状态筛选" />
+                  <YdSelectValueBase :placeholder="t('business.observability.trace.statusFilter')" />
                 </YdSelectTriggerBase>
                 <YdSelectContentBase>
-                  <YdSelectItemBase value="SUCCESS">成功</YdSelectItemBase>
-                  <YdSelectItemBase value="FAILED">失败</YdSelectItemBase>
-                  <YdSelectItemBase value="RUNNING">运行中</YdSelectItemBase>
+                  <YdSelectItemBase value="SUCCESS">{{ t('business.observability.status.success') }}</YdSelectItemBase>
+                  <YdSelectItemBase value="FAILED">{{ t('business.observability.status.failed') }}</YdSelectItemBase>
+                  <YdSelectItemBase value="RUNNING">{{ t('business.observability.status.running') }}</YdSelectItemBase>
                 </YdSelectContentBase>
               </YdSelectBase>
             </div>
 
             <YdTable :data="traceList" border max-height="400">
-              <YdTableColumn prop="traceId" label="Trace ID" width="120" />
-              <YdTableColumn prop="agentName" label="Agent" width="120" />
-              <YdTableColumn prop="startTime" label="开始时间" width="170" />
-              <YdTableColumn prop="duration" label="耗时(ms)" width="100" />
-              <YdTableColumn prop="model" label="模型" width="100" />
-              <YdTableColumn prop="tokens" label="Token" width="80" />
-              <YdTableColumn label="状态" width="100">
+              <YdTableColumn prop="traceId" :label="t('business.observability.trace.traceId')" width="120" />
+              <YdTableColumn prop="agentName" :label="t('business.observability.trace.agent')" width="120" />
+              <YdTableColumn prop="startTime" :label="t('business.observability.trace.startTime')" width="170" />
+              <YdTableColumn prop="duration" :label="t('business.observability.trace.duration')" width="100" />
+              <YdTableColumn prop="model" :label="t('business.observability.trace.model')" width="100" />
+              <YdTableColumn prop="tokens" :label="t('business.observability.trace.tokens')" width="80" />
+              <YdTableColumn :label="t('business.observability.trace.status')" width="100">
                 <template #default="{ row }">
                   <YdBadge :variant="getStatusTagType(row.status as string)">
                     {{ row.status }}
                   </YdBadge>
                 </template>
               </YdTableColumn>
-              <YdTableColumn label="操作" width="100" fixed="right">
+              <YdTableColumn :label="t('business.observability.trace.actions')" width="100" fixed="right">
                 <template #default="{ row }">
-                  <YdButton size="sm" variant="link" @click="viewTraceDetail(row)"> 详情 </YdButton>
+                  <YdButton size="sm" variant="link" @click="viewTraceDetail(row)">
+                    {{ t('business.observability.trace.detail') }}
+                  </YdButton>
                 </template>
               </YdTableColumn>
             </YdTable>
@@ -283,13 +288,13 @@ onMounted(() => {
           <!-- 模型使用 -->
           <div v-if="activeTab === 'model'" class="space-y-4">
             <YdTable :data="modelUsageData" border>
-              <YdTableColumn prop="model" label="模型" width="150" />
-              <YdTableColumn prop="requestCount" label="请求数" width="120" />
-              <YdTableColumn prop="tokenCount" label="Token 数" width="120" />
-              <YdTableColumn prop="avgLatency" label="平均延迟(ms)" width="140" />
-              <YdTableColumn prop="cost" label="费用" width="100" />
+              <YdTableColumn prop="model" :label="t('business.observability.model.model')" width="150" />
+              <YdTableColumn prop="requestCount" :label="t('business.observability.model.requestCount')" width="120" />
+              <YdTableColumn prop="tokenCount" :label="t('business.observability.model.tokenCount')" width="120" />
+              <YdTableColumn prop="avgLatency" :label="t('business.observability.model.avgLatency')" width="140" />
+              <YdTableColumn prop="cost" :label="t('business.observability.model.cost')" width="100" />
             </YdTable>
-            <YdEmptyState v-if="modelUsageData.length === 0" description="暂无模型使用数据" />
+            <YdEmptyState v-if="modelUsageData.length === 0" :description="t('business.observability.model.noData')" />
           </div>
 
           <!-- 性能监控 -->
@@ -297,15 +302,15 @@ onMounted(() => {
             <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
               <div class="border-border rounded border p-5 text-center">
                 <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">99.5%</p>
-                <p class="text-muted-foreground mt-1 text-sm">可用性</p>
+                <p class="text-muted-foreground mt-1 text-sm">{{ t('business.observability.performance.availability') }}</p>
               </div>
               <div class="border-border rounded border p-5 text-center">
                 <p class="text-3xl font-bold text-green-600 dark:text-green-400">1.2s</p>
-                <p class="text-muted-foreground mt-1 text-sm">P99 延迟</p>
+                <p class="text-muted-foreground mt-1 text-sm">{{ t('business.observability.performance.p99Latency') }}</p>
               </div>
               <div class="border-border rounded border p-5 text-center">
                 <p class="text-3xl font-bold text-purple-600 dark:text-purple-400">150</p>
-                <p class="text-muted-foreground mt-1 text-sm">QPS</p>
+                <p class="text-muted-foreground mt-1 text-sm">{{ t('business.observability.performance.qps') }}</p>
               </div>
             </div>
           </div>
@@ -317,50 +322,52 @@ onMounted(() => {
     <YdDialog :open="selectedTrace !== null" @update:open="selectedTrace = null">
       <YdDialogContent class="sm:max-w-[700px]">
         <YdDialogHeader>
-          <YdDialogTitle>Trace 详情</YdDialogTitle>
+          <YdDialogTitle>{{ t('business.observability.traceDetail.title') }}</YdDialogTitle>
         </YdDialogHeader>
         <div v-if="selectedTrace" class="space-y-4">
           <div class="grid grid-cols-2 gap-5">
             <div>
-              <span class="text-muted-foreground text-sm">Trace ID：</span>
+              <span class="text-muted-foreground text-sm">{{ t('business.observability.traceDetail.traceId') }}：</span>
               <span class="text-sm font-medium">{{ selectedTrace.traceId }}</span>
             </div>
             <div>
-              <span class="text-muted-foreground text-sm">Agent：</span>
+              <span class="text-muted-foreground text-sm">{{ t('business.observability.traceDetail.agent') }}：</span>
               <span class="text-sm font-medium">{{ selectedTrace.agentName }}</span>
             </div>
             <div>
-              <span class="text-muted-foreground text-sm">开始时间：</span>
+              <span class="text-muted-foreground text-sm">{{ t('business.observability.traceDetail.startTime') }}：</span>
               <span class="text-sm font-medium">{{ selectedTrace.startTime }}</span>
             </div>
             <div>
-              <span class="text-muted-foreground text-sm">耗时：</span>
+              <span class="text-muted-foreground text-sm">{{ t('business.observability.traceDetail.duration') }}：</span>
               <span class="text-sm font-medium">{{ selectedTrace.duration }}ms</span>
             </div>
             <div>
-              <span class="text-muted-foreground text-sm">模型：</span>
+              <span class="text-muted-foreground text-sm">{{ t('business.observability.traceDetail.model') }}：</span>
               <span class="text-sm font-medium">{{ selectedTrace.model }}</span>
             </div>
             <div>
-              <span class="text-muted-foreground text-sm">Token：</span>
+              <span class="text-muted-foreground text-sm">{{ t('business.observability.traceDetail.tokens') }}：</span>
               <span class="text-sm font-medium">{{ selectedTrace.tokens }}</span>
             </div>
           </div>
           <div>
-            <span class="text-muted-foreground text-sm">输入：</span>
+            <span class="text-muted-foreground text-sm">{{ t('business.observability.traceDetail.input') }}：</span>
             <div class="border-border bg-muted mt-1 rounded border p-3 text-sm">
               {{ selectedTrace.input }}
             </div>
           </div>
           <div>
-            <span class="text-muted-foreground text-sm">输出：</span>
+            <span class="text-muted-foreground text-sm">{{ t('business.observability.traceDetail.output') }}：</span>
             <div class="border-border bg-muted mt-1 rounded border p-3 text-sm">
               {{ selectedTrace.output ?? selectedTrace.error ?? '-' }}
             </div>
           </div>
         </div>
         <YdDialogFooter>
-          <YdButton variant="outline" @click="selectedTrace = null">关闭</YdButton>
+          <YdButton variant="outline" @click="selectedTrace = null">{{
+            t('business.observability.traceDetail.close')
+          }}</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>

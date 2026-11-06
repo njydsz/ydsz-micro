@@ -8,6 +8,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup name="CronPreview">
+defineOptions({
+  name: 'CronPreview',
+});
 /**
  * Cron 表达式预览子组件
  * <p>纯展示型组件，数据完全由父组件传入。

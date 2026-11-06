@@ -14,6 +14,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'FlowDiagramViewer',
+});
 /**
  * 流程图高亮查看器
  * <p>展示流程图并高亮当前执行节点和已完成路径。
@@ -352,13 +355,15 @@ onMounted(() => {
 
 @keyframes pulse-ring {
   0% {
-    box-shadow: 0 0 0 0 rgba(64, 158, 255, 0.6);
+    box-shadow: 0 0 0 0 rgb(64 158 255 / 60%);
   }
+
   70% {
-    box-shadow: 0 0 0 8px rgba(64, 158, 255, 0);
+    box-shadow: 0 0 0 8px rgb(64 158 255 / 0%);
   }
+
   100% {
-    box-shadow: 0 0 0 0 rgba(64, 158, 255, 0);
+    box-shadow: 0 0 0 0 rgb(64 158 255 / 0%);
   }
 }
 </style>

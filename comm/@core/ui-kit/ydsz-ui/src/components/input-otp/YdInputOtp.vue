@@ -268,7 +268,7 @@ defineExpose({ reset });
 
 .yd-input-otp__cell:focus {
   border-color: hsl(var(--ydsz-comp-bg));
-  box-shadow: 0 0 0 3px hsl(var(--ydsz-comp-bg) / 0.15);
+  box-shadow: 0 0 0 3px hsl(var(--ydsz-comp-bg) / 15%);
 }
 
 .yd-input-otp__separator {

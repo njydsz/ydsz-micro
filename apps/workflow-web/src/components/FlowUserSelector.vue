@@ -9,6 +9,9 @@
  * @since 1.0.0
  -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'FlowUserSelector',
+});
 /**
  * 流程用户选择器组件
  * <p>远程搜索用户，支持分页加载。

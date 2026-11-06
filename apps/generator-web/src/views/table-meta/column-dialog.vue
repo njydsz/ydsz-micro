@@ -31,7 +31,7 @@ import {
 
 import { showToast } from '@ydsz/notification';
 
-import { getColumns, refreshColumns } from '#/api/table-meta';
+import { getColumns, refreshColumns } from '#/api/tableMeta';
 import type { GenColumnMeta } from '#/api/models';
 
 interface Props {

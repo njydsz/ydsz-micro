@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 数据源管理列表页。
  *
@@ -16,7 +17,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { onMounted, ref } from 'vue';
+import { h, onMounted, ref } from 'vue';
 
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
@@ -55,13 +56,13 @@ const gridOptions: VxeTableGridOptions<GenDatasourceRespVO> = {
     { field: 'username', title: '用户名', width: 120 },
     { field: 'dialect', title: '方言', width: 100 },
     {
-      field: 'defaultFlag',
+      field: 'isDefault',
       title: '默认',
       width: 70,
       slots: {
         default: ({ row }) => {
           const ds = row as GenDatasourceRespVO;
-          return ds.defaultFlag
+          return ds.isDefault
             ? h(YdBadge, { variant: 'default' }, () => '是')
             : h(YdBadge, { variant: 'secondary' }, () => '否');
         },
@@ -149,7 +150,7 @@ function handleEdit(row: GenDatasourceRespVO) {
     username: row.username,
     password: '',
     dialect: row.dialect,
-    defaultFlag: row.defaultFlag,
+    isDefault: row.isDefault,
     description: row.description,
   };
   datasourceFormApi.setData({ record });
@@ -169,7 +170,7 @@ async function handleTestConnection(row: GenDatasourceRespVO) {
       dialect: row.dialect,
     });
     if (success) {
-      showToast.success('连接成功');
+      showToast.success($t('operation.connect.success'));
     } else {
       showToast.error('连接失败，请检查配置');
     }
@@ -196,7 +197,7 @@ async function handleDelete(row: GenDatasourceRespVO) {
   }
   try {
     await deleteDatasource({ id: row.id });
-    showToast.success('删除成功');
+    showToast.success($t('operation.delete.success'));
     await gridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -207,10 +208,10 @@ async function handleDelete(row: GenDatasourceRespVO) {
 async function handleFormSubmit(formData: GenDatasource) {
   if (formData.id) {
     await updateDatasource(formData);
-    showToast.success('更新成功');
+    showToast.success($t('operation.update.success'));
   } else {
     await createDatasource(formData);
-    showToast.success('创建成功');
+    showToast.success($t('operation.create.success'));
   }
   await gridApi.query();
 }

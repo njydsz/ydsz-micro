@@ -8,6 +8,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'DesignerPropertyPanel',
+});
 /**
  * 流程设计器属性面板
  * <p>根据选中节点类型展示对应的配置表单。

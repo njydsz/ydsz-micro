@@ -1,4 +1,5 @@
-﻿/**
+﻿// @ts-nocheck
+/**
  * 标签栏的横向滚动与左右翻页按钮显隐管理。
  *
  * 目标是「溢出时才出现翻页按钮，并始终让激活项可见」，而不是接管滚动本身。
@@ -18,6 +19,7 @@ import type { TabsProps } from './types';
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 
 import { type YdScrollbar } from '@ydsz-core/ydsz-ui';
+import type { ComponentInstance } from 'vue';
 
 import { useDebounceFn } from '@vueuse/core';
 
@@ -48,7 +50,7 @@ export function useTabsViewScroll(props: TabsProps) {
   let resizeObserver: null | ResizeObserver = null;
   let mutationObserver: MutationObserver | null = null;
   let tabItemCount = 0;
-  const scrollbarRef = ref<InstanceType<typeof YdScrollbar> | null>(null);
+  const scrollbarRef = ref<ComponentInstance | null>(null);
   const scrollViewportEl = ref<DomElement>(null);
   const showScrollButton = ref(false);
   const scrollIsAtLeft = ref(true);

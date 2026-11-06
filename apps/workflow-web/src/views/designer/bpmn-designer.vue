@@ -489,7 +489,7 @@ function handleReady(): void {
 .bpmn-designer__loading {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgb(255 255 255 / 70%);
   display: flex;
   flex-direction: column;
   align-items: center;

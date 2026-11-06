@@ -6,12 +6,12 @@
  * @since 1.0.0
  */
 /**
- * 支持的语种标识（扩展为 6 语种，覆盖中日英西法韩）。
+ * 支持的语种标识（仅中文 / 英文双语）。
  *
- * <p>新增语种需同步在 comm/locales/src/langs/ 下新增对应目录及 JSON 文件，
- * 并在 constants SUPPORT_LANGUAGES 中补充 label。
+ * <p>项目仅支持 zh-CN / en-US 两种语言。新增语种需同步在 comm/locales/src/langs/
+ * 下新增对应目录及 JSON 文件，并在 constants SUPPORT_LANGUAGES 中补充 label。
  */
-export type SupportedLanguagesType = 'zh-CN' | 'en-US' | 'ja-JP' | 'ko-KR' | 'es-ES' | 'fr-FR';
+export type SupportedLanguagesType = 'zh-CN' | 'en-US';
 
 /**
  * 语言包的动态导入函数。

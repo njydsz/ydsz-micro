@@ -44,6 +44,189 @@
   "exportSuccess": "导出成功",
   "exportFailed": "导出失败",
   "operationSuccess": "操作成功",
+  "dag": {
+    "validate": {
+      "dslRequired": "请输入 DSL 内容",
+      "executionIdRequired": "请输入 ExecutionId"
+    },
+    "workflowManagement": {
+      "hint": "需要管理工作流的持久化版本？",
+      "description": "前往工作流管理页面进行创建、编辑、版本管理和导出操作。",
+      "button": "工作流管理"
+    },
+    "tabs": {
+      "dsl": "DSL 编排",
+      "visual": "可视化编排"
+    },
+    "dsl": {
+      "title": "DSL 编排脚本",
+      "visualOrchestration": "可视化编排",
+      "scriptPlaceholder": "粘贴 DSL 编排脚本"
+    },
+    "execution": {
+      "title": "执行参数",
+      "userInput": "用户输入",
+      "userInputPlaceholder": "用户输入（可选）",
+      "validate": "校验",
+      "execute": "执行"
+    },
+    "checkpoint": {
+      "title": "Checkpoint 查询",
+      "idPlaceholder": "输入 executionId",
+      "query": "查询",
+      "executionId": "ExecutionId",
+      "dagName": "DAG名称",
+      "userInput": "用户输入",
+      "snapshotTime": "快照时间",
+      "completedNodes": "已完成节点",
+      "failedNodes": "失败节点",
+      "dsl": "DSL",
+      "nodeResults": "节点结果"
+    },
+    "result": {
+      "validate": "校验结果",
+      "execute": "执行结果"
+    },
+    "visual": {
+      "openDesigner": "打开可视化工作流设计器",
+      "description": "使用拖拽方式编排 Agent 工作流，支持 LLM、工具调用、条件分支等节点类型。"
+    }
+  },
+  "workflowDesigner": {
+    "title": "Agent 可视化工作流编排",
+    "tabs": {
+      "designer": "设计器",
+      "dslPreview": "DSL 预览"
+    },
+    "toolbar": {
+      "save": "保存",
+      "exportDsl": "导出DSL",
+      "addNode": "添加节点："
+    },
+    "node": {
+      "connect": "连线",
+      "delete": "删除"
+    },
+    "canvas": {
+      "empty": "从工具栏点击添加节点开始编排工作流"
+    },
+    "property": {
+      "title": "节点属性",
+      "name": "名称",
+      "namePlaceholder": "节点名称",
+      "type": "类型",
+      "typePlaceholder": "节点类型",
+      "model": "模型",
+      "modelPlaceholder": "选择模型",
+      "prompt": "提示词",
+      "promptPlaceholder": "输入提示词",
+      "temperature": "温度",
+      "tool": "工具",
+      "toolPlaceholder": "工具名称",
+      "params": "参数",
+      "paramsPlaceholder": "JSON格式参数",
+      "condition": "条件",
+      "conditionPlaceholder": "输入条件表达式",
+      "xCoord": "X坐标",
+      "yCoord": "Y坐标",
+      "selectNode": "请选择一个节点"
+    },
+    "dsl": {
+      "workflowName": "工作流名称",
+      "description": "描述",
+      "descriptionPlaceholder": "请输入工作流描述"
+    }
+  },
+  "observability": {
+    "overview": {
+      "totalRequests": "总请求数",
+      "successRate": "成功率",
+      "avgLatency": "平均延迟",
+      "tokenUsage": "Token 消耗"
+    },
+    "tabs": {
+      "trace": "Trace 追踪",
+      "model": "模型使用",
+      "performance": "性能监控"
+    },
+    "status": {
+      "success": "成功",
+      "failed": "失败",
+      "running": "运行中"
+    },
+    "trace": {
+      "searchPlaceholder": "搜索 Trace ID、Agent 名称或输入内容...",
+      "statusFilter": "状态筛选",
+      "traceId": "Trace ID",
+      "agent": "Agent",
+      "startTime": "开始时间",
+      "duration": "耗时(ms)",
+      "model": "模型",
+      "tokens": "Token",
+      "status": "状态",
+      "actions": "操作",
+      "detail": "详情"
+    },
+    "model": {
+      "model": "模型",
+      "requestCount": "请求数",
+      "tokenCount": "Token 数",
+      "avgLatency": "平均延迟(ms)",
+      "cost": "费用",
+      "noData": "暂无模型使用数据"
+    },
+    "performance": {
+      "availability": "可用性",
+      "p99Latency": "P99 延迟",
+      "qps": "QPS"
+    },
+    "traceDetail": {
+      "title": "Trace 详情",
+      "traceId": "Trace ID",
+      "agent": "Agent",
+      "startTime": "开始时间",
+      "duration": "耗时",
+      "model": "模型",
+      "tokens": "Token",
+      "input": "输入",
+      "output": "输出",
+      "close": "关闭"
+    }
+  },
+  "memory": {
+    "conversationId": "对话 ID",
+    "conversationIdPlaceholder": "请输入对话 Conversation ID",
+    "actions": {
+      "query": "查询",
+      "add": "新增记忆",
+      "clear": "清空记忆",
+      "consolidate": "触发整合"
+    },
+    "stats": {
+      "totalMessages": "消息总数",
+      "currentConversation": "当前对话 ID",
+      "loaded": "已加载"
+    },
+    "table": {
+      "title": "对话记忆列表",
+      "refresh": "刷新",
+      "empty": "请输入对话 ID 后点击查询"
+    },
+    "modal": {
+      "title": "新增记忆",
+      "role": "角色",
+      "content": "记忆内容",
+      "contentPlaceholder": "请输入记忆内容",
+      "cancel": "取消",
+      "confirm": "确认"
+    },
+    "role": {
+      "user": "用户",
+      "assistant": "助手",
+      "system": "系统",
+      "tool": "工具"
+    }
+  },
   "skill": {
     "title": "技能引擎",
     "skillCode": "技能编码",

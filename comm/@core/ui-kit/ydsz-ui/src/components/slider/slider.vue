@@ -267,6 +267,7 @@ function thumbStyle(index: number) {
   justify-content: center;
   cursor: grab;
   outline: none;
+
   /* 让 thumb 可获取焦点但不显示默认 outline，改由 dot 显示 */
 }
 
@@ -277,18 +278,18 @@ function thumbStyle(index: number) {
   border-radius: 9999px;
   background-color: hsl(var(--ydsz-surface-1));
   border: 2px solid hsl(var(--ydsz-comp-bg, 210 100% 50%));
-  box-shadow: 0 1px 2px hsl(0 0% 0% / 0.1);
+  box-shadow: 0 1px 2px hsl(0deg 0% 0% / 10%);
   transition: box-shadow var(--ydsz-motion-duration-fast, 150ms)
     var(--ydsz-motion-easing-standard, ease);
 }
 
 .yd-slider__thumb:focus-visible .yd-slider__thumb-dot,
 .yd-slider__thumb--active .yd-slider__thumb-dot {
-  box-shadow: 0 0 0 3px hsl(var(--ydsz-comp-bg, 210 100% 50%) / 0.3);
+  box-shadow: 0 0 0 3px hsl(var(--ydsz-comp-bg, 210 100% 50%) / 30%);
 }
 
 .yd-slider__thumb:active .yd-slider__thumb-dot {
   cursor: grabbing;
-  box-shadow: 0 0 0 4px hsl(var(--ydsz-comp-bg, 210 100% 50%) / 0.4);
+  box-shadow: 0 0 0 4px hsl(var(--ydsz-comp-bg, 210 100% 50%) / 40%);
 }
 </style>

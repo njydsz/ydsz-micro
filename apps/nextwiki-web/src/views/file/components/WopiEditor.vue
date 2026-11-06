@@ -8,6 +8,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'WopiEditor',
+});
 /**
  * WOPI 在线编辑器
  * <p>消费后端契约 WopiController（apps/nextwiki-web/src/api/wopi.ts）：

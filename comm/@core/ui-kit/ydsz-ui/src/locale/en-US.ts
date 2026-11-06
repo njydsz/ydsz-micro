@@ -509,9 +509,8 @@ export const enUS = {
   'splitter.ariaLabel': 'Resize panel',
   'tag.close': 'Close tag',
   'timeline.ariaLabel': 'Timeline',
-// === 补齐基线缺失键 ===
+  // === 补齐基线缺失键 ===
   'table.reset': 'Reset',
-
 } as const satisfies Record<string, string>;
 
 export default enUS;

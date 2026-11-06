@@ -107,17 +107,17 @@
 
   --ydsz-shadow-flat: none;
   --ydsz-shadow-low:
-    0 1px 2px 0 hsl(var(--ydsz-neutral-shadow) / 0.05),
-    0 1px 3px 0 hsl(var(--ydsz-neutral-shadow) / 0.1);
+    0 1px 2px 0 hsl(var(--ydsz-neutral-shadow) / 5%),
+    0 1px 3px 0 hsl(var(--ydsz-neutral-shadow) / 10%);
   --ydsz-shadow-medium:
-    0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 0.1),
-    0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 0.1);
+    0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 10%),
+    0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 10%);
   --ydsz-shadow-high:
-    0 10px 15px -3px hsl(var(--ydsz-neutral-shadow) / 0.1),
-    0 4px 6px -4px hsl(var(--ydsz-neutral-shadow) / 0.1);
+    0 10px 15px -3px hsl(var(--ydsz-neutral-shadow) / 10%),
+    0 4px 6px -4px hsl(var(--ydsz-neutral-shadow) / 10%);
   --ydsz-shadow-overlay:
-    0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 0.25),
-    0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 0.05);
+    0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 25%),
+    0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 5%);
 
   /* ==================== 间距 ==================== */
 
@@ -179,9 +179,9 @@
       hsl(var(--ydsz-comp-focus-ring-color));
 
   /* 组件交互状态语义 surface (hover / active / selected) */
-  --ydsz-comp-surface-hover: hsl(var(--ydsz-color-neutral-400) / 0.08);
-  --ydsz-comp-surface-active: hsl(var(--ydsz-color-neutral-400) / 0.12);
-  --ydsz-comp-surface-selected: hsl(var(--ydsz-color-brand-500) / 0.1);
+  --ydsz-comp-surface-hover: hsl(var(--ydsz-color-neutral-400) / 8%);
+  --ydsz-comp-surface-active: hsl(var(--ydsz-color-neutral-400) / 12%);
+  --ydsz-comp-surface-selected: hsl(var(--ydsz-color-brand-500) / 10%);
   --ydsz-comp-surface-disabled: var(--ydsz-surface-2);
 
   /* 组件交互状态语义 border (hover / focus) */
@@ -247,22 +247,22 @@
   /* Shadow（不透明度上调以弥补暗色下层次感知不足） */
   --ydsz-shadow-flat: none;
   --ydsz-shadow-low:
-    0 1px 2px 0 hsl(var(--ydsz-neutral-shadow) / 0.15),
-    0 1px 3px 0 hsl(var(--ydsz-neutral-shadow) / 0.25);
+    0 1px 2px 0 hsl(var(--ydsz-neutral-shadow) / 15%),
+    0 1px 3px 0 hsl(var(--ydsz-neutral-shadow) / 25%);
   --ydsz-shadow-medium:
-    0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 0.3),
-    0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 0.3);
+    0 4px 6px -1px hsl(var(--ydsz-neutral-shadow) / 30%),
+    0 2px 4px -2px hsl(var(--ydsz-neutral-shadow) / 30%);
   --ydsz-shadow-high:
-    0 10px 15px -3px hsl(var(--ydsz-neutral-shadow) / 0.35),
-    0 4px 6px -4px hsl(var(--ydsz-neutral-shadow) / 0.35);
+    0 10px 15px -3px hsl(var(--ydsz-neutral-shadow) / 35%),
+    0 4px 6px -4px hsl(var(--ydsz-neutral-shadow) / 35%);
   --ydsz-shadow-overlay:
-    0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 0.5),
-    0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 0.2);
+    0 25px 50px -12px hsl(var(--ydsz-neutral-shadow) / 50%),
+    0 0 0 1px hsl(var(--ydsz-neutral-shadow) / 20%);
 
   /* 组件级：暗色下交互状态不透明度上调，防止辨识度不足 */
-  --ydsz-comp-surface-hover: hsl(var(--ydsz-color-neutral-400) / 0.16);
-  --ydsz-comp-surface-active: hsl(var(--ydsz-color-neutral-400) / 0.24);
-  --ydsz-comp-surface-selected: hsl(var(--ydsz-color-brand-400) / 0.22);
+  --ydsz-comp-surface-hover: hsl(var(--ydsz-color-neutral-400) / 16%);
+  --ydsz-comp-surface-active: hsl(var(--ydsz-color-neutral-400) / 24%);
+  --ydsz-comp-surface-selected: hsl(var(--ydsz-color-brand-400) / 22%);
 
   /* 焦点环使用 brand-400（比 brand-500 更亮）提升暗色下可见度 */
   --ydsz-comp-focus-ring-color: var(--ydsz-color-brand-400);

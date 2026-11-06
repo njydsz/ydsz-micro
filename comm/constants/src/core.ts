@@ -27,13 +27,9 @@ export interface LanguageOption {
 }
 
 /**
- * 支持的语言列表（6 语种：中日英西法韩）。
+ * 支持的语言列表（仅中文 / 英文双语）。
  */
 export const SUPPORT_LANGUAGES: LanguageOption[] = [
   { label: '简体中文', value: 'zh-CN' },
   { label: 'English', value: 'en-US' },
-  { label: '日本語', value: 'ja-JP' },
-  { label: '한국어', value: 'ko-KR' },
-  { label: 'Español', value: 'es-ES' },
-  { label: 'Français', value: 'fr-FR' },
 ];

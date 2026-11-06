@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 工具管理（列表页）
  * <p>管理 Agent 可调用的工具，支持 HTTP、函数、数据库等类型工具。
@@ -244,7 +245,7 @@ async function handleDelete(row: ToolVO): Promise<void> {
   try {
     await YdConfirm(`确定删除工具「${row.toolName}」吗？`, '删除确认', { type: 'warning' });
     toolList.value = toolList.value.filter((t) => t.id !== row.id);
-    showToast.success('删除成功');
+    showToast.success($t('operation.delete.success'));
     gridApi.query();
   } catch {
     logger.debug('用户取消删除工具操作');

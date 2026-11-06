@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * DAG 工作流表单弹窗
  * <p>支持 mode='create'（新建）与 mode='edit'（回填编辑）两种模式。
@@ -65,7 +66,7 @@ const [Modal, modalApi] = useYdModal({
 
 async function validateForm(): Promise<boolean> {
   if (!form.workflowName.trim()) {
-    showToast.warning('请输入工作流名称');
+    showToast.warning($t('validation.required.workflowName'));
     return false;
   }
   if (!form.dslContent.trim()) {
@@ -117,7 +118,7 @@ function handleCancel(): void {
         />
       </YdFormItem>
       <YdFormItem label="工作流名称" required>
-        <YdInput v-model="form.workflowName" placeholder="请输入工作流名称" />
+        <YdInput v-model="form.workflowName" :placeholder="$t('validation.required.workflowName')" />
       </YdFormItem>
       <YdFormItem label="分类">
         <YdInput v-model="form.category" placeholder="如：数据处理、审批流、对话编排" />

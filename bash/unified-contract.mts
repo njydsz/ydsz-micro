@@ -89,6 +89,11 @@ const SERVICE_MAP = {
     local: 'ydsz-agent/ydsz-agent-web/target/openapi/openapi.json',
     output: 'apps/agent-web/src/api/sdk',
   },
+  generator: {
+    live: 'http://localhost:9009/v3/api-docs',
+    local: 'ydsz-generator/ydsz-generator-web/target/openapi/openapi.json',
+    output: 'apps/generator-web/src/api/sdk',
+  },
 };
 
 /**

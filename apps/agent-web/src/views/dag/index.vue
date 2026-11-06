@@ -26,6 +26,7 @@ import {
   YdTextarea,
 } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { showToast } from '@ydsz/notification';
 import { execute, getCheckpoint, validate } from '#/api/dag';
@@ -34,6 +35,8 @@ import type { DagCheckpoint } from '#/api/models';
 import WorkflowDesigner from './components/WorkflowDesigner.vue';
 
 defineOptions({ name: 'DagManagement' });
+
+const { t } = useI18n();
 
 const router = useRouter();
 
@@ -95,7 +98,7 @@ function displayValue(value: unknown): string {
 /** 校验 DSL 编排（validate） */
 async function handleValidate() {
   if (!dsl.value.trim()) {
-    showToast.warning('请输入 DSL 内容');
+    showToast.warning(t('business.dag.validate.dslRequired'));
     return;
   }
   submitting.value = true;
@@ -109,7 +112,7 @@ async function handleValidate() {
 /** 执行 DAG 编排（execute），结果展示在独立结果区 */
 async function handleExecute() {
   if (!dsl.value.trim()) {
-    showToast.warning('请输入 DSL 内容');
+    showToast.warning(t('business.dag.validate.dslRequired'));
     return;
   }
   submitting.value = true;
@@ -127,7 +130,7 @@ async function handleExecute() {
 async function handleQueryCheckpoint() {
   const id = executionId.value.trim();
   if (!id) {
-    showToast.warning('请输入 ExecutionId');
+    showToast.warning(t('business.dag.validate.executionIdRequired'));
     return;
   }
   submitting.value = true;
@@ -147,83 +150,101 @@ async function handleQueryCheckpoint() {
       class="border-border-subtle bg-accent/30 mb-4 flex items-center justify-between rounded-md border px-4 py-3"
     >
       <div>
-        <span class="text-text-primary text-sm font-medium">需要管理工作流的持久化版本？</span>
-        <span class="text-text-secondary ml-2 text-sm"
-          >前往工作流管理页面进行创建、编辑、版本管理和导出操作。</span
-        >
+        <span class="text-text-primary text-sm font-medium">{{
+          t('business.dag.workflowManagement.hint')
+        }}</span>
+        <span class="text-text-secondary ml-2 text-sm">{{
+          t('business.dag.workflowManagement.description')
+        }}</span>
       </div>
-      <YdButton size="sm" @click="goToWorkflowManagement">工作流管理</YdButton>
+      <YdButton size="sm" @click="goToWorkflowManagement">{{
+        t('business.dag.workflowManagement.button')
+      }}</YdButton>
     </div>
 
     <YdTabs v-model="activeTab">
       <!-- DSL 编排标签页 -->
-      <YdTabsContent label="DSL 编排" name="dsl">
+      <YdTabsContent :label="t('business.dag.tabs.dsl')" name="dsl">
         <div class="grid grid-cols-1 gap-5 p-5 lg:grid-cols-2">
           <div class="rounded-md border p-3">
             <div class="mb-2 flex items-center justify-between">
-              <span class="text-sm font-medium">DSL 编排脚本</span>
-              <YdButton size="sm" @click="openWorkflowDesigner">可视化编排</YdButton>
+              <span class="text-sm font-medium">{{ t('business.dag.dsl.title') }}</span>
+              <YdButton size="sm" @click="openWorkflowDesigner">{{
+                t('business.dag.dsl.visualOrchestration')
+              }}</YdButton>
             </div>
-            <YdTextarea v-model="dsl" placeholder="粘贴 DSL 编排脚本" />
+            <YdTextarea v-model="dsl" :placeholder="t('business.dag.dsl.scriptPlaceholder')" />
           </div>
           <div class="ga flex flex-col p-5">
             <div class="rounded-md border p-3">
-              <div class="mb-2 text-sm font-medium">执行参数</div>
+              <div class="mb-2 text-sm font-medium">{{ t('business.dag.execution.title') }}</div>
               <div class="mb-2">
-                <div class="mb-1 text-sm text-gray-500">用户输入</div>
-                <YdTextarea v-model="userInput" placeholder="用户输入（可选）" />
+                <div class="mb-1 text-sm text-gray-500">{{ t('business.dag.execution.userInput') }}</div>
+                <YdTextarea
+                  v-model="userInput"
+                  :placeholder="t('business.dag.execution.userInputPlaceholder')"
+                />
               </div>
               <div class="flex gap-2">
-                <YdButton :loading="submitting" @click="handleValidate">校验</YdButton>
-                <YdButton :loading="submitting" @click="handleExecute">执行</YdButton>
+                <YdButton :loading="submitting" @click="handleValidate">{{
+                  t('business.dag.execution.validate')
+                }}</YdButton>
+                <YdButton :loading="submitting" @click="handleExecute">{{
+                  t('business.dag.execution.execute')
+                }}</YdButton>
               </div>
             </div>
             <div class="rounded-md border p-3">
-              <div class="mb-2 text-sm font-medium">Checkpoint 查询</div>
+              <div class="mb-2 text-sm font-medium">{{ t('business.dag.checkpoint.title') }}</div>
               <div class="flex gap-2">
-                <YdInput v-model="executionId" placeholder="输入 executionId" />
-                <YdButton :loading="submitting" @click="handleQueryCheckpoint">查询</YdButton>
+                <YdInput
+                  v-model="executionId"
+                  :placeholder="t('business.dag.checkpoint.idPlaceholder')"
+                />
+                <YdButton :loading="submitting" @click="handleQueryCheckpoint">{{
+                  t('business.dag.checkpoint.query')
+                }}</YdButton>
               </div>
             </div>
           </div>
         </div>
         <div class="mt-4 grid grid-cols-1 gap-5 px-4 pb-4 lg:grid-cols-2">
           <div class="rounded-md border p-3">
-            <div class="mb-2 text-sm font-medium">校验结果</div>
+            <div class="mb-2 text-sm font-medium">{{ t('business.dag.result.validate') }}</div>
             <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{
               displayValue(validateResult)
             }}</pre>
           </div>
           <div class="rounded-md border p-3">
-            <div class="mb-2 text-sm font-medium">执行结果</div>
+            <div class="mb-2 text-sm font-medium">{{ t('business.dag.result.execute') }}</div>
             <pre class="max-h-64 overflow-auto whitespace-pre-wrap break-all text-xs">{{
               displayValue(executeResult)
             }}</pre>
           </div>
         </div>
         <div v-if="checkpointResult" class="mx-4 mb-4 rounded-md border p-3">
-          <div class="mb-2 text-sm font-medium">Checkpoint</div>
+          <div class="mb-2 text-sm font-medium">{{ t('business.dag.checkpoint.title') }}</div>
           <YdDescriptions :column="2" border>
-            <YdDescriptionsItem label="ExecutionId">{{
-              checkpointResult.executionId
-            }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="DAG名称">{{ checkpointResult.dagName }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="用户输入">{{
-              checkpointResult.userInput
-            }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="快照时间">{{
-              checkpointResult.snapshotTime
-            }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="已完成节点" :span="2">{{
+            <YdDescriptionsItem :label="t('business.dag.checkpoint.executionId')">
+              {{ checkpointResult.executionId }}
+            </YdDescriptionsItem>
+            <YdDescriptionsItem :label="t('business.dag.checkpoint.dagName')">{{ checkpointResult.dagName }}</YdDescriptionsItem>
+            <YdDescriptionsItem :label="t('business.dag.checkpoint.userInput')">
+              {{ checkpointResult.userInput }}
+            </YdDescriptionsItem>
+            <YdDescriptionsItem :label="t('business.dag.checkpoint.snapshotTime')">
+              {{ checkpointResult.snapshotTime }}
+            </YdDescriptionsItem>
+            <YdDescriptionsItem :label="t('business.dag.checkpoint.completedNodes')" :span="2">{{
               completedNodesText
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="失败节点" :span="2">{{
+            <YdDescriptionsItem :label="t('business.dag.checkpoint.failedNodes')" :span="2">{{
               failedNodesText
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="DSL" :span="2">
+            <YdDescriptionsItem :label="t('business.dag.checkpoint.dsl')" :span="2">
               <pre class="whitespace-pre-wrap break-all">{{ checkpointResult.dsl }}</pre>
             </YdDescriptionsItem>
-            <YdDescriptionsItem label="节点结果" :span="2">
+            <YdDescriptionsItem :label="t('business.dag.checkpoint.nodeResults')" :span="2">
               <pre class="whitespace-pre-wrap break-all">{{
                 displayValue(checkpointResult.nodeResults)
               }}</pre>
@@ -233,11 +254,13 @@ async function handleQueryCheckpoint() {
       </YdTabsContent>
 
       <!-- 可视化编排标签页 -->
-      <YdTabsContent label="可视化编排" name="visual">
+      <YdTabsContent :label="t('business.dag.tabs.visual')" name="visual">
         <div class="p-5">
-          <YdButton @click="openWorkflowDesigner">打开可视化工作流设计器</YdButton>
+          <YdButton @click="openWorkflowDesigner">{{
+            t('business.dag.visual.openDesigner')
+          }}</YdButton>
           <p class="mt-2 text-sm text-gray-500">
-            使用拖拽方式编排 Agent 工作流，支持 LLM、工具调用、条件分支等节点类型。
+            {{ t('business.dag.visual.description') }}
           </p>
         </div>
       </YdTabsContent>

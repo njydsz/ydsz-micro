@@ -8,6 +8,10 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
+defineOptions({
+  name: 'WorkflowDesigner',
+});
 /**
  * Agent 可视化工作流编排
  * <p>支持 LLM、工具、条件分支、并行执行、人工审批等节点类型的可视化编排。
@@ -317,7 +321,7 @@ function generateDsl(): string {
 /** 保存工作流 */
 async function handleSave(): Promise<void> {
   if (!workflowName.value.trim()) {
-    showToast.warning('请输入工作流名称');
+    showToast.warning($t('validation.required.workflowName'));
     return;
   }
   saving.value = true;
@@ -335,7 +339,7 @@ async function handleSave(): Promise<void> {
       category: 'default',
     });
     if (result) {
-      showToast.success('保存成功');
+      showToast.success($t('operation.save.success'));
     }
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -353,7 +357,7 @@ function handleExportDsl(): void {
       showToast.success('DSL 已复制到剪贴板');
     })
     .catch(() => {
-      showToast.error('复制失败');
+      showToast.error($t('operation.copy.failed'));
     });
 }
 
@@ -364,14 +368,14 @@ defineExpose({ open, close });
   <YdDialog v-model:open="visible">
     <YdDialogContent class="sm:max-w-[1200px]">
       <YdDialogHeader>
-        <YdDialogTitle>Agent 可视化工作流编排</YdDialogTitle>
+        <YdDialogTitle>{{ $t('business.workflowDesigner.title') }}</YdDialogTitle>
       </YdDialogHeader>
 
       <div v-loading="loading" class="designer-container">
         <YdTabs v-model="activeTab">
           <YdTabsList>
-            <YdTabsTrigger value="designer">设计器</YdTabsTrigger>
-            <YdTabsTrigger value="dsl">DSL 预览</YdTabsTrigger>
+            <YdTabsTrigger value="designer">{{ $t('business.workflowDesigner.tabs.designer') }}</YdTabsTrigger>
+            <YdTabsTrigger value="dsl">{{ $t('business.workflowDesigner.tabs.dslPreview') }}</YdTabsTrigger>
           </YdTabsList>
 
           <!-- 设计器标签页 -->
@@ -381,12 +385,16 @@ defineExpose({ open, close });
               <div class="toolbar-left">
                 <YdButton size="sm" :disabled="saving" @click="handleSave">
                   <Loader2 v-if="saving" class="mr-1 h-3 w-3 animate-spin" />
-                  保存
+                  {{ $t('business.workflowDesigner.toolbar.save') }}
                 </YdButton>
-                <YdButton size="sm" variant="outline" @click="handleExportDsl">导出DSL</YdButton>
+                <YdButton size="sm" variant="outline" @click="handleExportDsl">{{
+                  $t('business.workflowDesigner.toolbar.exportDsl')
+                }}</YdButton>
               </div>
               <div class="toolbar-center">
-                <span class="text-muted-foreground text-xs">添加节点：</span>
+                <span class="text-muted-foreground text-xs">{{
+                  $t('business.workflowDesigner.toolbar.addNode')
+                }}</span>
                 <YdButton
                   v-for="opt in nodeTypeOptions"
                   :key="opt.value"
@@ -484,7 +492,7 @@ defineExpose({ open, close });
                         </YdButton>
                       </YdTooltipTrigger>
                       <YdTooltipContent>
-                        <p>连线</p>
+                        <p>{{ $t('business.workflowDesigner.node.connect') }}</p>
                       </YdTooltipContent>
                     </YdTooltip>
                     <YdTooltip>
@@ -499,7 +507,7 @@ defineExpose({ open, close });
                         </YdButton>
                       </YdTooltipTrigger>
                       <YdTooltipContent>
-                        <p>删除</p>
+                        <p>{{ $t('business.workflowDesigner.node.delete') }}</p>
                       </YdTooltipContent>
                     </YdTooltip>
                   </div>
@@ -507,22 +515,27 @@ defineExpose({ open, close });
 
                 <!-- 空状态 -->
                 <div v-if="nodes.length === 0" class="empty-state">
-                  <p class="text-muted-foreground">从工具栏点击添加节点开始编排工作流</p>
+                  <p class="text-muted-foreground">
+                    {{ $t('business.workflowDesigner.canvas.empty') }}
+                  </p>
                 </div>
               </div>
 
               <!-- 属性面板 -->
               <div class="property-panel">
-                <div class="panel-header">节点属性</div>
+                <div class="panel-header">{{ $t('business.workflowDesigner.property.title') }}</div>
                 <div v-if="selectedNode" class="panel-content">
                   <YdForm label-width="60px" size="small">
-                    <YdFormItem label="名称">
-                      <YdInput v-model="selectedNode.label" placeholder="节点名称" />
+                    <YdFormItem :label="$t('business.workflowDesigner.property.name')">
+                      <YdInput
+                        v-model="selectedNode.label"
+                        :placeholder="$t('business.workflowDesigner.property.namePlaceholder')"
+                      />
                     </YdFormItem>
-                    <YdFormItem label="类型">
+                    <YdFormItem :label="$t('business.workflowDesigner.property.type')">
                       <YdSelect
                         v-model="selectedNode.type"
-                        placeholder="节点类型"
+                        :placeholder="$t('business.workflowDesigner.property.typePlaceholder')"
                         @change="selectedNode.label = getNodeConfig(selectedNode.type).label"
                       >
                         <YdSelectItem
@@ -535,23 +548,26 @@ defineExpose({ open, close });
                     </YdFormItem>
                     <!-- LLM 节点配置 -->
                     <template v-if="selectedNode.type === 'LLM'">
-                      <YdFormItem label="模型">
-                        <YdSelect v-model="selectedNode.config.model" placeholder="选择模型">
+                      <YdFormItem :label="$t('business.workflowDesigner.property.model')">
+                        <YdSelect
+                          v-model="selectedNode.config.model"
+                          :placeholder="$t('business.workflowDesigner.property.modelPlaceholder')"
+                        >
                           <YdSelectItem label="GPT-4" value="gpt-4" />
                           <YdSelectItem label="GPT-3.5" value="gpt-3.5-turbo" />
                           <YdSelectItem label="Claude" value="claude-3" />
                           <YdSelectItem label="Gemini" value="gemini-pro" />
                         </YdSelect>
                       </YdFormItem>
-                      <YdFormItem label="提示词">
+                      <YdFormItem :label="$t('business.workflowDesigner.property.prompt')">
                         <YdInput
                           v-model="selectedNode.config.prompt"
                           type="textarea"
                           :rows="3"
-                          placeholder="输入提示词"
+                          :placeholder="$t('business.workflowDesigner.property.promptPlaceholder')"
                         />
                       </YdFormItem>
-                      <YdFormItem label="温度">
+                      <YdFormItem :label="$t('business.workflowDesigner.property.temperature')">
                         <YdNumberFieldInput
                           v-model="selectedNode.config.temperature"
                           :min="0"
@@ -562,39 +578,44 @@ defineExpose({ open, close });
                     </template>
                     <!-- 工具节点配置 -->
                     <template v-if="selectedNode.type === 'TOOL'">
-                      <YdFormItem label="工具">
-                        <YdInput v-model="selectedNode.config.tool" placeholder="工具名称" />
+                      <YdFormItem :label="$t('business.workflowDesigner.property.tool')">
+                        <YdInput
+                          v-model="selectedNode.config.tool"
+                          :placeholder="$t('business.workflowDesigner.property.toolPlaceholder')"
+                        />
                       </YdFormItem>
-                      <YdFormItem label="参数">
+                      <YdFormItem :label="$t('business.workflowDesigner.property.params')">
                         <YdInput
                           v-model="selectedNode.config.params"
                           type="textarea"
                           :rows="2"
-                          placeholder="JSON格式参数"
+                          :placeholder="$t('business.workflowDesigner.property.paramsPlaceholder')"
                         />
                       </YdFormItem>
                     </template>
                     <!-- 条件节点配置 -->
                     <template v-if="selectedNode.type === 'CONDITION'">
-                      <YdFormItem label="条件">
+                      <YdFormItem :label="$t('business.workflowDesigner.property.condition')">
                         <YdInput
                           v-model="selectedNode.config.condition"
                           type="textarea"
                           :rows="2"
-                          placeholder="输入条件表达式"
+                          :placeholder="$t('business.workflowDesigner.property.conditionPlaceholder')"
                         />
                       </YdFormItem>
                     </template>
-                    <YdFormItem label="X坐标">
+                    <YdFormItem :label="$t('business.workflowDesigner.property.xCoord')">
                       <YdNumberFieldInput v-model="selectedNode.x" :step="10" />
                     </YdFormItem>
-                    <YdFormItem label="Y坐标">
+                    <YdFormItem :label="$t('business.workflowDesigner.property.yCoord')">
                       <YdNumberFieldInput v-model="selectedNode.y" :step="10" />
                     </YdFormItem>
                   </YdForm>
                 </div>
                 <div v-else class="panel-empty">
-                  <p class="text-muted-foreground text-xs">请选择一个节点</p>
+                  <p class="text-muted-foreground text-xs">
+                    {{ $t('business.workflowDesigner.property.selectNode') }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -604,15 +625,15 @@ defineExpose({ open, close });
           <YdTabsContent value="dsl">
             <div class="mt-3">
               <YdForm label-width="80px" class="mb-4">
-                <YdFormItem label="工作流名称">
-                  <YdInput v-model="workflowName" placeholder="请输入工作流名称" />
+                <YdFormItem :label="$t('business.workflowDesigner.dsl.workflowName')">
+                  <YdInput v-model="workflowName" :placeholder="$t('validation.required.workflowName')" />
                 </YdFormItem>
-                <YdFormItem label="描述">
+                <YdFormItem :label="$t('business.workflowDesigner.dsl.description')">
                   <YdInput
                     v-model="workflowDescription"
                     type="textarea"
                     :rows="2"
-                    placeholder="请输入工作流描述"
+                    :placeholder="$t('business.workflowDesigner.dsl.descriptionPlaceholder')"
                   />
                 </YdFormItem>
               </YdForm>

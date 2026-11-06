@@ -49,7 +49,7 @@ const form = reactive<GenDatasource>({
   username: '',
   password: '',
   dialect: 'MYSQL',
-  defaultFlag: false,
+  isDefault: false,
   description: '',
 });
 
@@ -81,7 +81,7 @@ function open(data?: { record: GenDatasource | null }) {
       username: '',
       password: '',
       dialect: 'MYSQL',
-      defaultFlag: false,
+      isDefault: false,
       description: '',
     });
   }
@@ -140,7 +140,7 @@ onMounted(() => {});
           </YdSelectBase>
         </YdFormItem>
         <YdFormItem label="默认数据源">
-          <YdSwitch :checked="form.defaultFlag" @update:checked="form.defaultFlag = $event" />
+          <YdSwitch :checked="form.isDefault" @update:checked="form.isDefault = $event" />
         </YdFormItem>
         <YdFormItem label="描述">
           <YdInput v-model="form.description" placeholder="可选描述信息" />

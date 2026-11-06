@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 文件标签（表单组件）
  * <p>新建标签表单，数据提交到后端契约 API tag#createTag（apps/nextwiki-web/src/api/tag.ts）。
@@ -49,7 +50,7 @@ const [Modal, modalApi] = useYdModal({
     modalApi.lock();
     try {
       await createTag({ ...formData });
-      showToast.success('创建成功');
+      showToast.success($t('operation.create.success'));
       emit('success');
       modalApi.close();
     } finally {

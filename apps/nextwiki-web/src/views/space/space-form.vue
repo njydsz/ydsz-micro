@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 空间（表单组件）
  * <p>新建空间表单，数据提交到后端契约 API space#createSpace（apps/nextwiki-web/src/api/space.ts）。
@@ -133,7 +134,7 @@ const [Modal, modalApi] = useYdModal({
           visibility: formData.visibility,
         });
       }
-      showToast.success('创建成功');
+      showToast.success($t('operation.create.success'));
       emit('success');
       modalApi.close();
     } finally {

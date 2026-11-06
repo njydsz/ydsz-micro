@@ -392,14 +392,16 @@ export const EN_US_MESSAGES: Readonly<Partial<Record<ErrorCode, string>>> = {
   A20141: 'Invalid Remember-Me (Cookie validation failed or session does not exist)',
   A20142: 'Device login code is invalid or expired',
   A20143: 'Device login code has already been used (one-time code replay protection)',
-  A20144: 'Illegal state transition (e.g., terminal state REISIGNED cannot transition to any state)',
+  A20144:
+    'Illegal state transition (e.g., terminal state REISIGNED cannot transition to any state)',
   A20145: 'Session does not exist or has expired',
   A20146: 'Device does not exist or has been taken offline',
   B10201: 'Internal system error',
   B10202: 'Service temporarily unavailable',
   B30031: 'Internal API access denied (missing X-Internal-Call header, P0-6)',
-  B30032: 'OAuth2 scope exceeds the client\'s authorized range (P1-3)',
-  B30033: 'Data has been modified by another user, please refresh and retry (optimistic lock conflict, P1-6)',
+  B30032: "OAuth2 scope exceeds the client's authorized range (P1-3)",
+  B30033:
+    'Data has been modified by another user, please refresh and retry (optimistic lock conflict, P1-6)',
   B30034: 'OAuth2 state parameter is invalid or expired',
   B30107: 'User-department association does not exist',
   B40001: 'Invalid API Key',
@@ -408,28 +410,40 @@ export const EN_US_MESSAGES: Readonly<Partial<Record<ErrorCode, string>>> = {
   B40004: 'Exceeded the maximum number of API Keys',
   B40005: 'API Key does not exist',
   B91006: 'SNAPSHOT_PARSE_ERROR',
-  D01001: 'Data source unavailable <p>Thrown when the connection pool is exhausted, the data source is not registered, or the data source health check fails.',
-  D01002: 'Data source routing failed <p>Thrown when the dynamic routing data source cannot resolve the target data source.',
-  D01003: 'Connection pool exhausted <p>Thrown when the HikariCP connection pool reaches its maximum connection count and the wait times out.',
-  D02001: 'SQL parsing failed <p>Thrown when JSqlParser cannot parse the SQL syntax (usually caused by SQL injection or syntax errors).',
-  D02002: 'SQL firewall blocked <p>Blocked when the SQL firewall detects a dangerous operation (such as a full-table UPDATE/DELETE without a WHERE clause).',
-  D02003: 'Data permission blocked <p>Thrown when the data permission context is missing or the permission configuration is incorrect.',
-  D02004: 'Deep pagination rejected <p>Blocked when the query offset exceeds the safe threshold to prevent deep pagination from degrading database performance.',
-  D03001: 'Replica unavailable <p>Thrown when all replicas have been removed due to excessive replication lag; read/write splitting automatically falls back to the primary.',
-  D03002: 'Replica lag exceeded threshold <p>A single replica\'s replication lag exceeds the threshold and it is temporarily removed from the routing pool.',
+  D01001:
+    'Data source unavailable <p>Thrown when the connection pool is exhausted, the data source is not registered, or the data source health check fails.',
+  D01002:
+    'Data source routing failed <p>Thrown when the dynamic routing data source cannot resolve the target data source.',
+  D01003:
+    'Connection pool exhausted <p>Thrown when the HikariCP connection pool reaches its maximum connection count and the wait times out.',
+  D02001:
+    'SQL parsing failed <p>Thrown when JSqlParser cannot parse the SQL syntax (usually caused by SQL injection or syntax errors).',
+  D02002:
+    'SQL firewall blocked <p>Blocked when the SQL firewall detects a dangerous operation (such as a full-table UPDATE/DELETE without a WHERE clause).',
+  D02003:
+    'Data permission blocked <p>Thrown when the data permission context is missing or the permission configuration is incorrect.',
+  D02004:
+    'Deep pagination rejected <p>Blocked when the query offset exceeds the safe threshold to prevent deep pagination from degrading database performance.',
+  D03001:
+    'Replica unavailable <p>Thrown when all replicas have been removed due to excessive replication lag; read/write splitting automatically falls back to the primary.',
+  D03002:
+    "Replica lag exceeded threshold <p>A single replica's replication lag exceeds the threshold and it is temporarily removed from the routing pool.",
   D04001: 'Consecutive failure count has reached the threshold.',
-  D04002: 'Database circuit breaker half-open probe failed <p>The circuit breaker is in HALF_OPEN state but the probe request still failed.',
+  D04002:
+    'Database circuit breaker half-open probe failed <p>The circuit breaker is in HALF_OPEN state but the probe request still failed.',
   F01001: 'Uploaded file is empty',
   F01002: 'File extension is not in the allowed list',
   F01003: 'File size exceeds the limit',
   F01004: 'Invalid file name',
   F01005: 'File upload failed',
-  F01006: 'File operation failed (download/delete/copy/list/directory operations/private link, etc.)',
+  F01006:
+    'File operation failed (download/delete/copy/list/directory operations/private link, etc.)',
   F01008: 'File does not exist',
   F01010: 'File path is invalid or empty',
   F01014: 'File virus detection hit',
   F02001: 'Bucket error (creation failed/does not exist)',
-  F04001: 'Invalid storage configuration (Endpoint format error/client build failure/domain not configured)',
+  F04001:
+    'Invalid storage configuration (Endpoint format error/client build failure/domain not configured)',
   F07001: 'Multipart upload failed (initialization/completion/concurrency conflict)',
   F99999: 'Unknown error (fallback)',
   G01001: 'Unsupported document format',

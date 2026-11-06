@@ -175,17 +175,19 @@ const credentialCount = computed(() => credentials.value.length);
               </svg>
             </YdIcon>
             <div>
-              <h3 class="text-lg font-semibold">Passkey 管理</h3>
+              <h3 class="text-lg font-semibold">{{ t('webAuthn.title') }}</h3>
               <p class="text-muted-foreground text-sm">
-                管理您的生物识别登录凭证，共 {{ credentialCount }} 个凭证
+                {{ t('webAuthn.subtitle', { count: credentialCount }) }}
               </p>
             </div>
           </div>
           <div class="flex gap-2">
             <YdButton variant="default" @click="registerDialogVisible = true">
-              注册 Passkey
+              {{ t('webAuthn.registerPasskey') }}
             </YdButton>
-            <YdButton variant="ghost" :disabled="loading" @click="loadCredentials">刷新</YdButton>
+            <YdButton variant="ghost" :disabled="loading" @click="loadCredentials">
+              {{ t('webAuthn.refresh') }}
+            </YdButton>
           </div>
         </YdCardContent>
       </YdCard>
@@ -193,16 +195,18 @@ const credentialCount = computed(() => credentials.value.length);
       <!-- 凭证列表 -->
       <YdCard shadow="never">
         <YdCardHeader>
-          <YdCardTitle class="font-medium">已注册凭证</YdCardTitle>
+          <YdCardTitle class="font-medium">{{ t('webAuthn.registeredCredentials') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <!-- 空状态 -->
           <YdEmptyState
             v-if="!loading && credentials.length === 0"
-            description="尚未注册任何 Passkey 凭证"
+            :description="t('webAuthn.emptyDescription')"
             :image-size="100"
           >
-            <YdButton variant="default" @click="registerDialogVisible = true"> 立即注册 </YdButton>
+            <YdButton variant="default" @click="registerDialogVisible = true">
+              {{ t('webAuthn.registerNow') }}
+            </YdButton>
           </YdEmptyState>
 
           <!-- 凭证列表 -->
@@ -224,11 +228,13 @@ const credentialCount = computed(() => credentials.value.length);
                 </YdIcon>
                 <div>
                   <div class="flex items-center gap-2">
-                    <span class="font-medium">{{ cred.displayName || '未命名凭证' }}</span>
+                    <span class="font-medium">{{
+                      cred.displayName || t('webAuthn.unnamedCredential')
+                    }}</span>
                     <YdBadge variant="secondary" class="text-xs">{{
                       credentialTypeLabels[cred.credentialType ?? ''] ||
                       cred.credentialType ||
-                      '凭证'
+                      t('webAuthn.credential')
                     }}</YdBadge>
                   </div>
                   <div class="mt-1 text-xs text-gray-400">
@@ -238,12 +244,14 @@ const credentialCount = computed(() => credentials.value.length);
               </div>
               <div class="flex items-center gap-5 text-sm text-gray-500">
                 <div class="text-right">
-                  <div>注册于: {{ formatDateTime(cred.registeredAt) }}</div>
-                  <div class="mt-0.5">最后使用: {{ formatDateTime(cred.lastUsedAt) }}</div>
+                  <div>{{ t('webAuthn.registeredAt') }}: {{ formatDateTime(cred.registeredAt) }}</div>
+                  <div class="mt-0.5">
+                    {{ t('webAuthn.lastUsedAt') }}: {{ formatDateTime(cred.lastUsedAt) }}
+                  </div>
                 </div>
                 <div class="flex gap-1">
                   <YdButton size="sm" variant="link" @click="handleViewDetail(cred)">
-                    详情
+                    {{ t('webAuthn.detail') }}
                   </YdButton>
                   <YdButton
                     size="sm"
@@ -251,7 +259,7 @@ const credentialCount = computed(() => credentials.value.length);
                     class="text-destructive"
                     @click="handleDelete(cred)"
                   >
-                    删除
+                    {{ t('webAuthn.delete') }}
                   </YdButton>
                 </div>
               </div>
@@ -264,12 +272,11 @@ const credentialCount = computed(() => credentials.value.length);
       <YdDialog v-model:open="registerDialogVisible">
         <YdDialogContent class="max-w-[560px]">
           <YdDialogHeader>
-            <YdDialogTitle>注册 Passkey</YdDialogTitle>
+            <YdDialogTitle>{{ t('webAuthn.registerPasskey') }}</YdDialogTitle>
           </YdDialogHeader>
           <div class="mb-4">
             <p class="text-muted-foreground">
-              注册 Passkey 后，您可以使用设备的生物识别功能（如 Windows Hello、Apple Touch ID/Face
-              ID）或安全密钥（YubiKey 等）快速、安全地登录系统。
+              {{ t('webAuthn.registerDescription') }}
             </p>
           </div>
 
@@ -287,8 +294,10 @@ const credentialCount = computed(() => credentials.value.length);
           </YdTimeline>
 
           <YdDialogFooter class="gap-2">
-            <YdButton variant="outline" @click="registerDialogVisible = false">关闭</YdButton>
-            <YdButton disabled> 注册 Passkey（需在支持设备上操作） </YdButton>
+            <YdButton variant="outline" @click="registerDialogVisible = false">
+              {{ t('page.close') }}
+            </YdButton>
+            <YdButton disabled> {{ t('webAuthn.registerUnsupportedHint') }} </YdButton>
           </YdDialogFooter>
         </YdDialogContent>
       </YdDialog>
@@ -297,28 +306,28 @@ const credentialCount = computed(() => credentials.value.length);
       <YdDialog v-model:open="detailDialogVisible">
         <YdDialogContent class="max-w-[500px]">
           <YdDialogHeader>
-            <YdDialogTitle>凭证详情</YdDialogTitle>
+            <YdDialogTitle>{{ t('webAuthn.credentialDetail') }}</YdDialogTitle>
           </YdDialogHeader>
           <YdDescriptions v-if="selectedCredential" :column="1" border>
-            <YdDescriptionsItem label="凭证 ID">
+            <YdDescriptionsItem :label="t('webAuthn.credentialId')">
               <span class="break-all text-xs">{{ selectedCredential.credentialId }}</span>
             </YdDescriptionsItem>
-            <YdDescriptionsItem label="显示名称">
+            <YdDescriptionsItem :label="t('webAuthn.displayName')">
               {{ selectedCredential.displayName || '-' }}
             </YdDescriptionsItem>
-            <YdDescriptionsItem label="凭证类型">
+            <YdDescriptionsItem :label="t('webAuthn.credentialType')">
               {{ selectedCredential.credentialType || '-' }}
             </YdDescriptionsItem>
             <YdDescriptionsItem label="AAGUID">
               <span class="text-xs">{{ selectedCredential.aaguid || '-' }}</span>
             </YdDescriptionsItem>
-            <YdDescriptionsItem label="签名计数">
+            <YdDescriptionsItem :label="t('webAuthn.signCount')">
               {{ selectedCredential.signCount ?? 0 }}
             </YdDescriptionsItem>
-            <YdDescriptionsItem label="注册时间">
+            <YdDescriptionsItem :label="t('webAuthn.registeredAt')">
               {{ formatDateTime(selectedCredential.registeredAt) }}
             </YdDescriptionsItem>
-            <YdDescriptionsItem label="最后使用">
+            <YdDescriptionsItem :label="t('webAuthn.lastUsedAt')">
               {{ formatDateTime(selectedCredential.lastUsedAt) }}
             </YdDescriptionsItem>
           </YdDescriptions>

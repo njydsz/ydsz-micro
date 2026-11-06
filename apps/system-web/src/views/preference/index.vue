@@ -564,12 +564,7 @@ onMounted(() => {
               />
               <span class="color-preview-dot" :style="{ backgroundColor: customColor }" />
               <span class="color-hex-label">{{ customColor }}</span>
-              <YdButton
-                class="color-apply-btn"
-                size="sm"
-                type="primary"
-                @click="applyCustomColor"
-              >
+              <YdButton class="color-apply-btn" size="sm" type="primary" @click="applyCustomColor">
                 {{ t('preferences.colorApply') }}
               </YdButton>
               <YdButton class="color-reset-btn" size="sm" @click="resetCustomColor">

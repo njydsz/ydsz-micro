@@ -15,50 +15,60 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h, nextTick } from 'vue';
 
-// ── Mock 依赖 ──────────────────────────────────────────────
-
-/** 抽屉 stub：暴露 visible，并把 close 事件抛给父级 */
-const YdDrawerStub = defineComponent({
-  name: 'YdDrawer',
-  props: { visible: { type: Boolean, default: false }, title: { type: String, default: '' } },
-  emits: ['close'],
-  setup(props, { emit }) {
-    return () =>
-      h('div', { class: 'yd-drawer-stub' }, [
-        h('span', { class: 'yd-drawer-title' }, props.title),
-        h('button', { class: 'yd-drawer-close', onClick: () => emit('close') }, 'close'),
-      ]);
-  },
-});
-
 vi.mock('@ydsz-core/ydsz-ui', async () => {
   const actual = await vi.importActual('@ydsz-core/ydsz-ui');
+  // 在 factory 内部定义 stub，避免 vi.mock 提升导致的 TDZ 问题
+  const DrawerStub = defineComponent({
+    name: 'YdDrawer',
+    props: {
+      title: { type: String, default: '' },
+      visible: { type: Boolean, default: false },
+    },
+    emits: ['close'],
+    setup(props, { emit }) {
+      return () =>
+        props.visible
+          ? h('div', { class: 'yd-drawer-stub' }, [
+              h('span', { class: 'yd-drawer-title' }, props.title),
+              h('button', { class: 'yd-drawer-close', onClick: () => emit('close') }, 'close'),
+            ])
+          : h('div', { class: 'yd-drawer-hidden' });
+    },
+  });
   return {
     ...actual,
-    YdDrawer: YdDrawerStub,
+    YdDrawer: DrawerStub,
   };
 });
 
+vi.mock('@ydsz-core/popup-ui', () => ({}));
+
+vi.mock('#/api/audit', () => ({ getAuditLogDetailApi: vi.fn() }));
+
+// i18n：测试环境只返回 key 本身，避免加载完整词条
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({ t: (key: string) => key }),
 }));
 
-// ── 被测组件 ──────────────────────────────────────────────
-
-const AuditDetailDrawer = (await import('./audit-detail-drawer.vue')).default;
-
-// ── 夹具 ──────────────────────────────────────────────────
+import AuditDetailDrawer from './audit-detail-drawer.vue';
 
 const SAMPLE_RECORD = {
-  id: 'audit-1',
-  module: 'system',
   action: 1,
-  status: 1,
-  operator: 'tester',
-  createdAt: '2026-11-06 10:00:00',
-} as never;
-
-// ── 用例 ──────────────────────────────────────────────────
+  actionName: '登录',
+  browser: 'Chrome',
+  id: '1',
+  ip: '127.0.0.1',
+  location: '本地',
+  module: '认证',
+  os: 'Windows',
+  result: 1,
+  resultName: '成功',
+  tenantId: 't1',
+  url: '/login',
+  userAgent: 'UA',
+  userId: 'u1',
+  username: 'admin',
+};
 
 describe('AuditDetailDrawer', () => {
   beforeEach(() => {

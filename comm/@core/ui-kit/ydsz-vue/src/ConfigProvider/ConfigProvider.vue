@@ -26,10 +26,7 @@ export type {
   ConfigProviderContext,
   ConfigProviderScrollBodyOptions,
 } from './ConfigProviderContext';
-export {
-  injectConfigProviderContext,
-  provideConfigProviderContext,
-} from './ConfigProviderContext';
+export { injectConfigProviderContext, provideConfigProviderContext } from './ConfigProviderContext';
 
 export interface ConfigProviderProps {
   /** 自定义 id 生成函数 */

@@ -171,7 +171,10 @@ const imgStyle = computed(() => {
       "
       :loading="props.lazy ? 'lazy' : undefined"
       :src="props.src"
-      @error="hasError = true; isLoading = false"
+      @error="
+        hasError = true;
+        isLoading = false;
+      "
       @load="isLoading = false"
     />
 

@@ -134,8 +134,8 @@ defineExpose({ focusFirst, focusLast });
   background-color: hsl(var(--ydsz-surface-1));
   outline: none;
   box-shadow:
-    0 10px 15px -3px hsl(0 0% 0% / 0.1),
-    0 4px 6px -4px hsl(0 0% 0% / 0.1);
+    0 10px 15px -3px hsl(0deg 0% 0% / 10%),
+    0 4px 6px -4px hsl(0deg 0% 0% / 10%);
 }
 
 .yd-context-menu--disabled {

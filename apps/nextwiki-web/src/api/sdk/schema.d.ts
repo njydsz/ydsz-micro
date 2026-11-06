@@ -6,4113 +6,5156 @@
  */
 
 export type paths = {
-  '/api/nextwiki/analysis/overview': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getOverview'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/analysis/by-type': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['statsByType'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/analysis/top-large-files': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['topLargeFiles'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/analysis/summary': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['analyze'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/import/batch-upload': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchUpload'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/import/zip': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['importZip'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/download/folder/{folderId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['downloadFolder'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/download/{nodeId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['download'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/download/{nodeId}/signed-url': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['generateSignedUrl'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/download/signed/{sign}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['downloadBySignedUrl'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/batch/delete': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchDelete'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/batch/move': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchMove'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/{nodeId}/versions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getVersionHistory'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/{nodeId}/versions/{version}/rollback': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['rollbackVersion'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/{nodeId}/versions/diff': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['diffVersions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/batch/async-delete': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['asyncBatchDelete'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/batch/async-move': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['asyncBatchMove'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/batch/task/{taskId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getBatchTaskStatus'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/{nodeId}/star': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['toggleStar'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/chunk/init': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['initChunkUpload'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/chunk/{uploadId}/{chunkNumber}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['uploadChunk'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/chunk/{uploadId}/complete': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['completeChunkUpload'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/chunk/{uploadId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['abortChunkUpload'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/chunk/{uploadId}/uploaded-chunks': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getUploadedChunks'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/comments/file/{fileNodeId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listComments'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/comments': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['addComment'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/comments/{commentId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['deleteComment'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/comments/{commentId}/resolve': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['resolveComment'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/upload': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['upload'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/folders': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['createFolder'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listFiles'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/{nodeId}/move': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['move'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/{nodeId}/rename': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['rename'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/{nodeId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['delete'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/{nodeId}/copy': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['copy'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/sort': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['batchSort'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/{nodeId}/lock': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['lock'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/files/{nodeId}/unlock': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['unlock'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/preview/{fileNodeId}/generate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['generatePreview'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/preview/supported': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['isSupported'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/preview/type': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getPreviewType'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/quota/info': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getQuota'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/quota/set': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['setQuota'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/search': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['search'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/search/suggest': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['suggest'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/search/did-you-mean': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['didYouMean'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/search/rebuild': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['rebuildIndices'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/search/history': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getSearchHistory'];
-    put?: never;
-    post?: never;
-    delete: operations['clearSearchHistory'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/search/hot': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getHotSearches'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/search/advanced': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['advancedSearch'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/shares': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['createShare'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/shares/verify': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['verifyAccess'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/shares/{shareId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['revoke'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/shares/my': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['myShares'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/shares/{shareId}/logs': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getAccessLogs'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/shares/{shareId}/recipients': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getRecipients'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/shares/received': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getReceivedShares'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/spaces': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listSpaces'];
-    put?: never;
-    post: operations['createSpace'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/spaces/{spaceId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getSpace'];
-    put: operations['updateSpace'];
-    post?: never;
-    delete: operations['deleteSpace'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/spaces/{spaceId}/archive': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['archiveSpace'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/spaces/{spaceId}/members': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listMembers'];
-    put?: never;
-    post: operations['addMember'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/spaces/{spaceId}/members/{targetUserId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['removeMember'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/templates': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listTemplates'];
-    put?: never;
-    post: operations['createTemplate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/templates/{templateId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getTemplate'];
-    put: operations['updateTemplate'];
-    post?: never;
-    delete: operations['deleteTemplate'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/templates/{templateId}/use': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['useTemplate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/tags': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listTags'];
-    put?: never;
-    post: operations['createTag'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/tags/bind': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['bindTag'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/tags/file/{fileNodeId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getFileTags'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/tags/recommend/{fileNodeId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['recommendTags'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/trash/list': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/trash/{trashItemId}/restore': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['restore'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/trash/batch-restore': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchRestore'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/trash/{trashItemId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['purge'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/trash/empty': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['emptyTrash'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/favorites': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listFavorites'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/favorites/{nodeId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['addFavorite'];
-    delete: operations['removeFavorite'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/favorites/{nodeId}/is-favorited': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['isFavorited'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/favorites/{nodeId}/sort': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['updateSortOrder'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/favorites/count': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getFavoriteCount'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/recent': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listRecent'];
-    put?: never;
-    post?: never;
-    delete: operations['clearAll'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/recent/{nodeId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['recordAccess'];
-    delete: operations['removeRecent'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/recent/count': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getRecentCount'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/wopi/files/{fileId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['checkFileInfo'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/wopi/files/{fileId}/contents': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getFileContents'];
-    put?: never;
-    post: operations['putFileContents'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/wopi/files/{fileId}/lock': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['lockFile'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/wopi/files/{fileId}/unlock': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['unlockFile'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/ai/summary': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['generateSummary'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/ai/status': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getStatus'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/storage/presigned-upload': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['generateUploadUrl'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/nextwiki/storage/presigned-download': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['generateDownloadUrl'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
+    "/nextwiki/analysis/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getOverview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/analysis/by-type": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["statsByType"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/analysis/top-large-files": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["topLargeFiles"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/analysis/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["analyze"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/import/batch-upload": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchUpload"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/import/zip": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["importZip"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/download/folder/{folderId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["downloadFolder"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/download/{nodeId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["download"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/download/{nodeId}/signed-url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["generateSignedUrl"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/download/signed/{sign}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["downloadBySignedUrl"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/batch/delete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchDelete"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/batch/move": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchMove"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/{nodeId}/versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getVersionHistory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/{nodeId}/versions/{version}/rollback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rollbackVersion"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/{nodeId}/versions/diff": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["diffVersions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/batch/async-delete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["asyncBatchDelete"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/batch/async-move": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["asyncBatchMove"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/batch/task/{taskId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getBatchTaskStatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/{nodeId}/star": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["toggleStar"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/chunk/init": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["initChunkUpload"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/chunk/{uploadId}/{chunkNumber}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["uploadChunk"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/chunk/{uploadId}/complete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["completeChunkUpload"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/chunk/{uploadId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["abortChunkUpload"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/chunk/{uploadId}/uploaded-chunks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getUploadedChunks"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/chunk/{uploadId}/progress": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getUploadProgress"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/comments/file/{fileNodeId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listComments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/comments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["addComment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/comments/{commentId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deleteComment"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/comments/{commentId}/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["resolveComment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/upload": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["upload"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/folders": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["createFolder"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listFiles"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/{nodeId}/move": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["move"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/{nodeId}/rename": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["rename"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/{nodeId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/{nodeId}/copy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["copy"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/sort": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["batchSort"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/{nodeId}/lock": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["lock"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/files/{nodeId}/unlock": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["unlock"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/space/get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSpaceById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/space/batch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchGetSpaces"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/quota/get-by-tenant": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getQuotaByTenantId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/quota/get-by-space": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getQuotaBySpaceId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/preview/{fileNodeId}/generate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["generatePreview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/preview/supported": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["isSupported"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/preview/type": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getPreviewType"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/quota/info": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getQuota"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/quota/set": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["setQuota"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["search"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/search/suggest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["suggest"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/search/did-you-mean": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["didYouMean"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/search/rebuild": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rebuildIndices"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/search/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSearchHistory"];
+        put?: never;
+        post?: never;
+        delete: operations["clearSearchHistory"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/search/hot": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getHotSearches"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/search/advanced": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["advancedSearch"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/shares": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["createShare"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/shares/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["verifyAccess"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/shares/{shareId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["revoke"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/shares/my": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["myShares"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/shares/{shareId}/logs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAccessLogs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/shares/{shareId}/recipients": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRecipients"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/shares/received": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getReceivedShares"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/spaces": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listSpaces"];
+        put?: never;
+        post: operations["createSpace"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/spaces/{spaceId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSpace"];
+        put: operations["updateSpace"];
+        post?: never;
+        delete: operations["deleteSpace"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/spaces/{spaceId}/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["archiveSpace"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/spaces/{spaceId}/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listMembers"];
+        put?: never;
+        post: operations["addMember"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/spaces/{spaceId}/members/{targetUserId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["removeMember"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTemplates"];
+        put?: never;
+        post: operations["createTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/templates/{templateId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getTemplate"];
+        put: operations["updateTemplate"];
+        post?: never;
+        delete: operations["deleteTemplate"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/templates/{templateId}/use": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["useTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/tags": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTags"];
+        put?: never;
+        post: operations["createTag"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/tags/bind": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["bindTag"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/tags/file/{fileNodeId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getFileTags"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/tags/recommend/{fileNodeId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["recommendTags"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/trash/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/trash/{trashItemId}/restore": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["restore"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/trash/batch-restore": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchRestore"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/trash/{trashItemId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["purge"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/trash/empty": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["emptyTrash"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/favorites": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listFavorites"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/favorites/{nodeId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["addFavorite"];
+        delete: operations["removeFavorite"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/favorites/{nodeId}/is-favorited": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["isFavorited"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/favorites/{nodeId}/sort": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["updatesort"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/favorites/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getFavoriteCount"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/recent": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listRecent"];
+        put?: never;
+        post?: never;
+        delete: operations["clearAll"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/recent/{nodeId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["recordAccess"];
+        delete: operations["removeRecent"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/recent/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getRecentCount"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/wopi/files/{fileId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["checkFileInfo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/wopi/files/{fileId}/contents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getFileContents"];
+        put?: never;
+        post: operations["putFileContents"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/wopi/files/{fileId}/lock": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["lockFile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/wopi/files/{fileId}/unlock": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["unlockFile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/activities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listActivities"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/ai/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["generateSummary"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/ai/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getStatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/storage/presigned-upload": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["generateUploadUrl"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/storage/presigned-download": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["generateDownloadUrl"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/templates/file": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listFileTemplates"];
+        put?: never;
+        post: operations["createFromFile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/nextwiki/templates/file/{templateId}/use": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["createFromFileTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 };
 export type webhooks = Record<string, never>;
 export type components = {
-  schemas: {
-    /**
-     * @description 统一API返回结果封装类
-     *
-     *     用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。
-     *
-     *     响应结构：
-     *
-     *
-     *     code: 响应码，A00000表示成功，其他表示失败
-     *     msg: 响应消息
-     *     data: 响应数据
-     *     timestamp: 响应时间戳
-     *
-     *
-     *     使用示例：
-     *
-     *     <pre>{@code
-     *     // 返回成功
-     *     return YdszResponse.success(user);
-     *
-     *     // 返回失败（走 i18n）
-     *     return YdszResponse.error(YdszResultCode.NOT_FOUND);
-     *     }</pre>
-     *
-     *     @param <T> 数据泛型
-     */
-    YdszResponse: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 返回编码 */
-      code?: string;
-      /** @description 返回信息 */
-      msg?: string;
-      /**
-       * @description 返回数据
-       *
-       *     泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。
-       */
-      data?: Record<string, never>;
-      /**
-       * @description 链路追踪 ID。
-       *
-       *     首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。
-       */
-      traceId?: Record<string, never>;
-      /**
-       * @description 请求 ID（用于客户端/前端精准排障，单个请求唯一）。
-       *
-       *     volatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。
-       */
-      requestId?: Record<string, never>;
-      /**
-       * @description 当前服务调用的 Span ID（W3C Trace Context span ID）。
-       *
-       *     volatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link
-       *     com.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。
-       */
-      spanId?: Record<string, never>;
-      /**
-       * Format: int64
-       * @description 时间戳
-       */
-      timestamp?: number;
-      /**
-       * @description 扩展字段（可选）。
-       *
-       *     用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
-       */
-      extensions?: {
-        [key: string]: Record<string, never>;
-      };
-      /**
-       * @description 国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。
-       *
-       *     采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。
-       */
-      RESOLVER?: Record<string, never>;
+    schemas: {
+        /**
+         * @description 统一API返回结果封装类
+         *
+         *     用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。
+         *
+         *     响应结构：
+         *
+         *
+         *     code: 响应码，A00000表示成功，其他表示失败
+         *     msg: 响应消息
+         *     data: 响应数据
+         *     timestamp: 响应时间戳
+         *
+         *
+         *     使用示例：
+         *
+         *     <pre>{@code
+         *     // 返回成功
+         *     return YdszResponse.success(user);
+         *
+         *     // 返回失败（走 i18n）
+         *     return YdszResponse.error(YdszResultCode.NOT_FOUND);
+         *     }</pre>
+         *
+         *     @param <T> 数据泛型
+         */
+        YdszResponse: {
+            /**
+             * Format: int64
+             * @description 序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。
+             */
+            serialVersionUID?: number;
+            /** @description 返回编码 */
+            code?: string;
+            /** @description 返回信息 */
+            msg?: string;
+            /**
+             * @description 异常级别。
+             *
+             *     取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：
+             *
+             *
+             *     INFO — 静默处理，不展示 toast
+             *     WARN — 轻量 toast 提示（auto-close 3s）
+             *     ERROR — toast 提示，需用户点击关闭
+             *     FATAL — 弹窗提示，阻断用户当前操作
+             *
+             *
+             *     成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
+             */
+            level?: string;
+            /**
+             * @description 返回数据
+             *
+             *     泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。
+             */
+            data?: Record<string, never>;
+            /**
+             * @description 链路追踪 ID。
+             *
+             *     首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。
+             */
+            traceId?: Record<string, never>;
+            /**
+             * @description 请求 ID（用于客户端/前端精准排障，单个请求唯一）。
+             *
+             *     volatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。
+             */
+            requestId?: Record<string, never>;
+            /**
+             * @description 当前服务调用的 Span ID（W3C Trace Context span ID）。
+             *
+             *     volatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link
+             *     com.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。
+             */
+            spanId?: Record<string, never>;
+            /**
+             * Format: int64
+             * @description 时间戳
+             */
+            timestamp?: number;
+            /**
+             * @description 扩展字段（可选）。
+             *
+             *     用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
+             */
+            extensions?: {
+                [key: string]: Record<string, never>;
+            };
+            /**
+             * @description 国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。
+             *
+             *     采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。
+             */
+            RESOLVER?: Record<string, never>;
+        };
+        /** @description HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        HttpServletResponse: Record<string, never>;
+        /** @description HttpServletRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        HttpServletRequest: Record<string, never>;
+        /** @description BatchMoveRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        BatchMoveRequest: Record<string, never>;
+        /** @description AddCommentRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        AddCommentRequest: Record<string, never>;
+        /** @description CreateFolderRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        CreateFolderRequest: Record<string, never>;
+        /** @description MoveRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        MoveRequest: Record<string, never>;
+        /** @description RenameRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        RenameRequest: Record<string, never>;
+        /** @description BatchSortRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        BatchSortRequest: Record<string, never>;
+        /** @description SetQuotaRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        SetQuotaRequest: Record<string, never>;
+        /**
+         * @description 统一搜索请求
+         *
+         *     封装所有搜索引擎通用的搜索参数，包括关键词、分页、排序、过滤、高亮等。 各业务模块通过 `SearchProvider` 补充特定于实体的搜索逻辑。
+         *
+         *     布尔字段遵循 YDIZ-OOP-006 规范：字段以 `is` 前缀命名，
+         *     Lombok 将生成 `isXxx()` / `setXxx()` 方法（非 `getIsXxx()`），
+         *     Jackson 默认命名策略将前缀 `is` 剥离后映射到 JSON 属性 `"ascending"`、`"highlight"` 等。
+         *     如需控制 JSON 序列化名称，在字段上方添加 `@JsonProperty("isAscending")` 等注解。
+         */
+        SearchRequest: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 搜索关键词 */
+            keyword?: string;
+            /** @description 搜索范围（实体类型列表），为空表示搜索全部 */
+            types?: string[];
+            /**
+             * Format: int32
+             * @description 当前页码（从 1 开始）
+             */
+            page?: number;
+            /**
+             * Format: int32
+             * @description 每页大小
+             */
+            pageSize?: number;
+            /**
+             * Format: int32
+             * @description 偏移量（跳过的记录数）
+             */
+            offset?: number;
+            /** @description 排序字段 */
+            sortBy?: string;
+            /** @description 是否升序（默认 false 降序） */
+            isAscending?: boolean;
+            /** @description 是否启用高亮 */
+            isHighlight?: boolean;
+            /** @description 高亮前置标签 */
+            highlightPreTag?: string;
+            /** @description 高亮后置标签 */
+            highlightPostTag?: string;
+            /**
+             * Format: int32
+             * @description 高亮片段最大长度
+             */
+            highlightFragmentSize?: number;
+            /** @description 是否启用模糊匹配 */
+            isFuzzy?: boolean;
+            /** @description 模糊匹配最小相似度 */
+            fuzzyMinSimilarity?: number;
+            /** @description 过滤条件列表（跨字段 AND，同字段内 OR） */
+            filters?: ("EQ" | "NE" | "IN" | "NOT_IN" | "GT" | "LT" | "GTE" | "LTE" | "BETWEEN")[];
+            /** @description 聚合/分面配置列表 */
+            aggregations?: components["schemas"]["SearchAggregation"][];
+            /** @description 租户 ID（用于多租户隔离） */
+            tenantId?: string;
+            /** @description 用户 ID（用于数据权限过滤） */
+            userId?: string;
+            /** @description 用户角色列表（用于权限过滤） */
+            roles?: string[];
+            /** @description 部门 ID（用于权限过滤） */
+            deptId?: string;
+            /** @description 是否管理员（跳过数据权限过滤） */
+            isAdmin?: boolean;
+            /** @description 是否仅搜索标题 */
+            isTitleOnly?: boolean;
+            /** @description 游标（用于 keyset 分页） */
+            cursor?: string;
+        };
+        /**
+         * @description 搜索聚合/分面结果
+         *
+         *     封装搜索引擎返回的聚合数据，用于前端分面导航（Faceted Search）。
+         *     每个聚合对象对应一个 `field`，包含多个 Bucket（桶），
+         *     每个桶表示一个分面值及其命中数（doc count）。
+         *
+         *     典型用途：商品搜索的分类筛选、标签汇总、价格区间分布等。
+         */
+        SearchAggregation: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 聚合字段名 */
+            field?: string;
+            /** @description 聚合标签（如"类型"、"标签"） */
+            label?: string;
+            /** @description 聚合桶列表 */
+            buckets?: components["schemas"]["Bucket"][];
+            /** @description 桶键值 */
+            key?: string;
+            /**
+             * Format: int64
+             * @description 桶文档数
+             */
+            count?: number;
+        };
+        /** @description 聚合桶 */
+        Bucket: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 桶键值 */
+            key?: string;
+            /**
+             * Format: int64
+             * @description 桶文档数
+             */
+            count?: number;
+        };
+        /** @description CreateShareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        CreateShareRequest: Record<string, never>;
+        /** @description VerifyShareRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        VerifyShareRequest: Record<string, never>;
+        /** @description CreateSpaceRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        CreateSpaceRequest: Record<string, never>;
+        /** @description UpdateSpaceRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        UpdateSpaceRequest: Record<string, never>;
+        /** @description AddMemberRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        AddMemberRequest: Record<string, never>;
+        /** @description CreateTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        CreateTemplateRequest: Record<string, never>;
+        /** @description UpdateTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        UpdateTemplateRequest: Record<string, never>;
+        /** @description UseTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        UseTemplateRequest: Record<string, never>;
+        /** @description CreateTagRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        CreateTagRequest: Record<string, never>;
+        /** @description BindTagRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        BindTagRequest: Record<string, never>;
+        /** @description WopiCheckFileInfoResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        WopiCheckFileInfoResponse: Record<string, never>;
+        /** @description WopiPutFileResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        WopiPutFileResponse: Record<string, never>;
+        /** @description GenerateSummaryRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        GenerateSummaryRequest: Record<string, never>;
+        /** @description PresignedUrlRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        PresignedUrlRequest: Record<string, never>;
+        /** @description CreateFileTemplateRequest（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        CreateFileTemplateRequest: Record<string, never>;
+        /**
+         * @description 文件节点聚合根 VO
+         *
+         *     S2-P1-2 改进：引入领域行为方法
+         *
+         *     文件节点是知识库系统的核心聚合根，包含完整的业务字段和领域行为：
+         *
+         *
+         *     基础属性：节点 ID、父节点 ID、名称、类型、路径、层级
+         *     存储属性：存储键、存储桶、存储类型、文件哈希、大小
+         *     状态属性：版本号、排序号、星标、分享状态、锁定状态
+         *     关系属性：子节点列表、标签列表
+         *
+         *
+         *     领域行为：
+         *
+         *
+         *     #isFolder() / #isFile() — 类型判断
+         *     #isRoot() — 根节点判断（父节点为 null 或 "0"）
+         *     #isDescendantOf(FileNodeVO) — 后代关系判断（基于路径前缀）
+         *     #canMoveTo(FileNodeVO) — 移动合法性校验（防循环）
+         *     #calculatePath(String, String) — 静态路径计算工具
+         *
+         *
+         *     设计说明：
+         *
+         *
+         *     本 VO 兼具领域聚合根与展示视图职责，适用于当前单体架构
+         *     未来微服务拆分时，可将展示字段抽取为 `FileNodeView`
+         *     数据持久化通过 `FileNodeDTO` → `FileNode` 转换实现
+         */
+        FileNodeVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            parentId?: string;
+            name?: string;
+            nodeType?: string;
+            suffix?: string;
+            /** Format: int64 */
+            size?: number;
+            mimeType?: string;
+            storageKey?: string;
+            bucketName?: string;
+            storageClass?: string;
+            fileHash?: string;
+            path?: string;
+            /** Format: int32 */
+            level?: number;
+            /** Format: int32 */
+            sort?: number;
+            /** Format: int32 */
+            currentVersion?: number;
+            thumbnailKey?: string;
+            isPreviewReady?: boolean;
+            isStarred?: boolean;
+            status?: string;
+            shareStatus?: string;
+            tenantId?: string;
+            createdBy?: string;
+            updatedBy?: string;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            children?: components["schemas"]["FileNodeVO"][];
+            tags?: string[];
+            /**
+             * @description P1-4: 面包屑导航路径（从根到直接父节点的有序列表）。
+             *
+             *     前端打开深层目录时一次性获取完整面包屑路径，避免逐层请求父节点构建导航。
+             *     列表首位为根节点，末位为直接父节点。当前节点自身不包含在内。
+             */
+            ancestors?: components["schemas"]["BreadcrumbItem"][];
+        };
+        /** @description 面包屑单项（P1-4 轻量结构，仅含导航必要字段）。 */
+        BreadcrumbItem: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            name?: string;
+        };
+        /** @description BatchImportResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        BatchImportResult: Record<string, never>;
+        /**
+         * @description 批量操作结果（P2-F4）。
+         *
+         *     提供比简单 count 更详细的批量操作结果，包含每个条目的处理状态与失败原因， 前端可据此展示"部分成功"详情弹窗，而非仅显示"成功 N 条"。
+         *
+         *     <h3>典型返回结构</h3>
+         *
+         *     <pre>{@code
+         *     {
+         *     "total": 5,
+         *     "successCount": 3,
+         *     "failureCount": 2,
+         *     "details": [
+         *     {"item": "job-001", "success": true,  "error": null},
+         *     {"item": "job-002", "success": false, "error": "任务不存在"},
+         *     ...
+         *     ]
+         *     }
+         *     }</pre>
+         *
+         *     @param <T> 批量操作项的类型（通常为 String，表示 jobId）
+         */
+        BatchResultDTO: {
+            /**
+             * Format: int32
+             * @description 总处理条数
+             */
+            total?: number;
+            /**
+             * Format: int32
+             * @description 成功条数
+             */
+            successCount?: number;
+            /**
+             * Format: int32
+             * @description 失败条数
+             */
+            failureCount?: number;
+            /** @description 明细列表 */
+            details?: components["schemas"]["ItemResult"][];
+            /** @description 操作项标识 */
+            item?: Record<string, never>;
+            /** @description 是否成功 */
+            isSuccess?: boolean;
+            /** @description 失败原因（成功时为 null） */
+            error?: string;
+        };
+        /**
+         * @description 单个批量操作结果。
+         *
+         *     @param <T> 操作项类型
+         */
+        ItemResult: {
+            /** @description 操作项标识 */
+            item?: Record<string, never>;
+            /** @description 是否成功 */
+            isSuccess?: boolean;
+            /** @description 失败原因（成功时为 null） */
+            error?: string;
+        };
+        /** @description 文件版本 VO */
+        FileVersionVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            fileNodeId?: string;
+            /** Format: int32 */
+            versionNumber?: number;
+            storageKey?: string;
+            /** Format: int64 */
+            size?: number;
+            fileHash?: string;
+            mimeType?: string;
+            remark?: string;
+            changeType?: string;
+            isActive?: boolean;
+            createdBy?: string;
+            /** Format: date-time */
+            createdAt?: string;
+        };
+        /**
+         * @description 版本对比结果 VO（P3-1：从 VersionDiffService 内部类提取为统一领域 VO）。
+         *
+         *     聚合一次 diff 计算的全量结果，包含条目列表、行数统计与摘要信息，直接用于前端可视化渲染。
+         */
+        DiffResultVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description diff 条目列表 */
+            entries?: components["schemas"]["DiffEntryVO"][];
+            /**
+             * Format: int32
+             * @description 旧版本总行数
+             */
+            oldLineCount?: number;
+            /**
+             * Format: int32
+             * @description 新版本总行数
+             */
+            newLineCount?: number;
+            /**
+             * Format: int32
+             * @description 新增行数
+             */
+            additions?: number;
+            /**
+             * Format: int32
+             * @description 删除行数
+             */
+            deletions?: number;
+        };
+        /**
+         * @description 版本对比差异条目 VO（P3-1：从 VersionDiffService 内部类提取为独立领域 VO）。
+         *
+         *     标识单行文本的变更类型与内容，前端据此渲染 diff 高亮（红色删除 / 绿色新增 / 灰色未变）。
+         */
+        DiffEntryVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /**
+             * @description 变更类型：新增 / 删除 / 未变
+             * @enum {string}
+             */
+            type?: "ADD" | "DELETE" | "UNCHANGED";
+            /** @description 行内容文本 */
+            lineContent?: string;
+            /**
+             * Format: int32
+             * @description 旧版本行号（0 表示不存在）
+             */
+            oldLineNumber?: number;
+            /**
+             * Format: int32
+             * @description 新版本行号（0 表示不存在）
+             */
+            newLineNumber?: number;
+        };
+        /** @description 文件评论 VO */
+        FileCommentVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            fileNodeId?: string;
+            content?: string;
+            parentCommentId?: string;
+            isResolved?: boolean;
+            position?: string;
+            isEdited?: boolean;
+            createdBy?: string;
+            /** Format: date-time */
+            createdAt?: string;
+        };
+        /**
+         * @description 知识库空间视图对象
+         *
+         *     返回给前端的空间信息。
+         */
+        SpaceVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            name?: string;
+            description?: string;
+            iconUrl?: string;
+            coverUrl?: string;
+            ownerId?: string;
+            status?: string;
+            visibility?: string;
+            /** Format: int32 */
+            sort?: number;
+            /** Format: int32 */
+            memberCount?: number;
+            /** Format: int32 */
+            nodeCount?: number;
+            /** Format: int64 */
+            quotaLimit?: number;
+            /** Format: int64 */
+            quotaUsed?: number;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        /** @description 存储配额 VO */
+        StorageQuotaVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            scopeType?: string;
+            scopeId?: string;
+            /** Format: int64 */
+            quotaLimit?: number;
+            /** Format: int64 */
+            quotaUsed?: number;
+            /** Format: int32 */
+            fileCountLimit?: number;
+            /** Format: int32 */
+            fileCountUsed?: number;
+            createdBy?: string;
+            /** Format: date-time */
+            createdAt?: string;
+            updatedBy?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            /** Format: int32 */
+            revision?: number;
+            isDeleted?: boolean;
+        };
+        /** @description 全文搜索结果 VO */
+        SearchResultVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            hits?: components["schemas"]["SearchHitVO"][];
+            /** Format: int64 */
+            total?: number;
+            /** Format: int32 */
+            page?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int64 */
+            tookMs?: number;
+            fileNodeId?: string;
+            name?: string;
+            path?: string;
+            nodeType?: string;
+            suffix?: string;
+            /** Format: int64 */
+            size?: number;
+            highlight?: string;
+            score?: number;
+            tags?: string[];
+            createdBy?: string;
+            updatedAt?: string;
+        };
+        /** @description 单条搜索命中 */
+        SearchHitVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            fileNodeId?: string;
+            name?: string;
+            path?: string;
+            nodeType?: string;
+            suffix?: string;
+            /** Format: int64 */
+            size?: number;
+            highlight?: string;
+            score?: number;
+            tags?: string[];
+            createdBy?: string;
+            updatedAt?: string;
+        };
+        /** @description 分享链接 VO */
+        ShareLinkVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            fileNodeId?: string;
+            shareCode?: string;
+            extractCode?: string;
+            fileName?: string;
+            shareType?: string;
+            /** Format: date-time */
+            expireTime?: string;
+            /** Format: int32 */
+            maxAccessCount?: number;
+            /** Format: int32 */
+            accessCount?: number;
+            status?: string;
+            shareTargetType?: string;
+            password?: string;
+            isReminderSent?: boolean;
+            title?: string;
+            isHasPassword?: boolean;
+            shareUrl?: string;
+            createdBy?: string;
+            updatedBy?: string;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        /** @description 分享访问日志 VO */
+        ShareAccessLogVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            shareId?: string;
+            shareCode?: string;
+            fileNodeId?: string;
+            visitorId?: string;
+            visitorName?: string;
+            visitorIp?: string;
+            userAgent?: string;
+            accessType?: string;
+            accessStatus?: string;
+            failReason?: string;
+            /** Format: date-time */
+            accessTime?: string;
+            /** Format: date-time */
+            createdAt?: string;
+            updatedBy?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            /** Format: int32 */
+            revision?: number;
+            isDeleted?: boolean;
+        };
+        /** @description 分享目标用户 VO */
+        ShareRecipientVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            shareId?: string;
+            recipientType?: string;
+            recipientId?: string;
+            recipientName?: string;
+            status?: string;
+            /** Format: date-time */
+            viewedAt?: string;
+            createdBy?: string;
+            /** Format: date-time */
+            createdAt?: string;
+        };
+        /** @description 空间成员 DTO */
+        SpaceMemberDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            spaceId?: string;
+            userId?: string;
+            role?: string;
+            tenantId?: string;
+            /** Format: date-time */
+            joinedAt?: string;
+            createdBy?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            updatedBy?: string;
+        };
+        /** @description 空间模板 DTO */
+        SpaceTemplateDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            name?: string;
+            description?: string;
+            category?: string;
+            iconUrl?: string;
+            tenantId?: string;
+            isSystem?: boolean;
+            isPublicAccess?: boolean;
+            structureJson?: string;
+            /** Format: int32 */
+            sort?: number;
+            /** Format: int32 */
+            usageCount?: number;
+            /** Format: date-time */
+            createdAt?: string;
+            createdBy?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            updatedBy?: string;
+            /** @description P2-3: 模板类型（space=空间模板，file=文件模板） */
+            templateType?: string;
+            /** @description P2-3: 源文件节点 ID（templateType=file 时必填） */
+            sourceNodeId?: string;
+            /** @description P2-3: 可见性级别（system/org/private） */
+            visibility?: string;
+        };
+        /**
+         * @description 标签 DTO
+         *
+         *     用于标签的创建和更新操作，作为 Repository 接口 CUD 方法的入参。
+         */
+        TagDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            name?: string;
+            color?: string;
+            type?: string;
+            /** Format: int32 */
+            usageCount?: number;
+            createdBy?: string;
+            updatedBy?: string;
+            /** Format: date-time */
+            createdAt?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            tenantId?: string;
+        };
+        /** @description 标签 VO */
+        TagVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            name?: string;
+            color?: string;
+            type?: string;
+            /** Format: int32 */
+            usageCount?: number;
+            createdBy?: string;
+            /** Format: date-time */
+            createdAt?: string;
+        };
+        /** @description 回收站条目 VO */
+        TrashItemVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            id?: string;
+            fileNodeId?: string;
+            originalName?: string;
+            originalPath?: string;
+            originalParentId?: string;
+            nodeType?: string;
+            /** Format: int64 */
+            size?: number;
+            /** Format: date-time */
+            deletedTime?: string;
+            /** Format: date-time */
+            purgeTime?: string;
+            status?: string;
+            createdBy?: string;
+            /** Format: date-time */
+            createdAt?: string;
+        };
+        /**
+         * @description 用户收藏夹视图对象
+         *
+         *     返回给前端的收藏节点信息（含节点元数据 + 收藏排序号）。
+         */
+        UserFavoriteVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            favoriteId?: string;
+            nodeId?: string;
+            name?: string;
+            nodeType?: string;
+            suffix?: string;
+            /** Format: int64 */
+            size?: number;
+            path?: string;
+            thumbnailKey?: string;
+            /** Format: int32 */
+            sort?: number;
+            isStarred?: boolean;
+            /** Format: date-time */
+            updatedAt?: string;
+            /** Format: date-time */
+            favoritedAt?: string;
+        };
+        /**
+         * @description 用户最近访问视图对象
+         *
+         *     返回给前端的最近访问节点信息（含节点元数据 + 访问信息）。
+         */
+        UserRecentVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            nodeId?: string;
+            name?: string;
+            nodeType?: string;
+            suffix?: string;
+            /** Format: int64 */
+            size?: number;
+            path?: string;
+            thumbnailKey?: string;
+            accessType?: string;
+            /** Format: date-time */
+            accessedAt?: string;
+            updatedBy?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        /** @description ActivityItem（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        ActivityItem: Record<string, never>;
+        /**
+         * @description AI 摘要结果 VO。
+         *
+         *     定义 AI 生成的摘要结果数据结构，供 server 层和 api 层共享使用。
+         */
+        SummaryResult: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 文件节点ID */
+            fileNodeId?: string;
+            /** @description 摘要内容 */
+            summary?: string;
+            /** @description 摘要类型 */
+            summaryType?: string;
+            /**
+             * Format: int32
+             * @description 内容字数
+             */
+            wordCount?: number;
+            /**
+             * Format: date-time
+             * @description 生成时间
+             */
+            generatedAt?: string;
+        };
+        /** @description AiStatusResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        AiStatusResponse: Record<string, never>;
+        /** @description PresignedUrlResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        PresignedUrlResponse: Record<string, never>;
     };
-    /**
-     * @description 统一搜索请求
-     *
-     *     封装所有搜索引擎通用的搜索参数，包括关键词、分页、排序、过滤、高亮等。 各业务模块通过 `SearchProvider` 补充特定于实体的搜索逻辑。
-     */
-    SearchRequest: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 搜索关键词 */
-      keyword?: string;
-      /** @description 搜索范围（实体类型列表），为空表示搜索全部 */
-      types?: string[];
-      /**
-       * Format: int32
-       * @description 页码（从 1 开始）
-       */
-      page?: number;
-      /**
-       * Format: int32
-       * @description 每页大小
-       */
-      pageSize?: number;
-      /** @description 排序字段 */
-      sortBy?: string;
-      /** @description 是否升序 */
-      ascending?: boolean;
-      /** @description 是否启用高亮 */
-      highlight?: boolean;
-      /** @description 高亮前置标签 */
-      highlightPreTag?: string;
-      /** @description 高亮后置标签 */
-      highlightPostTag?: string;
-      /**
-       * Format: int32
-       * @description 高亮片段最大长度
-       */
-      highlightFragmentSize?: number;
-      /** @description 是否启用模糊匹配 */
-      fuzzy?: boolean;
-      /** @description 模糊匹配最小相似度（0~1） */
-      fuzzyMinSimilarity?: number;
-      /** @description 过滤条件（字段名 → 值列表） */
-      filters?: ('EQ' | 'NE' | 'IN' | 'NOT_IN' | 'GT' | 'LT' | 'GTE' | 'LTE' | 'BETWEEN')[];
-      /** @description 聚合字段列表（用于分面统计） */
-      aggregations?: string[];
-      /** @description 租户 ID（权限隔离） */
-      tenantId?: string;
-      /** @description 操作人 ID（权限过滤） */
-      userId?: string;
-      /** @description 操作人角色列表（权限过滤） */
-      roles?: string[];
-      /** @description 操作人部门 ID（权限过滤） */
-      deptId?: string;
-      /** @description 是否管理员（跳过权限过滤） */
-      admin?: boolean;
-      /** @description 是否仅搜索标题字段（不含内容） */
-      titleOnly?: boolean;
-      /** @description P3-21: 游标分页 cursor（base64 编码，为空表示从头开始） */
-      cursor?: string;
-      offset?: string;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 };
 export type $defs = Record<string, never>;
 export interface operations {
-  getOverview: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  statsByType: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  topLargeFiles: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  analyze: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': string;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchUpload: {
-    parameters: {
-      query?: {
-        files?: Record<string, never>[];
-        parentId?: string;
-      };
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  importZip: {
-    parameters: {
-      query?: {
-        file?: Record<string, never>;
-        parentId?: string;
-      };
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  downloadFolder: {
-    parameters: {
-      query?: {
-        response?: Record<string, never>;
-      };
-      header?: {
-        userId?: string;
-      };
-      path: {
-        folderId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never> | null;
-        };
-      };
-    };
-  };
-  download: {
-    parameters: {
-      query?: {
-        request?: Record<string, never>;
-        response?: Record<string, never>;
-      };
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never> | null;
-        };
-      };
-    };
-  };
-  generateSignedUrl: {
-    parameters: {
-      query?: {
-        request?: Record<string, never>;
-      };
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  downloadBySignedUrl: {
-    parameters: {
-      query?: {
-        expires?: number;
-        request?: Record<string, never>;
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path: {
-        sign: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never> | null;
-        };
-      };
-    };
-  };
-  batchDelete: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': string[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchMove: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getVersionHistory: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  rollbackVersion: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-        version: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  diffVersions: {
-    parameters: {
-      query?: {
-        oldVersion?: number;
-        newVersion?: number;
-      };
-      header?: never;
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  asyncBatchDelete: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': string[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  asyncBatchMove: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getBatchTaskStatus: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        taskId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  toggleStar: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  initChunkUpload: {
-    parameters: {
-      query?: {
-        fileName?: string;
-        fileSize?: number;
-        totalChunks?: number;
-        parentId?: string;
-      };
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  uploadChunk: {
-    parameters: {
-      query?: {
-        chunk?: Record<string, never>;
-      };
-      header?: {
-        userId?: string;
-      };
-      path: {
-        uploadId: string;
-        chunkNumber: number;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  completeChunkUpload: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        uploadId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  abortChunkUpload: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        uploadId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getUploadedChunks: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        uploadId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listComments: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        fileNodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  addComment: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-        userName?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  deleteComment: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        commentId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  resolveComment: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        commentId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  upload: {
-    parameters: {
-      query?: {
-        file?: Record<string, never>;
-        parentId?: string;
-        rename?: string;
-        versionRemark?: string;
-      };
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  createFolder: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listFiles: {
-    parameters: {
-      query?: {
-        parentId?: string;
-        sortBy?: string;
-        sortDir?: string;
-        type?: string;
-        page?: number;
-        pageSize?: number;
-      };
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  move: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  rename: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  delete: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  copy: {
-    parameters: {
-      query?: {
-        targetParentId?: string;
-      };
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchSort: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  lock: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  unlock: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  generatePreview: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        fileNodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  isSupported: {
-    parameters: {
-      query?: {
-        suffix?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getPreviewType: {
-    parameters: {
-      query?: {
-        suffix?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getQuota: {
-    parameters: {
-      query?: {
-        scopeType?: string;
-        scopeId?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  setQuota: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  search: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SearchRequest'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  suggest: {
-    parameters: {
-      query?: {
-        prefix?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  didYouMean: {
-    parameters: {
-      query?: {
-        keyword?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  rebuildIndices: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getSearchHistory: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  clearSearchHistory: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getHotSearches: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  advancedSearch: {
-    parameters: {
-      query?: {
-        rawInput?: string;
-        scope?: string;
-        page?: number;
-        pageSize?: number;
-      };
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  createShare: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  verifyAccess: {
-    parameters: {
-      query?: {
-        httpRequest?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  revoke: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        shareId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  myShares: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getAccessLogs: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: {
-        userId?: string;
-      };
-      path: {
-        shareId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getRecipients: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        shareId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getReceivedShares: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listSpaces: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  createSpace: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getSpace: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        spaceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  updateSpace: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        spaceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  deleteSpace: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        spaceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  archiveSpace: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        spaceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listMembers: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        spaceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  addMember: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        spaceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  removeMember: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        spaceId: string;
-        targetUserId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listTemplates: {
-    parameters: {
-      query?: {
-        category?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  createTemplate: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getTemplate: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        templateId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  updateTemplate: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        templateId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  deleteTemplate: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        templateId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  useTemplate: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        templateId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listTags: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  createTag: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  bindTag: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getFileTags: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        fileNodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  recommendTags: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        fileNodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  restore: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        trashItemId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchRestore: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': string[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  purge: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        trashItemId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  emptyTrash: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listFavorites: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  addFavorite: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  removeFavorite: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  isFavorited: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  updateSortOrder: {
-    parameters: {
-      query?: {
-        sortOrder?: number;
-      };
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getFavoriteCount: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listRecent: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  clearAll: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  recordAccess: {
-    parameters: {
-      query?: {
-        accessType?: string;
-      };
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  removeRecent: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path: {
-        nodeId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getRecentCount: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  checkFileInfo: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-        authToken?: string;
-      };
-      path: {
-        fileId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  getFileContents: {
-    parameters: {
-      query?: never;
-      header?: {
-        authToken?: string;
-      };
-      path: {
-        fileId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': number[];
-        };
-      };
-    };
-  };
-  putFileContents: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-        authToken?: string;
-        lockId?: string;
-      };
-      path: {
-        fileId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': number[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  lockFile: {
-    parameters: {
-      query?: never;
-      header?: {
-        lockId?: string;
-        userId?: string;
-        authToken?: string;
-      };
-      path: {
-        fileId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  unlockFile: {
-    parameters: {
-      query?: never;
-      header?: {
-        lockId?: string;
-        authToken?: string;
-      };
-      path: {
-        fileId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
-    };
-  };
-  generateSummary: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getStatus: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  generateUploadUrl: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  generateDownloadUrl: {
-    parameters: {
-      query?: never;
-      header?: {
-        userId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': Record<string, never>;
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
+    getOverview: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    statsByType: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    topLargeFiles: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    analyze: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string;
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchUpload: {
+        parameters: {
+            query?: {
+                files?: Record<string, never>[];
+                parentId?: string;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    importZip: {
+        parameters: {
+            query?: {
+                file?: Record<string, never>;
+                parentId?: string;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    downloadFolder: {
+        parameters: {
+            query?: {
+                response?: components["schemas"]["HttpServletResponse"];
+            };
+            header?: {
+                userId?: string;
+            };
+            path: {
+                folderId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    download: {
+        parameters: {
+            query?: {
+                request?: components["schemas"]["HttpServletRequest"];
+                response?: Record<string, never>;
+            };
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    generateSignedUrl: {
+        parameters: {
+            query?: {
+                request?: Record<string, never>;
+            };
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    downloadBySignedUrl: {
+        parameters: {
+            query?: {
+                expires?: number;
+                request?: Record<string, never>;
+                response?: Record<string, never>;
+            };
+            header?: never;
+            path: {
+                sign: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    batchDelete: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchMove: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BatchMoveRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getVersionHistory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    rollbackVersion: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+                version: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    diffVersions: {
+        parameters: {
+            query?: {
+                oldVersion?: number;
+                newVersion?: number;
+            };
+            header?: never;
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    asyncBatchDelete: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    asyncBatchMove: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getBatchTaskStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                taskId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    toggleStar: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    initChunkUpload: {
+        parameters: {
+            query?: {
+                fileName?: string;
+                fileSize?: number;
+                totalChunks?: number;
+                parentId?: string;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    uploadChunk: {
+        parameters: {
+            query?: {
+                chunk?: Record<string, never>;
+            };
+            header?: {
+                userId?: string;
+            };
+            path: {
+                uploadId: string;
+                chunkNumber: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    completeChunkUpload: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                uploadId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    abortChunkUpload: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                uploadId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getUploadedChunks: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                uploadId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getUploadProgress: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                uploadId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listComments: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fileNodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    addComment: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+                userName?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AddCommentRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deleteComment: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                commentId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    resolveComment: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                commentId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    upload: {
+        parameters: {
+            query?: {
+                file?: Record<string, never>;
+                parentId?: string;
+                rename?: string;
+                versionRemark?: string;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createFolder: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateFolderRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listFiles: {
+        parameters: {
+            query?: {
+                parentId?: string;
+                sortBy?: string;
+                sortDir?: string;
+                type?: string;
+                page?: number;
+                pageSize?: number;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    move: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MoveRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    rename: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RenameRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    copy: {
+        parameters: {
+            query?: {
+                targetParentId?: string;
+            };
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchSort: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BatchSortRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    lock: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    unlock: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getSpaceById: {
+        parameters: {
+            query?: {
+                spaceId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchGetSpaces: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getQuotaByTenantId: {
+        parameters: {
+            query?: {
+                tenantId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getQuotaBySpaceId: {
+        parameters: {
+            query?: {
+                spaceId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    generatePreview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fileNodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    isSupported: {
+        parameters: {
+            query?: {
+                suffix?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getPreviewType: {
+        parameters: {
+            query?: {
+                suffix?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getQuota: {
+        parameters: {
+            query?: {
+                scopeType?: string;
+                scopeId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    setQuota: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SetQuotaRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    search: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SearchRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    suggest: {
+        parameters: {
+            query?: {
+                prefix?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    didYouMean: {
+        parameters: {
+            query?: {
+                keyword?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    rebuildIndices: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getSearchHistory: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    clearSearchHistory: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getHotSearches: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    advancedSearch: {
+        parameters: {
+            query?: {
+                rawInput?: string;
+                scope?: string;
+                page?: number;
+                pageSize?: number;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createShare: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateShareRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    verifyAccess: {
+        parameters: {
+            query?: {
+                httpRequest?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VerifyShareRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    revoke: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                shareId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    myShares: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getAccessLogs: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: {
+                userId?: string;
+            };
+            path: {
+                shareId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getRecipients: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                shareId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getReceivedShares: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listSpaces: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createSpace: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateSpaceRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getSpace: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                spaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    updateSpace: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                spaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateSpaceRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deleteSpace: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                spaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    archiveSpace: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                spaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listMembers: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                spaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    addMember: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                spaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AddMemberRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    removeMember: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                spaceId: string;
+                targetUserId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listTemplates: {
+        parameters: {
+            query?: {
+                category?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createTemplate: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateTemplateRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                templateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    updateTemplate: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                templateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateTemplateRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deleteTemplate: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                templateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    useTemplate: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                templateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UseTemplateRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listTags: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createTag: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateTagRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    bindTag: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BindTagRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getFileTags: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fileNodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    recommendTags: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                fileNodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    restore: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                trashItemId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchRestore: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    purge: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                trashItemId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    emptyTrash: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listFavorites: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    addFavorite: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    removeFavorite: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    isFavorited: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    updatesort: {
+        parameters: {
+            query?: {
+                sort?: number;
+            };
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getFavoriteCount: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listRecent: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    clearAll: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    recordAccess: {
+        parameters: {
+            query?: {
+                accessType?: string;
+            };
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    removeRecent: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path: {
+                nodeId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getRecentCount: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    checkFileInfo: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+                authToken?: string;
+            };
+            path: {
+                fileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WopiCheckFileInfoResponse"];
+                };
+            };
+        };
+    };
+    getFileContents: {
+        parameters: {
+            query?: never;
+            header?: {
+                authToken?: string;
+            };
+            path: {
+                fileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": number[];
+                };
+            };
+        };
+    };
+    putFileContents: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+                authToken?: string;
+                lockId?: string;
+            };
+            path: {
+                fileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": number[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WopiPutFileResponse"];
+                };
+            };
+        };
+    };
+    lockFile: {
+        parameters: {
+            query?: never;
+            header?: {
+                lockId?: string;
+                userId?: string;
+                authToken?: string;
+            };
+            path: {
+                fileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    unlockFile: {
+        parameters: {
+            query?: never;
+            header?: {
+                lockId?: string;
+                authToken?: string;
+            };
+            path: {
+                fileId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
+            };
+        };
+    };
+    listActivities: {
+        parameters: {
+            query?: {
+                page?: number;
+                limit?: number;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    generateSummary: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GenerateSummaryRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    generateUploadUrl: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PresignedUrlRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    generateDownloadUrl: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listFileTemplates: {
+        parameters: {
+            query?: {
+                category?: string;
+            };
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createFromFile: {
+        parameters: {
+            query?: never;
+            header?: {
+                userId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateFileTemplateRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createFromFileTemplate: {
+        parameters: {
+            query?: {
+                parentId?: string;
+            };
+            header?: {
+                userId?: string;
+            };
+            path: {
+                templateId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
 }

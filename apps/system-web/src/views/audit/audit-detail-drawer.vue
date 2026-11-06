@@ -43,7 +43,10 @@ const drawerTitle = computed(() => {
 });
 
 /** 操作类型标签配置 */
-const actionTagConfig = computed(() => {
+const actionTagConfig = computed<{
+  i18nKey: string;
+  variant: 'success' | 'primary' | 'destructive' | 'info' | 'warning';
+}>(() => {
   const action = record.value?.action ?? 0;
   const map: Record<
     number,
@@ -65,9 +68,7 @@ const statusTagConfig = computed(() => {
   const isSuccess = record.value?.status === 1;
   return {
     label: isSuccess ? t('audit.status.success') : t('audit.status.failed'),
-    variant: (isSuccess ? 'success' : 'destructive') as
-      | 'success'
-      | 'destructive',
+    variant: (isSuccess ? 'success' : 'destructive') as 'success' | 'destructive',
   };
 });
 

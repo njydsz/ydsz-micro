@@ -1,4 +1,6 @@
 <script setup lang="ts">
+defineOptions({ name: 'G6Topology' });
+
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { Graph } from '@antv/g6';
 

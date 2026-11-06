@@ -225,6 +225,7 @@ defineExpose({
   transition: opacity var(--ydsz-motion-duration-normal, 200ms)
     var(--ydsz-motion-easing-standard, cubic-bezier(0.4, 0, 0.2, 1));
 }
+
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;

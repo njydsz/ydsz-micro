@@ -31,7 +31,7 @@ export default {
       description: '禁止硬编码中文文案（须走 i18n）',
     },
     messages: {
-      hardcoded: '检测到硬编码中文「{{text}}」，请改用 i18n key（t(\'module.page.element\')）。',
+      hardcoded: "检测到硬编码中文「{{text}}」，请改用 i18n key（t('module.page.element')）。",
     },
     schema: [],
     type: 'problem',

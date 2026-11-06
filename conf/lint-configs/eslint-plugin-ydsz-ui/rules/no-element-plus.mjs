@@ -10,11 +10,7 @@
  */
 
 /** 禁止引入的包前缀 */
-const FORBIDDEN = [
-  'element-plus',
-  'element-plus/',
-  '@element-plus/icons-vue',
-];
+const FORBIDDEN = ['element-plus', 'element-plus/', '@element-plus/icons-vue'];
 
 /** 错误消息模板 */
 function message(source) {

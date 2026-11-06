@@ -28,6 +28,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
+import { $t } from '#/locales';
 import { getFormConfig, saveFormConfig } from '#/api/flowDesigner';
 
 defineOptions({ name: 'WorkflowFormDesigner' });
@@ -212,14 +213,24 @@ async function handleSave(): Promise<void> {
       <!-- 顶部工具栏 -->
       <YdCard shadow="never" class="shrink-0">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="text-sm text-gray-500">流程定义 ID：</span>
-          <YdInput v-model="definitionId" placeholder="如 def_10001" class="w-52" />
-          <span class="text-sm text-gray-500">节点编码：</span>
-          <YdInput v-model="nodeCode" placeholder="如 node_approve" class="w-40" />
-          <YdButton @click="loadFormConfig">加载配置</YdButton>
+          <span class="text-sm text-gray-500">{{ $t('formDesigner.definitionIdLabel') }}</span>
+          <YdInput
+            v-model="definitionId"
+            :placeholder="$t('formDesigner.definitionIdPlaceholder')"
+            class="w-52"
+          />
+          <span class="text-sm text-gray-500">{{ $t('formDesigner.nodeCodeLabel') }}</span>
+          <YdInput
+            v-model="nodeCode"
+            :placeholder="$t('formDesigner.nodeCodePlaceholder')"
+            class="w-40"
+          />
+          <YdButton @click="loadFormConfig">{{ $t('formDesigner.loadConfig') }}</YdButton>
           <div class="flex-1" />
-          <YdButton @click="schemaVisible = true">Schema 预览</YdButton>
-          <YdButton type="primary" :loading="saving" @click="handleSave">保存</YdButton>
+          <YdButton @click="schemaVisible = true">{{ $t('formDesigner.schemaPreview') }}</YdButton>
+          <YdButton type="primary" :loading="saving" @click="handleSave">{{
+            $t('formDesigner.save')
+          }}</YdButton>
         </div>
       </YdCard>
 
@@ -227,7 +238,7 @@ async function handleSave(): Promise<void> {
       <div class="grid min-h-0 flex-1 grid-cols-12 gap-3">
         <!-- 组件面板 -->
         <YdCard shadow="never" class="col-span-2 overflow-auto">
-          <p class="mb-2 text-sm font-medium">字段组件</p>
+          <p class="mb-2 text-sm font-medium">{{ $t('formDesigner.fieldComponents') }}</p>
           <div
             v-for="item in FIELD_TYPES"
             :key="item.type"
@@ -241,9 +252,9 @@ async function handleSave(): Promise<void> {
 
         <!-- 画布区 -->
         <YdCard shadow="never" class="col-span-6 overflow-auto">
-          <p class="mb-2 text-sm font-medium">表单画布（点击添加）</p>
+          <p class="mb-2 text-sm font-medium">{{ $t('formDesigner.formCanvas') }}</p>
           <div v-if="fields.length === 0" class="pt-16 text-center text-sm text-gray-300">
-            从左侧点击或拖拽组件到此区域
+            {{ $t('formDesigner.canvasEmptyHint') }}
           </div>
           <div
             v-for="(field, index) in fields"
@@ -255,59 +266,75 @@ async function handleSave(): Promise<void> {
             <span class="w-20 shrink-0 text-xs text-gray-400">{{ index + 1 }}.</span>
             <span class="flex-1 truncate text-sm">{{ field.label }}</span>
             <YdBadge size="small" type="info">{{ field.type }}</YdBadge>
-            <YdBadge v-if="field.isRequired" size="small" type="danger">必填</YdBadge>
+            <YdBadge v-if="field.isRequired" size="small" type="danger">{{
+              $t('formDesigner.required')
+            }}</YdBadge>
             <YdButton size="small" link @click.stop="moveUp(index)">↑</YdButton>
             <YdButton size="small" link @click.stop="moveDown(index)">↓</YdButton>
             <YdButton size="small" link type="danger" @click.stop="removeField(field)"
-              >删除</YdButton
+              >{{ $t('formDesigner.delete') }}</YdButton
             >
           </div>
         </YdCard>
 
         <!-- 属性面板 -->
         <YdCard shadow="never" class="col-span-4 overflow-auto">
-          <p class="mb-2 text-sm font-medium">字段属性</p>
+          <p class="mb-2 text-sm font-medium">{{ $t('formDesigner.fieldProperties') }}</p>
           <template v-if="selectedField">
             <YdForm label-width="80px" size="small">
-              <YdFormItem label="字段标签">
+              <YdFormItem :label="$t('formDesigner.fieldLabel')">
                 <YdInput v-model="selectedField.label" />
               </YdFormItem>
-              <YdFormItem label="字段Key">
+              <YdFormItem :label="$t('formDesigner.fieldKey')">
                 <YdInput v-model="selectedField.key" disabled />
               </YdFormItem>
-              <YdFormItem label="是否必填">
+              <YdFormItem :label="$t('formDesigner.isRequired')">
                 <YdSwitch v-model="selectedField.isRequired" />
               </YdFormItem>
-              <YdFormItem label="占位提示">
+              <YdFormItem :label="$t('formDesigner.placeholder')">
                 <YdInput v-model="selectedField.placeholder" />
               </YdFormItem>
-              <YdFormItem v-if="['input', 'textarea'].includes(selectedField.type)" label="默认值">
+              <YdFormItem
+                v-if="['input', 'textarea'].includes(selectedField.type)"
+                :label="$t('formDesigner.defaultValue')"
+              >
                 <YdInput v-model="selectedField.defaultValue" />
               </YdFormItem>
-              <YdFormItem v-if="selectedField.type === 'select'" label="选项">
+              <YdFormItem
+                v-if="selectedField.type === 'select'"
+                :label="$t('formDesigner.options')"
+              >
                 <div class="w-full">
                   <YdInput
                     v-model="optionsText"
                     type="textarea"
                     :rows="4"
-                    placeholder="每行一个选项"
+                    :placeholder="$t('formDesigner.optionsPlaceholder')"
                   />
                 </div>
               </YdFormItem>
             </YdForm>
           </template>
-          <div v-else class="pt-10 text-center text-xs text-gray-400">请选择画布中的字段</div>
+          <div v-else class="pt-10 text-center text-xs text-gray-400">
+            {{ $t('formDesigner.selectFieldHint') }}
+          </div>
         </YdCard>
       </div>
     </div>
 
     <!-- Schema 预览弹窗 -->
-    <YdDialog v-model="schemaVisible" title="JSON Schema 预览" width="600px">
+    <YdDialog
+      v-model="schemaVisible"
+      :title="$t('formDesigner.schemaPreviewTitle')"
+      width="600px"
+    >
       <pre class="max-h-96 overflow-auto rounded border bg-gray-50 p-3 text-xs">{{
         schemaText
       }}</pre>
       <template #footer>
-        <YdButton type="primary" @click="schemaVisible = false">关闭</YdButton>
+        <YdButton type="primary" @click="schemaVisible = false">{{
+          $t('formDesigner.close')
+        }}</YdButton>
       </template>
     </YdDialog>
   </Page>

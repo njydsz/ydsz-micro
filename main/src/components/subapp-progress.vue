@@ -208,6 +208,7 @@ onUnmounted(() => {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -217,6 +218,7 @@ onUnmounted(() => {
 .subapp-progress-enter-active {
   transition: opacity 0.2s ease;
 }
+
 .subapp-progress-leave-active {
   transition: opacity 0.3s ease;
 }

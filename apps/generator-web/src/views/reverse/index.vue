@@ -54,7 +54,7 @@ const mode = ref<'single' | 'batch'>('single');
 // ══════ 模板分组 ══════
 
 const groupList = ref<GenTemplateGroup[]>([]);
-const selectedGroupId = ref<number | undefined>(undefined);
+const selectedGroupId = ref<string | undefined>(undefined);
 
 // ══════ 分析参数 ══════
 

@@ -20,8 +20,6 @@ import { $t } from '@ydsz/locales';
 
 import { dayjs } from '@ydsz-core/shared/utils';
 
-import { $t } from '#/locales';
-
 // ===== Mock 数据（后端就绪前兜底） =====
 
 interface PerformanceMetric {

@@ -262,7 +262,9 @@ defineExpose<YdTreeTableRef<T>>({
 
 <style scoped>
 /* ============================================================ */
+
 /* 缩进 & 连接线                                                  */
+
 /* ============================================================ */
 
 .yd-treetable-indent-wrapper {
@@ -314,7 +316,7 @@ defineExpose<YdTreeTableRef<T>>({
 /* 拖拽态 */
 [data-dragging='true'] {
   opacity: 0.7;
-  background-color: hsl(var(--ydsz-surface-1, 0 0% 100%) / 0.6);
+  background-color: hsl(var(--ydsz-surface-1, 0 0% 100%) / 60%);
 }
 
 [data-drag-over='true'] {

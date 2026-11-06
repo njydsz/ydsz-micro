@@ -8,6 +8,10 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
+defineOptions({
+  name: 'RuleChainDesigner',
+});
 /**
  * 规则链可视化编排
  * <p>消费后端契约 RuleGraphController（apps/literule-web/src/api/ruleGraph.ts）：
@@ -179,7 +183,7 @@ async function handleSave(): Promise<void> {
         edges: edges.value,
       },
     );
-    showToast.success('保存成功');
+    showToast.success($t('operation.save.success'));
     emit('success');
   } catch {
     // 错误提示由请求拦截器统一处理

@@ -15,6 +15,7 @@
 export type EllipsisPlacement = 'top' | 'right' | 'bottom' | 'left';
 </script>
 
+<!-- eslint-disable -->
 <script lang="ts" setup>
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 

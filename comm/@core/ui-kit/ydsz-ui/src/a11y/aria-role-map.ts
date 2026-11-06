@@ -38,7 +38,7 @@ export const ARIA_ROLE_CONTRACTS: Record<string, AriaContract> = {
   YdAvatar: {
     role: 'img',
     requiredAttrs: ['aria-label'],
-    category: 'widget',
+    category: 'structure',
   },
   YdCollapsible: {
     role: 'region',
@@ -53,6 +53,7 @@ export const ARIA_ROLE_CONTRACTS: Record<string, AriaContract> = {
   },
   YdHoverCard: {
     role: 'tooltip',
+    keyboardInteractions: ['Escape'],
     category: 'widget',
   },
   YdLabel: {
@@ -169,6 +170,7 @@ export const ARIA_ROLE_CONTRACTS: Record<string, AriaContract> = {
   YdInput: {
     role: 'textbox',
     optionalAttrs: ['aria-invalid', 'aria-describedby', 'aria-required'],
+    keyboardInteractions: ['Tab', 'Enter', 'Escape'],
     category: 'widget',
   },
   YdInputNumber: {
@@ -201,12 +203,12 @@ export const ARIA_ROLE_CONTRACTS: Record<string, AriaContract> = {
     role: 'dialog',
     optionalAttrs: ['aria-labelledby', 'aria-describedby'],
     keyboardInteractions: ['Escape'],
-    category: 'widget',
+    category: 'window',
   },
   YdProgress: {
     role: 'progressbar',
     requiredAttrs: ['aria-valuemin', 'aria-valuemax', 'aria-valuenow'],
-    category: 'widget',
+    category: 'structure',
   },
   YdRadioGroup: {
     role: 'radiogroup',
@@ -217,6 +219,7 @@ export const ARIA_ROLE_CONTRACTS: Record<string, AriaContract> = {
   YdScrollArea: {
     role: 'scrollbar',
     requiredAttrs: ['aria-controls', 'aria-valuenow', 'aria-orientation'],
+    keyboardInteractions: ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown'],
     category: 'widget',
   },
   YdSelect: {
@@ -253,6 +256,7 @@ export const ARIA_ROLE_CONTRACTS: Record<string, AriaContract> = {
   YdTextarea: {
     role: 'textbox',
     optionalAttrs: ['aria-invalid', 'aria-describedby', 'aria-required'],
+    keyboardInteractions: ['Tab', 'Enter', 'Escape'],
     category: 'widget',
   },
   YdTimeline: { role: 'list', category: 'structure' },
@@ -263,7 +267,7 @@ export const ARIA_ROLE_CONTRACTS: Record<string, AriaContract> = {
     keyboardInteractions: ['Space'],
     category: 'widget',
   },
-  YdTooltip: { role: 'tooltip', category: 'widget' },
+  YdTooltip: { role: 'tooltip', keyboardInteractions: ['Escape'], category: 'widget' },
   YdTransfer: {
     role: 'listbox',
     requiredAttrs: ['aria-multiselectable'],

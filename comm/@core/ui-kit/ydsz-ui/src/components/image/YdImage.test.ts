@@ -8,15 +8,10 @@
 
 import { mount } from '@vue/test-utils';
 
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import YdImage from './YdImage.vue';
 import YdImagePreviewGroup from './YdImagePreviewGroup.vue';
-
-// mock locale（绕过 en-US.ts 既有语法错误）
-vi.mock('../../locale/useLocale', () => ({
-  useLocale: () => ({ t: (key: string, _params?: unknown) => key }),
-}));
 
 const testSrc = 'https://example.com/a.png';
 

@@ -8,14 +8,9 @@
 
 import { mount } from '@vue/test-utils';
 
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import YdDatePicker from './YdDatePicker.vue';
-
-// mock locale（绕过 en-US.ts 既有语法错误）
-vi.mock('../../locale/useLocale', () => ({
-  useLocale: () => ({ t: (key: string, _params?: unknown) => key }),
-}));
 
 afterEach(() => {
   document.body.innerHTML = '';

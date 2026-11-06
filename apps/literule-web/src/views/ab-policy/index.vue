@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * AB 测试策略管理（列表页 + 创建/编辑弹窗 + 评估报表 + 回滚历史）
  * <p>消费后端契约 RuleABPolicyController（apps/literule-web/src/api/abPolicyApi.ts）。
@@ -196,10 +197,10 @@ const [Modal, modalApi] = useYdModal({
       if (isEdit.value && formData.id) {
         dto.id = formData.id;
         await updateABPolicyById({ id: formData.id }, dto);
-        showToast.success('更新成功');
+        showToast.success($t('operation.update.success'));
       } else {
         await createABPolicy(dto);
-        showToast.success('创建成功');
+        showToast.success($t('operation.create.success'));
       }
       gridApi.query();
       modalApi.close();
@@ -226,7 +227,7 @@ async function handleDelete(row: RuleABPolicyVO) {
   try {
     await YdConfirm(`确定删除 AB 策略「${row.ruleCode}」吗？`, '删除确认', { type: 'warning' });
     await deleteABPolicy({ id: row.id });
-    showToast.success('删除成功');
+    showToast.success($t('operation.delete.success'));
     gridApi.query();
   } catch {
     /* 错误提示由请求拦截器统一处理 */
@@ -279,7 +280,7 @@ async function handleManualRollback(): Promise<void> {
   try {
     await YdConfirm('确定手动回滚该策略到 A 版本吗？', { title: '手动回滚', type: 'warning' });
     await manualRollbackABPolicy({ id: currentABPolicyId.value }, { reason: '手动回滚' });
-    showToast.success('回滚成功');
+    showToast.success($t('operation.rollback.success'));
     rollbackHistoryLoading.value = true;
     try {
       rollbackHistoryList.value =

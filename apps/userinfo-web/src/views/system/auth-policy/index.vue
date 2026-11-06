@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 认证策略管理列表
  * <p>消费后端 AuthPolicyController（apps/userinfo-web/src/api/authPolicy.ts）：
@@ -213,7 +214,7 @@ async function handleDelete(row: AuthPolicyVO) {
   }
   try {
     await deleteApi({ tenantId: row.tenantId });
-    showToast.success('删除成功');
+    showToast.success($t('operation.delete.success'));
     gridApi.query();
   } catch {
     /* 错误由拦截器处理 */

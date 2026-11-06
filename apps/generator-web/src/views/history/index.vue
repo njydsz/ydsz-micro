@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 生成历史列表页。
  *
@@ -16,7 +17,7 @@
  * @author ydsz-team
  * @since 1.0.0
  */
-import { onMounted, ref, watch } from 'vue';
+import { h, onMounted, ref, watch } from 'vue';
 
 import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 
@@ -230,7 +231,7 @@ async function handleRollback(row: GenHistory) {
   }
   try {
     await rollbackHistory({ id: row.id });
-    showToast.success('回滚成功');
+    showToast.success($t('operation.rollback.success'));
     await gridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -253,7 +254,7 @@ async function handleDelete(row: GenHistory) {
   }
   try {
     await deleteHistory({ id: row.id });
-    showToast.success('删除成功');
+    showToast.success($t('operation.delete.success'));
     await gridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理

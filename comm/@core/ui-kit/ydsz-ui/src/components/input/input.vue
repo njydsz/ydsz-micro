@@ -78,17 +78,13 @@ function handleCancel() {
   flex: 1;
   width: 100%;
   padding: var(--ydsz-spacing-xs) var(--ydsz-spacing-sm);
-
   background-color: hsl(var(--ydsz-surface-1));
   color: hsl(var(--ydsz-text-primary));
-
   border: 1px solid hsl(var(--ydsz-border-default));
   border-radius: var(--ydsz-radius-md);
-
   font-family: inherit;
   font-size: var(--ydsz-font-size-sm);
   line-height: var(--ydsz-line-height-normal);
-
   outline: none;
   transition:
     border-color var(--ydsz-motion-duration-fast) var(--ydsz-motion-easing-standard),

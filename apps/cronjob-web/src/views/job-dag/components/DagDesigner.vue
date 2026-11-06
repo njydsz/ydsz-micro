@@ -8,6 +8,10 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
+defineOptions({
+  name: 'DagDesigner',
+});
 /**
  * 可视化 DAG 编排设计器
  * <p>支持拖拽创建任务节点、连线建立依赖、节点配置。
@@ -207,10 +211,10 @@ async function handleSave(): Promise<void> {
 
   if (props.record?.id) {
     await updateDag({ dagId: props.record.id }, dagData);
-    showToast.success('更新成功');
+    showToast.success($t('operation.update.success'));
   } else {
     await createDag(dagData);
-    showToast.success('创建成功');
+    showToast.success($t('operation.create.success'));
   }
 }
 

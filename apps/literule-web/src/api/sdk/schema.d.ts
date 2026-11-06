@@ -6,5733 +6,7061 @@
  */
 
 export type paths = {
-  '/api/literule/rules/{ruleCode}/ab-policy': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getABPolicy'];
-    put: operations['updateABPolicy'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/ab-rollbacks': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listRollbackHistory'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/ab-evaluate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['evaluateAB'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/ab-rollback': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['manualRollback'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['list'];
-    put?: never;
-    post: operations['save'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['get'];
-    put?: never;
-    post?: never;
-    delete: operations['deleteRule'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/toggle': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['toggle'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/versions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listVersions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/version-diff': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['versionDiff'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/rollback': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['rollback'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/dry-run': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['dryRun'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/validate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['validate'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/evaluate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['evaluate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/expr-trace': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['traceExpression'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/validate-expression': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['validateExpression'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/validate-batch': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['validateBatch'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/ab-test': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['abTest'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/stats': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['stats'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/batch-toggle': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchToggle'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/batch-priority': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchPriority'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/batch-category': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchCategory'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/category-tree': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['categoryTree'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/by-category-path': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listByCategoryPath'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/by-owner': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listByOwner'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/owner': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['setOwner'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/category-path': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['setCategoryPath'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/conflicts': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['detectConflicts'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/debug/breakpoints': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listBreakpoints'];
-    put?: never;
-    post: operations['addBreakpoint'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/debug/breakpoints/{breakpointId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['removeBreakpoint'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/debug/sessions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listSessions'];
-    put?: never;
-    post: operations['createSession'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/debug/sessions/{sessionId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getSession'];
-    put?: never;
-    post?: never;
-    delete: operations['terminateSession'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/debug/sessions/{sessionId}/command': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['submitCommand'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/decision-tables': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listDecisionTables'];
-    put?: never;
-    post: operations['saveDecisionTable'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/decision-tables/{tableCode}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getDecisionTable'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/decision-tables/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['deleteDecisionTable'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/decision-tables/{tableCode}/evaluate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['evaluateDecisionTable'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/decision-tables/{tableCode}/export-excel': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['exportDecisionTableExcel'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/decision-tables/import-excel': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['importDecisionTableExcel'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/decision-tables/excel-template': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['downloadDecisionTableExcelTemplate'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/dependencies': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listDependencies'];
-    put?: never;
-    post: operations['addDependency'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/dependencies/{dependsOnRuleCode}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['removeDependency'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/dependents': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listDependents'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/cascading-disable': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['cascadingDisable'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/graph': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getChainGraph'];
-    put?: never;
-    post: operations['saveChainGraph'];
-    delete: operations['deleteChainGraph'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/graph/validate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['validateChainGraph'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/expression-preview': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['previewExpression'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/graph/dry-run': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['dryRunGraph'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/graph/invalid-refs': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['invalidGraphRefs'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/expression-functions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['expressionFunctions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/export': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['exportRules'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/export.yaml': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['exportRulesAsYaml'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/import': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['importRules'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/status': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['changeStatus'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/approve': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['approve'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/reject': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['reject'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/submit-review': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['submitReview'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/approve-level': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['approveLevel'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/reject-level': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['rejectLevel'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/delegate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['delegate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/approval-status': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['approvalStatus'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/pending-approvals': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['pendingApprovals'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/cancel-review': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['cancelReview'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/approval-flows': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['approvalFlows'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listPacks'];
-    put?: never;
-    post: operations['publishPack'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/search': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['searchPacks'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/{packCode}/latest': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getLatestPack'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/{packCode}/versions': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listPackVersions'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/{packCode}/versions/{version}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getPackVersion'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/{packCode}/rollback': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['rollbackPack'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/{packCode}/diff': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['diffPack'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/{packCode}/install': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['installPack'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/{id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['deletePack'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/{id}/official': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['markOfficialPack'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/{id}/rate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put: operations['ratePack'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/stress-test': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['stressTest'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/update-check': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['checkPackUpdates'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/packs/batch-update': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchUpdatePacks'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/templates': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listTemplates'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/templates/category/{category}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listTemplatesByCategory'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/templates/industry/{industry}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listTemplatesByIndustry'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/templates/{templateCode}/import': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['importTemplate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/traces/{traceId}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getTrace'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/traces/rule/{ruleCode}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['getTracesByRule'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/traces/{traceId}/replay': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['replayTrace'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/traces/batch-replay': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['batchReplayTraces'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/{ruleCode}/impact-preview': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['impactPreview'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/rules/traces': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listRecentTraces'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/cep/patterns': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listPatterns'];
-    put?: never;
-    post: operations['registerPattern'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/cep/patterns/{pattern-id}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete: operations['unregisterPattern'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/cep/events': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['feedEvent'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/cep/events/batch': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['feedEvents'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/cep/hits': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['recentHits'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/cep/stats': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['stats'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/audit/recent': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['recent'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/audit/by-rule/{ruleCode}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['byRuleCode'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/audit/by-operator': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['byOperator'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/audit/by-action': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['byAction'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/audit/by-time-range': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['byTimeRange'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dashboard/overview': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['overview'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dashboard/trends': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['trends'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dashboard/distribution': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['distribution'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dashboard/top-rules': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['topRules'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dashboard/realtime': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['realtime'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dashboard/slow-rules': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['slowRules'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dashboard/hot-rules': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['hotRules'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dsl/validate': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['validate'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dsl/parse': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['parse'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dsl/preview': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['preview'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dsl/import': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['importDsl'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dsl/export': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['exportAll'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/dsl/export/{ruleCode}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['exportSingle'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/variables': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['list'];
-    put?: never;
-    post: operations['save'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/variables/{varName}': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['get'];
-    put?: never;
-    post?: never;
-    delete: operations['delete'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/variables/refresh': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post: operations['refresh'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/literule/variables/available': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['listAvailable'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
+    "/literule/rules/{ruleCode}/ab-policy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getABPolicy"];
+        put: operations["updateABPolicy"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/ab-rollbacks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listRollbackHistory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/ab-evaluate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["evaluateAB"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/ab-rollback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["manualRollback"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post: operations["save"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get"];
+        put?: never;
+        post?: never;
+        delete: operations["deleteRule"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/toggle": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["toggle"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listVersions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/version-diff": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["versionDiff"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/rollback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rollback"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/dry-run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["dryRun"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["validate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/evaluate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["evaluate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/expr-trace": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["traceExpression"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/validate-expression": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["validateExpression"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/validate-batch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["validateBatch"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/ab-test": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["abTest"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["stats"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/batch-toggle": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchToggle"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/batch-priority": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchPriority"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/batch-category": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchCategory"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/category-tree": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["categoryTree"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/by-category-path": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listByCategoryPath"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/by-owner": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listByOwner"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/owner": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["setOwner"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/category-path": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["setCategoryPath"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/conflicts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["detectConflicts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/debug/breakpoints": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listBreakpoints"];
+        put?: never;
+        post: operations["addBreakpoint"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/debug/breakpoints/{breakpointId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["removeBreakpoint"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/debug/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listSessions"];
+        put?: never;
+        post: operations["createSession"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/debug/sessions/{sessionId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getSession"];
+        put?: never;
+        post?: never;
+        delete: operations["terminateSession"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/debug/sessions/{sessionId}/command": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["submitCommand"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/decision-tables": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listDecisionTables"];
+        put?: never;
+        post: operations["saveDecisionTable"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/decision-tables/{tableCode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getDecisionTable"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/decision-tables/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deleteDecisionTable"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/decision-tables/{tableCode}/evaluate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["evaluateDecisionTable"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/decision-tables/{tableCode}/export-excel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportDecisionTableExcel"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/decision-tables/import-excel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["importDecisionTableExcel"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/decision-tables/excel-template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["downloadDecisionTableExcelTemplate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/dependencies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listDependencies"];
+        put?: never;
+        post: operations["addDependency"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/dependencies/{dependsOnRuleCode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["removeDependency"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/dependents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listDependents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/cascading-disable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["cascadingDisable"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/graph": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getChainGraph"];
+        put?: never;
+        post: operations["saveChainGraph"];
+        delete: operations["deleteChainGraph"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/graph/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["validateChainGraph"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/expression-preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["previewExpression"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/graph/dry-run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["dryRunGraph"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/graph/invalid-refs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["invalidGraphRefs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/expression-functions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["expressionFunctions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportRules"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/export.yaml": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportRulesAsYaml"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["importRules"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["changeStatus"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["approve"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["reject"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/submit-review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["submitReview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/approve-level": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["approveLevel"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/reject-level": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rejectLevel"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/delegate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["delegate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/approval-status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["approvalStatus"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/pending-approvals": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["pendingApprovals"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/cancel-review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["cancelReview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/approval-flows": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["approvalFlows"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPacks"];
+        put?: never;
+        post: operations["publishPack"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["searchPacks"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/{packCode}/latest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getLatestPack"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/{packCode}/versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPackVersions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/{packCode}/versions/{version}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getPackVersion"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/{packCode}/rollback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["rollbackPack"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/{packCode}/diff": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["diffPack"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/{packCode}/install": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["installPack"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deletePack"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/{id}/official": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["markOfficialPack"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/{id}/rate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["ratePack"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/stress-test": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["stressTest"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/update-check": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["checkPackUpdates"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/packs/batch-update": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchUpdatePacks"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTemplates"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/templates/category/{category}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTemplatesByCategory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/templates/industry/{industry}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTemplatesByIndustry"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/templates/{templateCode}/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["importTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/traces/{traceId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getTrace"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/traces/rule/{ruleCode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getTracesByRule"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/traces/{traceId}/replay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["replayTrace"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/traces/batch-replay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["batchReplayTraces"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/{ruleCode}/impact-preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["impactPreview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/rules/traces": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listRecentTraces"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/cep/patterns": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listPatterns"];
+        put?: never;
+        post: operations["registerPattern"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/cep/patterns/{pattern-id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["unregisterPattern"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/cep/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["feedEvent"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/cep/events/batch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["feedEvents"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/cep/hits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["recentHits"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/cep/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["stats"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/audit/recent": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["recent"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/audit/by-rule/{ruleCode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["byRuleCode"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/audit/by-operator": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["byOperator"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/audit/by-action": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["byAction"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/audit/by-time-range": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["byTimeRange"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dashboard/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["overview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dashboard/trends": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["trends"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dashboard/distribution": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["distribution"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dashboard/top-rules": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["topRules"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dashboard/realtime": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["realtime"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dashboard/slow-rules": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["slowRules"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dashboard/hot-rules": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["hotRules"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dsl/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["validate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dsl/parse": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["parse"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dsl/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["preview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dsl/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["importDsl"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dsl/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportAll"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/dsl/export/{ruleCode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["exportSingle"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/variables": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["list"];
+        put?: never;
+        post: operations["save"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/variables/{varName}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get"];
+        put?: never;
+        post?: never;
+        delete: operations["delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/variables/refresh": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["refresh"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/literule/variables/available": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listAvailable"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/literule/rules/dry-run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["dryRun"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/internal/literule/rules/evaluate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["evaluate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 };
 export type webhooks = Record<string, never>;
 export type components = {
-  schemas: {
-    /**
-     * @description 统一API返回结果封装类
-     *
-     *     用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。
-     *
-     *     响应结构：
-     *
-     *
-     *     code: 响应码，A00000表示成功，其他表示失败
-     *     msg: 响应消息
-     *     data: 响应数据
-     *     timestamp: 响应时间戳
-     *
-     *
-     *     使用示例：
-     *
-     *     <pre>{@code
-     *     // 返回成功
-     *     return YdszResponse.success(user);
-     *
-     *     // 返回失败（走 i18n）
-     *     return YdszResponse.error(YdszResultCode.NOT_FOUND);
-     *     }</pre>
-     *
-     *     @param <T> 数据泛型
-     */
-    YdszResponse: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 返回编码 */
-      code?: string;
-      /** @description 返回信息 */
-      msg?: string;
-      /**
-       * @description 返回数据
-       *
-       *     泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。
-       */
-      data?: Record<string, never>;
-      /**
-       * @description 链路追踪 ID。
-       *
-       *     首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。
-       */
-      traceId?: Record<string, never>;
-      /**
-       * @description 请求 ID（用于客户端/前端精准排障，单个请求唯一）。
-       *
-       *     volatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。
-       */
-      requestId?: Record<string, never>;
-      /**
-       * @description 当前服务调用的 Span ID（W3C Trace Context span ID）。
-       *
-       *     volatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link
-       *     com.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。
-       */
-      spanId?: Record<string, never>;
-      /**
-       * Format: int64
-       * @description 时间戳
-       */
-      timestamp?: number;
-      /**
-       * @description 扩展字段（可选）。
-       *
-       *     用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
-       */
-      extensions?: {
-        [key: string]: Record<string, never>;
-      };
-      /**
-       * @description 国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。
-       *
-       *     采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。
-       */
-      RESOLVER?: Record<string, never>;
+    schemas: {
+        /**
+         * @description 统一API返回结果封装类
+         *
+         *     用于前后端交互的标准返回格式，封装了响应码、消息、数据和时间戳。
+         *
+         *     响应结构：
+         *
+         *
+         *     code: 响应码，A00000表示成功，其他表示失败
+         *     msg: 响应消息
+         *     data: 响应数据
+         *     timestamp: 响应时间戳
+         *
+         *
+         *     使用示例：
+         *
+         *     <pre>{@code
+         *     // 返回成功
+         *     return YdszResponse.success(user);
+         *
+         *     // 返回失败（走 i18n）
+         *     return YdszResponse.error(YdszResultCode.NOT_FOUND);
+         *     }</pre>
+         *
+         *     @param <T> 数据泛型
+         */
+        YdszResponse: {
+            /**
+             * Format: int64
+             * @description 序列化版本 UID，兼容 Lombok @SuperBuilder 生成的子类序列化。
+             */
+            serialVersionUID?: number;
+            /** @description 返回编码 */
+            code?: string;
+            /** @description 返回信息 */
+            msg?: string;
+            /**
+             * @description 异常级别。
+             *
+             *     取值来自 com.njydsz.common.exception.enums.ExceptionLevel 枚举的 name：
+             *
+             *
+             *     INFO — 静默处理，不展示 toast
+             *     WARN — 轻量 toast 提示（auto-close 3s）
+             *     ERROR — toast 提示，需用户点击关闭
+             *     FATAL — 弹窗提示，阻断用户当前操作
+             *
+             *
+             *     成功响应不需要级别，为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
+             */
+            level?: string;
+            /**
+             * @description 返回数据
+             *
+             *     泛型类型 T 无法限定为 Serializable（API 响应可携带任意类型数据）， Java 序列化非主要序列化方式（项目使用 Jackson JSON），此处抑制编译器警告。
+             */
+            data?: Record<string, never>;
+            /**
+             * @description 链路追踪 ID。
+             *
+             *     首次调用 #getTraceId() 时从 RequestContext/MDC 懒解析， 避免批量/流式场景下每次构造响应对象都产生 MDC 读取开销。
+             */
+            traceId?: Record<string, never>;
+            /**
+             * @description 请求 ID（用于客户端/前端精准排障，单个请求唯一）。
+             *
+             *     volatile + 懒加载：为 `null` 时首次访问从 RequestContext#getRequestId() 解析并缓存。
+             */
+            requestId?: Record<string, never>;
+            /**
+             * @description 当前服务调用的 Span ID（W3C Trace Context span ID）。
+             *
+             *     volatile + 懒加载：traceId 被解析后若 spanId 为空， 自动调用 {@link
+             *     com.njydsz.common.core.trace.TraceIdGenerator#generateSpanId()} 生成。
+             */
+            spanId?: Record<string, never>;
+            /**
+             * Format: int64
+             * @description 时间戳
+             */
+            timestamp?: number;
+            /**
+             * @description 扩展字段（可选）。
+             *
+             *     用于携带额外的上下文信息，如 debugInfo、cost 等。 为 `null` 时不序列化（通过 `@JsonInclude(NON_NULL)` 控制）。
+             */
+            extensions?: {
+                [key: string]: Record<string, never>;
+            };
+            /**
+             * @description 国际化消息解析器实例（AtomicReference 保证线程安全和一次性设置）。
+             *
+             *     采用一次性设置语义：启动时由 `CoreAutoConfiguration` 注入， 后续不可修改，消除全局可变状态的线程安全隐患。
+             */
+            RESOLVER?: Record<string, never>;
+        };
+        /**
+         * @description 规则 A/B 测试策略 DTO（统一新增/修改）。
+         *
+         *     创建时 `id` 字段不传，更新时传入 `id`。
+         */
+        RuleABPolicyDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 策略唯一标识（主键，更新时传入） */
+            id?: string;
+            /** @description 关联的规则编码 */
+            ruleCode?: string;
+            /** @description 是否启用自动回滚 */
+            isAutoRollbackEnabled?: boolean;
+            /** @description 回滚动作（AUTO/NOTIFY） */
+            rollbackAction?: string;
+            /** @description 错误率阈值，超过此值触发自动回滚 */
+            errorRateThreshold?: number;
+            /**
+             * Format: int32
+             * @description 最小样本量，样本不足时不触发回滚
+             */
+            minSampleSize?: number;
+            /**
+             * Format: int32
+             * @description 评估窗口（分钟）
+             */
+            checkWindowMinutes?: number;
+            /** @description 通知渠道，逗号分隔 */
+            notifyChannels?: string;
+            /** @description 策略描述 */
+            description?: string;
+        };
+        /**
+         * @description 分页查询参数封装类。
+         *
+         *     承载分页查询的请求参数（页码、页大小、排序项），提供偏移量计算、 排序操作、游标模式判定等基础能力。深度分页风险评估已解耦至 PageQueryRiskAssessor。
+         */
+        PageQuery: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /**
+             * Format: int32
+             * @description 当前页码（从1开始）。
+             */
+            pageNum: number;
+            /**
+             * Format: int32
+             * @description 每页显示条数。
+             */
+            pageSize: number;
+            /** @description 排序项列表（结构化 OrderItem）。 */
+            orderItems?: ("ASC" | "DESC")[];
+            offset?: string;
+            offsetLong?: string;
+            limit?: string;
+        };
+        /**
+         * @description 规则定义（元数据）
+         *
+         *     描述一条可配置规则的完整元信息，支持从数据库加载或编程式创建。 conditionExpression 为 LiteExpr 表达式，返回 boolean；actionExpression
+         *     可选，用于动态生成结果描述。
+         */
+        RuleDefinitionDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 规则编码（唯一） */
+            code?: string;
+            /** @description 规则名称 */
+            name?: string;
+            /** @description 规则类别 */
+            category?: string;
+            /**
+             * @description 分类路径（P1-9 规则目录树）
+             *
+             *     多级分类用 `/` 分隔，如 `"finance/credit/loan"`。前端左侧树按此字段构建。 兼容：category
+             *     保留作为一级分类，categoryPath 可空（空时按 category 显示）。
+             */
+            categoryPath?: string;
+            /**
+             * @description 责任人（P1-9 规则目录树）
+             *
+             *     工号/用户名。Owner 在以下场景使用：
+             *
+             *
+             *     规则异常告警通知（执行失败率突增、连续 N 次未命中）
+             *     AB Test 自动回滚后的通知
+             *     规则巡检/审核派单
+             */
+            owner?: string;
+            /** @description 规则描述 */
+            description?: string;
+            /**
+             * @description 条件表达式（LiteExpr 语法）
+             *
+             *     示例：`evmRedCount >= 3` 或 `grossMargin < 0.05 && confirmedRevenue > 0`
+             */
+            conditionExpression?: string;
+            /**
+             * @description 严重度表达式（LiteExpr 语法，可选）
+             *
+             *     当条件满足时，根据上下文动态决定严重度。 示例：`benchIdleCost >= 1000000 ? 'RED' : 'YELLOW'` 为空时使用 {@link
+             *     #defaultSeverity}
+             */
+            severityExpression?: string;
+            /**
+             * @description 默认严重度（当 severityExpression 为空时使用）
+             * @enum {string}
+             */
+            defaultSeverity?: never;
+            /** @description 标题模板（支持 ${var} 占位符） */
+            titleTemplate?: string;
+            /** @description 描述模板（支持 ${var} 占位符） */
+            descriptionTemplate?: string;
+            /**
+             * Format: int32
+             * @description 优先级（数值越小越先执行）
+             */
+            priority?: number;
+            /** @description 是否启用 */
+            isEnabled?: boolean;
+            /** @description 影响范围 */
+            scope?: string;
+            /**
+             * @description 互斥组名称
+             *
+             *     同组内首个命中的规则执行后，其余规则跳过评估。null 表示无互斥组。
+             */
+            mutexGroup?: string;
+            /** @description 是否可下钻 */
+            isDrilldownAvailable?: boolean;
+            /**
+             * Format: int32
+             * @description 当前版本号
+             */
+            version?: number;
+            /**
+             * @description 租户 ID
+             *
+             *     多租户隔离标识，单租户部署下默认为 1。 1.5.0 起启用运行时租户过滤：{@link
+             *     DefaultRuleEngine} 在评估前会比较 `rule.getTenantId()` 与 {@link
+             *     RuleContextVO#getTenantId()}， 仅当两者匹配时才评估该规则。
+             */
+            tenantId?: string;
+            /**
+             * @description 环境标识（dev/staging/prod/default）
+             *
+             *     与 #tenantId 正交，实现多环境规则隔离（P1-5）。
+             *
+             *
+             *     `"default"`（默认）- 全环境生效，向后兼容
+             *     `"dev"` / `"staging"` / `"prod"` - 仅匹配同环境的上下文
+             *
+             *
+             *     过滤规则：规则的 environment 为 `"default"` 时匹配任何上下文环境； 非 `"default"` 时必须与 {@link
+             *     RuleContextVO#getEnvironment()} 完全匹配。
+             */
+            environment?: string;
+            /** @description 生命周期状态 */
+            status?: string;
+            /**
+             * Format: date-time
+             * @description 生效时间
+             */
+            effectiveFrom?: string;
+            /**
+             * Format: date-time
+             * @description 失效时间
+             */
+            effectiveTo?: string;
+            /** @description 审核人 */
+            reviewedBy?: string;
+            /**
+             * Format: date-time
+             * @description 审核时间
+             */
+            reviewedAt?: string;
+            /** @description 审核意见 */
+            reviewComment?: string;
+            /**
+             * @description 灰度比例（0.0~1.0，0 表示不启用灰度）
+             *
+             *     当 canaryRatio > 0 且存在候选版本（canaryDefinition 非空）时， 引擎按此比例将流量分到候选版本。
+             */
+            canaryRatio?: number;
+            /**
+             * @description 灰度条件（LiteExpr 表达式列表，AND 关系）
+             *
+             *     仅当 canaryRatio > 0 时生效；满足全部条件才进入灰度流量分桶。 示例：{@code ["tenantId == 'T001'", "userRole ==
+             *     'ADMIN'"]} 为空时仅按 canaryRatio 比例分桶。
+             */
+            canaryConditions?: string[];
+            /**
+             * @description 灰度候选版本表达式（条件/严重度表达式，覆盖主版本）
+             *
+             *     当流量被分到灰度桶时，使用此候选表达式构造一条临时规则进行评估， 结果会被标记 com.njydsz.literule.domain.vo.RuleResultVO#isCanary() = true，便于运营对比新旧命中差异。
+             */
+            canaryConditionExpression?: string;
+            /** @description 灰度候选版本的严重度表达式 */
+            canarySeverityExpression?: string;
+        };
+        /**
+         * @description 表达式校验请求体 DTO
+         *
+         *     用于 `/rules/validate-expression` 接口，校验条件/严重度/模板表达式。
+         */
+        ExpressionValidateDTO: {
+            /** @description 表达式内容 */
+            expression: string;
+            /** @description 表达式类型：condition / severity / template，默认 condition */
+            type?: string;
+        };
+        /**
+         * @description A/B 测试请求体 DTO
+         *
+         *     用于 `/rules/{ruleCode`/ab-test} 接口：基于当前规则与候选规则定义， 对同一份事实数据分别评估，
+         *     输出对比报告（触发差异 / 严重度差异 / 建议结论）。
+         *
+         *     候选规则通常由前端基于当前规则克隆并修改条件/严重度表达式后提交， 服务端仅做评估对比，不落库、不发布事件、不记录统计。
+         */
+        RuleABTestDTO: {
+            candidate: components["schemas"]["RuleDefinitionDTO"];
+            /** @description 测试用事实数据（同一份 facts 分别评估当前规则与候选规则） */
+            facts?: {
+                [key: string]: Record<string, never>;
+            };
+        };
+        /**
+         * @description 规则批量启停请求体 DTO
+         *
+         *     用于 `/rules/batch-toggle` 接口，批量启用/停用规则。 启用时校验 status=PUBLISHED，未发布的规则不能启用。
+         */
+        RuleBatchToggleDTO: {
+            /** @description 规则编码列表 */
+            ruleCodes: string[];
+            /** @description 是否启用（true=启用，false=停用） */
+            isEnabled: boolean;
+        };
+        /**
+         * @description 规则批量优先级调整请求体 DTO
+         *
+         *     用于 `/rules/batch-priority` 接口，批量调整规则优先级。 `delta` 为增量（可为负），最终优先级钳制在 0-100 范围。
+         */
+        RuleBatchPriorityDTO: {
+            /** @description 规则编码列表 */
+            ruleCodes: string[];
+            /**
+             * Format: int32
+             * @description 优先级增量（可为负，最终优先级钳制 0-100）
+             */
+            delta: number;
+        };
+        /**
+         * @description 规则批量分类调整请求体 DTO
+         *
+         *     用于 `/rules/batch-category` 接口，批量调整规则分类。
+         */
+        RuleBatchCategoryDTO: {
+            /** @description 规则编码列表 */
+            ruleCodes: string[];
+            /** @description 目标分类 */
+            category: string;
+        };
+        /**
+         * @description 决策表请求 DTO（统一新增/修改）。
+         *
+         *     创建时 `id` 字段不传，更新时传入 `id`。
+         */
+        DecisionTableDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /**
+             * Format: int64
+             * @description 决策表 ID（更新时传入）
+             */
+            id?: number;
+            /** @description 决策表编码，业务唯一 */
+            tableCode?: string;
+            /** @description 决策表名称 */
+            tableName?: string;
+            /** @description 决策表描述 */
+            description?: string;
+            /** @description 分类编码 */
+            category?: string;
+            /** @description 条件列定义列表 */
+            conditionColumns?: {
+                [key: string]: Record<string, never>;
+            }[];
+            /** @description 动作列定义列表 */
+            actionColumns?: {
+                [key: string]: Record<string, never>;
+            }[];
+            /** @description 决策行数据列表 */
+            rows?: {
+                [key: string]: Record<string, never>;
+            }[];
+            /** @description 默认动作（无匹配行时执行） */
+            defaultActions?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 命中策略（UNIQUE/FIRST/PRIORITY/COLLECT/ANY/RULE_ORDER） */
+            hitPolicy?: string;
+            /** @description 是否启用 */
+            isEnabled?: boolean;
+            /**
+             * Format: int32
+             * @description 优先级，数值越小优先级越高
+             */
+            priority?: number;
+            /**
+             * Format: int32
+             * @description 版本号
+             */
+            version?: number;
+        };
+        /** @description HttpServletResponse（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        HttpServletResponse: Record<string, never>;
+        /**
+         * @description 规则依赖新增请求体 DTO
+         *
+         *     用于 `/rules/{ruleCode`/dependencies} 接口，为规则添加依赖关系 （依赖另一条规则的执行结果，支持级联禁用）。
+         */
+        RuleDependencyAddDTO: {
+            /** @description 被依赖的规则编码 */
+            dependsOnRuleCode: string;
+            /** @description 依赖类型：EXECUTE / DATA，默认 EXECUTE */
+            dependencyType?: string;
+            /** @description 被依赖规则禁用时是否级联禁用本规则，默认 false */
+            isCascadeOnDisable?: boolean;
+            /** @description 依赖关系描述（可选） */
+            description?: string;
+        };
+        /**
+         * @description 可视化规则链编排画布图 DTO（P2-1）
+         *
+         *     规则链画布的完整元数据模型，由 ChainNodeDTO 节点集合、 ChainEdgeDTO 连线集合以及画布视口元数据组成。
+         *     支撑前端可视化规则编排画布的"画布持久化"能力：
+         *
+         *
+         *     规则链可视化编辑（拖拽节点、连线、布局自动对齐）
+         *     规则链版本回放（按 graphId 拉取历史画布快照）
+         *     规则链导入导出（导出为 JSON，跨环境同步）
+         *
+         *
+         *     该 DTO 与 RuleChain 的关系：
+         *
+         *
+         *     RuleChain：运行时执行模型，承载规则编排语义（THEN/WHEN/IF...），不含布局信息
+         *     RuleChainGraph：可视化元数据模型，承载画布节点位置和连线，不参与运行时执行
+         *
+         *
+         *     通过 ChainGraphConverter 可在 RuleChain 与 RuleChainGraph 之间双向转换： RuleChain → Graph
+         *     提取结构骨架（不包含位置），Graph → RuleChain 还原可执行编排。
+         *
+         *     典型用法：
+         *
+         *     <pre>
+         *     RuleChainGraph graph = RuleChainGraph.builder()
+         *     .graphId("graph-1")
+         *     .name("CPI 预警链")
+         *     .scenario("EVM")
+         *     .nodes(List.of(node1, node2))
+         *     .edges(List.of(edge1))
+         *     .viewport(new RuleChainGraph.Viewport(0, 0, 1.0))
+         *     .build();
+         *     </pre>
+         */
+        RuleChainGraph: {
+            /**
+             * Format: int32
+             * @description 集合初始容量
+             */
+            COLLECTION_CAPACITY?: number;
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 画布 ID（全局唯一） */
+            graphId?: string;
+            /** @description 画布名称（如"CPI 预警链-2024Q1"） */
+            name: string;
+            /** @description 关联规则编码（一对一，P0-1 增强：作为画布查询的 key） */
+            ruleCode?: string;
+            /** @description 画布描述 */
+            description?: string;
+            /** @description 适用场景（与 RuleContextVO.scenario 对应） */
+            scenario?: string;
+            /** @description 租户 ID（多租户隔离，P1-3） */
+            tenantId?: string;
+            /** @description 画布版本号（语义化版本，如 26.09.01、26.09.01-SNAPSHOT） */
+            version?: string;
+            /** @description 画布状态：DRAFT / PUBLISHED / ARCHIVED（与 RuleStatus 对齐） */
+            status?: string;
+            /** @description 节点列表 */
+            nodes?: components["schemas"]["ChainNodeDTO"][];
+            /** @description 连线列表 */
+            edges?: components["schemas"]["ChainEdgeDTO"][];
+            viewport?: components["schemas"]["Viewport"];
+            /** @description 画布元数据扩展（如作者、标签、自定义属性） */
+            metadata?: {
+                [key: string]: Record<string, never>;
+            };
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @description 最后更新时间
+             */
+            updatedAt?: string;
+            /** @description 创建人 */
+            createdBy?: string;
+            /** @description 最后更新人 */
+            updatedBy?: string;
+            x?: number;
+            y?: number;
+            zoom?: number;
+        };
+        /**
+         * @description 可视化规则链编排画布节点 DTO（P2-1）
+         *
+         *     描述规则链画布上的一个节点，包含节点在画布上的位置坐标、引用的规则或子链、 节点形态（单规则 / 子链 / 规则组）以及前端渲染所需的扩展元数据。
+         *
+         *     该 DTO 仅承载可视化元数据，与 RuleNode 的运行时编排节点分离， 避免可视化布局信息污染运行时执行模型。
+         *
+         *     典型用法：
+         *
+         *     <pre>
+         *     ChainNodeDTO node = ChainNodeDTO.builder()
+         *     .nodeId("node-1")
+         *     .nodeType("SINGLE")
+         *     .label("CPI 预警")
+         *     .ruleCode("CPI_WARN")
+         *     .position(new ChainNodeDTO.Position(120, 80))
+         *     .build();
+         *     </pre>
+         */
+        ChainNodeDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 节点 ID（画布内唯一，前端生成的 uuid 或后端分配的有序 id） */
+            nodeId?: string;
+            /** @description 节点形态：SINGLE / CHAIN / GROUP（对应 RuleNode.NodeType） */
+            nodeType?: string;
+            /** @description 节点显示标签（默认取规则名称） */
+            label?: string;
+            /** @description 引用的规则编码（nodeType=SINGLE 时必填） */
+            ruleCode?: string;
+            /** @description 引用的规则名称（便于画布展示，避免每次反查规则定义） */
+            ruleName?: string;
+            /** @description 引用的规则类别（EVM / COST / BENCH 等，用于前端按类别着色） */
+            category?: string;
+            /** @description 子链类型（nodeType=CHAIN 时有效，对应 RuleChainType：THEN/WHEN/IF/ELIF/SWITCH） */
+            chainType?: string;
+            /** @description 父节点 ID（嵌套链时使用，根节点为 null） */
+            parentNodeId?: string;
+            position?: components["schemas"]["Position"];
+            size?: components["schemas"]["Size"];
+            /** @description 节点样式扩展（颜色、图标等，前端自定义） */
+            style?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 业务扩展字段（如分支条件、循环变量名等，按 chainType 解释） */
+            metadata?: {
+                [key: string]: Record<string, never>;
+            };
+            x?: number;
+            y?: number;
+            width?: number;
+            height?: number;
+        };
+        /** @description 节点位置坐标 */
+        Position: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            x?: number;
+            y?: number;
+        };
+        /** @description 节点尺寸 */
+        Size: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            width?: number;
+            height?: number;
+        };
+        /**
+         * @description 可视化规则链编排画布连线 DTO（P2-1）
+         *
+         *     描述画布上两个节点之间的连接关系，承载与 RuleChain 编排语义对应的连线类型：
+         *
+         *
+         *     THEN - 顺序流：source 执行完毕后执行 target
+         *     IF_BRANCH - 条件分支：source 是 IF/ELIF 节点，target 是分支动作节点， condition 字段携带分支条件表达式
+         *     SWITCH_BRANCH - 分支选择：source 是 SWITCH 节点，target 是分支节点， branchValue 字段携带分支 key
+         *     DEFAULT_BRANCH - 默认分支：SWITCH/ELIF 未命中时执行的兜底分支
+         *     GROUP_MEMBER - 组成员：source 是 GROUP 节点，target 是组成员节点
+         *
+         *
+         *     连线本身不参与运行时执行（执行由 RuleChain 内部逻辑驱动）， 仅作为可视化布局元数据，便于前端画布渲染和后端持久化。
+         */
+        ChainEdgeDTO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 边 ID（画布内唯一） */
+            edgeId?: string;
+            /** @description 起点节点 ID */
+            sourceNodeId?: string;
+            /** @description 终点节点 ID */
+            targetNodeId?: string;
+            /** @description 边类型：THEN / IF_BRANCH / SWITCH_BRANCH / DEFAULT_BRANCH / GROUP_MEMBER */
+            edgeType?: string;
+            /** @description 边显示标签（如 "amount > 1000" 或 "type=A"） */
+            label?: string;
+            /** @description 条件表达式（IF_BRANCH / ELIF 分支时携带） */
+            condition?: string;
+            /** @description 分支值（SWITCH_BRANCH 时携带，对应 facts 中 branchKey 取值） */
+            branchValue?: string;
+            /** @description 边样式扩展（线型、颜色、箭头样式等，前端自定义） */
+            style?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 业务扩展字段 */
+            metadata?: {
+                [key: string]: Record<string, never>;
+            };
+        };
+        /** @description 画布视口（前端画布的缩放和平移状态） */
+        Viewport: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            x?: number;
+            y?: number;
+            zoom?: number;
+        };
+        /**
+         * @description 规则导入请求体 DTO
+         *
+         *     用于 `/rules/import` 接口，批量导入规则定义。
+         *
+         *     注意：`rules` 保留 `List<Map<String, Object>>` 形式，因为每条规则的字段 由前端导出格式决定，需通过 {@code
+         *     objectMapper.convertValue} 转为 com.njydsz.literule.domain.api.RuleDefinitionDTO，且导入时容错（单条失败跳过）。
+         */
+        RuleImportDTO: {
+            /** @description 待导入的规则列表（每条为规则定义的 JSON 对象） */
+            rules?: {
+                [key: string]: Record<string, never>;
+            }[];
+        };
+        /**
+         * @description 规则状态变更请求体 DTO
+         *
+         *     用于 `/rules/{ruleCode`/status} 接口，切换规则生命周期状态 （DRAFT / REVIEW / PUBLISHED / ARCHIVED 等）。
+         */
+        RuleStatusChangeDTO: {
+            /** @description 目标状态（RuleStatus 枚举名，如 PUBLISHED / ARCHIVED） */
+            targetStatus: string;
+            /** @description 变更备注（审批意见/驳回理由等，可选） */
+            comment?: string;
+        };
+        /**
+         * @description 规则审批通过请求体 DTO
+         *
+         *     用于 `/rules/{ruleCode`/approve} 接口，将规则从 DRAFT/REVIEW 状态变更为 PUBLISHED，并记录审批人、审批时间、审批意见。
+         */
+        RuleApproveDTO: {
+            /** @description 审批意见（可选） */
+            comment?: string;
+        };
+        /**
+         * @description 规则审批驳回请求体 DTO
+         *
+         *     用于 `/rules/{ruleCode`/reject} 接口，将规则从 DRAFT/REVIEW/PUBLISHED 状态变更为 ARCHIVED，并记录驳回理由。
+         */
+        RuleRejectDTO: {
+            /** @description 驳回理由（必填） */
+            reason: string;
+        };
+        /**
+         * @description 规则提交审核请求体 DTO（P1-3 多级审批流）
+         *
+         *     用于 `/rules/{ruleCode`/submit-review} 接口，将规则从 DRAFT 状态 提交到指定审批流的第一级。flowCode 为空时使用默认 2
+         *     级审批流。
+         */
+        RuleSubmitReviewDTO: {
+            /** @description 审批流编码（可选，为空时使用默认 2 级审批流 default-2level） */
+            flowCode?: string;
+        };
+        /**
+         * @description 规则审批委托请求体 DTO（P1-3 多级审批流）
+         *
+         *     用于 `/rules/{ruleCode`/delegate} 接口，将当前级别的审批权委托给他人。
+         */
+        RuleDelegateDTO: {
+            /** @description 被委托人工号（必填） */
+            delegatedTo: string;
+            /** @description 委托说明（可选） */
+            comment?: string;
+        };
+        /**
+         * @description 规则包视图对象（VO）。
+         *
+         *     用于 Controller 层返回规则包的完整信息。规则包是行业级规则集合的封装， 支持版本管理、规则快照、评分和下载统计，实现规则的复用与共享。
+         */
+        RulePackVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 规则包唯一标识（主键） */
+            id?: string;
+            /** @description 规则包编码，业务唯一 */
+            packCode?: string;
+            /** @description 规则包版本号 */
+            packVersion?: string;
+            /** @description 规则包名称 */
+            packName?: string;
+            /** @description 所属行业（如 finance/ecommerce/healthcare） */
+            industry?: string;
+            /** @description 标签，逗号分隔 */
+            tags?: string;
+            /** @description 包含的规则编码列表，逗号分隔 */
+            ruleCodes?: string;
+            /** @description 规则快照 JSON，保存发布时的规则定义副本 */
+            ruleSnapshots?: string;
+            /** @description 前一版本号 */
+            previousVersion?: string;
+            /** @description 规则包描述 */
+            description?: string;
+            /** @description 作者 */
+            author?: string;
+            /**
+             * Format: int64
+             * @description 下载次数
+             */
+            downloadCount?: number;
+            /** @description 评分（0~5） */
+            rating?: number;
+            /** @description 是否启用 */
+            isEnabled?: boolean;
+            /** @description 是否为官方包 */
+            isOfficial?: boolean;
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 更新人 */
+            updatedBy?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description 变量定义元数据
+         *
+         *     描述规则表达式中可引用的变量，包括名称、类型、描述、示例值等。 由 VariableRegistry 提供，供 {@link
+         *     ExpressionValidationService} 做 UNDEFINED_VARIABLE 校验。
+         */
+        VariableDefinition: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 变量名（如 cpi / budgetAmount / evmRedCount） */
+            name?: string;
+            /** @description 变量类型（String / Number / Boolean 等） */
+            type?: string;
+            /** @description 变量描述（中文，供前端编辑器提示） */
+            description?: string;
+            /** @description 示例值（用于前端编辑器预览和 dryRun 默认 facts） */
+            sampleValue?: Record<string, never>;
+            /** @description 变量来源类别（如 EVM / PROJECT / FINANCE / BENCH 等） */
+            category?: string;
+            /** @description 是否必填（前端编辑器可标记必填变量） */
+            required?: boolean;
+            simpleType?: string;
+        };
+        /**
+         * @description 规则 A/B 测试策略视图对象（VO）。
+         *
+         *     用于 Controller 层返回 A/B 测试策略的完整信息，包含灰度比例、自动回滚阈值、 评估窗口及通知渠道配置，支撑规则灰度发布的效果评估与安全回滚。
+         */
+        RuleABPolicyVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 策略唯一标识（主键） */
+            id?: string;
+            /** @description 关联的规则编码 */
+            ruleCode?: string;
+            /** @description 是否启用自动回滚 */
+            isAutoRollbackEnabled?: boolean;
+            /** @description 回滚动作（ROLLBACK/NOTIFY_ONLY） */
+            rollbackAction?: string;
+            /** @description 错误率阈值，超过此值触发自动回滚 */
+            errorRateThreshold?: number;
+            /**
+             * Format: int32
+             * @description 最小样本量，样本不足时不触发回滚
+             */
+            minSampleSize?: number;
+            /**
+             * Format: int32
+             * @description 评估窗口（分钟），在此时间窗口内统计错误率
+             */
+            checkWindowMinutes?: number;
+            /** @description 通知渠道，逗号分隔（如 "sms,email,dingtalk"） */
+            notifyChannels?: string;
+            /** @description 策略描述 */
+            description?: string;
+            /**
+             * Format: date-time
+             * @description 最近一次评估时间
+             */
+            lastEvaluatedAt?: string;
+            /**
+             * Format: date-time
+             * @description 最近一次回滚时间
+             */
+            lastRollbackAt?: string;
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 更新人 */
+            updatedBy?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description 规则 A/B 测试回滚记录视图对象（VO）。
+         *
+         *     用于 Controller 层返回灰度发布回滚操作的完整记录，包含触发原因、 回滚时的错误率和样本量、操作人及通知状态，支撑灰度回滚审计追溯。
+         */
+        RuleABRollbackVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 回滚记录唯一标识（主键） */
+            id?: string;
+            /** @description 关联的规则编码 */
+            ruleCode?: string;
+            /** @description 触发回滚的原因（ERROR_RATE_EXCEEDED/MANUAL/SAMPLE_INSUFFICIENT） */
+            triggerReason?: string;
+            /** @description 回滚时的错误率 */
+            errorRate?: number;
+            /**
+             * Format: int64
+             * @description 回滚时的样本量
+             */
+            sampleSize?: number;
+            /** @description 是否从灰度版本回滚 */
+            isFromCanary?: boolean;
+            /** @description 操作人 */
+            operator?: string;
+            /** @description 通知状态（SUCCESS/FAILED/NOT_SENT） */
+            notifyStatus?: string;
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 更新人 */
+            updatedBy?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description 规则定义视图对象（VO）。
+         *
+         *     用于 Controller 层返回规则定义的完整信息，涵盖规则基本信息、条件表达式、 灰度发布配置、审批信息及审计字段。不参与持久化，仅用于展示和传输。
+         */
+        RuleDefinitionVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 规则唯一标识（主键） */
+            id?: string;
+            /** @description 规则编码，业务唯一，用于规则引用和路由 */
+            ruleCode?: string;
+            /** @description 规则名称，用于展示 */
+            ruleName?: string;
+            /** @description 规则分类编码 */
+            category?: string;
+            /** @description 分类完整路径，如 "risk/credit/loan" */
+            categoryPath?: string;
+            /** @description 规则归属人 */
+            owner?: string;
+            /** @description 规则描述 */
+            description?: string;
+            /** @description 条件表达式（LiteExpr 语法） */
+            conditionExpression?: string;
+            /** @description 严重度表达式，动态计算规则命中后的严重级别 */
+            severityExpression?: string;
+            /** @description 默认严重级别（HIGH/MEDIUM/LOW/INFO） */
+            defaultSeverity?: string;
+            /** @description 告警标题模板 */
+            titleTemplate?: string;
+            /** @description 告警描述模板 */
+            descriptionTemplate?: string;
+            /**
+             * Format: int32
+             * @description 优先级，数值越小优先级越高
+             */
+            priority?: number;
+            /** @description 是否启用 */
+            isEnabled?: boolean;
+            /** @description 适用范围 */
+            scope?: string;
+            /** @description 互斥组，同组规则仅命中一条 */
+            mutexGroup?: string;
+            /** @description 是否支持下钻查看详情 */
+            isDrilldownAvailable?: boolean;
+            /**
+             * Format: int32
+             * @description 版本号
+             */
+            version?: number;
+            /** @description 状态（DRAFT/PENDING_REVIEW/APPROVED/PUBLISHED/REJECTED） */
+            status?: string;
+            /** @description 租户 ID（多租户隔离，供搜索索引与权限过滤使用） */
+            tenantId?: string;
+            /**
+             * Format: date-time
+             * @description 生效起始时间
+             */
+            effectiveFrom?: string;
+            /**
+             * Format: date-time
+             * @description 生效结束时间
+             */
+            effectiveTo?: string;
+            /** @description 审批人 */
+            reviewedBy?: string;
+            /**
+             * Format: date-time
+             * @description 审批时间
+             */
+            reviewedAt?: string;
+            /** @description 审批意见 */
+            reviewComment?: string;
+            /** @description 灰度发布比例（0.0~1.0），1.0 表示全量发布 */
+            canaryRatio?: number;
+            /** @description 灰度条件描述 */
+            canaryConditions?: string;
+            /** @description 灰度条件表达式 */
+            canaryConditionExpression?: string;
+            /** @description 灰度严重度表达式 */
+            canarySeverityExpression?: string;
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 更新人 */
+            updatedBy?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description 规则版本视图对象（VO）。
+         *
+         *     用于前端展示规则单次版本快照的信息，包含版本号、定义 JSON、变更说明与操作人， 支撑版本查看与回溯。
+         */
+        RuleVersionVO: {
+            /** @description 版本记录唯一标识（主键） */
+            id?: string;
+            /** @description 规则编码 */
+            ruleCode?: string;
+            /**
+             * Format: int32
+             * @description 版本号
+             */
+            version?: number;
+            /** @description 该版本的规则定义 JSON 快照 */
+            definitionJson?: string;
+            /** @description 变更说明 */
+            changeDesc?: string;
+            /** @description 操作人 */
+            operator?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+        };
+        /**
+         * @description 规则版本差异视图对象（VO）。
+         *
+         *     用于前端展示单条规则两个版本之间的差异，既可整体呈现（版本号、差异条目列表、 摘要），也可逐字段呈现（类型、字段名、前后值）。
+         */
+        RuleVersionDiffVO: {
+            /**
+             * Format: int32
+             * @description 对比的源版本号（旧版本）
+             */
+            oldVersion?: number;
+            /**
+             * Format: int32
+             * @description 对比的目标版本号（新版本）
+             */
+            newVersion?: number;
+            /** @description 规则编码 */
+            ruleCode?: string;
+            /** @description 差异条目列表（每项为一个字段级差异对象） */
+            entries?: Record<string, never>[];
+            /** @description 差异整体摘要（如"修改了 3 个字段"） */
+            summary?: string;
+            /** @description 单条差异类型（如 MODIFY/ADD/REMOVE） */
+            type?: string;
+            /** @description 差异字段名（英文标识） */
+            field?: string;
+            /** @description 差异字段中文标签（展示用） */
+            fieldLabel?: string;
+            /** @description 变更前的值 */
+            oldValue?: string;
+            /** @description 变更后的值 */
+            newValue?: string;
+        };
+        /**
+         * @description 规则评估结果视图对象（VO）。
+         *
+         *     用于前端展示单次规则评估的输出：是否命中、严重级别、生成的告警标题/描述， 以及当前值、阈值、耗时与灰度桶来源，支撑告警展示与问题下钻。
+         */
+        RuleResultVO: {
+            /** @description 规则编码 */
+            ruleCode?: string;
+            /** @description 规则名称（展示用） */
+            ruleName?: string;
+            /** @description 规则分类 */
+            category?: string;
+            /** @description 是否命中触发（true=命中并产生告警） */
+            isTriggered?: boolean;
+            /** @description 命中严重级别（代码，如 HIGH/MEDIUM/LOW/INFO） */
+            severity?: string;
+            /** @description 命中严重级别枚举（可为 null） */
+            severityEnum?: Record<string, never>;
+            /** @description 告警标题（命中时根据模板生成） */
+            title?: string;
+            /** @description 告警描述 */
+            description?: string;
+            /** @description 当前实际值（用于与阈值对比展示） */
+            currentValue?: string;
+            /** @description 规则设定的判定阈值 */
+            threshold?: string;
+            /** @description 适用范围 */
+            scope?: string;
+            /**
+             * Format: date-time
+             * @description 命中时间
+             */
+            triggeredAt?: string;
+            /** @description 是否支持下钻查看命中详情 */
+            isDrilldownAvailable?: boolean;
+            /**
+             * Format: int64
+             * @description 评估耗时（毫秒）
+             */
+            elapsedMs?: number;
+            /** @description 命中所属桶（如 NORMAL/CANARY，标识来自全量还是灰度） */
+            canaryBucket?: string;
+            /** @description 是否灰度 */
+            isCanary?: boolean;
+            /** @description 收集的子结果 */
+            collectedResults?: components["schemas"]["RuleResultVO"][];
+            severityWeight?: string;
+            weight?: string;
+            code?: string;
+        };
+        /** @description TraceResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        TraceResult: Record<string, never>;
+        /**
+         * @description 表达式校验结果视图对象（VO）。
+         *
+         *     用于前端展示表达式语法/语义校验结果，包含是否通过、错误类型与精确的位置 （行/列），辅助业务人员定位并修正表达式错误。
+         */
+        ExpressionValidationResultVO: {
+            /** @description 是否校验通过（true=合法可保存） */
+            isValid?: boolean;
+            /** @description 错误类型（如 SYNTAX_ERROR / UNDEFINED_VARIABLE / TYPE_MISMATCH） */
+            errorType?: string;
+            /** @description 错误描述（中文说明） */
+            errorMessage?: string;
+            /**
+             * Format: int32
+             * @description 错误所在行号（从 1 开始，无错误为 0）
+             */
+            errorLine?: number;
+            /**
+             * Format: int32
+             * @description 错误所在列号（从 1 开始，无错误为 0）
+             */
+            errorColumn?: number;
+            /** @description 被校验的表达式原文 */
+            expression?: string;
+            /**
+             * Format: int64
+             * @description 解析耗时（毫秒，用于性能评估）
+             */
+            parseTimeMs?: number;
+        };
+        /**
+         * @description 规则引擎运行统计视图对象（VO）。
+         *
+         *     用于前端展示规则引擎的运行时指标，包含累计评估/命中/错误次数、耗时、 已注册规则数及单规则明细，支撑引擎健康度与性能监控。
+         */
+        RuleEngineStatsVO: {
+            /**
+             * Format: int64
+             * @description 累计评估次数（全部规则评估的总调用数）
+             */
+            totalEvaluations?: number;
+            /**
+             * Format: int64
+             * @description 累计命中次数
+             */
+            totalTriggered?: number;
+            /**
+             * Format: int64
+             * @description 累计错误次数（评估抛出异常的次数）
+             */
+            totalErrors?: number;
+            /**
+             * Format: int64
+             * @description 累计评估耗时（毫秒）
+             */
+            totalElapsedMs?: number;
+            /**
+             * Format: int32
+             * @description 当前已注册规则数
+             */
+            registeredRules?: number;
+            /**
+             * Format: int32
+             * @description 最近一次评估涉及的规则数
+             */
+            lastEvaluatedRules?: number;
+            /** @description 各规则统计明细（规则编码 → 统计对象） */
+            perRuleStats?: {
+                [key: string]: components["schemas"]["RuleStat"];
+            };
+            /**
+             * Format: int64
+             * @description 执行次数（与 totalEvaluations 并行的另一统计口径，用于交叉校验）
+             */
+            executions?: number;
+            /**
+             * Format: int64
+             * @description 命中次数（与 totalTriggered 并行的另一统计口径）
+             */
+            triggered?: number;
+            /**
+             * Format: int64
+             * @description 错误次数（与 totalErrors 并行的另一统计口径）
+             */
+            errors?: number;
+        };
+        /**
+         * @description 单规则统计明细（内部类）。
+         *
+         *     用于 #perRuleStats 的值类型，记录单条规则的执行统计。
+         */
+        RuleStat: {
+            /**
+             * Format: int64
+             * @description 执行次数
+             */
+            executions?: number;
+            /**
+             * Format: int64
+             * @description 命中次数
+             */
+            triggered?: number;
+            /**
+             * Format: int64
+             * @description 错误次数
+             */
+            errors?: number;
+            /**
+             * Format: int64
+             * @description 总耗时（毫秒）
+             */
+            totalElapsedMs?: number;
+        };
+        /**
+         * @description 规则分类树节点视图对象（VO）。
+         *
+         *     用于前端以树形结构展示规则分类（如按行业/模块分组）。 每个节点包含名称、层级路径、是否根节点及下属规则数量。
+         */
+        CategoryNodeVO: {
+            /** @description 分类节点名称（展示用） */
+            name?: string;
+            /** @description 分类层级路径（如 /行业/模块/子模块，用于回溯父级） */
+            path?: string;
+            /**
+             * Format: int32
+             * @description 节点深度（根节点为 0 或 1，逐级递增）
+             */
+            depth?: number;
+            /** @description 是否根节点（true=顶层分类） */
+            isRoot?: boolean;
+            /**
+             * Format: int32
+             * @description 该分类下的规则数量（含下级或仅本级，取决于聚合口径）
+             */
+            ruleCount?: number;
+        };
+        /**
+         * @description 规则冲突信息视图对象（VO）。
+         *
+         *     用于前端展示规则冲突检测结果：当两条规则在相同或相关字段上可能产生 相互矛盾的判定时，标记为冲突，并列出重叠字段与严重级别，辅助梳理规则集。
+         */
+        RuleConflictInfoVO: {
+            /** @description 冲突方规则 A 的编码 */
+            ruleA?: string;
+            /** @description 冲突方规则 A 的名称（展示用） */
+            ruleAName?: string;
+            /** @description 冲突方规则 B 的编码 */
+            ruleB?: string;
+            /** @description 冲突方规则 B 的名称（展示用） */
+            ruleBName?: string;
+            /** @description 两条规则重叠/冲突的字段名列表（如预算金额、进度等） */
+            overlapFields?: string[];
+            /** @description 冲突严重级别（如 HIGH/MEDIUM/LOW） */
+            severity?: string;
+        };
+        /**
+         * @description 决策表视图对象（VO）。
+         *
+         *     用于 Controller 层返回决策表的完整信息，包含决策表基本信息、命中策略、 优先级及审计字段。决策表是一种结构化的规则表达形式，以行列方式组织 条件与动作的映射关系。
+         */
+        DecisionTableVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 决策表唯一标识（主键） */
+            id?: string;
+            /** @description 决策表编码，业务唯一 */
+            tableCode?: string;
+            /** @description 决策表名称，用于展示 */
+            tableName?: string;
+            /** @description 决策表描述 */
+            description?: string;
+            /** @description 分类编码 */
+            category?: string;
+            /** @description 命中策略（UNIQUE/FIRST/PRIORITY/COLLECT/RULE_ORDER） */
+            hitPolicy?: string;
+            /** @description 是否启用 */
+            isEnabled?: boolean;
+            /**
+             * Format: int32
+             * @description 优先级，数值越小优先级越高
+             */
+            priority?: number;
+            /**
+             * Format: int32
+             * @description 版本号
+             */
+            version?: number;
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 更新人 */
+            updatedBy?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description 决策表定义视图对象（VO）。
+         *
+         *     用于前端配置与展示决策表的结构化定义，包含表头信息、条件列/动作列定义、 行数据（条件→动作映射）及默认动作。决策表以行列方式组织规则，便于业务人员维护。
+         */
+        DecisionTableDefinitionVO: {
+            /** @description 决策表编码（业务唯一标识） */
+            tableCode?: string;
+            /** @description 决策表名称（展示用） */
+            tableName?: string;
+            /** @description 决策表描述 */
+            description?: string;
+            /** @description 分类编码 */
+            category?: string;
+            /** @description 条件列定义列表（每列代表一个条件维度，如字段名/类型） */
+            conditionColumns?: Record<string, never>[];
+            /** @description 动作列定义列表（每列代表一个输出动作） */
+            actionColumns?: Record<string, never>[];
+            /** @description 决策表行数据（每行是条件组合到动作输出的映射） */
+            rows?: Record<string, never>[];
+            /** @description 默认动作（无行命中时执行，列名 → 值） */
+            defaultActions?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 适用范围（限定规则可生效的场景） */
+            scope?: string;
+            /** @description 节点名称（树形/视图展示用） */
+            name?: string;
+            /** @description 节点标签（展示标签） */
+            label?: string;
+            /** @description 类型（节点/表类型标识） */
+            type?: string;
+            /** @description 条件键值对（条件列名 → 表达式） */
+            conditions?: {
+                [key: string]: string;
+            };
+            /** @description 动作键值对（动作列名 → 值） */
+            actions?: {
+                [key: string]: Record<string, never>;
+            };
+        };
+        /**
+         * @description 规则依赖关系视图对象（VO）。
+         *
+         *     用于 Controller 层返回规则之间的依赖关系信息，包含依赖类型、级联禁用配置 及描述，支撑规则拓扑分析和依赖影响评估。
+         */
+        RuleDependencyVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 依赖记录唯一标识（主键） */
+            id?: string;
+            /** @description 规则编码 */
+            ruleCode?: string;
+            /** @description 被依赖的规则编码 */
+            dependsOnRuleCode?: string;
+            /** @description 依赖类型（HARD/SOFT/TRIGGER） */
+            dependencyType?: string;
+            /** @description 禁用被依赖规则时是否级联禁用本规则 */
+            isCascadeOnDisable?: boolean;
+            /** @description 依赖描述 */
+            description?: string;
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 更新人 */
+            updatedBy?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description 通用字符串包装视图对象（VO）。
+         *
+         *     用于接口返回单个字符串结果（如合并组 ID、用户 ID 列表等）， 避免直接返回裸 String 导致 JSON 反序列化歧义。
+         */
+        StringVO: {
+            /** @description 包装的字符串值 */
+            value?: string;
+        };
+        /**
+         * @description 规则链图视图对象（VO）。
+         *
+         *     用于 Controller 层返回规则链编排图的完整信息。规则链图以有向无环图（DAG） 方式编排多条规则的执行顺序，支持条件分支和并行执行，适用于复杂决策场景。
+         */
+        RuleChainGraphVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 链图唯一标识（主键） */
+            id?: string;
+            /** @description 关联的规则编码 */
+            ruleCode?: string;
+            /** @description 链图名称 */
+            name?: string;
+            /** @description 链图描述 */
+            description?: string;
+            /** @description 执行场景标识 */
+            scenario?: string;
+            /**
+             * Format: int32
+             * @description 图版本号
+             */
+            graphVersion?: number;
+            /** @description 状态（DRAFT/PUBLISHED） */
+            status?: string;
+            /** @description 图内容 JSON，包含节点和边定义 */
+            contentJson?: string;
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 更新人 */
+            updatedBy?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description 表达式预览结果视图对象（VO）。
+         *
+         *     用于前端实时预览某条表达式在给定事实下的求值结果， 包含求值结果值、类型、布尔判定及耗时，便于调试表达式。
+         */
+        ExpressionPreviewResultVO: {
+            /** @description 被预览的表达式原文 */
+            expression?: string;
+            /** @description 求值结果值（以字符串形式呈现，便于展示） */
+            value?: string;
+            /** @description 结果 Java 类型（如 Boolean/BigDecimal/String，用于前端格式化） */
+            javaType?: string;
+            /** @description 布尔型求值结果（条件表达式的真假判定） */
+            isBooleanValue?: boolean;
+            /**
+             * Format: int64
+             * @description 求值耗时（毫秒，用于性能评估）
+             */
+            elapsedMs?: number;
+            /** @description 求值错误信息（无错误时为空） */
+            error?: string;
+        };
+        /**
+         * @description 表达式函数定义视图对象（VO）。
+         *
+         *     用于前端展示规则表达式中可调用内置函数的元信息（名称、签名、示例等）， 辅助业务人员编写表达式并做语法提示。
+         */
+        ExpressionFunctionDefVO: {
+            /** @description 函数名称（表达式中实际调用的名字，如 add） */
+            name?: string;
+            /** @description 函数签名（形式参数声明，如 add(a, b)） */
+            signature?: string;
+            /** @description 函数功能说明（中文描述） */
+            description?: string;
+            /** @description 调用示例（如 add(1, 2)） */
+            sample?: string;
+            /** @description 函数分类（如 MATH/STRING/DATE，用于分组展示） */
+            category?: string;
+            /** @description 支持的表达式引擎（逗号分隔，如 LiteExpr/MVEL） */
+            supportedEngines?: string;
+        };
+        /**
+         * @description 审批记录视图对象（VO）。
+         *
+         *     用于前端展示某条规则在某审批流中的审批进度与状态。 每行对应一个规则的一次审批实例，记录当前所处层级与状态。
+         */
+        ApprovalRecordVO: {
+            /** @description 审批记录 ID（主键） */
+            recordId?: string;
+            /** @description 关联规则编码 */
+            ruleCode?: string;
+            /** @description 关联审批流编码 */
+            flowCode?: string;
+            /**
+             * Format: int32
+             * @description 当前审批层级（从 1 开始，表示在第几级审批）
+             */
+            currentLevel?: number;
+            /** @description 当前审批状态（如 PENDING/APPROVED/REJECTED） */
+            currentStatus?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description 审批流视图对象（VO）。
+         *
+         *     用于前端展示审批流配置，描述一条审批流的基础信息及其有序的审批步骤。 与后端 `ApprovalFlow` 领域对象一一对应，仅承载展示所需的字段。
+         */
+        ApprovalFlowVO: {
+            /** @description 审批流编码（业务唯一标识，用于关联规则与审批记录） */
+            flowCode?: string;
+            /** @description 审批流名称（展示用） */
+            name?: string;
+            /** @description 审批步骤列表（按审批顺序，每项为一个步骤配置对象） */
+            steps?: Record<string, never>[];
+            /** @description 是否启用（true=启用并参与审批，false=停用） */
+            isEnabled?: boolean;
+        };
+        /**
+         * @description 规则集安装结果视图对象（VO）。
+         *
+         *     用于前端展示一次规则集（知识包）安装的整体结果， 包含成功/失败计数及失败的规则编码，便于定位安装异常。
+         */
+        InstallResultVO: {
+            /** @description 规则集编码 */
+            packCode?: string;
+            /** @description 安装的目标版本号 */
+            version?: string;
+            /**
+             * Format: int32
+             * @description 待安装规则总数
+             */
+            total?: number;
+            /**
+             * Format: int32
+             * @description 安装成功数量
+             */
+            success?: number;
+            /**
+             * Format: int32
+             * @description 安装失败数量
+             */
+            failed?: number;
+            /** @description 安装失败的规则编码列表（便于逐一排查） */
+            failedCodes?: string[];
+        };
+        /**
+         * @description 规则集版本差异视图对象（VO）。
+         *
+         *     用于前端展示同一规则集在两个版本之间的规则变更情况， 包含新增、移除与修改的规则编码列表，支撑版本对比与升级预览。
+         */
+        PackDiffVO: {
+            /** @description 规则集编码 */
+            packCode?: string;
+            /** @description 对比的源版本号（旧版本） */
+            fromVersion?: string;
+            /** @description 对比的目标版本号（新版本） */
+            toVersion?: string;
+            /** @description 相对源版本新增的规则编码列表 */
+            added?: string[];
+            /** @description 相对源版本移除的规则编码列表 */
+            removed?: string[];
+            /** @description 相对源版本发生内容变更的规则编码列表 */
+            changed?: string[];
+        };
+        /** @description StressTestResult（占位：未找到 Java 源文件或内部类定义，可能为内部静态类或生成器扫描遗漏） */
+        StressTestResult: Record<string, never>;
+        /**
+         * @description 规则集更新信息视图对象（VO）。
+         *
+         *     用于前端展示已安装规则集是否有新版本可升级， 包含已安装版本与最新版本对比、是否有更新及安装时间等。
+         */
+        PackUpdateInfoVO: {
+            /** @description 规则集编码 */
+            packCode?: string;
+            /** @description 规则集名称（展示用） */
+            packName?: string;
+            /** @description 当前已安装版本号 */
+            installedVersion?: string;
+            /** @description 最新可用版本号 */
+            latestVersion?: string;
+            /** @description 是否存在可更新版本（true=有新版可升级） */
+            isHasUpdate?: boolean;
+            /**
+             * Format: date-time
+             * @description 安装时间
+             */
+            installedAt?: string;
+            /** @description 所属行业 */
+            industry?: string;
+            /** @description 规则集描述 */
+            description?: string;
+        };
+        /**
+         * @description 规则模板视图对象（VO）。
+         *
+         *     用于 Controller 层返回规则模板的完整信息。规则模板预置条件表达式、 严重度表达式和告警模板，用户基于模板快速创建规则，按行业和标签分类管理。
+         */
+        RuleTemplateVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 模板唯一标识（主键） */
+            id?: string;
+            /** @description 模板编码，业务唯一 */
+            templateCode?: string;
+            /** @description 模板名称 */
+            templateName?: string;
+            /** @description 分类编码 */
+            category?: string;
+            /** @description 模板描述 */
+            description?: string;
+            /** @description 预置条件表达式 */
+            conditionExpression?: string;
+            /** @description 预置严重度表达式 */
+            severityExpression?: string;
+            /** @description 默认严重级别 */
+            defaultSeverity?: string;
+            /** @description 告警标题模板 */
+            titleTemplate?: string;
+            /** @description 告警描述模板 */
+            descriptionTemplate?: string;
+            /**
+             * Format: int32
+             * @description 优先级，数值越小优先级越高
+             */
+            priority?: number;
+            /** @description 适用范围 */
+            scope?: string;
+            /** @description 所属行业 */
+            industry?: string;
+            /** @description 标签，逗号分隔 */
+            tags?: string;
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 更新人 */
+            updatedBy?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description 规则执行轨迹视图对象（VO）。
+         *
+         *     用于 Controller 层返回单次规则执行的完整轨迹信息，包含命中结果、 严重级别、条件求值结果、耗时及错误信息，支撑执行回放和问题排查。
+         */
+        RuleExecutionTraceVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 轨迹记录唯一标识（主键） */
+            id?: string;
+            /** @description 链路追踪 ID，用于关联同一次请求的多条轨迹 */
+            traceId?: string;
+            /** @description 规则编码 */
+            ruleCode?: string;
+            /** @description 规则名称 */
+            ruleName?: string;
+            /** @description 执行场景标识 */
+            scenario?: string;
+            /** @description 是否命中触发 */
+            isTriggered?: boolean;
+            /** @description 命中严重级别（HIGH/MEDIUM/LOW/INFO） */
+            severity?: string;
+            /** @description 条件表达式求值结果 */
+            conditionResult?: string;
+            /**
+             * Format: int64
+             * @description 执行耗时（毫秒）
+             */
+            elapsedMs?: number;
+            /** @description 错误信息（执行异常时填充） */
+            errorMessage?: string;
+            /** @description 事实数据快照（用于执行回放） */
+            factsSnapshot?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 结果快照 */
+            resultSnapshot?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 创建人 */
+            createdBy?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+            /** @description 更新人 */
+            updatedBy?: string;
+            /**
+             * Format: date-time
+             * @description 更新时间
+             */
+            updatedAt?: string;
+        };
+        /**
+         * @description CEP（复杂事件处理）模式视图对象（VO）。
+         *
+         *     用于前端配置与展示复杂事件模式，支持滚动窗口计数模式。与后端 `CEPPattern` 领域对象对应，仅承载展示所需字段。
+         */
+        CEPPatternVO: {
+            /** @description 模式 ID（业务唯一标识） */
+            id?: string;
+            /** @description 关联规则编码 */
+            ruleCode?: string;
+            /** @description 模式名称（展示用） */
+            name?: string;
+            /** @description 时间窗口长度（滚动窗口大小） */
+            window?: Record<string, never>;
+            /** @description 触发阈值（窗口内事件次数达到该值时触发） */
+            threshold?: number;
+            /** @description 关注的事件类型（模式只匹配该类型事件） */
+            eventType?: string;
+            /** @description 事件过滤表达式（对事件附加条件过滤） */
+            filter?: string;
+            /** @description 模式描述 */
+            description?: string;
+            /** @description 窗口类型（P0-F1 26.09.23）：TUMBLING(滚动窗口，不重叠) / SLIDING(滑动窗口，重叠)。默认 TUMBLING。 */
+            windowType?: string;
+            /** @description 聚合类型（P0-F1 26.09.23）：COUNT(计数) / SUM(求和) / AVG(平均值)。默认 COUNT。 */
+            aggregationType?: string;
+            /** @description 聚合字段（P0-F1 26.09.23）：SUM/AVG 模式下从事件 attributes 中取该字段做数值聚合。COUNT 模式忽略。 */
+            aggregationField?: string;
+        };
+        /**
+         * @description CEP（复杂事件处理）命中视图对象（VO）。
+         *
+         *     用于前端展示某条 CEP 模式被事件流命中的记录， 包含命中的模式、规则、匹配到的事件及命中时的度量值。
+         */
+        CEPHitVO: {
+            /** @description 命中的 CEP 模式 ID */
+            patternId?: string;
+            /** @description 关联规则编码 */
+            ruleCode?: string;
+            /** @description 命中的事件列表（按模式匹配到的原始/派生事件对象） */
+            matchedEvents?: Record<string, never>[];
+            /**
+             * Format: date-time
+             * @description 命中时间（Instant，事件流中的时间戳）
+             */
+            hitAt?: string;
+            /** @description 命中指标值（如窗口内聚合度量，用于排序/告警分级） */
+            metric?: number;
+            /** @description 命中上下文（附加维度信息，如项目/组织等） */
+            context?: {
+                [key: string]: Record<string, never>;
+            };
+        };
+        /**
+         * @description 审计日志条目视图对象（VO）。
+         *
+         *     用于前端展示规则变更的审计轨迹，包含操作人、操作类型、 变更前/后快照及字段级差异，便于合规追溯与问题排查。
+         */
+        AuditLogEntryVO: {
+            /** @description 审计日志条目 ID（主键） */
+            id?: string;
+            /** @description 关联规则编码 */
+            ruleCode?: string;
+            /** @description 规则名称（快照，便于展示） */
+            ruleName?: string;
+            /** @description 操作类型（如 CREATE/UPDATE/DELETE/TOGGLE） */
+            action?: string;
+            /** @description 操作人（用户名） */
+            operator?: string;
+            /** @description 操作来源（如 WEB/API，标识触发渠道） */
+            source?: string;
+            /** @description 变更说明（人工填写或系统生成的描述） */
+            changeDesc?: string;
+            /** @description 变更前快照（字段名 → 值），无变更前为空 */
+            beforeSnapshot?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 变更后快照（字段名 → 值） */
+            afterSnapshot?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 字段级差异（字段名 → 前后值对照） */
+            fieldDiffs?: {
+                [key: string]: Record<string, never>;
+            };
+            /** @description 操作结果（SUCCESS/FAIL） */
+            result?: string;
+            /** @description 失败时的错误信息（result=FAIL 时有效） */
+            errorMessage?: string;
+            /**
+             * Format: date-time
+             * @description 创建时间
+             */
+            createdAt?: string;
+        };
+        /**
+         * @description 规则引擎监控大盘 - 概览指标 VO
+         *
+         *     用于大盘首屏指标卡片展示，包含规则数量、触发率、耗时分布、错误率等核心指标。
+         */
+        RuleDashboardOverviewVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /**
+             * Format: int64
+             * @description 规则总数
+             */
+            totalRules?: number;
+            /**
+             * Format: int64
+             * @description 启用规则数
+             */
+            enabledRules?: number;
+            /** @description 按状态分组的规则数：DRAFT/REVIEW/PUBLISHED/DISABLED/ARCHIVED → 数量 */
+            statusDistribution?: {
+                [key: string]: number;
+            };
+            /** @description 按类别分组的规则数：category → 数量 */
+            categoryDistribution?: {
+                [key: string]: number;
+            };
+            /**
+             * Format: int64
+             * @description 今日评估次数
+             */
+            todayEvaluations?: number;
+            /**
+             * Format: int64
+             * @description 今日触发次数
+             */
+            todayTriggered?: number;
+            /** @description 今日触发率（0~1） */
+            todayTriggerRate?: number;
+            /**
+             * Format: int64
+             * @description 今日错误次数
+             */
+            todayErrors?: number;
+            /** @description 今日错误率（0~1） */
+            todayErrorRate?: number;
+            /**
+             * Format: int64
+             * @description 今日活跃规则数（有触发的规则）
+             */
+            todayActiveRules?: number;
+            /** @description P50 耗时（毫秒） */
+            p50ElapsedMs?: number;
+            /** @description P95 耗时（毫秒） */
+            p95ElapsedMs?: number;
+            /** @description P99 耗时（毫秒） */
+            p99ElapsedMs?: number;
+            /** @description 平均耗时（毫秒） */
+            avgElapsedMs?: number;
+            /** @description 统计时间窗口起始时间（含） */
+            since?: string;
+            /** @description 统计时间窗口结束时间（不含） */
+            until?: string;
+        };
+        /**
+         * @description 规则引擎监控大盘 - 趋势指标 VO
+         *
+         *     用于折线图展示触发次数、P99 耗时、错误率的时间序列趋势。
+         */
+        RuleDashboardTrendVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 时间维度标签：24h=按小时 / 7d=按天 / 30d=按天 */
+            timeRange?: string;
+            /** @description 时间点标签列表（X 轴），格式：24h→"HH:00" / 7d/30d→"MM-DD" */
+            timeLabels?: string[];
+            /** @description 评估次数序列（与 timeLabels 等长） */
+            evaluationSeries?: number[];
+            /** @description 触发次数序列 */
+            triggeredSeries?: number[];
+            /** @description 错误次数序列 */
+            errorSeries?: number[];
+            /** @description P99 耗时序列（毫秒） */
+            p99ElapsedSeries?: number[];
+            /** @description P50 耗时序列（毫秒） */
+            p50ElapsedSeries?: number[];
+            /** @description 错误率序列（0~1） */
+            errorRateSeries?: number[];
+            /** @description 触发率序列（0~1） */
+            triggerRateSeries?: number[];
+            /** @description 统计时间窗口起始时间（含） */
+            since?: string;
+            /** @description 统计时间窗口结束时间（不含） */
+            until?: string;
+        };
+        /**
+         * @description 规则引擎监控大盘 - 分布指标 VO
+         *
+         *     用于饼图展示规则在多个维度的分布情况。
+         */
+        RuleDashboardDistributionVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 按状态分布：DRAFT/REVIEW/PUBLISHED/DISABLED/ARCHIVED → 数量 */
+            byStatus?: {
+                [key: string]: number;
+            };
+            /** @description 按类别分布：category → 数量 */
+            byCategory?: {
+                [key: string]: number;
+            };
+            /** @description 按严重度分布（今日触发结果中）：RED/YELLOW/NORMAL → 数量 */
+            bySeverity?: {
+                [key: string]: number;
+            };
+            /** @description 按场景分布（今日触发结果中）：scenario → 数量 */
+            byScenario?: {
+                [key: string]: number;
+            };
+            /** @description 按租户分布：tenantId → 数量 */
+            byTenant?: {
+                [key: string]: number;
+            };
+            /** @description 按责任人分布：owner → 数量 */
+            byOwner?: {
+                [key: string]: number;
+            };
+            /** @description 状态分布条目列表（用于前端饼图直接渲染） */
+            statusPie?: components["schemas"]["PieItem"][];
+            /** @description 类别分布条目列表 */
+            categoryPie?: components["schemas"]["PieItem"][];
+            /** @description 严重度分布条目列表 */
+            severityPie?: components["schemas"]["PieItem"][];
+            /** @description 场景分布条目列表 */
+            scenarioPie?: components["schemas"]["PieItem"][];
+            /** @description 名称 */
+            name?: string;
+            /**
+             * Format: int64
+             * @description 数量
+             */
+            value?: number;
+        };
+        /** @description 饼图条目 */
+        PieItem: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 名称 */
+            name?: string;
+            /**
+             * Format: int64
+             * @description 数量
+             */
+            value?: number;
+        };
+        /**
+         * @description 规则引擎监控大盘 - Top 规则条目 VO
+         *
+         *     用于表格展示最活跃 / 最慢 / 错误率最高的规则。
+         */
+        RuleDashboardTopRuleVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /** @description 规则编码 */
+            ruleCode?: string;
+            /** @description 规则名称 */
+            ruleName?: string;
+            /** @description 规则类别 */
+            category?: string;
+            /** @description 责任人 */
+            owner?: string;
+            /** @description 是否启用 */
+            isEnabled?: boolean;
+            /** @description 默认严重度 */
+            defaultSeverity?: string;
+            /**
+             * Format: int64
+             * @description 评估次数
+             */
+            evaluations?: number;
+            /**
+             * Format: int64
+             * @description 触发次数
+             */
+            triggered?: number;
+            /**
+             * Format: int64
+             * @description 错误次数
+             */
+            errors?: number;
+            /** @description 触发率（0~1） */
+            triggerRate?: number;
+            /** @description 错误率（0~1） */
+            errorRate?: number;
+            /** @description 平均耗时（毫秒） */
+            avgElapsedMs?: number;
+            /** @description P99 耗时（毫秒） */
+            p99ElapsedMs?: number;
+            /**
+             * Format: int64
+             * @description 总耗时（毫秒）
+             */
+            totalElapsedMs?: number;
+        };
+        /**
+         * @description 规则引擎监控大盘 - 实时指标 VO
+         *
+         *     用于展示当前 QPS、活跃规则数等秒级实时指标。
+         */
+        RuleDashboardRealtimeVO: {
+            /** Format: int64 */
+            serialVersionUID?: number;
+            /**
+             * Format: int32
+             * @description 当前注册规则数（引擎内存中）
+             */
+            registeredRules?: number;
+            /**
+             * Format: int32
+             * @description 最近一次评估遍历的规则数
+             */
+            lastEvaluatedRules?: number;
+            /**
+             * Format: int64
+             * @description 最近 1 分钟评估次数
+             */
+            recentEvaluations?: number;
+            /**
+             * Format: int64
+             * @description 最近 1 分钟触发次数
+             */
+            recentTriggered?: number;
+            /**
+             * Format: int64
+             * @description 最近 1 分钟错误次数
+             */
+            recentErrors?: number;
+            /** @description 当前 QPS（次/秒） */
+            currentQps?: number;
+            /**
+             * Format: int64
+             * @description 当前活跃规则数（最近 1 分钟有触发的规则）
+             */
+            activeRules?: number;
+            /**
+             * Format: int32
+             * @description Trace 队列积压
+             */
+            traceQueueSize?: number;
+            /**
+             * Format: int64
+             * @description 服务器当前时间戳（毫秒）
+             */
+            timestamp?: number;
+        };
+        /**
+         * @description 规则 DSL（领域特定语言）视图对象（VO）。
+         *
+         *     用于承载一次 DSL 导入/导出解析后的结构，包含规则定义列表、规则链列表及元信息。 DSL 以文本化的方式批量描述规则与编排，便于版本管理与跨环境迁移。
+         */
+        RuleDslVO: {
+            /** @description DSL 中定义的规则列表（每项为一个规则定义对象） */
+            rules?: Record<string, never>[];
+            /** @description DSL 中定义的规则链列表（每项为一个链编排对象） */
+            chains?: Record<string, never>[];
+            /** @description DSL 元信息（如版本、作者、来源等键值对） */
+            meta?: {
+                [key: string]: Record<string, never>;
+            };
+        };
+        /**
+         * @description 变量定义视图对象（VO）。
+         *
+         *     用于前端展示规则表达式中可引用变量的元信息（名称、类型、示例值、分类）， 支撑规则编辑时的变量提示与校验。
+         */
+        VariableDefinitionVO: {
+            /** @description 变量名称（表达式中引用的标识） */
+            name?: string;
+            /** @description 变量类型（STRING/NUMBER/BOOLEAN/DATE 等） */
+            type?: string;
+            /** @description 变量描述（中文说明） */
+            description?: string;
+            /** @description 示例值（用于前端预览与默认值提示） */
+            sampleValue?: Record<string, never>;
+            /** @description 变量分类（来源模块，如 EVM/PROJECT/FINANCE） */
+            category?: string;
+        };
     };
-    /**
-     * @description 规则 A/B 测试策略 DTO（统一新增/修改）。
-     *
-     *     创建时 `id` 字段不传，更新时传入 `id`。
-     */
-    RuleABPolicyDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 策略唯一标识（主键，更新时传入） */
-      id?: string;
-      /** @description 关联的规则编码 */
-      ruleCode?: string;
-      /** @description 是否启用自动回滚 */
-      autoRollbackEnabled?: boolean;
-      /** @description 回滚动作（AUTO/NOTIFY） */
-      rollbackAction?: string;
-      /** @description 错误率阈值，超过此值触发自动回滚 */
-      errorRateThreshold?: number;
-      /**
-       * Format: int32
-       * @description 最小样本量，样本不足时不触发回滚
-       */
-      minSampleSize?: number;
-      /**
-       * Format: int32
-       * @description 评估窗口（分钟）
-       */
-      checkWindowMinutes?: number;
-      /** @description 通知渠道，逗号分隔 */
-      notifyChannels?: string;
-      /** @description 策略描述 */
-      description?: string;
-    };
-    /**
-     * @description 分页响应信封（YdszResponse 的子类型）。
-     *
-     *     将分页元信息（total / pageNum / pageSize）收口到专用的分页响应类型中， 使 YdszResponse
-     *     不再承担分页职责，同时提供类型明确的返回对象， 便于 Controller 声明 `PageResponse<UserVO>` 或 {@code
-     *     YdszResponse<PageResponse<UserVO>>}。
-     *
-     *     本类是 API 响应信封，用于 Controller 层返回分页数据。 新代码请直接返回 `PageResponse<T>`。
-     *
-     *     迁移提示：YdszResponse 上的分页字段与 `successPage()/emptyPage()` 方法已于 26.09.01
-     *     移除。新代码请直接返回 `PageResponse<T>`。
-     *
-     *     @param <T> 数据元素的类型
-     */
-    PageResponse: {
-      /**
-       * Format: int64
-       * @description 总记录数。
-       */
-      total?: number;
-      /**
-       * Format: int64
-       * @description 当前页码（从 1 开始）。
-       */
-      pageNum?: number;
-      /**
-       * Format: int64
-       * @description 每页记录数。
-       */
-      pageSize?: number;
-      /**
-       * @description 下一页游标（null 表示已无更多数据）。
-       *
-       *     仅游标分页模式有效，偏移量模式下为 null。
-       */
-      nextCursor?: string;
-      /**
-       * @description 是否有下一页。
-       *
-       *     仅游标分页模式有效，偏移量模式下参考 #getPages() 与当前 pageNum 判断。
-       */
-      hasMore?: boolean;
-      pages?: string;
-    };
-    /**
-     * @description 分页查询参数封装类。
-     *
-     *     承载分页查询的请求参数（页码、页大小、排序项），提供偏移量计算、 排序操作、游标模式判定等基础能力。深度分页风险评估已解耦至 PageQueryRiskAssessor。
-     */
-    PageQuery: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /**
-       * Format: int32
-       * @description 当前页码（从1开始）。
-       */
-      pageNum?: number;
-      /**
-       * Format: int32
-       * @description 每页显示条数。
-       */
-      pageSize?: number;
-      /** @description 排序项列表（结构化 OrderItem）。 */
-      orderItems?: ('ASC' | 'DESC')[];
-      /**
-       * @description 游标分页游标值（可选，启用 seek 模式）。
-       *
-       *     与 offset 分页互斥：当 cursor 非空时，业务层应按 `WHERE id > :cursor` 模式查询，跳过 offset 扫描。
-       */
-      cursor?: string;
-      orderCount?: string;
-      offset?: string;
-      offsetLong?: string;
-      effectivePageSize?: string;
-      effectivePageNum?: string;
-      startRow?: string;
-      endRow?: string;
-    };
-    /**
-     * @description 规则定义（元数据）
-     *
-     *     描述一条可配置规则的完整元信息，支持从数据库加载或编程式创建。 conditionExpression 为 LiteExpr 表达式，返回 boolean；actionExpression
-     *     可选，用于动态生成结果描述。
-     */
-    RuleDefinitionDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 规则编码（唯一） */
-      code?: string;
-      /** @description 规则名称 */
-      name?: string;
-      /** @description 规则类别 */
-      category?: string;
-      /**
-       * @description 分类路径（P1-9 规则目录树）
-       *
-       *     多级分类用 `/` 分隔，如 `"finance/credit/loan"`。前端左侧树按此字段构建。 兼容：category
-       *     保留作为一级分类，categoryPath 可空（空时按 category 显示）。
-       */
-      categoryPath?: string;
-      /**
-       * @description 责任人（P1-9 规则目录树）
-       *
-       *     工号/用户名。Owner 在以下场景使用：
-       *
-       *
-       *     规则异常告警通知（执行失败率突增、连续 N 次未命中）
-       *     AB Test 自动回滚后的通知
-       *     规则巡检/审核派单
-       */
-      owner?: string;
-      /** @description 规则描述 */
-      description?: string;
-      /**
-       * @description 条件表达式（LiteExpr 语法）
-       *
-       *     示例：`evmRedCount >= 3` 或 `grossMargin < 0.05 && confirmedRevenue > 0`
-       */
-      conditionExpression?: string;
-      /**
-       * @description 严重度表达式（LiteExpr 语法，可选）
-       *
-       *     当条件满足时，根据上下文动态决定严重度。 示例：`benchIdleCost >= 1000000 ? 'RED' : 'YELLOW'` 为空时使用 {@link
-       *     #defaultSeverity}
-       */
-      severityExpression?: string;
-      /**
-       * @description 默认严重度（当 severityExpression 为空时使用）
-       * @enum {string}
-       */
-      defaultSeverity?: never;
-      /** @description 标题模板（支持 ${var} 占位符） */
-      titleTemplate?: string;
-      /** @description 描述模板（支持 ${var} 占位符） */
-      descriptionTemplate?: string;
-      /**
-       * Format: int32
-       * @description 优先级（数值越小越先执行）
-       */
-      priority?: number;
-      /** @description 是否启用 */
-      isEnabled?: boolean;
-      /** @description 影响范围 */
-      scope?: string;
-      /**
-       * @description 互斥组名称
-       *
-       *     同组内首个命中的规则执行后，其余规则跳过评估。null 表示无互斥组。
-       */
-      mutexGroup?: string;
-      /** @description 是否可下钻 */
-      drilldownAvailable?: boolean;
-      /**
-       * Format: int32
-       * @description 当前版本号
-       */
-      version?: number;
-      /**
-       * @description 租户 ID
-       *
-       *     多租户隔离标识，单租户部署下默认为 1。 1.5.0 起启用运行时租户过滤：{@link
-       *     com.njydsz.literule.server.core.DefaultRuleEngine} 在评估前会比较 `rule.getTenantId()` 与 {@link
-       *     RuleContextVO#getTenantId()}， 仅当两者匹配时才评估该规则。
-       */
-      tenantId?: string;
-      /**
-       * @description 环境标识（dev/staging/prod/default）
-       *
-       *     与 #tenantId 正交，实现多环境规则隔离（P1-5）。
-       *
-       *
-       *     `"default"`（默认）- 全环境生效，向后兼容
-       *     `"dev"` / `"staging"` / `"prod"` - 仅匹配同环境的上下文
-       *
-       *
-       *     过滤规则：规则的 environment 为 `"default"` 时匹配任何上下文环境； 非 `"default"` 时必须与 {@link
-       *     RuleContextVO#getEnvironment()} 完全匹配。
-       */
-      environment?: string;
-      /** @description 生命周期状态 */
-      status?: string;
-      /**
-       * Format: date-time
-       * @description 生效时间
-       */
-      effectiveFrom?: string;
-      /**
-       * Format: date-time
-       * @description 失效时间
-       */
-      effectiveTo?: string;
-      /** @description 审核人 */
-      reviewedBy?: string;
-      /**
-       * Format: date-time
-       * @description 审核时间
-       */
-      reviewedAt?: string;
-      /** @description 审核意见 */
-      reviewComment?: string;
-      /**
-       * @description 灰度比例（0.0~1.0，0 表示不启用灰度）
-       *
-       *     当 canaryRatio > 0 且存在候选版本（canaryDefinition 非空）时， 引擎按此比例将流量分到候选版本。
-       */
-      canaryRatio?: number;
-      /**
-       * @description 灰度条件（LiteExpr 表达式列表，AND 关系）
-       *
-       *     仅当 canaryRatio > 0 时生效；满足全部条件才进入灰度流量分桶。 示例：{@code ["tenantId == 'T001'", "userRole ==
-       *     'ADMIN'"]} 为空时仅按 canaryRatio 比例分桶。
-       */
-      canaryConditions?: string[];
-      /**
-       * @description 灰度候选版本表达式（条件/严重度表达式，覆盖主版本）
-       *
-       *     当流量被分到灰度桶时，使用此候选表达式构造一条临时规则进行评估， 结果会被标记 com.njydsz.literule.domain.vo.RuleResultVO#isCanary() = true，便于运营对比新旧命中差异。
-       */
-      canaryConditionExpression?: string;
-      /** @description 灰度候选版本的严重度表达式 */
-      canarySeverityExpression?: string;
-    };
-    /**
-     * @description 表达式校验请求体 DTO
-     *
-     *     用于 `/rules/validate-expression` 接口，校验条件/严重度/模板表达式。
-     */
-    ExpressionValidateDTO: {
-      /** @description 表达式内容 */
-      expression?: string;
-      /** @description 表达式类型：condition / severity / template，默认 condition */
-      type?: string;
-    };
-    /**
-     * @description A/B 测试请求体 DTO
-     *
-     *     用于 `/rules/{ruleCode`/ab-test} 接口：基于当前规则与候选规则定义， 对同一份事实数据分别评估，
-     *     输出对比报告（触发差异 / 严重度差异 / 建议结论）。
-     *
-     *     候选规则通常由前端基于当前规则克隆并修改条件/严重度表达式后提交， 服务端仅做评估对比，不落库、不发布事件、不记录统计。
-     */
-    RuleABTestDTO: {
-      candidate?: components['schemas']['RuleDefinitionDTO'];
-      /** @description 测试用事实数据（同一份 facts 分别评估当前规则与候选规则） */
-      facts?: {
-        [key: string]: Record<string, never>;
-      };
-    };
-    /**
-     * @description 规则批量启停请求体 DTO
-     *
-     *     用于 `/rules/batch-toggle` 接口，批量启用/停用规则。 启用时校验 status=PUBLISHED，未发布的规则不能启用。
-     */
-    RuleBatchToggleDTO: {
-      /** @description 规则编码列表 */
-      ruleCodes?: string[];
-      /** @description 是否启用（true=启用，false=停用） */
-      isEnabled?: boolean;
-    };
-    /**
-     * @description 规则批量优先级调整请求体 DTO
-     *
-     *     用于 `/rules/batch-priority` 接口，批量调整规则优先级。 `delta` 为增量（可为负），最终优先级钳制在 0-100 范围。
-     */
-    RuleBatchPriorityDTO: {
-      /** @description 规则编码列表 */
-      ruleCodes?: string[];
-      /**
-       * Format: int32
-       * @description 优先级增量（可为负，最终优先级钳制 0-100）
-       */
-      delta?: number;
-    };
-    /**
-     * @description 规则批量分类调整请求体 DTO
-     *
-     *     用于 `/rules/batch-category` 接口，批量调整规则分类。
-     */
-    RuleBatchCategoryDTO: {
-      /** @description 规则编码列表 */
-      ruleCodes?: string[];
-      /** @description 目标分类 */
-      category?: string;
-    };
-    /**
-     * @description 决策表请求 DTO（统一新增/修改）。
-     *
-     *     创建时 `id` 字段不传，更新时传入 `id`。
-     */
-    DecisionTableDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /**
-       * Format: int64
-       * @description 决策表 ID（更新时传入）
-       */
-      id?: number;
-      /** @description 决策表编码，业务唯一 */
-      tableCode?: string;
-      /** @description 决策表名称 */
-      tableName?: string;
-      /** @description 决策表描述 */
-      description?: string;
-      /** @description 分类编码 */
-      category?: string;
-      /** @description 条件列定义列表 */
-      conditionColumns?: {
-        [key: string]: Record<string, never>;
-      }[];
-      /** @description 动作列定义列表 */
-      actionColumns?: {
-        [key: string]: Record<string, never>;
-      }[];
-      /** @description 决策行数据列表 */
-      rows?: {
-        [key: string]: Record<string, never>;
-      }[];
-      /** @description 默认动作（无匹配行时执行） */
-      defaultActions?: {
-        [key: string]: Record<string, never>;
-      };
-      /** @description 命中策略（UNIQUE/FIRST/PRIORITY/COLLECT/ANY/RULE_ORDER） */
-      hitPolicy?: string;
-      /** @description 是否启用 */
-      isEnabled?: boolean;
-      /**
-       * Format: int32
-       * @description 优先级，数值越小优先级越高
-       */
-      priority?: number;
-      /**
-       * Format: int32
-       * @description 版本号
-       */
-      version?: number;
-    };
-    /**
-     * @description 规则依赖新增请求体 DTO
-     *
-     *     用于 `/rules/{ruleCode`/dependencies} 接口，为规则添加依赖关系 （依赖另一条规则的执行结果，支持级联禁用）。
-     */
-    RuleDependencyAddDTO: {
-      /** @description 被依赖的规则编码 */
-      dependsOnRuleCode?: string;
-      /** @description 依赖类型：EXECUTE / DATA，默认 EXECUTE */
-      dependencyType?: string;
-      /** @description 被依赖规则禁用时是否级联禁用本规则，默认 false */
-      cascadeOnDisable?: boolean;
-      /** @description 依赖关系描述（可选） */
-      description?: string;
-    };
-    /**
-     * @description 可视化规则链编排画布图 DTO（P2-1）
-     *
-     *     规则链画布的完整元数据模型，由 ChainNodeDTO 节点集合、 ChainEdgeDTO 连线集合以及画布视口元数据组成。
-     *     支撑前端可视化规则编排画布的"画布持久化"能力：
-     *
-     *
-     *     规则链可视化编辑（拖拽节点、连线、布局自动对齐）
-     *     规则链版本回放（按 graphId 拉取历史画布快照）
-     *     规则链导入导出（导出为 JSON，跨环境同步）
-     *
-     *
-     *     该 DTO 与 RuleChain 的关系：
-     *
-     *
-     *     RuleChain：运行时执行模型，承载规则编排语义（THEN/WHEN/IF...），不含布局信息
-     *     RuleChainGraph：可视化元数据模型，承载画布节点位置和连线，不参与运行时执行
-     *
-     *
-     *     通过 ChainGraphConverter 可在 RuleChain 与 RuleChainGraph 之间双向转换： RuleChain → Graph
-     *     提取结构骨架（不包含位置），Graph → RuleChain 还原可执行编排。
-     *
-     *     典型用法：
-     *
-     *     <pre>
-     *     RuleChainGraph graph = RuleChainGraph.builder()
-     *     .graphId("graph-1")
-     *     .name("CPI 预警链")
-     *     .scenario("EVM")
-     *     .nodes(List.of(node1, node2))
-     *     .edges(List.of(edge1))
-     *     .viewport(new RuleChainGraph.Viewport(0, 0, 1.0))
-     *     .build();
-     *     </pre>
-     */
-    RuleChainGraph: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 画布 ID（全局唯一） */
-      graphId?: string;
-      /** @description 画布名称（如"CPI 预警链-2024Q1"） */
-      name?: string;
-      /** @description 关联规则编码（一对一，P0-1 增强：作为画布查询的 key） */
-      ruleCode?: string;
-      /** @description 画布描述 */
-      description?: string;
-      /** @description 适用场景（与 RuleContextVO.scenario 对应） */
-      scenario?: string;
-      /** @description 租户 ID（多租户隔离，P1-3） */
-      tenantId?: string;
-      /** @description 画布版本号（语义化版本，如 26.09.01、26.09.01-SNAPSHOT） */
-      version?: string;
-      /** @description 画布状态：DRAFT / PUBLISHED / ARCHIVED（与 RuleStatus 对齐） */
-      status?: string;
-      /** @description 节点列表 */
-      nodes?: components['schemas']['ChainNodeDTO'][];
-      /** @description 连线列表 */
-      edges?: components['schemas']['ChainEdgeDTO'][];
-      /** @description 画布视口（前端缩放和平移状态） */
-      viewport?: Record<string, never>;
-      /** @description 画布元数据扩展（如作者、标签、自定义属性） */
-      metadata?: {
-        [key: string]: Record<string, never>;
-      };
-      /**
-       * Format: date-time
-       * @description 创建时间
-       */
-      createdAt?: string;
-      /**
-       * Format: date-time
-       * @description 最后更新时间
-       */
-      updatedAt?: string;
-      /** @description 创建人 */
-      createdBy?: string;
-      /** @description 最后更新人 */
-      updatedBy?: string;
-      x?: number;
-      y?: number;
-      zoom?: number;
-    };
-    /**
-     * @description 可视化规则链编排画布节点 DTO（P2-1）
-     *
-     *     描述规则链画布上的一个节点，包含节点在画布上的位置坐标、引用的规则或子链、 节点形态（单规则 / 子链 / 规则组）以及前端渲染所需的扩展元数据。
-     *
-     *     该 DTO 仅承载可视化元数据，与 RuleNode 的运行时编排节点分离， 避免可视化布局信息污染运行时执行模型。
-     *
-     *     典型用法：
-     *
-     *     <pre>
-     *     ChainNodeDTO node = ChainNodeDTO.builder()
-     *     .nodeId("node-1")
-     *     .nodeType("SINGLE")
-     *     .label("CPI 预警")
-     *     .ruleCode("CPI_WARN")
-     *     .position(new ChainNodeDTO.Position(120, 80))
-     *     .build();
-     *     </pre>
-     */
-    ChainNodeDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 节点 ID（画布内唯一，前端生成的 uuid 或后端分配的有序 id） */
-      nodeId?: string;
-      /** @description 节点形态：SINGLE / CHAIN / GROUP（对应 RuleNode.NodeType） */
-      nodeType?: string;
-      /** @description 节点显示标签（默认取规则名称） */
-      label?: string;
-      /** @description 引用的规则编码（nodeType=SINGLE 时必填） */
-      ruleCode?: string;
-      /** @description 引用的规则名称（便于画布展示，避免每次反查规则定义） */
-      ruleName?: string;
-      /** @description 引用的规则类别（EVM / COST / BENCH 等，用于前端按类别着色） */
-      category?: string;
-      /** @description 子链类型（nodeType=CHAIN 时有效，对应 RuleChainType：THEN/WHEN/IF/ELIF/SWITCH） */
-      chainType?: string;
-      /** @description 父节点 ID（嵌套链时使用，根节点为 null） */
-      parentNodeId?: string;
-      /** @description 节点位置坐标（画布坐标系，左上角为原点） */
-      position?: Record<string, never>;
-      /** @description 节点尺寸（可选，前端可按默认尺寸渲染） */
-      size?: Record<string, never>;
-      /** @description 节点样式扩展（颜色、图标等，前端自定义） */
-      style?: {
-        [key: string]: Record<string, never>;
-      };
-      /** @description 业务扩展字段（如分支条件、循环变量名等，按 chainType 解释） */
-      metadata?: {
-        [key: string]: Record<string, never>;
-      };
-      x?: number;
-      y?: number;
-      width?: number;
-      height?: number;
-    };
-    /**
-     * @description 可视化规则链编排画布连线 DTO（P2-1）
-     *
-     *     描述画布上两个节点之间的连接关系，承载与 RuleChain 编排语义对应的连线类型：
-     *
-     *
-     *     THEN - 顺序流：source 执行完毕后执行 target
-     *     IF_BRANCH - 条件分支：source 是 IF/ELIF 节点，target 是分支动作节点， condition 字段携带分支条件表达式
-     *     SWITCH_BRANCH - 分支选择：source 是 SWITCH 节点，target 是分支节点， branchValue 字段携带分支 key
-     *     DEFAULT_BRANCH - 默认分支：SWITCH/ELIF 未命中时执行的兜底分支
-     *     GROUP_MEMBER - 组成员：source 是 GROUP 节点，target 是组成员节点
-     *
-     *
-     *     连线本身不参与运行时执行（执行由 RuleChain 内部逻辑驱动）， 仅作为可视化布局元数据，便于前端画布渲染和后端持久化。
-     */
-    ChainEdgeDTO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 边 ID（画布内唯一） */
-      edgeId?: string;
-      /** @description 起点节点 ID */
-      sourceNodeId?: string;
-      /** @description 终点节点 ID */
-      targetNodeId?: string;
-      /** @description 边类型：THEN / IF_BRANCH / SWITCH_BRANCH / DEFAULT_BRANCH / GROUP_MEMBER */
-      edgeType?: string;
-      /** @description 边显示标签（如 "amount > 1000" 或 "type=A"） */
-      label?: string;
-      /** @description 条件表达式（IF_BRANCH / ELIF 分支时携带） */
-      condition?: string;
-      /** @description 分支值（SWITCH_BRANCH 时携带，对应 facts 中 branchKey 取值） */
-      branchValue?: string;
-      /** @description 边样式扩展（线型、颜色、箭头样式等，前端自定义） */
-      style?: {
-        [key: string]: Record<string, never>;
-      };
-      /** @description 业务扩展字段 */
-      metadata?: {
-        [key: string]: Record<string, never>;
-      };
-    };
-    /**
-     * @description 规则导入请求体 DTO
-     *
-     *     用于 `/rules/import` 接口，批量导入规则定义。
-     *
-     *     注意：`rules` 保留 `List<Map<String, Object>>` 形式，因为每条规则的字段 由前端导出格式决定，需通过 {@code
-     *     objectMapper.convertValue} 转为 com.njydsz.literule.domain.api.RuleDefinitionDTO，且导入时容错（单条失败跳过）。
-     */
-    RuleImportDTO: {
-      /** @description 待导入的规则列表（每条为规则定义的 JSON 对象） */
-      rules?: {
-        [key: string]: Record<string, never>;
-      }[];
-    };
-    /**
-     * @description 规则状态变更请求体 DTO
-     *
-     *     用于 `/rules/{ruleCode`/status} 接口，切换规则生命周期状态 （DRAFT / REVIEW / PUBLISHED / ARCHIVED 等）。
-     */
-    RuleStatusChangeDTO: {
-      /** @description 目标状态（RuleStatus 枚举名，如 PUBLISHED / ARCHIVED） */
-      targetStatus?: string;
-      /** @description 变更备注（审批意见/驳回理由等，可选） */
-      comment?: string;
-    };
-    /**
-     * @description 规则审批通过请求体 DTO
-     *
-     *     用于 `/rules/{ruleCode`/approve} 接口，将规则从 DRAFT/REVIEW 状态变更为 PUBLISHED，并记录审批人、审批时间、审批意见。
-     */
-    RuleApproveDTO: {
-      /** @description 审批意见（可选） */
-      comment?: string;
-    };
-    /**
-     * @description 规则审批驳回请求体 DTO
-     *
-     *     用于 `/rules/{ruleCode`/reject} 接口，将规则从 DRAFT/REVIEW/PUBLISHED 状态变更为 ARCHIVED，并记录驳回理由。
-     */
-    RuleRejectDTO: {
-      /** @description 驳回理由（必填） */
-      reason?: string;
-    };
-    /**
-     * @description 规则提交审核请求体 DTO（P1-3 多级审批流）
-     *
-     *     用于 `/rules/{ruleCode`/submit-review} 接口，将规则从 DRAFT 状态 提交到指定审批流的第一级。flowCode 为空时使用默认 2
-     *     级审批流。
-     */
-    RuleSubmitReviewDTO: {
-      /** @description 审批流编码（可选，为空时使用默认 2 级审批流 default-2level） */
-      flowCode?: string;
-    };
-    /**
-     * @description 规则审批委托请求体 DTO（P1-3 多级审批流）
-     *
-     *     用于 `/rules/{ruleCode`/delegate} 接口，将当前级别的审批权委托给他人。
-     */
-    RuleDelegateDTO: {
-      /** @description 被委托人工号（必填） */
-      delegatedTo?: string;
-      /** @description 委托说明（可选） */
-      comment?: string;
-    };
-    /**
-     * @description 规则包视图对象（VO）。
-     *
-     *     用于 Controller 层返回规则包的完整信息。规则包是行业级规则集合的封装， 支持版本管理、规则快照、评分和下载统计，实现规则的复用与共享。
-     */
-    RulePackVO: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 规则包唯一标识（主键） */
-      id?: string;
-      /** @description 规则包编码，业务唯一 */
-      packCode?: string;
-      /** @description 规则包版本号 */
-      packVersion?: string;
-      /** @description 规则包名称 */
-      packName?: string;
-      /** @description 所属行业（如 finance/ecommerce/healthcare） */
-      industry?: string;
-      /** @description 标签，逗号分隔 */
-      tags?: string;
-      /** @description 包含的规则编码列表，逗号分隔 */
-      ruleCodes?: string;
-      /** @description 规则快照 JSON，保存发布时的规则定义副本 */
-      ruleSnapshots?: string;
-      /** @description 前一版本号 */
-      previousVersion?: string;
-      /** @description 规则包描述 */
-      description?: string;
-      /** @description 作者 */
-      author?: string;
-      /**
-       * Format: int64
-       * @description 下载次数
-       */
-      downloadCount?: number;
-      /** @description 评分（0~5） */
-      rating?: number;
-      /** @description 是否启用 */
-      isEnabled?: boolean;
-      /** @description 是否为官方包 */
-      official?: boolean;
-      /** @description 创建人 */
-      createdBy?: string;
-      /**
-       * Format: date-time
-       * @description 创建时间
-       */
-      createdAt?: string;
-      /** @description 更新人 */
-      updatedBy?: string;
-      /**
-       * Format: date-time
-       * @description 更新时间
-       */
-      updatedAt?: string;
-    };
-    /**
-     * @description CEP 模式定义
-     *
-     *     支持滚动窗口计数模式：当窗口内匹配的事件数达到阈值时触发。
-     *
-     *     例如：
-     *
-     *     <pre>
-     *     Pattern: 检测 "3 分钟内 5 次登录失败"
-     *     - eventType: LOGIN_FAILED
-     *     - window: 3 分钟
-     *     - threshold: 5
-     *     </pre>
-     */
-    CEPPattern: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 模式唯一标识 */
-      id?: string;
-      /** @description 关联的规则编码（命中模式时触发的规则） */
-      ruleCode?: string;
-      /** @description 模式名称（中文） */
-      name?: string;
-      /** @description 时间窗口长度 */
-      window?: Record<string, never>;
-      /** @description 触发阈值（窗口内事件次数达到此值时触发） */
-      threshold?: number;
-      /** @description 事件类型（单事件类型匹配） */
-      eventType?: string;
-      /** @description 事件类型列表（多类型 OR 匹配，如 LOGIN_FAILED 或 LOGIN_TIMEOUT） */
-      eventTypes?: string[];
-      /** @description 事件过滤条件（LiteExpr 表达式，可访问 $event.attr('xxx')） */
-      filter?: string;
-      /** @description 描述 */
-      description?: string;
-    };
-    /**
-     * @description 变量定义元数据
-     *
-     *     描述规则表达式中可引用的变量，包括名称、类型、描述、示例值等。 由 VariableRegistry 提供，供 {@link
-     *     ExpressionValidationService} 做 UNDEFINED_VARIABLE 校验。
-     */
-    VariableDefinition: {
-      /** Format: int64 */
-      serialVersionUID?: number;
-      /** @description 变量名（如 cpi / budgetAmount / evmRedCount） */
-      name?: string;
-      /** @description 变量类型（String / Number / Boolean 等） */
-      type?: string;
-      /** @description 变量描述（中文，供前端编辑器提示） */
-      description?: string;
-      /** @description 示例值（用于前端编辑器预览和 dryRun 默认 facts） */
-      sampleValue?: Record<string, never>;
-      /** @description 变量来源类别（如 EVM / PROJECT / FINANCE / BENCH 等） */
-      category?: string;
-      /** @description 是否必填（前端编辑器可标记必填变量） */
-      isRequired?: boolean;
-      simpleType?: string;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 };
 export type $defs = Record<string, never>;
 export interface operations {
-  getABPolicy: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  updateABPolicy: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleABPolicyDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listRollbackHistory: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  evaluateAB: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  manualRollback: {
-    parameters: {
-      query?: {
-        reason?: string;
-      };
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: {
-        pageQuery?: components['schemas']['PageQuery'];
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['PageResponse'];
-        };
-      };
-    };
-  };
-  save: {
-    parameters: {
-      query?: {
-        changeDesc?: string;
-      };
-      header?: {
-        operator?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleDefinitionDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  deleteRule: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  toggle: {
-    parameters: {
-      query?: {
-        isEnabled?: boolean;
-      };
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listVersions: {
-    parameters: {
-      query?: {
-        pageQuery?: components['schemas']['PageQuery'];
-      };
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['PageResponse'];
-        };
-      };
-    };
-  };
-  versionDiff: {
-    parameters: {
-      query?: {
-        oldVersion?: number;
-        newVersion?: number;
-      };
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  rollback: {
-    parameters: {
-      query?: {
-        version?: number;
-      };
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  dryRun: {
-    parameters: {
-      query?: {
-        ruleCode?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  validate: {
-    parameters: {
-      query?: {
-        expression?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  evaluate: {
-    parameters: {
-      query?: {
-        ruleCode?: string;
-        scenario?: string;
-      };
-      header?: {
-        tenantId?: string;
-        traceId?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  traceExpression: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  validateExpression: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['ExpressionValidateDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  validateBatch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: string;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  abTest: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleABTestDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  stats: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchToggle: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleBatchToggleDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchPriority: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleBatchPriorityDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchCategory: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleBatchCategoryDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  categoryTree: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listByCategoryPath: {
-    parameters: {
-      query?: {
-        path?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listByOwner: {
-    parameters: {
-      query?: {
-        owner?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  setOwner: {
-    parameters: {
-      query?: {
-        owner?: string;
-      };
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  setCategoryPath: {
-    parameters: {
-      query?: {
-        path?: string;
-      };
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  detectConflicts: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listBreakpoints: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  addBreakpoint: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: string;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  removeBreakpoint: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        breakpointId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listSessions: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  createSession: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: string;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getSession: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        sessionId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  terminateSession: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        sessionId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  submitCommand: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        sessionId: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: string;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listDecisionTables: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  saveDecisionTable: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['DecisionTableDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getDecisionTable: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        tableCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  deleteDecisionTable: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  evaluateDecisionTable: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        tableCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  exportDecisionTableExcel: {
-    parameters: {
-      query?: {
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path: {
-        tableCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never> | null;
-        };
-      };
-    };
-  };
-  importDecisionTableExcel: {
-    parameters: {
-      query?: {
-        file?: Record<string, never>;
-      };
-      header?: {
-        operator?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  downloadDecisionTableExcelTemplate: {
-    parameters: {
-      query?: {
-        response?: Record<string, never>;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': Record<string, never> | null;
-        };
-      };
-    };
-  };
-  listDependencies: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  addDependency: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleDependencyAddDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  removeDependency: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-        dependsOnRuleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listDependents: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  cascadingDisable: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getChainGraph: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  saveChainGraph: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleChainGraph'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  deleteChainGraph: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  validateChainGraph: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleChainGraph'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  previewExpression: {
-    parameters: {
-      query?: {
-        expression?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  dryRunGraph: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  invalidGraphRefs: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  expressionFunctions: {
-    parameters: {
-      query?: {
-        engine?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  exportRules: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  exportRulesAsYaml: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': string;
-        };
-      };
-    };
-  };
-  importRules: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleImportDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  changeStatus: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleStatusChangeDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  approve: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleApproveDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  reject: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleRejectDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  submitReview: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleSubmitReviewDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  approveLevel: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleApproveDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  rejectLevel: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleRejectDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  delegate: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RuleDelegateDTO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  approvalStatus: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  pendingApprovals: {
-    parameters: {
-      query?: {
-        approver?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  cancelReview: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  approvalFlows: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listPacks: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  publishPack: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['RulePackVO'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  searchPacks: {
-    parameters: {
-      query?: {
-        keyword?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getLatestPack: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        packCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listPackVersions: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        packCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getPackVersion: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        packCode: string;
-        version: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  rollbackPack: {
-    parameters: {
-      query?: {
-        version?: string;
-      };
-      header?: {
-        operator?: string;
-      };
-      path: {
-        packCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  diffPack: {
-    parameters: {
-      query?: {
-        fromVersion?: string;
-        toVersion?: string;
-      };
-      header?: never;
-      path: {
-        packCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  installPack: {
-    parameters: {
-      query?: {
-        version?: string;
-      };
-      header?: {
-        operator?: string;
-      };
-      path: {
-        packCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  deletePack: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  markOfficialPack: {
-    parameters: {
-      query?: {
-        official?: boolean;
-      };
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  ratePack: {
-    parameters: {
-      query?: {
-        rating?: number;
-      };
-      header?: never;
-      path: {
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  stressTest: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  checkPackUpdates: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchUpdatePacks: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': string[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listTemplates: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listTemplatesByCategory: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        category: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listTemplatesByIndustry: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        industry: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  importTemplate: {
-    parameters: {
-      query?: never;
-      header?: {
-        operator?: string;
-      };
-      path: {
-        templateCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getTrace: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        traceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  getTracesByRule: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  replayTrace: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        traceId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  batchReplayTraces: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  impactPreview: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listRecentTraces: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listPatterns: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  registerPattern: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CEPPattern'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  unregisterPattern: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        patternId: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  feedEvent: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  feedEvents: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        }[];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  recentHits: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  stats: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  recent: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  byRuleCode: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  byOperator: {
-    parameters: {
-      query?: {
-        operator?: string;
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  byAction: {
-    parameters: {
-      query?: {
-        action?: string;
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  byTimeRange: {
-    parameters: {
-      query?: {
-        startTime?: string;
-        endTime?: string;
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  overview: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  trends: {
-    parameters: {
-      query?: {
-        timeRange?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  distribution: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  topRules: {
-    parameters: {
-      query?: {
-        type?: string;
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  realtime: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  slowRules: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  hotRules: {
-    parameters: {
-      query?: {
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  validate: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  parse: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  preview: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  importDsl: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': {
-          [key: string]: Record<string, never>;
-        };
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  exportAll: {
-    parameters: {
-      query?: {
-        category?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  exportSingle: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ruleCode: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  list: {
-    parameters: {
-      query?: {
-        category?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  save: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['VariableDefinition'];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        varName: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        varName: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  refresh: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
-  listAvailable: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['YdszResponse'];
-        };
-      };
-    };
-  };
+    getABPolicy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    updateABPolicy: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleABPolicyDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listRollbackHistory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    evaluateAB: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    manualRollback: {
+        parameters: {
+            query?: {
+                reason?: string;
+            };
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: {
+                pageQuery?: components["schemas"]["PageQuery"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: {
+                changeDesc?: string;
+            };
+            header?: {
+                operator?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleDefinitionDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deleteRule: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    toggle: {
+        parameters: {
+            query?: {
+                enabled?: boolean;
+            };
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listVersions: {
+        parameters: {
+            query?: {
+                pageQuery?: components["schemas"]["PageQuery"];
+            };
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    versionDiff: {
+        parameters: {
+            query?: {
+                oldVersion?: number;
+                newVersion?: number;
+            };
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    rollback: {
+        parameters: {
+            query?: {
+                version?: number;
+            };
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    dryRun: {
+        parameters: {
+            query?: {
+                ruleCode?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    validate: {
+        parameters: {
+            query?: {
+                expression?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    evaluate: {
+        parameters: {
+            query?: {
+                ruleCode?: string;
+                scenario?: string;
+            };
+            header?: {
+                traceId?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    traceExpression: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    validateExpression: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExpressionValidateDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    validateBatch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: string;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    abTest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleABTestDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    stats: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchToggle: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleBatchToggleDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchPriority: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleBatchPriorityDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchCategory: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleBatchCategoryDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    categoryTree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listByCategoryPath: {
+        parameters: {
+            query?: {
+                path?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listByOwner: {
+        parameters: {
+            query?: {
+                owner?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    setOwner: {
+        parameters: {
+            query?: {
+                owner?: string;
+            };
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    setCategoryPath: {
+        parameters: {
+            query?: {
+                path?: string;
+            };
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    detectConflicts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listBreakpoints: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    addBreakpoint: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: string;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    removeBreakpoint: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                breakpointId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listSessions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    createSession: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: string;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getSession: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sessionId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    terminateSession: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sessionId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    submitCommand: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                sessionId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: string;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listDecisionTables: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    saveDecisionTable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DecisionTableDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getDecisionTable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tableCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deleteDecisionTable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    evaluateDecisionTable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tableCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportDecisionTableExcel: {
+        parameters: {
+            query?: {
+                response?: components["schemas"]["HttpServletResponse"];
+            };
+            header?: never;
+            path: {
+                tableCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    importDecisionTableExcel: {
+        parameters: {
+            query?: {
+                file?: Record<string, never>;
+            };
+            header?: {
+                operator?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    downloadDecisionTableExcelTemplate: {
+        parameters: {
+            query?: {
+                response?: Record<string, never>;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never> | null;
+                };
+            };
+        };
+    };
+    listDependencies: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    addDependency: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleDependencyAddDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    removeDependency: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+                dependsOnRuleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listDependents: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    cascadingDisable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getChainGraph: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    saveChainGraph: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleChainGraph"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deleteChainGraph: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    validateChainGraph: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleChainGraph"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    previewExpression: {
+        parameters: {
+            query?: {
+                expression?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    dryRunGraph: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    invalidGraphRefs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    expressionFunctions: {
+        parameters: {
+            query?: {
+                engine?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportRules: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportRulesAsYaml: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                };
+            };
+        };
+    };
+    importRules: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleImportDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    changeStatus: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleStatusChangeDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    approve: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleApproveDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    reject: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleRejectDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    submitReview: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleSubmitReviewDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    approveLevel: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleApproveDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    rejectLevel: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleRejectDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    delegate: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RuleDelegateDTO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    approvalStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    pendingApprovals: {
+        parameters: {
+            query?: {
+                approver?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    cancelReview: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    approvalFlows: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listPacks: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    publishPack: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RulePackVO"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    searchPacks: {
+        parameters: {
+            query?: {
+                keyword?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getLatestPack: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                packCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listPackVersions: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                packCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getPackVersion: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                packCode: string;
+                version: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    rollbackPack: {
+        parameters: {
+            query?: {
+                version?: string;
+            };
+            header?: {
+                operator?: string;
+            };
+            path: {
+                packCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    diffPack: {
+        parameters: {
+            query?: {
+                fromVersion?: string;
+                toVersion?: string;
+            };
+            header?: never;
+            path: {
+                packCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    installPack: {
+        parameters: {
+            query?: {
+                version?: string;
+            };
+            header?: {
+                operator?: string;
+            };
+            path: {
+                packCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    deletePack: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    markOfficialPack: {
+        parameters: {
+            query?: {
+                official?: boolean;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    ratePack: {
+        parameters: {
+            query?: {
+                rating?: number;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    stressTest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    checkPackUpdates: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchUpdatePacks: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": string[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listTemplates: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listTemplatesByCategory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                category: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listTemplatesByIndustry: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                industry: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    importTemplate: {
+        parameters: {
+            query?: never;
+            header?: {
+                operator?: string;
+            };
+            path: {
+                templateCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getTrace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                traceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    getTracesByRule: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    replayTrace: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                traceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    batchReplayTraces: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    impactPreview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listRecentTraces: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listPatterns: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    registerPattern: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": "TUMBLING" | "SLIDING";
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    unregisterPattern: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                patternId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    feedEvent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    feedEvents: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                }[];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    recentHits: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    stats: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    recent: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    byRuleCode: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    byOperator: {
+        parameters: {
+            query?: {
+                operator?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    byAction: {
+        parameters: {
+            query?: {
+                action?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    byTimeRange: {
+        parameters: {
+            query?: {
+                startTime?: string;
+                endTime?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    overview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    trends: {
+        parameters: {
+            query?: {
+                timeRange?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    distribution: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    topRules: {
+        parameters: {
+            query?: {
+                type?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    realtime: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    slowRules: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    hotRules: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    validate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    parse: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    preview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    importDsl: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportAll: {
+        parameters: {
+            query?: {
+                category?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    exportSingle: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ruleCode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    list: {
+        parameters: {
+            query?: {
+                category?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    save: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VariableDefinition"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                varName: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                varName: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    refresh: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    listAvailable: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    dryRun: {
+        parameters: {
+            query?: {
+                ruleCode?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
+    evaluate: {
+        parameters: {
+            query?: {
+                ruleCode?: string;
+                scenario?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: Record<string, never>;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["YdszResponse"];
+                };
+            };
+        };
+    };
 }

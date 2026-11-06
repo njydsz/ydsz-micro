@@ -8,6 +8,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 社交账号绑定管理
  * <p>消费后端契约 SocialAccountController（apps/userinfo-web/src/api/socialAccount.ts）：
@@ -131,7 +132,7 @@ async function handleUnbind(row: SocialAccountVO): Promise<void> {
   }
   try {
     await unbind({ platform: row.platform });
-    showToast.success('解绑成功');
+    showToast.success($t('operation.unbind.success'));
     await loadBindings();
   } catch (error) {
     logger.warn('解绑社交账号失败: {}', error);

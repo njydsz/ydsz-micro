@@ -225,11 +225,11 @@ const paragraphRowHeight = computed<string>(() => `${sizeHeightMap[props.size]}p
  * CSS 变量定义（亮色模式 / 暗色模式）
  * ============================================================ */
 .yd-skeleton {
-  --yd-skeleton-color: rgba(0, 0, 0, 0.08);
-  --yd-skeleton-color-alt: rgba(0, 0, 0, 0.04);
-  --yd-skeleton-shimmer-from: rgba(255, 255, 255, 0);
-  --yd-skeleton-shimmer-via: rgba(255, 255, 255, 0.4);
-  --yd-skeleton-shimmer-to: rgba(255, 255, 255, 0);
+  --yd-skeleton-color: rgb(0 0 0 / 8%);
+  --yd-skeleton-color-alt: rgb(0 0 0 / 4%);
+  --yd-skeleton-shimmer-from: rgb(255 255 255 / 0%);
+  --yd-skeleton-shimmer-via: rgb(255 255 255 / 40%);
+  --yd-skeleton-shimmer-to: rgb(255 255 255 / 0%);
 
   display: inline-flex;
   flex-direction: column;
@@ -239,9 +239,9 @@ const paragraphRowHeight = computed<string>(() => `${sizeHeightMap[props.size]}p
 /* 暗色模式覆盖 */
 :deep(.dark) .yd-skeleton,
 .dark .yd-skeleton {
-  --yd-skeleton-color: rgba(255, 255, 255, 0.1);
-  --yd-skeleton-color-alt: rgba(255, 255, 255, 0.06);
-  --yd-skeleton-shimmer-via: rgba(255, 255, 255, 0.15);
+  --yd-skeleton-color: rgb(255 255 255 / 10%);
+  --yd-skeleton-color-alt: rgb(255 255 255 / 6%);
+  --yd-skeleton-shimmer-via: rgb(255 255 255 / 15%);
 }
 
 /* ============================================================
@@ -336,6 +336,7 @@ const paragraphRowHeight = computed<string>(() => `${sizeHeightMap[props.size]}p
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }

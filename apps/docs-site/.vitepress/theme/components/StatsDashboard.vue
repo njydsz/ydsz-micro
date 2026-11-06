@@ -1,4 +1,6 @@
 <script setup lang="ts">
+defineOptions({ name: 'StatsDashboard' });
+
 import { ref, onMounted } from 'vue';
 
 interface RuleStat {

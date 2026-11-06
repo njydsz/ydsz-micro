@@ -42,7 +42,15 @@ const EXEMPT = [
   /dist/,
 ];
 
-const SKIP_DIRS = new Set(['node_modules', 'dist', 'build', '.git', 'coverage', '.turbo', '.cache']);
+const SKIP_DIRS = new Set([
+  'node_modules',
+  'dist',
+  'build',
+  '.git',
+  'coverage',
+  '.turbo',
+  '.cache',
+]);
 
 /** EP 组件 → ydsz-ui 组件映射（PascalCase） */
 const COMPONENT_MAP = {
@@ -215,7 +223,10 @@ const changed = [];
  * @returns kebab-case 名称
  */
 function toKebab(name) {
-  return name.replace(/([A-Z])/g, '-$1').replace(/^-/, '').toLowerCase();
+  return name
+    .replace(/([A-Z])/g, '-$1')
+    .replace(/^-/, '')
+    .toLowerCase();
 }
 
 /**
@@ -372,10 +383,7 @@ function migrateSize(text) {
     result = result.replace(tagRe, (match) => {
       let migrated = match;
       for (const [ep, ydsz] of Object.entries(SIZE_MAP)) {
-        migrated = migrated.replace(
-          new RegExp(`size=["']${ep}["']`, 'g'),
-          `size="${ydsz}"`,
-        );
+        migrated = migrated.replace(new RegExp(`size=["']${ep}["']`, 'g'), `size="${ydsz}"`);
       }
       return migrated;
     });
@@ -399,10 +407,7 @@ function migrateProps(text) {
     result = result.replace(tagRe, (match) => {
       let migrated = match;
       for (const [ep, ydsz] of Object.entries(PROP_MAP)) {
-        migrated = migrated.replace(
-          new RegExp(`\\b${ep}\\b`, 'g'),
-          ydsz,
-        );
+        migrated = migrated.replace(new RegExp(`\\b${ep}\\b`, 'g'), ydsz);
       }
       return migrated;
     });

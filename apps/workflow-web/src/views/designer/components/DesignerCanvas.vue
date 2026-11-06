@@ -8,6 +8,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'DesignerCanvas',
+});
 /**
  * 流程设计器画布组件（v4.4.1 重构：对齐逻辑提取至 use-canvas-alignment）。
  *

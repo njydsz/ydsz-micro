@@ -1,0 +1,20 @@
+# 依赖与构建产物
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+
+# 第三方 vendor（自托管 ESM 产物，含压缩 CSS）
+**/public/vendor/
+**/.vitepress/cache/
+
+# 归档与生成代码
+**/archived/**
+**/.generated-archived/**
+
+# 临时与工具产物
+.dev-logs/
+**/*.stories.ts
+**/*.story.vue
+.storybook/

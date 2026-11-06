@@ -6,6 +6,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * 定时任务（表单组件）
  * <p>定时任务的创建/编辑弹窗，字段对应契约 JobPostDTO/JobPutDTO（src/api/job.ts，auto-generated）：
@@ -61,26 +62,26 @@ const COMMON_TIMEZONES = [
 ];
 
 /** Misfire 策略（与后端 MisfirePolicy 枚举对齐） */
-const MISFIRE_POLICIES = [
-  { label: '立即执行（默认）', value: 'FIRE_NOW' },
-  { label: '跳过本次', value: 'SKIP' },
-  { label: '合并执行', value: 'COALESCE' },
-];
+const MISFIRE_POLICIES = computed(() => [
+  { label: t('business.misfirePolicyFireNow'), value: 'FIRE_NOW' },
+  { label: t('business.misfirePolicySkip'), value: 'SKIP' },
+  { label: t('business.misfirePolicyCoalesce'), value: 'COALESCE' },
+]);
 
 /** 阻塞策略（与后端 blockStrategy 枚举对齐） */
-const BLOCK_STRATEGIES = [
-  { label: '串行跳过（默认）', value: 'SERIAL' },
-  { label: '丢弃本次', value: 'DISCARD' },
-  { label: '丢弃重叠', value: 'DISCARD_OVERLAPPING' },
-  { label: '覆盖执行', value: 'COVER' },
-  { label: '并行执行', value: 'CONCURRENT' },
-];
+const BLOCK_STRATEGIES = computed(() => [
+  { label: t('business.blockStrategySerial'), value: 'SERIAL' },
+  { label: t('business.blockStrategyDiscard'), value: 'DISCARD' },
+  { label: t('business.blockStrategyDiscardOverlapping'), value: 'DISCARD_OVERLAPPING' },
+  { label: t('business.blockStrategyCover'), value: 'COVER' },
+  { label: t('business.blockStrategyConcurrent'), value: 'CONCURRENT' },
+]);
 
 /** 重试退避策略 */
-const RETRY_BACKOFFS = [
-  { label: '固定间隔', value: 'FIXED' },
-  { label: '指数退避', value: 'EXPONENTIAL' },
-];
+const RETRY_BACKOFFS = computed(() => [
+  { label: t('business.retryBackoffFixed'), value: 'FIXED' },
+  { label: t('business.retryBackoffExponential'), value: 'EXPONENTIAL' },
+]);
 
 /** 表单状态（字段对应 JobPostDTO / JobPutDTO，P0-补全：新增高级配置字段） */
 interface JobFormState {
@@ -148,8 +149,10 @@ const DEFAULT_FORM = (): JobFormState => ({
 const formData = reactive<JobFormState>(DEFAULT_FORM());
 
 const rules = {
-  jobName: [{ required: true, message: '请输入任务名称', trigger: 'blur' }],
-  cronExpression: [{ required: true, message: '请输入Cron表达式', trigger: 'blur' }],
+  jobName: [{ required: true, message: t('business.jobNameRequired'), trigger: 'blur' }],
+  cronExpression: [
+    { required: true, message: t('business.cronExpressionRequired'), trigger: 'blur' },
+  ],
 };
 
 const [Modal, modalApi] = useYdModal({
@@ -234,10 +237,10 @@ const [Modal, modalApi] = useYdModal({
       };
       if (isEdit.value) {
         await update({ ...payload, id: formData.id || undefined });
-        showToast.success('更新成功');
+        showToast.success($t('operation.update.success'));
       } else {
         await create(payload);
-        showToast.success('创建成功');
+        showToast.success($t('operation.create.success'));
       }
       emit('success');
       modalApi.close();
@@ -247,7 +250,9 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑定时任务' : '新增定时任务'));
+const title = computed(() =>
+  isEdit.value ? t('business.jobEditTitle') : t('business.jobCreateTitle'),
+);
 
 /** 判断给定字段名在 rules 中是否包含 required 校验 */
 function isRequired(field: string): boolean {
@@ -272,31 +277,41 @@ function isRequired(field: string): boolean {
           <span v-if="isRequired('jobName')" class="mr-0.5 text-red-500">*</span>
           {{ t('business.jobName') }}
         </label>
-        <YdInput v-model="formData.jobName" placeholder="请输入任务名称" />
+        <YdInput v-model="formData.jobName" :placeholder="t('business.jobNamePlaceholder')" />
       </YdFormItem>
       <YdFormItem>
-        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">任务标识</label>
-        <YdInput v-model="formData.jobKey" placeholder="请输入任务标识" />
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+          t('business.jobKey')
+        }}</label>
+        <YdInput v-model="formData.jobKey" :placeholder="t('business.jobKeyPlaceholder')" />
       </YdFormItem>
       <YdFormItem>
         <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
           t('business.jobGroup')
         }}</label>
-        <YdInput v-model="formData.jobGroup" placeholder="请输入任务分组" />
+        <YdInput v-model="formData.jobGroup" :placeholder="t('business.jobGroupPlaceholder')" />
       </YdFormItem>
       <YdFormItem>
-        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">执行器</label>
-        <YdInput v-model="formData.handler" placeholder="请输入执行器 Handler" />
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+          t('business.handler')
+        }}</label>
+        <YdInput v-model="formData.handler" :placeholder="t('business.handlerPlaceholder')" />
       </YdFormItem>
       <YdFormItem>
-        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">调度类型</label>
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+          t('business.scheduleType')
+        }}</label>
         <YdSelectBase v-model="formData.scheduleType">
-          <YdSelectTriggerBase placeholder="请选择调度类型" class="w-full" />
+          <YdSelectTriggerBase :placeholder="t('business.scheduleTypePlaceholder')" class="w-full" />
           <YdSelectContentBase>
             <YdSelectItemBase value="CRON">Cron</YdSelectItemBase>
-            <YdSelectItemBase value="FIXED_RATE">固定速率</YdSelectItemBase>
-            <YdSelectItemBase value="FIXED_DELAY">固定延迟</YdSelectItemBase>
-            <YdSelectItemBase value="API">仅手动触发</YdSelectItemBase>
+            <YdSelectItemBase value="FIXED_RATE">{{
+              t('business.scheduleTypeFixedRate')
+            }}</YdSelectItemBase>
+            <YdSelectItemBase value="FIXED_DELAY">{{
+              t('business.scheduleTypeFixedDelay')
+            }}</YdSelectItemBase>
+            <YdSelectItemBase value="API">{{ t('business.scheduleTypeApi') }}</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
       </YdFormItem>
@@ -308,106 +323,112 @@ function isRequired(field: string): boolean {
         <CronBuilder v-model="formData.cronExpression" />
       </YdFormItem>
       <YdFormItem v-if="formData.scheduleType === 'FIXED_RATE'">
-        <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-          >固定速率间隔(ms)</label
-        >
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+          t('business.fixedRateIntervalLabel')
+        }}</label>
         <YdInput
           v-model="formData.fixedRateMs"
           type="number"
           :min="1"
           :step="1000"
           class="w-full"
-          placeholder="如 30000=每30秒"
+          :placeholder="t('business.fixedRateIntervalPlaceholder')"
         />
       </YdFormItem>
       <YdFormItem v-if="formData.scheduleType === 'FIXED_DELAY'">
-        <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-          >固定延迟间隔(ms)</label
-        >
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+          t('business.fixedDelayIntervalLabel')
+        }}</label>
         <YdInput
           v-model="formData.fixedDelayMs"
           type="number"
           :min="1"
           :step="1000"
           class="w-full"
-          placeholder="上次完成后等待毫秒数"
+          :placeholder="t('business.fixedDelayIntervalPlaceholder')"
         />
       </YdFormItem>
       <YdFormItem>
-        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">备注</label>
-        <YdTextarea v-model="formData.remark" placeholder="请输入备注" :rows="2" />
+        <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+          t('business.remark')
+        }}</label>
+        <YdTextarea
+          v-model="formData.remark"
+          :placeholder="t('business.remarkPlaceholder')"
+          :rows="2"
+        />
       </YdFormItem>
 
       <YdAccordion type="single" collapsible class="mt-2 w-full">
         <YdAccordionItem value="advanced">
-          <YdAccordionTrigger>高级配置（参数 / 超时 / 重试 / 分片 / 时区）</YdAccordionTrigger>
+          <YdAccordionTrigger>{{ t('business.advancedConfigTrigger') }}</YdAccordionTrigger>
           <YdAccordionContent>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >任务参数(JSON)</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.paramsJsonLabel')
+              }}</label>
               <YdTextarea
                 v-model="formData.paramsJson"
                 :rows="3"
-                placeholder='如 {"url":"http://example.com","retry":3}'
+                :placeholder="t('business.paramsJsonPlaceholder')"
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >超时时间(ms)</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.timeoutLabel')
+              }}</label>
               <YdInput
                 v-model="formData.timeoutMs"
                 type="number"
                 :min="1"
                 :step="1000"
                 class="w-full"
-                placeholder="null=不限超时"
+                :placeholder="t('business.timeoutPlaceholder')"
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >慢任务阈值(ms)</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.slowThresholdLabel')
+              }}</label>
               <YdInput
                 v-model="formData.slowThresholdMs"
                 type="number"
                 :min="1"
                 :step="100"
                 class="w-full"
-                placeholder="超过则标记 is_slow"
+                :placeholder="t('business.slowThresholdPlaceholder')"
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >SLA阈值(ms)</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.slaThresholdLabel')
+              }}</label>
               <YdInput
                 v-model="formData.slaMs"
                 type="number"
                 :min="1"
                 :step="1000"
                 class="w-full"
-                placeholder="超过触发 SLA_WARNING 告警"
+                :placeholder="t('business.slaThresholdPlaceholder')"
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >锁TTL(ms)</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.lockTtlLabel')
+              }}</label>
               <YdInput
                 v-model="formData.lockTtlMs"
                 type="number"
                 :min="30000"
                 :step="60000"
                 class="w-full"
-                placeholder="null=全局默认 5min"
+                :placeholder="t('business.lockTtlPlaceholder')"
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >Misfire策略</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.misfirePolicyLabel')
+              }}</label>
               <YdSelectBase v-model="formData.misfirePolicy" class="w-full">
                 <YdSelectTriggerBase class="w-full" />
                 <YdSelectContentBase>
@@ -422,9 +443,9 @@ function isRequired(field: string): boolean {
               </YdSelectBase>
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >阻塞策略</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.blockStrategyLabel')
+              }}</label>
               <YdSelectBase v-model="formData.blockStrategy">
                 <YdSelectTriggerBase class="w-full" />
                 <YdSelectContentBase>
@@ -439,22 +460,22 @@ function isRequired(field: string): boolean {
               </YdSelectBase>
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >最大重试次数</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.maxRetriesLabel')
+              }}</label>
               <YdInput
                 v-model="formData.maxRetries"
                 type="number"
                 :min="0"
                 :step="1"
                 class="w-full"
-                placeholder="null=不重试"
+                :placeholder="t('business.maxRetriesPlaceholder')"
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >重试间隔(ms)</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.retryIntervalLabel')
+              }}</label>
               <YdInput
                 v-model="formData.retryIntervalMs"
                 type="number"
@@ -464,9 +485,9 @@ function isRequired(field: string): boolean {
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >重试退避</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.retryBackoffLabel')
+              }}</label>
               <YdSelectBase v-model="formData.retryBackoff">
                 <YdSelectTriggerBase class="w-full" />
                 <YdSelectContentBase>
@@ -481,63 +502,66 @@ function isRequired(field: string): boolean {
               </YdSelectBase>
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >熔断阈值</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.circuitBreakerThresholdLabel')
+              }}</label>
               <YdInput
                 v-model="formData.maxConsecutiveFails"
                 type="number"
                 :min="1"
                 :step="1"
                 class="w-full"
-                placeholder="连续失败次数，达到后自动暂停"
+                :placeholder="t('business.circuitBreakerThresholdPlaceholder')"
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >自动恢复(分钟)</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.autoResumeLabel')
+              }}</label>
               <YdInput
                 v-model="formData.autoResumeAfterMinutes"
                 type="number"
                 :min="1"
                 :step="5"
                 class="w-full"
-                placeholder="熔断后自动恢复"
+                :placeholder="t('business.autoResumePlaceholder')"
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >优先级</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.priorityLabel')
+              }}</label>
               <YdInput
                 v-model="formData.priority"
                 type="number"
                 :min="0"
                 :step="1"
                 class="w-full"
-                placeholder="数值越大越先派发"
+                :placeholder="t('business.priorityPlaceholder')"
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >分片总数</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.shardTotalLabel')
+              }}</label>
               <YdInput
                 v-model="formData.shardTotal"
                 type="number"
                 :min="1"
                 :step="1"
                 class="w-full"
-                placeholder="1=非分片任务"
+                :placeholder="t('business.shardTotalPlaceholder')"
               />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >时区</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.timezoneLabel')
+              }}</label>
               <YdSelectBase v-model="formData.timezone">
-                <YdSelectTriggerBase class="w-full" placeholder="选择或输入时区" />
+                <YdSelectTriggerBase
+                  class="w-full"
+                  :placeholder="t('business.timezonePlaceholder')"
+                />
                 <YdSelectContentBase>
                   <YdSelectItemBase v-for="tz in COMMON_TIMEZONES" :key="tz" :value="tz">
                     {{ tz }}
@@ -546,15 +570,15 @@ function isRequired(field: string): boolean {
               </YdSelectBase>
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >目标集群</label
-              >
-              <YdInput v-model="formData.cluster" placeholder="跨集群调度，留空=本地集群" />
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.clusterLabel')
+              }}</label>
+              <YdInput v-model="formData.cluster" :placeholder="t('business.clusterPlaceholder')" />
             </YdFormItem>
             <YdFormItem>
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >灰度比例(%)</label
-              >
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.canaryRatioLabel')
+              }}</label>
               <YdInput
                 v-model="formData.canaryRatio"
                 type="number"
@@ -562,14 +586,17 @@ function isRequired(field: string): boolean {
                 :max="100"
                 :step="5"
                 class="w-full"
-                placeholder="0-100，按 jobKey 哈希分桶"
+                :placeholder="t('business.canaryRatioPlaceholder')"
               />
             </YdFormItem>
             <YdFormItem v-if="formData.canaryRatio">
-              <label class="text-text-primary mb-1 flex items-center text-sm font-medium"
-                >灰度处理器</label
-              >
-              <YdInput v-model="formData.canaryHandler" placeholder="canaryRatio>0 时生效" />
+              <label class="text-text-primary mb-1 flex items-center text-sm font-medium">{{
+                t('business.canaryHandlerLabel')
+              }}</label>
+              <YdInput
+                v-model="formData.canaryHandler"
+                :placeholder="t('business.canaryHandlerPlaceholder')"
+              />
             </YdFormItem>
           </YdAccordionContent>
         </YdAccordionItem>

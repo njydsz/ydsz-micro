@@ -20,6 +20,7 @@
  * @since 1.0.0
  */
 import { reactive, ref, watch } from 'vue';
+import { $t } from '#/locales';
 import type { BpmnElementDescriptor, BpmnPropertyChanges } from './types';
 
 /** 内部表单数据结构 */
@@ -180,26 +181,26 @@ watch(
 <template>
   <div class="bpmn-property-panel">
     <div v-if="!element || disabled" class="empty-hint">
-      <span>选中节点以编辑属性</span>
+      <span>{{ $t('bpmnPropertyPanel.selectNodeHint') }}</span>
     </div>
     <div v-else class="property-form">
       <section class="property-group">
-        <h4 class="group-title">基础</h4>
+        <h4 class="group-title">{{ $t('bpmnPropertyPanel.basic') }}</h4>
         <label class="field">
           <span class="field-label">ID</span>
           <input v-model="form.id" class="field-input" disabled />
         </label>
         <label class="field">
-          <span class="field-label">名称</span>
+          <span class="field-label">{{ $t('bpmnPropertyPanel.name') }}</span>
           <input
             v-model="form.name"
             class="field-input"
-            placeholder="填写节点名称"
+            :placeholder="$t('bpmnPropertyPanel.namePlaceholder')"
             @change="handlePropertyChange"
           />
         </label>
         <label class="field">
-          <span class="field-label">描述</span>
+          <span class="field-label">{{ $t('bpmnPropertyPanel.description') }}</span>
           <textarea
             v-model="form.documentation"
             class="field-input"
@@ -210,27 +211,27 @@ watch(
       </section>
 
       <section v-if="isUserTask" class="property-group">
-        <h4 class="group-title">办理人</h4>
+        <h4 class="group-title">{{ $t('bpmnPropertyPanel.assigneeGroup') }}</h4>
         <label class="field">
-          <span class="field-label">办理人 (assignee)</span>
+          <span class="field-label">{{ $t('bpmnPropertyPanel.assignee') }}</span>
           <input
             v-model="form.assignee"
             class="field-input"
-            placeholder="变量或用户 ID"
+            :placeholder="$t('bpmnPropertyPanel.assigneePlaceholder')"
             @change="handlePropertyChange"
           />
         </label>
         <label class="field">
-          <span class="field-label">候选组</span>
+          <span class="field-label">{{ $t('bpmnPropertyPanel.candidateGroups') }}</span>
           <input
             v-model="form.candidateGroups"
             class="field-input"
-            placeholder="部门 A, 部门 B"
+            :placeholder="$t('bpmnPropertyPanel.candidateGroupsPlaceholder')"
             @change="handlePropertyChange"
           />
         </label>
         <label class="field">
-          <span class="field-label">候选人</span>
+          <span class="field-label">{{ $t('bpmnPropertyPanel.candidateUsers') }}</span>
           <input
             v-model="form.candidateUsers"
             class="field-input"
@@ -239,7 +240,7 @@ watch(
           />
         </label>
         <label class="field">
-          <span class="field-label">表达式</span>
+          <span class="field-label">{{ $t('bpmnPropertyPanel.expression') }}</span>
           <input
             v-model="form.expression"
             class="field-input"
@@ -250,9 +251,9 @@ watch(
       </section>
 
       <section v-if="isServiceTask" class="property-group">
-        <h4 class="group-title">服务实现</h4>
+        <h4 class="group-title">{{ $t('bpmnPropertyPanel.serviceImplementation') }}</h4>
         <label class="field">
-          <span class="field-label">Java 类</span>
+          <span class="field-label">{{ $t('bpmnPropertyPanel.javaClass') }}</span>
           <input
             v-model="form.classValue"
             class="field-input"
@@ -261,7 +262,7 @@ watch(
           />
         </label>
         <label class="field">
-          <span class="field-label">表达式</span>
+          <span class="field-label">{{ $t('bpmnPropertyPanel.expression') }}</span>
           <input
             v-model="form.expression"
             class="field-input"
@@ -270,7 +271,7 @@ watch(
           />
         </label>
         <label class="field">
-          <span class="field-label">委托表达式</span>
+          <span class="field-label">{{ $t('bpmnPropertyPanel.delegateExpression') }}</span>
           <input
             v-model="form.delegateExpression"
             class="field-input"
@@ -281,9 +282,9 @@ watch(
       </section>
 
       <section v-if="isExclusiveGateway" class="property-group">
-        <h4 class="group-title">排他网关</h4>
+        <h4 class="group-title">{{ $t('bpmnPropertyPanel.exclusiveGateway') }}</h4>
         <label class="field">
-          <span class="field-label">默认条件表达式</span>
+          <span class="field-label">{{ $t('bpmnPropertyPanel.defaultConditionExpression') }}</span>
           <textarea
             v-model="form.conditionExpression"
             class="field-input"

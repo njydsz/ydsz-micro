@@ -10,6 +10,7 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+import { $t } from '@ydsz/locales';
 /**
  * Prompt 模板管理（列表页）
  * <p>管理 Agent 使用的 Prompt 模板，支持变量替换、版本管理、测试评估。
@@ -227,7 +228,7 @@ async function handleDelete(row: PromptTemplateVO): Promise<void> {
   try {
     await YdConfirm(`确定删除模板「${row.templateName}」吗？`, '删除确认', { type: 'warning' });
     promptList.value = promptList.value.filter((t) => t.id !== row.id);
-    showToast.success('删除成功');
+    showToast.success($t('operation.delete.success'));
     gridApi.query();
   } catch {
     logger.debug('用户取消删除 Prompt 模板操作');

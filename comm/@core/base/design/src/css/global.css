@@ -8,6 +8,7 @@
  * SPA 回退页当作字体解析并报 OTS 解码错误，因此在字体产物存在前
  * 不声明 @font-face，由 --ydsz-font-family 回退到 Inter / system-ui。
  * ============================================================ */
+
 /* @font-face {
   font-family: 'YDSZ Sans';
   src: url('/fonts-subset/ydsz-sans-latin.woff2') format('woff2');

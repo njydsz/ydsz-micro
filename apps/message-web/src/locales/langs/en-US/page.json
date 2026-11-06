@@ -10,5 +10,215 @@
   "route": "Route",
   "routeRule": "Route Rule",
   "preference": "Preference",
-  "messagePreference": "Message Preference"
+  "messagePreference": "Message Preference",
+  "ops": {
+    "cache": {
+      "title": "Template Cache Statistics",
+      "hitRate": "Cache Hit Rate",
+      "size": "Cache Entries",
+      "hitCount": "Hit Count",
+      "missCount": "Miss Count",
+      "evictionCount": "Eviction Count",
+      "sizeLabel": "Cache Size",
+      "unit": "items"
+    },
+    "bloom": {
+      "title": "BloomFilter Statistics",
+      "fillRate": "BF Fill Rate",
+      "fpp": "BF False Positive Rate",
+      "expectedInsertions": "Expected Insertions",
+      "fppLabel": "Current False Positive Rate (FPP)",
+      "primary": "Primary Window",
+      "windowAgeSeconds": "Window Age (seconds)"
+    },
+    "evict": {
+      "entry": "Evict Single",
+      "title": "Evict Single Template Cache",
+      "description": "Enter a template code to evict the corresponding cache entry",
+      "templateLabel": "Template Code",
+      "templatePlaceholder": "Enter the template code to evict",
+      "templateRequired": "Please enter the template code to evict",
+      "confirm": "Are you sure you want to evict the cache for template \"{template}\"?",
+      "confirmButton": "Confirm Evict",
+      "success": "Cache evicted successfully"
+    },
+    "clearAll": {
+      "entry": "Clear All",
+      "title": "Clear All Confirmation",
+      "confirm": "Are you sure you want to clear all template caches? All templates will be reloaded and this action cannot be undone.",
+      "confirmButton": "Confirm Clear",
+      "success": "All caches cleared successfully"
+    }
+  },
+  "readReceipt": {
+    "shortCode": "Short Code",
+    "shortCodePlaceholder": "Enter receipt short code (shortCode), e.g. a1b2c3",
+    "shortCodeRequired": "Please enter the short code (shortCode)",
+    "queryFailed": "Query failed, please check the short code",
+    "search": {
+      "title": "Short Code Query"
+    },
+    "detail": {
+      "title": "Receipt Detail",
+      "empty": "Enter a short code to query"
+    },
+    "msgId": "Message ID",
+    "readBy": "Reader",
+    "readAt": "Read At",
+    "statusLabel": "Receipt Status",
+    "redirectUrl": "Redirect URL",
+    "status": {
+      "read": "Read",
+      "delivered": "Delivered",
+      "pending": "Pending",
+      "failed": "Failed"
+    },
+    "result": {
+      "success": "Success",
+      "failed": "Failed"
+    },
+    "recent": {
+      "title": "Recent Queries",
+      "empty": "No query records",
+      "emptyTitle": "No Queries",
+      "hint": "Click a record to re-query quickly"
+    }
+  },
+  "reactive": {
+    "connection": {
+      "title": "Connection Status",
+      "connected": "Connected",
+      "connecting": "Connecting",
+      "disconnected": "Disconnected",
+      "connect": "Connect",
+      "disconnect": "Disconnect"
+    },
+    "health": {
+      "mode": "Run Mode",
+      "bufferSize": "Buffer Size",
+      "status": "Run Status"
+    },
+    "level": {
+      "INFO": "INFO",
+      "WARN": "WARN",
+      "ERROR": "ERROR",
+      "CRITICAL": "CRITICAL"
+    },
+    "publish": {
+      "title": "Publish Event (Pilot Test)",
+      "eventType": "Event Type",
+      "eventTypePlaceholder": "Default notification",
+      "level": "Level",
+      "targetUserId": "Target User",
+      "targetUserIdPlaceholder": "Leave empty to broadcast to all subscribers",
+      "titleLabel": "Title",
+      "content": "Content",
+      "submit": "Publish",
+      "success": "Published successfully"
+    },
+    "recent": {
+      "title": "Recent Events (last 50)",
+      "empty": "No events",
+      "broadcast": "Broadcast"
+    }
+  },
+  "recall": {
+    "requestPending": "Recall request sent, but the service returned incomplete",
+    "scope": {
+      "single": "Single Recall",
+      "batch": "Batch Recall"
+    },
+    "notification": {
+      "tab": "Notification Recall",
+      "userId": "User ID",
+      "userIdPlaceholder": "Recall notifications for a specific user (optional)",
+      "id": "Notification ID",
+      "idPlaceholder": "In-site notification ID",
+      "idRequired": "Please enter a notification ID or business ID",
+      "bizType": "Business Type",
+      "bizTypePlaceholder": "Business type (optional)",
+      "bizId": "Business ID",
+      "bizIdPlaceholder": "Business document ID (optional)",
+      "scope": "Recall Scope",
+      "execute": "Recall",
+      "confirmTitle": "Recall Confirmation",
+      "confirm": "Are you sure you want to recall notification (ID: {id})? Recipients will no longer be able to view it.",
+      "success": "Notification recalled successfully"
+    },
+    "message": {
+      "tab": "Message Recall",
+      "logId": "Log ID",
+      "logIdPlaceholder": "Message log logId (precise recall, either logId or msgId)",
+      "logIdRequired": "Please enter the message log ID",
+      "msgId": "Message ID",
+      "msgIdPlaceholder": "Message msgId (precise recall, either logId or msgId)",
+      "msgIdRequired": "Please enter the message ID",
+      "batchId": "Batch ID",
+      "batchIdPlaceholder": "Business ID (used with batch recall)",
+      "bizType": "Business Type",
+      "bizTypePlaceholder": "Business type (optional)",
+      "bizId": "Business ID",
+      "bizIdPlaceholder": "Business document ID (optional)",
+      "byLogId": "Recall by Log ID",
+      "byMsgId": "Recall by Message ID",
+      "confirmTitle": "Recall Confirmation",
+      "confirmByLogId": "Are you sure you want to recall message (logId: {logId})?",
+      "confirmByMsgId": "Are you sure you want to recall message (msgId: {msgId})?",
+      "success": "Message recalled successfully"
+    },
+    "batch": {
+      "entry": "Batch Recall",
+      "idRequired": "Please enter the ID to recall",
+      "confirmTitle": "Batch Recall Confirmation",
+      "confirm": "Are you sure you want to perform a batch recall? This will recall all messages in the matching range and cannot be undone.",
+      "confirmButton": "Confirm Recall",
+      "success": "Batch recall completed, {count} records recalled"
+    },
+    "log": {
+      "title": "Recall Operation Log",
+      "empty": "No recall operation records",
+      "typeNotification": "Notification",
+      "typeMessage": "Message",
+      "success": "Recall succeeded",
+      "pending": "Service returned incomplete",
+      "byLogIdSuccess": "Recalled by logId successfully",
+      "byMsgIdSuccess": "Recalled by msgId successfully",
+      "batchSuccess": "Batch recalled {count} records"
+    }
+  },
+  "preference": {
+    "createTitle": "Add Message Preference",
+    "editTitle": "Edit Message Preference",
+    "channelRequired": "Please enter a channel",
+    "userId": "User ID",
+    "userIdPlaceholder": "Enter user ID",
+    "channel": "Channel",
+    "channelPlaceholder": "Enter channel, e.g. SMS/EMAIL/IN_APP",
+    "bizType": "Business Type",
+    "bizTypePlaceholder": "Enter business type (optional)",
+    "enabled": "Enabled",
+    "enabledOn": "Enabled",
+    "enabledOff": "Disabled",
+    "dndEnabled": "Do Not Disturb",
+    "dndOn": "On",
+    "dndOff": "Off",
+    "dndStart": "DND Start",
+    "dndStartPlaceholder": "e.g. 22:00 (optional)",
+    "dndEnd": "DND End",
+    "dndEndPlaceholder": "e.g. 08:00 (optional)",
+    "dailyLimit": "Daily Limit",
+    "hourlyLimit": "Hourly Limit",
+    "digestEnabled": "Digest Subscription",
+    "digestOn": "On",
+    "digestOff": "Off",
+    "digestFrequency": "Digest Frequency",
+    "digestFrequencyPlaceholder": "Select digest frequency (optional)",
+    "frequency": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly"
+    },
+    "locale": "Language",
+    "localePlaceholder": "Enter language (optional)"
+  }
 }

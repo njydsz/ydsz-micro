@@ -8,6 +8,9 @@
  * @since 1.0.0
 -->
 <script lang="ts" setup>
+defineOptions({
+  name: 'FileVersionHistory',
+});
 /**
  * 文件版本历史
  * <p>展示文件的历史版本列表，支持预览、下载、回滚到指定版本。

@@ -33,6 +33,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { computed, ref } from 'vue';
 import { showToast } from '@ydsz/notification';
+import { $t } from '#/locales';
 import { runSimulation } from '#/api/flowSimulation';
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -158,10 +159,12 @@ function handleReset(): void {
   <Page auto-content-height>
     <!-- 顶部标题栏 -->
     <div class="mb-4 flex items-center justify-between px-4 pt-3">
-      <h1 class="text-xl font-bold text-gray-800">流程仿真</h1>
+      <h1 class="text-xl font-bold text-gray-800">{{ $t('simulation.title') }}</h1>
       <div class="flex items-center gap-3">
-        <YdButton @click="handleReset">重置</YdButton>
-        <YdButton type="primary" :loading="running" @click="handleRunSimulation">运行仿真</YdButton>
+        <YdButton @click="handleReset">{{ $t('simulation.reset') }}</YdButton>
+        <YdButton type="primary" :loading="running" @click="handleRunSimulation">{{
+          $t('simulation.runSimulation')
+        }}</YdButton>
       </div>
     </div>
 
@@ -169,7 +172,7 @@ function handleReset(): void {
     <div v-if="simulationResult" class="mb-4 grid grid-cols-4 gap-5 px-4">
       <YdCard shadow="hover">
         <div class="text-center">
-          <div class="text-sm text-gray-500">仿真状态</div>
+          <div class="text-sm text-gray-500">{{ $t('simulation.status') }}</div>
           <YdBadge :type="statusTagType" class="mt-1 text-base">
             {{ (simulationResult.status as string) ?? 'UNKNOWN' }}
           </YdBadge>
@@ -177,19 +180,19 @@ function handleReset(): void {
       </YdCard>
       <YdCard shadow="hover">
         <div class="text-center">
-          <div class="text-sm text-gray-500">预计总耗时</div>
+          <div class="text-sm text-gray-500">{{ $t('simulation.estimatedTotalDuration') }}</div>
           <div class="mt-1 text-2xl font-bold text-blue-600">{{ estimatedTotalDuration }}</div>
         </div>
       </YdCard>
       <YdCard shadow="hover">
         <div class="text-center">
-          <div class="text-sm text-gray-500">预计节点数</div>
+          <div class="text-sm text-gray-500">{{ $t('simulation.estimatedNodeCount') }}</div>
           <div class="mt-1 text-2xl font-bold text-green-600">{{ predictedNodes.length }}</div>
         </div>
       </YdCard>
       <YdCard shadow="hover">
         <div class="text-center">
-          <div class="text-sm text-gray-500">流程编码</div>
+          <div class="text-sm text-gray-500">{{ $t('simulation.flowCode') }}</div>
           <div class="mt-1 text-base font-medium text-gray-700">
             {{ (simulationResult.flowCode as string) ?? selectedFlowCode }}
           </div>
@@ -201,13 +204,13 @@ function handleReset(): void {
     <div class="px-4 pb-4">
       <YdTabs v-model="activeTab" type="border-card">
         <!-- 参数配置 Tab -->
-        <YdTabsContent label="参数配置" name="config">
+        <YdTabsContent :label="$t('simulation.paramConfigTab')" name="config">
           <YdCard shadow="never">
             <YdForm label-width="120px" label-position="left">
-              <YdFormItem label="流程定义">
+              <YdFormItem :label="$t('simulation.flowDefinition')">
                 <YdSelect
                   v-model="selectedFlowCode"
-                  placeholder="请选择流程定义"
+                  :placeholder="$t('simulation.flowDefinitionPlaceholder')"
                   filterable
                   clearable
                   class="w-full"
@@ -220,31 +223,33 @@ function handleReset(): void {
                   />
                 </YdSelect>
               </YdFormItem>
-              <YdFormItem label="仿真参数">
+              <YdFormItem :label="$t('simulation.simulationParams')">
                 <YdInput
                   v-model="paramJson"
                   type="textarea"
                   :rows="12"
-                  placeholder='请输入 JSON 格式的仿真参数，如 { "amount": 5000, "department": "技术部" }'
+                  :placeholder="$t('simulation.simulationParamsPlaceholder')"
                 />
               </YdFormItem>
               <YdFormItem>
                 <YdButton type="primary" :loading="running" @click="handleRunSimulation">
-                  运行仿真
+                  {{ $t('simulation.runSimulation') }}
                 </YdButton>
-                <YdButton @click="handleReset">重置</YdButton>
+                <YdButton @click="handleReset">{{ $t('simulation.reset') }}</YdButton>
               </YdFormItem>
             </YdForm>
           </YdCard>
         </YdTabsContent>
 
         <!-- 仿真结果 Tab -->
-        <YdTabsContent label="仿真结果" name="result">
+        <YdTabsContent :label="$t('simulation.resultTab')" name="result">
           <div v-if="simulationResult">
             <!-- 预测执行路径（步骤条） -->
             <YdCard shadow="never" class="mb-4">
               <template #header>
-                <span class="font-semibold text-gray-700">预测执行路径</span>
+                <span class="font-semibold text-gray-700">{{
+                  $t('simulation.predictedPath')
+                }}</span>
               </template>
               <YdSteps
                 :current="predictedStepItems.length - 1"
@@ -256,17 +261,31 @@ function handleReset(): void {
             <!-- 节点明细表格 -->
             <YdCard shadow="never">
               <template #header>
-                <span class="font-semibold text-gray-700">节点执行明细</span>
+                <span class="font-semibold text-gray-700">{{
+                  $t('simulation.nodeDetails')
+                }}</span>
               </template>
               <table class="w-full border-collapse text-sm">
                 <thead>
                   <tr class="border-b border-gray-200 bg-gray-50 text-left">
-                    <th class="px-4 py-2 font-medium text-gray-600">序号</th>
-                    <th class="px-4 py-2 font-medium text-gray-600">节点名称</th>
-                    <th class="px-4 py-2 font-medium text-gray-600">节点编码</th>
-                    <th class="px-4 py-2 font-medium text-gray-600">审批人</th>
-                    <th class="px-4 py-2 font-medium text-gray-600">预计耗时</th>
-                    <th class="px-4 py-2 font-medium text-gray-600">条件/分支</th>
+                    <th class="px-4 py-2 font-medium text-gray-600">
+                      {{ $t('simulation.table.index') }}
+                    </th>
+                    <th class="px-4 py-2 font-medium text-gray-600">
+                      {{ $t('simulation.table.nodeName') }}
+                    </th>
+                    <th class="px-4 py-2 font-medium text-gray-600">
+                      {{ $t('simulation.table.nodeCode') }}
+                    </th>
+                    <th class="px-4 py-2 font-medium text-gray-600">
+                      {{ $t('simulation.table.assignee') }}
+                    </th>
+                    <th class="px-4 py-2 font-medium text-gray-600">
+                      {{ $t('simulation.table.estimatedDuration') }}
+                    </th>
+                    <th class="px-4 py-2 font-medium text-gray-600">
+                      {{ $t('simulation.table.conditionBranch') }}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -309,7 +328,7 @@ function handleReset(): void {
 
           <!-- 无结果时展示空状态 -->
           <YdCard v-else shadow="never">
-            <YdEmptyState description="请先在「参数配置」Tab 中配置参数并运行仿真" />
+            <YdEmptyState :description="$t('simulation.emptyHint')" />
           </YdCard>
         </YdTabsContent>
       </YdTabs>

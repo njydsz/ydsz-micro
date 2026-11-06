@@ -129,25 +129,25 @@ function handleClose(event: MouseEvent): void {
 }
 
 .yd-tag--primary {
-  background-color: var(--yd-color-primary-bg-subtle, rgba(24, 144, 255, 0.12));
+  background-color: var(--yd-color-primary-bg-subtle, rgb(24 144 255 / 12%));
   color: var(--yd-color-primary, #1890ff);
   border-color: transparent;
 }
 
 .yd-tag--success {
-  background-color: rgba(103, 194, 58, 0.12);
+  background-color: rgb(103 194 58 / 12%);
   color: #67c23a;
   border-color: transparent;
 }
 
 .yd-tag--warning {
-  background-color: rgba(230, 162, 60, 0.12);
+  background-color: rgb(230 162 60 / 12%);
   color: #e6a23c;
   border-color: transparent;
 }
 
 .yd-tag--danger {
-  background-color: rgba(245, 108, 108, 0.12);
+  background-color: rgb(245 108 108 / 12%);
   color: #f56c6c;
   border-color: transparent;
 }
@@ -180,7 +180,7 @@ function handleClose(event: MouseEvent): void {
   border: none;
   background: transparent;
   cursor: pointer;
-  color: currentColor;
+  color: currentcolor;
   border-radius: 50%;
   opacity: 0.7;
   transition:
@@ -190,6 +190,6 @@ function handleClose(event: MouseEvent): void {
 
 .yd-tag__close:hover {
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: rgb(0 0 0 / 8%);
 }
 </style>

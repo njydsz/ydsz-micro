@@ -142,6 +142,11 @@ jobs:
       - name: 设计令牌接线（含产物级需先构建，此处校验源码接线）
         run: pnpm check:tokens
 
+      # 格式一致性：2026-11-06 全量 pnpm format 后已清零，接线防复发。
+      # .dev-logs/ 与第三方 vendor 已在 .prettierignore 中排除。
+      - name: 代码格式（Prettier）
+        run: pnpm format:check
+
       - name: 设计令牌门禁自检
         run: pnpm check:tokens:self-test
 

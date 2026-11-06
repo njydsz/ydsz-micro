@@ -55,6 +55,7 @@ SERVICE_MAP: Dict[str, str] = {
     "nextwiki": "nextwiki-web",
     "literule": "literule-web",
     "agent": "agent-web",
+    "generator": "generator-web",
 }
 
 # 基础类型映射: Java -> OpenAPI schema
@@ -94,6 +95,60 @@ BASIC_TYPES: Dict[str, Dict[str, Any]] = {
 
 CONTAINER_TYPES = {"List", "Set", "Collection", "Iterable", "ArrayList", "LinkedList", "HashSet", "TreeSet"}
 MAP_TYPES = {"Map", "HashMap", "LinkedHashMap", "TreeMap", "ConcurrentHashMap"}
+
+# 平台基础实体（com.njydsz.common.jdbc.entity）提供的字段。
+# 这些字段在子类源码中不可见（继承自 MpBaseEntity），静态提取器无法发现，
+# 若不补齐则前端 SDK 缺失主键/审计字段，业务代码访问 .id 会报类型错误。
+MP_BASE_ENTITY_PARENTS = {
+    "MpBaseEntity", "MpBaseIdEntity", "MpBaseAuditEntity",
+    "MpBaseEntity<String>", "MpBaseEntity<Long>",
+}
+
+# (字段名, Java 类型, 说明)
+_MP_BASE_ENTITY_FIELDS: List[tuple] = [
+    ("id", "String", "主键 ID"),
+    ("sort", "Integer", "排序权重"),
+    ("status", "String", "状态标识"),
+    ("revision", "Integer", "乐观锁版本号"),
+    ("tenantId", "String", "租户 ID"),
+    ("isDeleted", "Integer", "逻辑删除标记（0=未删除，1=已删除）"),
+    ("createdBy", "String", "创建人"),
+    ("createdAt", "LocalDateTime", "创建时间"),
+    ("updatedBy", "String", "更新人"),
+    ("updatedAt", "LocalDateTime", "更新时间"),
+]
+
+# 向后兼容别名：{服务: {文件名(不含后缀): {生成的函数名: [历史调用名, ...]}}}
+# 当后端重构改了 operationId（如 listDatasources -> list），既有业务代码会编译失败。
+# 在此登记后，生成器会在对应 API 文件尾部追加 `export const 旧名 = 新名;` 别名，
+# 使调用方无需同步改造即可继续编译；新代码应直接使用生成的新名。
+# 必须按文件分别登记：同一生成名（如 deleteApi）在不同模块可能对应不同旧称，
+# 若不区分文件会把无关别名注入到别的模块，造成命名污染。
+API_ALIASES: Dict[str, Dict[str, Dict[str, List[str]]]] = {
+    "generator": {
+        "datasource": {
+            "list": ["listDatasources"],
+            "getDefault": ["getDefaultDatasource"],
+            "create": ["createDatasource"],
+            "update": ["updateDatasource"],
+            "deleteApi": ["deleteDatasource"],
+        },
+        "history": {
+            "listRecent": ["listRecentHistory"],
+            "getById": ["getHistoryById"],
+            "listFiles": ["listHistoryFiles"],
+            "rollback": ["rollbackHistory"],
+            "deleteApi": ["deleteHistory"],
+        },
+        "reverse": {
+            "analyze": ["analyzeReverse"],
+            "analyzeBatch": ["analyzeBatchReverse"],
+        },
+        "template": {
+            "search": ["searchTemplates"],
+        },
+    },
+}
 
 # 需要从后端加载 Java 源文件的目录（查找 DTO/VO）
 JAVA_ROOTS = [
@@ -307,6 +362,19 @@ class JavaSource:
         return self._record_fields
 
     # ---- class fields (Lombok @Data/@Getter 或手写 getter) ----
+    def _extends_mp_base_entity(self) -> bool:
+        """判断当前类是否继承平台基础实体（决定是否需要注入平台字段）。
+
+        匹配 `extends MpBaseEntity` / `extends MpBaseEntity<String>` 等写法；
+        内部静态类（无继承）返回 False。
+        """
+        m = re.search(
+            r"\bextends\s+([\w.]+)(?:\s*<[^>]*>)?", self.src)
+        if not m:
+            return False
+        parent = m.group(1).split(".")[-1]
+        return parent in MP_BASE_ENTITY_PARENTS
+
     @property
     def class_fields(self) -> List[Tuple[str, str, List[str]]]:
         """返回 (fieldName, javaType, annotations) 列表.
@@ -314,11 +382,25 @@ class JavaSource:
         annotations 包含 JSR-303/380 校验注解的原始字符串，例如:
         ["@NotBlank", "@Size(min = 1, max = 64)", "@Pattern(regexp = \"^[A-Z_]+$\")"].
         SchemaBuilder 根据这些注解在 openapi.json 中写入 minLength / maxLength / pattern 等约束。
+
+        继承处理：若类 extends 平台基础实体（MpBaseEntity / MpBaseIdEntity / MpBaseAuditEntity），
+        自动补齐其提供的 10 个平台字段（id/sort/status/revision/tenantId/isDeleted/
+        createdBy/createdAt/updatedBy/updatedAt），否则前端 SDK 会缺失主键与审计字段，
+        导致业务代码访问 `.id` 时报类型错误。
         """
         if self._class_fields is None:
             fields: List[Tuple[str, str, List[str]]] = []
             # 收集字段位置（用于后续从源码中提取 JSR-303/380 注解）
             field_positions: Dict[str, int] = {}
+
+            # 0) 平台基础实体字段注入（继承字段源码中不存在，需显式补齐）
+            if self._extends_mp_base_entity():
+                for fname, ftype, fdoc in _MP_BASE_ENTITY_FIELDS:
+                    if any(f[0] == fname for f in fields):
+                        continue
+                    fields.append(
+                        (fname, ftype, ["@Schema(description = \"%s\")" % fdoc]))
+                    field_positions[fname] = -1
 
             # 1) @JsonProperty("x") private Type name; —— 属性名以注解为准
             jp_pat = re.compile(
@@ -1606,6 +1688,22 @@ def main():
                     fname = _export_name(fname)
                     fpath = os.path.join(api_dir, f"{fname}.ts")
                     content = gen_api_file(svc, ctrl, controllers[ctrl], builder)
+                    # 追加向后兼容别名（仅对该文件实际导出的函数生效）
+                    aliases = API_ALIASES.get(svc, {}).get(fname, {})
+                    if aliases:
+                        generated = set(re.findall(r'^export (?:async )?function (\w+)',
+                                                   content, re.M))
+                        applicable = [(old, new)
+                                      for new, olds in aliases.items() if new in generated
+                                      for old in olds]
+                        if applicable:
+                            content += (
+                                "\n\n// ==================== 向后兼容别名 ====================\n"
+                                "// 以下为历史手写封装的调用名，保留以兼容既有业务代码；\n"
+                                "// 新代码请直接使用上方由契约生成的函数名。\n"
+                            )
+                            for old, new in applicable:
+                                content += f"export const {old} = {new};\n"
                     with open(fpath, "w", encoding="utf-8") as f:
                         f.write("/** auto-generated by bash/gen-contract.py — DO NOT EDIT */\n// @data-file 纯类型 API 封装生成件（不计入行数/复杂度规则）\n" + content)
                     exports.append(fname)

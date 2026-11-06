@@ -544,11 +544,16 @@ watch(
   height: 28px;
   border-radius: 9999px;
   background-color: #404040;
-  color: #ffffff;
+  color: #fff;
   transition:
     background-color 150ms ease,
     opacity 150ms ease;
   flex-shrink: 0;
+}
+
+.yd-picklist__ctrl-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .yd-picklist__ctrl-btn:hover:not(:disabled) {
@@ -557,10 +562,5 @@ watch(
 
 .yd-picklist__ctrl-btn:active:not(:disabled) {
   background-color: #171717;
-}
-
-.yd-picklist__ctrl-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
 }
 </style>
