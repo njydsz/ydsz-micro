@@ -25,6 +25,7 @@
  */
 import { YdCard, YdCardContent, YdCardHeader, YdCardTitle } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { diagram } from '#/api/flowInstance';
 import type { FlowDiagramVO } from '#/api/models';
 
@@ -38,6 +39,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   bordered: true,
 });
+
+const { t } = useI18n();
 
 const emit = defineEmits<{
   nodeClick: [nodeCode: string];
@@ -88,7 +91,7 @@ onMounted(() => {
 <template>
   <YdCard v-if="bordered" class="flow-diagram">
     <YdCardHeader>
-      <YdCardTitle class="text-sm font-semibold">流程进度</YdCardTitle>
+      <YdCardTitle class="text-sm font-semibold">{{ t('wf.flowDiagram.title') }}</YdCardTitle>
     </YdCardHeader>
     <YdCardContent>
       <div class="diagram-container">
@@ -99,7 +102,7 @@ onMounted(() => {
           v-else-if="!hasDiagram"
           class="flex items-center justify-center py-12 text-sm text-gray-400"
         >
-          暂无流程图
+          {{ t('wf.flowDiagram.empty') }}
         </div>
         <div v-else class="diagram-content" @click="handleSvgClick" v-safe-html="svgContent" />
       </div>
@@ -114,7 +117,7 @@ onMounted(() => {
         v-else-if="!hasDiagram"
         class="flex items-center justify-center py-12 text-sm text-gray-400"
       >
-        暂无流程图
+        {{ t('wf.flowDiagram.empty') }}
       </div>
       <div v-else class="diagram-content" @click="handleSvgClick" v-safe-html="svgContent" />
     </div>

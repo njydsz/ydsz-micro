@@ -33,8 +33,10 @@ import { createLogger } from '@ydsz/utils';
 import { computed, reactive, ref, watch } from 'vue';
 
 import { showToast } from '@ydsz/notification';
+import { useI18n } from 'vue-i18n';
 
 const logger = createLogger('agent-prompt');
+const { t } = useI18n();
 
 defineOptions({ name: 'PromptForm' });
 
@@ -167,17 +169,33 @@ watch(
 </script>
 
 <template>
-  <Modal :title="isEditMode ? '编辑 Prompt 模板' : '新增 Prompt 模板'" width="700px">
+  <Modal
+    :title="
+      isEditMode ? t('page.promptForm.editTitle') : t('page.promptForm.createTitle')
+    "
+    width="700px"
+  >
     <YdForm label-width="100px" class="mt-3">
       <div class="grid grid-cols-2 gap-x-4">
-        <YdFormItem label="模板编码" required>
-          <YdInput v-model="formData.templateCode" placeholder="唯一标识" :disabled="isEditMode" />
+        <YdFormItem :label="t('page.promptForm.templateCode')" required>
+          <YdInput
+            v-model="formData.templateCode"
+            :placeholder="t('page.promptForm.templateCodePlaceholder')"
+            :disabled="isEditMode"
+          />
         </YdFormItem>
-        <YdFormItem label="模板名称" required>
-          <YdInput v-model="formData.templateName" placeholder="请输入名称" />
+        <YdFormItem :label="t('page.promptForm.templateName')" required>
+          <YdInput
+            v-model="formData.templateName"
+            :placeholder="t('page.promptForm.templateNamePlaceholder')"
+          />
         </YdFormItem>
-        <YdFormItem label="分类">
-          <YdSelect v-model="formData.category" placeholder="请选择分类" class="w-full">
+        <YdFormItem :label="t('page.promptForm.category')">
+          <YdSelect
+            v-model="formData.category"
+            :placeholder="t('page.promptForm.categoryPlaceholder')"
+            class="w-full"
+          >
             <YdSelectItem
               v-for="opt in categoryOptions"
               :key="opt.value"
@@ -186,45 +204,51 @@ watch(
             />
           </YdSelect>
         </YdFormItem>
-        <YdFormItem label="启用">
+        <YdFormItem :label="t('page.promptForm.enabled')">
           <YdSwitch v-model="formData.enabled" />
         </YdFormItem>
       </div>
 
-      <YdFormItem label="模板描述">
+      <YdFormItem :label="t('page.promptForm.description')">
         <YdInput
           v-model="formData.description"
           type="textarea"
           :rows="2"
-          placeholder="请输入模板描述"
+          :placeholder="t('page.promptForm.descriptionPlaceholder')"
         />
       </YdFormItem>
 
-      <YdFormItem label="模板内容" required>
+      <YdFormItem :label="t('page.promptForm.content')" required>
         <div class="w-full">
           <YdInput
             v-model="formData.content"
             type="textarea"
             :rows="10"
-            placeholder="使用 {{variable}} 语法声明变量，例如：你是一个客服人员。用户问题：{{question}}"
+            :placeholder="t('page.promptForm.contentPlaceholder')"
           />
-          <p class="mt-1 text-xs text-gray-400">支持 {'{{ '}variable{' }}'} 变量语法</p>
+          <p class="mt-1 text-xs text-gray-400">
+            {{ t('page.promptForm.variableSyntaxHint') }}
+          </p>
         </div>
       </YdFormItem>
 
-      <YdFormItem label="识别变量">
+      <YdFormItem :label="t('page.promptForm.detectedVariables')">
         <div class="flex flex-wrap gap-2">
           <YdBadge v-for="v in extractedVariables" :key="v" type="info">{{ v }}</YdBadge>
           <span v-if="extractedVariables.length === 0" class="text-xs text-gray-400"
-            >暂未识别到变量</span
+            >{{ t('page.promptForm.noVariablesDetected') }}</span
           >
         </div>
       </YdFormItem>
     </YdForm>
 
     <template #footer>
-      <YdButton variant="outline" @click="modalApi.close()">取消</YdButton>
-      <YdButton :disabled="submitting" @click="handleSubmit">保存</YdButton>
+      <YdButton variant="outline" @click="modalApi.close()">
+        {{ t('page.promptForm.cancel') }}
+      </YdButton>
+      <YdButton :disabled="submitting" @click="handleSubmit">
+        {{ t('page.promptForm.save') }}
+      </YdButton>
     </template>
   </Modal>
 </template>

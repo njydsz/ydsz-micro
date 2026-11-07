@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 单个表单项的渲染器：按 Schema 选择控件、套上标签与错误提示。
  *
  * 控件经 componentMap 动态解析（component :is），使 Schema 只需声明字符串型的

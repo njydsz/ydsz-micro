@@ -85,6 +85,26 @@
     "sourceRequired": "请输入源文件路径",
     "startAnalyze": "开始分析"
   },
+  "importExport": {
+    "exportTitle": "导出模板分组为 ZIP",
+    "exportGroupLabel": "选择分组",
+    "exportGroupPlaceholder": "选择要导出的模板分组",
+    "exportNoDescription": "无描述",
+    "exportZipButton": "导出 ZIP",
+    "exportHint": "导出当前分组的所有 Velocity 模板文件为 ZIP 压缩包，可作为备份或跨环境迁移。",
+    "exportSelectGroupWarning": "请选择要导出的模板分组",
+    "importTitle": "从 ZIP 导入模板",
+    "importGroupLabel": "目标分组",
+    "importGroupPlaceholder": "选择导入到的模板分组",
+    "importNoDescription": "无描述",
+    "importOverwriteLabel": "覆盖模式",
+    "importOverwriteHint": "覆盖已有模板（不勾选则跳过同名模板）",
+    "importZipLabel": "ZIP 文件",
+    "importSelectZipButton": "选择 ZIP 文件",
+    "importHint": "从 ZIP 压缩包导入模板到指定分组。ZIP 文件应包含 Velocity 模板文件。",
+    "importSelectGroupWarning": "请选择目标模板分组",
+    "importSuccess": "导入成功，共导入 {count} 个模板"
+  },
   "template": {
     "groupList": "模板分组",
     "create": "新建",
@@ -97,6 +117,15 @@
     "search": "搜索",
     "disabled": "禁用",
     "noDescription": "无描述",
-    "empty": "该分组暂无模板"
+    "empty": "该分组暂无模板",
+    "groupFormTitle": "新建模板分组",
+    "groupName": "分组名称",
+    "groupNamePlaceholder": "请输入分组名称",
+    "groupNameHint": "如 mybatis-plus、mongodb",
+    "groupDescription": "描述",
+    "groupDescriptionPlaceholder": "分组用途说明",
+    "groupSort": "排序",
+    "groupFormCancel": "取消",
+    "groupFormConfirm": "确定"
   }
 }

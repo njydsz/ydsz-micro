@@ -1,4 +1,4 @@
-﻿/**
+/**
  * preload-manager-helpers.ts — PreloadManager 辅助函数
  *
  * 从 preload-strategy.ts 提取的辅助函数，包含：

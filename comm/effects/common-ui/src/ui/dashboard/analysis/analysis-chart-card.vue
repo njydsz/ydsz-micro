@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * analysis-chart-card Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\analysis\analysis-chart-card.vue

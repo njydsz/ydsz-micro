@@ -5,10 +5,12 @@
  * @author ydsz-team
  * @since 1.0.0
  */
+import type { AcceptedPlugin } from 'postcss';
 import type { CSSOptions, UserConfig } from 'vite';
 
 import type { DefineApplicationOptions } from '../typing';
 
+import { createRequire } from 'node:module';
 import path, { relative } from 'node:path';
 import { readFileSync } from 'node:fs';
 
@@ -238,15 +240,55 @@ function createCssOptions(injectGlobalScss = true, appName?: string): CSSOptions
       : {},
   };
 
-  // === micro-kernel CSS 作用域：有 appName 时启用 ===
-  if (appName) {
+  // === micro-kernel CSS 作用域：仅对 apps/* 子应用启用 ===
+  // main-web 是基座壳应用，不挂在 micro-kernel 容器内，无需作用域隔离。
+  //
+  // 注意：一旦显式设置 css.postcss，Vite 将不再读取 postcss.config.mts，
+  // 会把 Tailwind / autoprefixer 等插件整体丢弃，导致全量工具类失效（页面样式崩坏）。
+  // 因此这里必须把 postcss.config.mts 的既有插件合并进来，仅追加作用域插件，而非覆盖。
+  if (appName && appName !== 'main-web') {
     result.postcss = {
-      plugins: [microScopedPostcssPlugin({ appName })],
+      plugins: [...getSharedPostcssPlugins(), microScopedPostcssPlugin({ appName })],
     };
     logger.info(`CSS 作用域已启用: ${appName}`);
   }
 
   return result;
+}
+
+/**
+ * 读取 postcss.config.mts 中的共享插件（Tailwind / autoprefixer 等）。
+ *
+ * Vite 在 css.postcss 被显式设置时会跳过 postcss.config 文件，
+ * 因此需要在配置阶段手动加载，避免 Tailwind 等插件丢失。
+ *
+ * @returns PostCSS 插件数组；加载失败或无配置时返回空数组
+ */
+function getSharedPostcssPlugins(): AcceptedPlugin[] {
+  try {
+    // 复用 @ydsz/tailwind-config 的 postcss 预设（与 postcss.config.mts 同源）
+    // 通过 exports 的 require 字段解析到 dist/postcss.config.cjs（含 top-level await 的 .mjs 无法被 require 加载）
+    const require = createRequire(import.meta.url);
+    const mod = require('@ydsz/tailwind-config/postcss') as {
+      default?: { plugins?: Record<string, unknown> };
+      plugins?: Record<string, unknown>;
+    };
+    const plugins = mod?.default?.plugins ?? mod?.plugins;
+    if (!plugins) return [];
+
+    return Object.entries(plugins)
+      .filter(([, options]) => options !== false && options != null)
+      .map(([pluginName, options]) => {
+        const pluginFn = require(pluginName) as (
+          opts?: Record<string, unknown>,
+        ) => AcceptedPlugin;
+        return pluginFn?.(options as Record<string, unknown>);
+      })
+      .filter(Boolean);
+  } catch (error) {
+    logger.warn(`加载 postcss 预设失败，仅使用作用域插件: ${String(error)}`);
+    return [];
+  }
 }
 
 export { defineApplicationConfig };

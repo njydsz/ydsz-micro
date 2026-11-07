@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 面包屑中的一级：渲染为 li，保证外层 YdBreadcrumbList 的有序列表语义成立。
  *
  * 注意分隔符（YdBreadcrumbSeparator）本身也是一个 li，

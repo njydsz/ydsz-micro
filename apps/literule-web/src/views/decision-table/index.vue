@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 决策表管理列表页面
  *
  * @path apps\literule-web\src\views\decision-table\index.vue

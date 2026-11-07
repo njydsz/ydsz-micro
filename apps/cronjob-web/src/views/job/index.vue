@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 定时任务（列表页）
  *
  * @path apps\cronjob-web\src\views\job\index.vue
@@ -495,17 +495,18 @@ async function handleBatchDelete() {
           :loading="batchLoading"
           :disabled="batchLoading"
           @click="handleBatchPause"
-          >批量暂停</YdButton
+          >{{ t('page.job.batchPause') }}</YdButton
         >
-        <YdButton :loading="batchLoading" :disabled="batchLoading" @click="handleBatchResume"
-          >批量恢复</YdButton
+        <YdButton :loading="batchLoading" :disabled="batchLoading" @click="handleBatchResume">
+          {{ t('page.job.batchResume') }}
+        </YdButton>
         >
         <YdButton
           variant="destructive"
           :loading="batchLoading"
           :disabled="batchLoading"
           @click="handleBatchDelete"
-          >批量删除</YdButton
+          >{{ t('page.job.batchDelete') }}</YdButton
         >
       </template>
     </Grid>
@@ -515,7 +516,7 @@ async function handleBatchDelete() {
     <YdSheet v-model:open="drawerVisible">
       <YdSheetContent side="right" class="w-[600px]">
         <YdSheetHeader>
-          <YdSheetTitle>任务 WebHook 配置</YdSheetTitle>
+          <YdSheetTitle>{{ t('page.job.webhookConfig') }}</YdSheetTitle>
         </YdSheetHeader>
         <WebhookConfigPanel v-if="drawerVisible" :job-id="selectedJobId" />
       </YdSheetContent>
@@ -525,16 +526,16 @@ async function handleBatchDelete() {
     <YdSheet v-model:open="eventDrawerVisible">
       <YdSheetContent side="right" class="w-[500px]">
         <YdSheetHeader>
-          <YdSheetTitle>任务事件流</YdSheetTitle>
+          <YdSheetTitle>{{ t('page.job.eventStream') }}</YdSheetTitle>
         </YdSheetHeader>
         <div v-if="eventLoading" class="flex h-32 items-center justify-center">
-          <YdBadge>加载中...</YdBadge>
+          <YdBadge>{{ t('page.job.loading') }}</YdBadge>
         </div>
         <div
           v-else-if="eventStream.length === 0"
           class="flex h-32 items-center justify-center text-gray-400"
         >
-          暂无事件记录
+          {{ t('page.job.noEventRecords') }}
         </div>
         <div v-else class="space-y-2">
           <div v-for="event in eventStream" :key="event" class="border-l-4 border-blue-400 pl-3">

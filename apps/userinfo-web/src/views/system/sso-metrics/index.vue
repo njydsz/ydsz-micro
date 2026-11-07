@@ -101,7 +101,7 @@ onMounted(() => {
       <YdCard shadow="hover">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500">总登录次数</p>
+            <p class="text-sm text-gray-500">{{ t('sso.totalLoginCount') }}</p>
             <p class="mt-1 text-2xl font-bold text-blue-600">
               {{ overview.totalLoginCount ?? 0 }}
             </p>
@@ -115,7 +115,7 @@ onMounted(() => {
       <YdCard shadow="hover">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500">今日登录</p>
+            <p class="text-sm text-gray-500">{{ t('sso.todayLoginCount') }}</p>
             <p class="mt-1 text-2xl font-bold text-green-600">
               {{ overview.todayLoginCount ?? 0 }}
             </p>
@@ -129,7 +129,7 @@ onMounted(() => {
       <YdCard shadow="hover">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500">活跃会话</p>
+            <p class="text-sm text-gray-500">{{ t('sso.activeSessionCount') }}</p>
             <p class="mt-1 text-2xl font-bold text-purple-600">
               {{ overview.activeSessionCount ?? 0 }}
             </p>
@@ -143,7 +143,7 @@ onMounted(() => {
       <YdCard shadow="hover">
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-sm text-gray-500">活跃用户</p>
+            <p class="text-sm text-gray-500">{{ t('sso.activeUserCount') }}</p>
             <p class="mt-1 text-2xl font-bold text-cyan-600">
               {{ overview.activeUserCount ?? 0 }}
             </p>
@@ -160,7 +160,7 @@ onMounted(() => {
       <!-- 今日登录成功率 -->
       <YdCard>
         <template #header>
-          <span class="font-medium">今日登录成功率</span>
+          <span class="font-medium">{{ t('sso.todaySuccessRate') }}</span>
         </template>
         <div class="flex flex-col items-center gap-5 py-4">
           <YdProgress
@@ -179,7 +179,9 @@ onMounted(() => {
             <p class="text-lg font-semibold">
               {{ formatPercent(overview.todaySuccessRate) }}
             </p>
-            <p class="mt-1 text-sm text-gray-500">{{ overview.todayLoginCount ?? 0 }} 次登录</p>
+            <p class="mt-1 text-sm text-gray-500">
+              {{ t('sso.loginCount', { count: overview.todayLoginCount ?? 0 }) }}
+            </p>
           </div>
         </div>
       </YdCard>
@@ -187,14 +189,14 @@ onMounted(() => {
       <!-- 接入应用统计 -->
       <YdCard>
         <template #header>
-          <span class="font-medium">接入应用</span>
+          <span class="font-medium">{{ t('sso.applications') }}</span>
         </template>
         <div class="flex items-center justify-center gap-2 py-4">
           <div class="text-center">
             <p class="text-3xl font-bold text-blue-600">
               {{ overview.totalApplicationCount ?? 0 }}
             </p>
-            <p class="mt-1 text-sm text-gray-500">接入应用总数</p>
+            <p class="mt-1 text-sm text-gray-500">{{ t('sso.totalApplications') }}</p>
           </div>
         </div>
         <div
@@ -210,7 +212,7 @@ onMounted(() => {
             {{ appName }}
           </YdBadge>
         </div>
-        <YdEmptyState v-else :description="'暂无应用数据'" :image-size="40" />
+        <YdEmptyState v-else :description="t('sso.noApplicationData')" :image-size="40" />
       </YdCard>
     </div>
 
@@ -218,7 +220,7 @@ onMounted(() => {
     <div class="mt-4">
       <YdCard>
         <template #header>
-          <span class="font-medium">登录趋势</span>
+          <span class="font-medium">{{ t('sso.loginTrend') }}</span>
         </template>
         <YdTable
           v-if="overview.loginTrend && overview.loginTrend.length > 0"
@@ -226,19 +228,19 @@ onMounted(() => {
           border
           max-height="300"
         >
-          <YdTableColumn type="index" label="序号" width="80" />
-          <YdTableColumn label="标签" prop="index" width="120">
+          <YdTableColumn type="index" :label="t('sso.seq')" width="80" />
+          <YdTableColumn :label="t('sso.label')" prop="index" width="120">
             <template #default="{ row }">
-              <span>时段 {{ row.index }}</span>
+              <span>{{ t('sso.timeSlot', { index: row.index }) }}</span>
             </template>
           </YdTableColumn>
-          <YdTableColumn label="登录次数" minWidth="120">
+          <YdTableColumn :label="t('security.loginCount')" minWidth="120">
             <template #default="{ row }">
               <span>{{ row.value }}</span>
             </template>
           </YdTableColumn>
         </YdTable>
-        <YdEmptyState v-else description="暂无登录趋势数据" :image-size="60" />
+        <YdEmptyState v-else :description="t('sso.noTrendData')" :image-size="60" />
       </YdCard>
     </div>
   </Page>

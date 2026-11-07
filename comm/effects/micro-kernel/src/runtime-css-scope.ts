@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 运行时 CSS 作用域隔离（v4.2.1 N5 短期方案）
  *
  * 背景：构建期 micro-scoped-postcss 插件已为自有子应用 CSS 加
@@ -28,6 +28,45 @@ const logger = createLogger('MicroKernel');
 
 /** scoped style 的 data 属性标记（卸载时定位） */
 const SCOPED_STYLE_ATTR = 'data-micro-kernel-scoped-app';
+
+/**
+ * 已上报过 scope 失败的应用集合（去重，避免同一应用多条 link 失败时刷屏）
+ *
+ * v4.3.2：跨域样式表不可读时 `link.sheet.cssRules` 抛 SecurityError，
+ * 此前完全静默。现按应用去重上报一次 warn，使线上样式污染可观测。
+ */
+const reportedScopeFailures = new Set<string>();
+
+/**
+ * 上报 CSS scope 失败（按应用去重，只报一次）。
+ *
+ * 走 logger.warn 而非 console.warn：warn 不受 debugFilter 与日志级别控制，
+ * 保证线上一定可见，同时保持模块前缀统一。
+ *
+ * @param appName - 子应用名
+ * @param error - 失败原因（通常为 SecurityError: cssRules 不可读）
+ * @since 4.3.2
+ */
+function reportCssScopeFailure(appName: string, error: unknown): void {
+  logger.warn(
+    `Runtime CSS scope skipped for "${appName}" (${String(error)}); ` +
+      'falling back to build-time scoping. ' +
+      'If the sub-app stylesheet is cross-origin, add CORS headers ' +
+      '(Access-Control-Allow-Origin) to enable runtime isolation.',
+  );
+  reportedScopeFailures.add(appName);
+}
+
+/**
+ * 清空 CSS scope 失败上报去重记录。
+ *
+ * 供 HMR 与测试场景使用：避免上一轮渲染的失败记录抑制下一轮上报。
+ *
+ * @since 4.3.2
+ */
+export function clearCssScopeFailureReports(): void {
+  reportedScopeFailures.clear();
+}
 
 /**
  * 为指定子应用的全部样式表应用运行时作用域。
@@ -69,7 +108,11 @@ export function applyRuntimeCssScope(appName: string): void {
       logger.debug(`Runtime CSS scope applied for "${appName}"`);
     } catch (err) {
       // 跨域读取失败或规则解析异常 → 保留原始样式（构建期 scoping 兜底）
-      logger.debug(`Runtime CSS scope skipped for "${appName}" (${String(err)})`);
+      //
+      // v4.3.2：此前完全静默，线上发生跨域样式表不可读时无任何信号，
+      // 子应用样式污染问题无法被观测。现按应用去重上报一次告警，
+      // 避免同一应用多条 link 失败时刷屏。
+      reportCssScopeFailure(appName, err);
     }
   }
 }

@@ -66,30 +66,30 @@ function formatSize(size?: number): string {
 const gridOptions: VxeGridProps<FileNodeVO> = {
   columns: [
     { type: 'seq', width: 50, title: t('seq') },
-    { field: 'name', title: '名称', minWidth: 240 },
+    { field: 'name', title: t('name'), minWidth: 240 },
     {
       field: 'nodeType',
-      title: '类型',
+      title: t('type'),
       width: 90,
       slots: {
         default: ({ row }) =>
           h(YdBadge, { variant: row.nodeType === 'FOLDER' ? 'warning' : 'default' }, () =>
-            row.nodeType === 'FOLDER' ? '目录' : '文件',
+            row.nodeType === 'FOLDER' ? t('nodeTypeDirectory') : t('nodeTypeFile'),
           ),
       },
     },
     {
       field: 'size',
-      title: '大小',
+      title: t('fileSizeColumn'),
       width: 110,
       slots: { default: ({ row }) => h('span', {}, formatSize(row.size)) },
     },
-    { field: 'path', title: '路径', minWidth: 200 },
-    { field: 'createdBy', title: '创建人', width: 110 },
-    { field: 'createdAt', title: '创建时间', width: 170 },
+    { field: 'path', title: t('path'), minWidth: 200 },
+    { field: 'createdBy', title: t('createdBy'), width: 110 },
+    { field: 'createdAt', title: t('createdAt'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: t('operation'),
       width: 320,
       fixed: 'right',
       slots: {
@@ -103,7 +103,7 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
                 onClick: () => handlePreview(row),
                 disabled: row.nodeType === 'FOLDER',
               },
-              () => '预览',
+              () => t('preview'),
             ),
             h(
               YdButton,
@@ -113,7 +113,7 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
                 onClick: () => handleDownload(row),
                 disabled: row.nodeType === 'FOLDER',
               },
-              () => '下载',
+              () => t('download'),
             ),
             h(
               YdButton,
@@ -123,7 +123,7 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
                 onClick: () => handleOnlineEdit(row),
                 disabled: row.nodeType === 'FOLDER',
               },
-              () => '编辑',
+              () => t('edit'),
             ),
             h(
               YdButton,
@@ -133,27 +133,27 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
                 onClick: () => handleVersionHistory(row),
                 disabled: row.nodeType === 'FOLDER',
               },
-              () => '版本',
+              () => t('version'),
             ),
             h(
               YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleRename(row) },
-              () => '重命名',
+              () => t('rename'),
             ),
             h(
               YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleMove(row) },
-              () => '移动',
+              () => t('move'),
             ),
             h(
               YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleCopy(row) },
-              () => '复制',
+              () => t('copy'),
             ),
             h(
               YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('delete'),
             ),
           ]),
       },
@@ -179,8 +179,8 @@ const gridOptions: VxeGridProps<FileNodeVO> = {
     items: [
       {
         field: 'name',
-        title: '名称',
-        itemRender: { name: 'YdInput', props: { placeholder: '请输入名称' } },
+        title: t('name'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('searchNamePlaceholder') } },
       },
     ],
   },
@@ -320,11 +320,13 @@ function handleBatchImportSuccess(): void {
 </script>
 <template>
   <Page auto-content-height>
-    <Grid table-title="文件管理">
+    <Grid :table-title="t('fileManagement')">
       <template #toolbar-tools>
-        <YdButton @click="handleUpload">上传文件</YdButton>
-        <YdButton variant="secondary" @click="handleBatchImport">批量导入</YdButton>
-        <YdButton @click="handleAdd">新建文件夹</YdButton>
+        <YdButton @click="handleUpload">{{ t('uploadFile') }}</YdButton>
+        <YdButton variant="secondary" @click="handleBatchImport">
+          {{ t('batchImport.title') }}
+        </YdButton>
+        <YdButton @click="handleAdd">{{ t('newFolder') }}</YdButton>
       </template>
     </Grid>
     <FileFormModal @success="gridApi.query()" />
@@ -332,28 +334,32 @@ function handleBatchImportSuccess(): void {
     <YdDialog v-model:open="renameVisible">
       <YdDialogContent class="sm:max-w-[420px]">
         <YdDialogHeader>
-          <YdDialogTitle>重命名</YdDialogTitle>
+          <YdDialogTitle>{{ t('renameTitle') }}</YdDialogTitle>
         </YdDialogHeader>
         <div class="py-4">
-          <YdInput v-model="renameForm.name" placeholder="请输入新名称" />
+          <YdInput v-model="renameForm.name" :placeholder="t('renamePlaceholder')" />
         </div>
         <YdDialogFooter>
-          <YdButton variant="outline" @click="renameVisible = false">取消</YdButton>
-          <YdButton @click="confirmRename">确定</YdButton>
+          <YdButton variant="outline" @click="renameVisible = false">
+            {{ t('cancel') }}
+          </YdButton>
+          <YdButton @click="confirmRename">{{ t('confirm') }}</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>
     <YdDialog v-model:open="moveVisible">
       <YdDialogContent class="sm:max-w-[420px]">
         <YdDialogHeader>
-          <YdDialogTitle>移动文件</YdDialogTitle>
+          <YdDialogTitle>{{ t('moveTitle') }}</YdDialogTitle>
         </YdDialogHeader>
         <div class="py-4">
-          <YdInput v-model="moveForm.parentId" placeholder="请输入目标父目录ID（留空表示根目录）" />
+          <YdInput v-model="moveForm.parentId" :placeholder="t('movePlaceholder')" />
         </div>
         <YdDialogFooter>
-          <YdButton variant="outline" @click="moveVisible = false">取消</YdButton>
-          <YdButton @click="confirmMove">确定</YdButton>
+          <YdButton variant="outline" @click="moveVisible = false">
+            {{ t('cancel') }}
+          </YdButton>
+          <YdButton @click="confirmMove">{{ t('confirm') }}</YdButton>
         </YdDialogFooter>
       </YdDialogContent>
     </YdDialog>

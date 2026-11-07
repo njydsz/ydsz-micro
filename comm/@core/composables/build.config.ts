@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @ydsz-core/composables 包的 unbuild 构建配置：单入口聚合全部组合式函数。
  *
  * @path comm\@core\composables\build.config.ts

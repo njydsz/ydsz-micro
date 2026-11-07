@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * theme-button 布局组件
  *
  * @path comm\effects\layouts\src\widgets\theme-toggle\theme-button.vue

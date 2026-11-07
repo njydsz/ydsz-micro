@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * theme-toggle 布局组件
  *
  * @path comm\effects\layouts\src\widgets\theme-toggle\theme-toggle.vue

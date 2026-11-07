@@ -19,12 +19,14 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { diagnose } from '#/api/jobDiagnosis';
 
 defineOptions({ name: 'CronjobJobDiagnosis' });
 
 const logger = createLogger('cronjob-diagnosis');
+const { t } = useI18n();
 
 // ==================== 状态 ====================
 
@@ -135,17 +137,19 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
   <Page auto-content-height>
     <YdCard class="mb-3">
       <YdCardHeader>
-        <YdCardTitle>任务诊断</YdCardTitle>
+        <YdCardTitle>{{ t('page.diagnosis.title') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
         <div class="flex items-center gap-3">
           <YdInput
             v-model="jobKey"
-            placeholder="请输入 jobKey"
+            :placeholder="t('page.diagnosis.jobKeyPlaceholder')"
             class="!w-96"
             @keyup.enter="handleDiagnose"
           />
-          <YdButton :loading="loading" @click="handleDiagnose">诊断</YdButton>
+          <YdButton :loading="loading" @click="handleDiagnose">
+            {{ t('page.diagnosis.diagnose') }}
+          </YdButton>
         </div>
       </YdCardContent>
     </YdCard>
@@ -155,7 +159,7 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
       <!-- 健康评分圆环 -->
       <YdCard class="flex flex-col items-center justify-center">
         <YdCardHeader>
-          <YdCardTitle>健康评分</YdCardTitle>
+          <YdCardTitle>{{ t('page.diagnosis.healthScore') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent class="flex flex-col items-center justify-center">
           <YdProgress
@@ -174,11 +178,11 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
       <!-- 最近执行状态 -->
       <YdCard>
         <YdCardHeader>
-          <YdCardTitle>最近执行</YdCardTitle>
+          <YdCardTitle>{{ t('page.diagnosis.lastExec') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <div class="flex flex-col gap-3">
-            <YdCountToAnimator title="状态" :value="diagnosisResult.lastExecStatus ?? '-'">
+            <YdCountToAnimator :title="t('common.status')" :value="diagnosisResult.lastExecStatus ?? '-'">
               <template #suffix>
                 <span
                   class="ml-1 inline-block rounded px-1.5 py-0.5 text-xs text-white"
@@ -193,10 +197,22 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
                 </span>
               </template>
             </YdCountToAnimator>
-            <YdCountToAnimator title="执行时间" :value="diagnosisResult.lastExecTime ?? '-'" />
-            <YdCountToAnimator title="耗时" :value="`${diagnosisResult.lastDurationMs ?? 0} ms`" />
-            <YdCountToAnimator title="总执行" :value="`${diagnosisResult.totalRuns ?? 0} 次`" />
-            <YdCountToAnimator title="成功率" :value="diagnosisResult.successRate ?? '-'" />
+            <YdCountToAnimator
+              :title="t('page.diagnosis.execTime')"
+              :value="diagnosisResult.lastExecTime ?? '-'"
+            />
+            <YdCountToAnimator
+              :title="t('page.diagnosis.duration')"
+              :value="`${diagnosisResult.lastDurationMs ?? 0} ms`"
+            />
+            <YdCountToAnimator
+              :title="t('page.diagnosis.totalRuns')"
+              :value="`${diagnosisResult.totalRuns ?? 0} ${t('page.diagnosis.timesUnit')}`"
+            />
+            <YdCountToAnimator
+              :title="t('page.dashboard.successRate')"
+              :value="diagnosisResult.successRate ?? '-'"
+            />
           </div>
         </YdCardContent>
       </YdCard>
@@ -204,32 +220,37 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
       <!-- 失败原因 + 建议 -->
       <YdCard>
         <YdCardHeader>
-          <YdCardTitle>分析建议</YdCardTitle>
+          <YdCardTitle>{{ t('page.diagnosis.analysisAdvice') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <div v-if="diagnosisResult.failReason" class="mb-3">
-            <div class="text-xs font-medium text-red-500">失败原因</div>
+            <div class="text-xs font-medium text-red-500">{{ t('page.diagnosis.failReason') }}</div>
             <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.failReason }}</div>
           </div>
           <div v-if="diagnosisResult.lastError" class="mb-3">
-            <div class="text-xs font-medium text-orange-500">最近错误</div>
+            <div class="text-xs font-medium text-orange-500">{{ t('page.diagnosis.lastError') }}</div>
             <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.lastError }}</div>
           </div>
           <div v-if="diagnosisResult.suggestion">
-            <div class="text-xs font-medium text-blue-500">建议操作</div>
+            <div class="text-xs font-medium text-blue-500">{{ t('page.diagnosis.suggestion') }}</div>
             <div class="mt-1 text-sm text-gray-600">{{ diagnosisResult.suggestion }}</div>
           </div>
-          <YdEmptyState v-else description="暂无建议" :image-size="60" />
+          <YdEmptyState v-else :description="t('page.diagnosis.noAdvice')" :image-size="60" />
         </YdCardContent>
       </YdCard>
     </div>
 
-    <YdEmptyState v-else description="请输入 jobKey 后点击诊断" :image-size="100" class="mt-12" />
+    <YdEmptyState
+      v-else
+      :description="t('page.diagnosis.inputJobKeyHint')"
+      :image-size="100"
+      class="mt-12"
+    />
 
     <!-- 历史诊断 -->
     <YdCard v-if="historyRecords.length" class="mt-3">
       <YdCardHeader>
-        <YdCardTitle>诊断历史</YdCardTitle>
+        <YdCardTitle>{{ t('page.diagnosis.history') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
         <YdTimeline>
@@ -243,7 +264,7 @@ function recordStatusType(status: string): 'primary' | 'success' | 'warning' | '
             <div class="flex items-center gap-3 text-sm">
               <span class="text-gray-500">{{ record.jobKey }}</span>
               <span class="font-medium" :style="{ color: recordScoreColor(record.score) }">
-                评分 {{ record.score }}
+                {{ t('page.diagnosis.scoreLabel', { score: record.score }) }}
               </span>
               <span>{{ record.status }}</span>
             </div>

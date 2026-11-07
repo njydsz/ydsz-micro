@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 抽屉的遮罩层：铺满视口盖住底层内容，并锁住页面滚动。
  *
  * 从 DISMISSABLE_DRAWER_ID 注入出 id 并写到 data-dismissable-drawer 上，

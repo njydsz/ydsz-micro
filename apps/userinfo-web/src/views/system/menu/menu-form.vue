@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 菜单表单组件 — 支持新增/编辑菜单项（上级菜单、名称、编码、类型、路由、组件、权限标识等）
  *
  * @path apps\userinfo-web\src\views\system\menu\menu-form.vue

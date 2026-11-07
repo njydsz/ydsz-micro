@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 生命周期调度器 + 保活控制 + 沙箱策略集成
  *
  * 核心 activate/deactivate 调度逻辑 + 沙箱 mount/unmount。
@@ -18,6 +18,7 @@ import { createLogger } from '@ydsz-core/shared/utils';
 import { KernelError, KernelErrorCode } from './error-boundary';
 import { recordLoadDuration } from './health-check';
 import { loadApp, removeStylesheets } from './loader';
+import { getAppPerformanceTracker } from './app-performance';
 import { mark, measure } from './performance-utils';
 import { applyRuntimeCssScope, removeRuntimeCssScope } from './runtime-css-scope';
 import {
@@ -112,6 +113,8 @@ export async function activateApp(
   // 加载
   if (!instance.exports) {
     instance.status = 'LOADING';
+    // v4.3.2：子应用级性能归因 — 记录加载起点
+    getAppPerformanceTracker().beginLoad(config.name);
     try {
       const result: LoadResult = await loadApp(config, loadOpts);
       if (signal?.aborted) {
@@ -123,6 +126,8 @@ export async function activateApp(
       instance.manifest = result.manifest;
       instance.status = 'LOADED';
       recordLoadDuration(config.name, result.duration);
+      // v4.3.2：记录加载终点
+      getAppPerformanceTracker().endLoad(config.name);
       callbacks.onLoaded?.(instance);
     } catch (error) {
       instance.status = 'NOT_LOADED';
@@ -181,6 +186,8 @@ export async function activateApp(
 
   // === ADR-006: kernel:mount 标记 ===
   mark(`kernel:mount:${config.name}:start`);
+  // v4.3.2：子应用级性能归因 — 记录挂载起点
+  getAppPerformanceTracker().beginMount(config.name);
   try {
     await instance.exports.mount(mountProps);
     if (signal?.aborted) {
@@ -199,6 +206,8 @@ export async function activateApp(
       `kernel:mount:${config.name}:start`,
       `kernel:mount:${config.name}:end`,
     );
+    // v4.3.2：记录挂载终点（须在 measure 之后，确保时间戳顺序）
+    getAppPerformanceTracker().endMount(config.name);
     logger.debug(`${config.name} mounted`);
   } catch (error) {
     instance.strategy?.cleanup();

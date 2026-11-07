@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * icon-picker 通用组件
  *
  * @path comm\effects\common-ui\src\components\icon-picker\icon-picker.vue

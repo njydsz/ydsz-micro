@@ -1,4 +1,4 @@
-﻿/**
+/**
  * storage-utils.ts — localStorage 统一抽象层
  *
  * P0-4: 解决当前 localStorage 使用碎片化问题：

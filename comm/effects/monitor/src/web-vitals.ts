@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Web Vitals 性能监控 — LCP / FID / CLS / INP / FCP / TTFB。
  *
  * <p>使用浏览器原生 PerformanceObserver API 采集 Core Web Vitals 指标。

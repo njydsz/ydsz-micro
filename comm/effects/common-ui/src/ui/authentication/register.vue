@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * register Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\register.vue

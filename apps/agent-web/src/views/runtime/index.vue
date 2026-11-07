@@ -29,7 +29,8 @@ import {
   YdBadge,
 } from '@ydsz-core/ydsz-ui';
 import { YdConfirm } from '@ydsz-core/popup-ui';
-import { h, ref } from 'vue';
+import { computed, h, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz/utils';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -42,6 +43,8 @@ import {
 import type { RuntimeSession } from '#/api/models';
 
 const logger = createLogger('agent-runtime');
+
+const { t } = useI18n();
 
 defineOptions({ name: 'RuntimeManagement' });
 

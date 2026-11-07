@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * workbench-quick-nav Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-quick-nav.vue

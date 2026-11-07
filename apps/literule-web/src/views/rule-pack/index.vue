@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则包管理页面
  *
  * @path apps\literule-web\src\views\rule-pack\index.vue

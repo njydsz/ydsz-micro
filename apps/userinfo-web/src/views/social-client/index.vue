@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 社交客户端配置管理页面 — 管理社交登录客户端配置
  *
  * @path apps\userinfo-web\src\views\social-client\index.vue

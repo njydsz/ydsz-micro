@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 布局主内容区容器：承载页面内容并提供 overlay 遮罩层。
  *
  * 尺寸与内边距由 props 计算，元素引用交给 useLayoutContentStyle 测量后写入

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件分享（列表页）
  *
  * @path apps\nextwiki-web\src\views\share\index.vue

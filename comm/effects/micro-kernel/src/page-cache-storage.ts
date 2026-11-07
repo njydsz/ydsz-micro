@@ -1,4 +1,4 @@
-﻿/**
+/**
  * page-cache-storage.ts — Page Cache 存储与 Registry 管理
  *
  * 从 page-cache-manager.ts 提取的存储逻辑，包含：

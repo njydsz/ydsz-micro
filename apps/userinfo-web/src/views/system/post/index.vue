@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 岗位管理页面 — 展示岗位列表，支持新增/编辑/删除岗位
  *
  * @path apps\userinfo-web\src\views\system\post\index.vue

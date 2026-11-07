@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * user-dropdown 布局组件
  *
  * @path comm\effects\layouts\src\widgets\user-dropdown\user-dropdown.vue

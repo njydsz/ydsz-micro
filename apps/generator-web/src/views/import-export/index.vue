@@ -63,7 +63,7 @@ async function loadGroups() {
 /** 导出模板 */
 async function handleExport() {
   if (!exportGroupId.value) {
-    showToast.warning('请选择要导出的模板分组');
+    showToast.warning($t('importExport.exportSelectGroupWarning'));
     return;
   }
   exporting.value = true;
@@ -90,7 +90,7 @@ async function handleExport() {
 /** 导入模板 */
 async function handleImport(options: UploadRequestOptions) {
   if (!importGroupId.value) {
-    showToast.warning('请选择目标模板分组');
+    showToast.warning($t('importExport.importSelectGroupWarning'));
     return;
   }
   const file = options.file as File;
@@ -100,7 +100,7 @@ async function handleImport(options: UploadRequestOptions) {
   formData.append('file', file);
   try {
     const count = await importTemplates(formData);
-    showToast.success(`导入成功，共导入 ${count} 个模板`);
+    showToast.success($t('importExport.importSuccess', { count }));
   } catch {
     showToast.error($t('operation.import.failed'));
   }
@@ -116,14 +116,14 @@ onMounted(() => {
     <!-- 导出的卡片 -->
     <YdCard class="mb-4">
       <YdCardHeader>
-        <YdCardTitle>导出模板分组为 ZIP</YdCardTitle>
+        <YdCardTitle>{{ $t('importExport.exportTitle') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
         <YdForm label-width="100px">
-          <YdFormItem label="选择分组">
+          <YdFormItem :label="$t('importExport.exportGroupLabel')">
             <YdSelectBase v-model="exportGroupId">
               <YdSelectTriggerBase>
-                <YdSelectValueBase placeholder="选择要导出的模板分组" />
+                <YdSelectValueBase :placeholder="$t('importExport.exportGroupPlaceholder')" />
               </YdSelectTriggerBase>
               <YdSelectContentBase>
                 <YdSelectItemBase
@@ -131,17 +131,24 @@ onMounted(() => {
                   :key="group.id"
                   :value="String(group.id)"
                 >
-                  {{ group.name }} ({{ group.description || '无描述' }})
+                  {{
+                    group.name +
+                    ' (' +
+                    (group.description || $t('importExport.exportNoDescription')) +
+                    ')'
+                  }}
                 </YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
           </YdFormItem>
           <YdFormItem>
-            <YdButton :loading="exporting" @click="handleExport"> 导出 ZIP </YdButton>
+            <YdButton :loading="exporting" @click="handleExport">
+              {{ $t('importExport.exportZipButton') }}
+            </YdButton>
           </YdFormItem>
         </YdForm>
         <div class="mt-2 text-xs text-gray-500">
-          导出当前分组的所有 Velocity 模板文件为 ZIP 压缩包，可作为备份或跨环境迁移。
+          {{ $t('importExport.exportHint') }}
         </div>
       </YdCardContent>
     </YdCard>
@@ -149,14 +156,14 @@ onMounted(() => {
     <!-- 导入的卡片 -->
     <YdCard>
       <YdCardHeader>
-        <YdCardTitle>从 ZIP 导入模板</YdCardTitle>
+        <YdCardTitle>{{ $t('importExport.importTitle') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
         <YdForm label-width="100px">
-          <YdFormItem label="目标分组">
+          <YdFormItem :label="$t('importExport.importGroupLabel')">
             <YdSelectBase v-model="importGroupId">
               <YdSelectTriggerBase>
-                <YdSelectValueBase placeholder="选择导入到的模板分组" />
+                <YdSelectValueBase :placeholder="$t('importExport.importGroupPlaceholder')" />
               </YdSelectTriggerBase>
               <YdSelectContentBase>
                 <YdSelectItemBase
@@ -164,21 +171,28 @@ onMounted(() => {
                   :key="group.id"
                   :value="String(group.id)"
                 >
-                  {{ group.name }} ({{ group.description || '无描述' }})
+                  {{
+                    group.name +
+                    ' (' +
+                    (group.description || $t('importExport.importNoDescription')) +
+                    ')'
+                  }}
                 </YdSelectItemBase>
               </YdSelectContentBase>
             </YdSelectBase>
           </YdFormItem>
-          <YdFormItem label="覆盖模式">
+          <YdFormItem :label="$t('importExport.importOverwriteLabel')">
             <div class="flex items-center gap-2">
               <YdCheckboxBase
                 :checked="overwriteOnImport"
                 @update:checked="overwriteOnImport = $event"
               />
-              <label class="cursor-pointer text-sm">覆盖已有模板（不勾选则跳过同名模板）</label>
+              <label class="cursor-pointer text-sm">
+                {{ $t('importExport.importOverwriteHint') }}
+              </label>
             </div>
           </YdFormItem>
-          <YdFormItem label="ZIP 文件">
+          <YdFormItem :label="$t('importExport.importZipLabel')">
             <YdUpload
               :auto-upload="true"
               :show-file-list="true"
@@ -186,12 +200,12 @@ onMounted(() => {
               accept=".zip"
               :limit="1"
             >
-              <YdButton>选择 ZIP 文件</YdButton>
+              <YdButton>{{ $t('importExport.importSelectZipButton') }}</YdButton>
             </YdUpload>
           </YdFormItem>
         </YdForm>
         <div class="mt-2 text-xs text-gray-500">
-          从 ZIP 压缩包导入模板到指定分组。ZIP 文件应包含 Velocity 模板文件。
+          {{ $t('importExport.importHint') }}
         </div>
       </YdCardContent>
     </YdCard>

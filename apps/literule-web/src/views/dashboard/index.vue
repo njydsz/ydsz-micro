@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则引擎实时监控看板（新页面）
  *
  * @path apps/literule-web/src/views/dashboard/index.vue

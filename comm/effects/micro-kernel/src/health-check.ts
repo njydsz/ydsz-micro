@@ -1,4 +1,4 @@
-﻿/**
+/**
  * health-check.ts — 子应用健康检查（P1-1 落地）
  *
  * 在 kernel.healthCheck() 现有能力/指标基础上，扩展实际探测：

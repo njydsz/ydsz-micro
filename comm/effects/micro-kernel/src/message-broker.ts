@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 子应用点对点通信（请求-响应模型）
  *
  * 在现有 globalState pub/sub 基础上，提供 request/response 式的点对点通信：
@@ -65,6 +65,14 @@ interface BrokerMessage<T = unknown> extends MicroMessage<T> {
 
 /** 消息处理器注册表（接收方应用名 → 处理器集合，v4.2.1 N10 支持多 handler） */
 const handlers = new Map<string, Set<MessageHandler>>();
+
+/**
+ * 消息监听停止函数（幂等启动守卫）
+ *
+ * v4.3.2：记录已注册的停止函数，重复调用 startMessageListener 直接复用，
+ * 避免重复注册 window 监听导致消息被重复投递。
+ */
+let stopMessageListener: (() => void) | null = null;
 
 /** 待确认的请求表 */
 const pendingRequests = new Map<string, PendingRequest>();
@@ -192,6 +200,13 @@ export function sendRequest<T = unknown, R = unknown>(
  * @param onRequest - 收到请求时调用
  */
 export function startMessageListener(onRequest?: (message: MicroMessage) => void): () => void {
+  // v4.3.2 修复：此前每次调用都会新增 window 监听，与 JSDoc 声称的
+  // 「幂等：多次调用不会重复注册」不符，导致 handler 收到 N 次重复投递。
+  // 现记录已注册的停止函数，重复调用直接复用。
+  if (stopMessageListener) {
+    return stopMessageListener;
+  }
+
   const handler = (event: Event) => {
     const message = (event as CustomEvent<BrokerMessage>).detail;
     // P1-4: 仅处理携带统一协议标记的消息，过滤外部 CustomEvent
@@ -249,9 +264,12 @@ export function startMessageListener(onRequest?: (message: MicroMessage) => void
   };
 
   window.addEventListener(MESSAGE_EVENT, handler);
-  return () => {
+  stopMessageListener = () => {
     window.removeEventListener(MESSAGE_EVENT, handler);
+    // 清空守卫，允许后续重新注册
+    stopMessageListener = null;
   };
+  return stopMessageListener;
 }
 
 /**

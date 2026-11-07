@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 偏好设置组合式函数应用入口，导出全部偏好相关的 computed 与状态。
  *
  * @path comm\@core\preferences\src\use-preferences.ts

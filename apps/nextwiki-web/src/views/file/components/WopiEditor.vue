@@ -23,6 +23,7 @@ defineOptions({
 import { useYdModal } from '@ydsz/common-ui';
 import { YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { showToast } from '@ydsz/notification';
 import { checkFileInfo, lockFile, unlockFile } from '#/api/wopi';
 import type { FileNodeVO } from '#/api/models';
@@ -34,6 +35,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   fileNode: null,
 });
+
+const { t } = useI18n();
 
 const emit = defineEmits<{
   success: [];
@@ -97,7 +100,7 @@ async function openEditor(): Promise<void> {
       await lockFile({ fileId: props.fileNode.id });
       isLocked.value = true;
     } catch {
-      showToast.warning('文件可能已被其他用户锁定');
+      showToast.warning(t('business.wopi.lockedByOther'));
     }
 
     // 构建 WOPI 编辑器 URL
@@ -125,7 +128,7 @@ async function handleUnlock(): Promise<void> {
 
 /** 保存文件 */
 function handleSave(): void {
-  showToast.success('文档已自动保存');
+  showToast.success(t('business.wopi.autoSaved'));
   emit('success');
 }
 
@@ -153,19 +156,27 @@ function handleIframeMessage(event: MessageEvent): void {
 </script>
 
 <template>
-  <Modal :title="`在线编辑 - ${props.fileNode?.name ?? ''}`" width="1200px">
+  <Modal :title="t('business.wopi.onlineEditTitle', { name: props.fileNode?.name ?? '' })" width="1200px">
     <div v-loading="loading" class="wopi-editor">
       <div class="mb-3 flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <YdBadge v-if="isEditable" variant="default">可编辑</YdBadge>
-          <YdBadge v-else variant="secondary">只读预览</YdBadge>
+          <YdBadge v-if="isEditable" variant="default">{{ t('business.wopi.editable') }}</YdBadge>
+          <YdBadge v-else variant="secondary">{{ t('business.wopi.readonlyPreview') }}</YdBadge>
           <span class="text-sm text-gray-500">
-            {{ fileInfo.AuthorCreatedDate ? `创建时间：${fileInfo.AuthorCreatedDate}` : '' }}
+            {{
+              fileInfo.AuthorCreatedDate
+                ? t('business.wopi.createdAt', { time: fileInfo.AuthorCreatedDate })
+                : ''
+            }}
           </span>
-          <span v-if="isLocked" class="text-sm text-green-600">🔒 已锁定编辑</span>
+          <span v-if="isLocked" class="text-sm text-green-600">
+            {{ t('business.wopi.locked') }}
+          </span>
         </div>
         <div class="flex gap-2">
-          <YdButton size="sm" variant="outline" @click="handleClose">关闭</YdButton>
+          <YdButton size="sm" variant="outline" @click="handleClose">
+            {{ t('business.close') }}
+          </YdButton>
         </div>
       </div>
 
@@ -180,9 +191,11 @@ function handleIframeMessage(event: MessageEvent): void {
           allowfullscreen
         />
         <div v-else class="editor-placeholder">
-          <p class="text-gray-400">正在加载在线编辑器...</p>
+          <p class="text-gray-400">{{ t('business.wopi.loading') }}</p>
           <p class="mt-2 text-xs text-gray-300">
-            支持格式：{{ SUPPORTED_EXTENSIONS.join('、').toUpperCase() }}
+            {{ t('business.wopi.supportedFormats') }}: {{
+              SUPPORTED_EXTENSIONS.join('、').toUpperCase()
+            }}
           </p>
         </div>
       </div>

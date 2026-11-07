@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 国际化语言表单组件 — 支持新增/编辑语言（语言编码、名称、默认标识、排序、状态）
  *
  * @path apps\userinfo-web\src\views\system\language\language-form.vue

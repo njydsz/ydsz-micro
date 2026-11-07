@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则定义编辑表单组件
  *
  * @path apps\literule-web\src\views\rule\rule-form.vue

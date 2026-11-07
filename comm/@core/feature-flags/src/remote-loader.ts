@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 功能开关远程加载器 — 内置「从后端配置接口拉取」的标准实现。
  *
  * <p>对标 LaunchDarkly / 美团 Raptor FeatureToggle：服务端为开关的事实来源，

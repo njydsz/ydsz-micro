@@ -1,4 +1,4 @@
-﻿/**
+/**
  * DevTools 可插拔 Tab 注册表与内置 Tab 实现
  *
  * 从 devtools-panel.ts 提取，避免单文件超过 300 行。

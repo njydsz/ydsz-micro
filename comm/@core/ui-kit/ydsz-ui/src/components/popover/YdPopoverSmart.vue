@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * YdPopoverSmart 的一体化封装：把 ydsz-vue 的 PopoverRoot / Trigger / Content 三段合成单个组件，
  * 调用方只需给 trigger 与默认两个插槽即可得到定位与样式完备的浮层。
  *

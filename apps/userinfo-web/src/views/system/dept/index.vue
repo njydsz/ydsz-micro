@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 部门管理页面 — 树形表格展示部门层级，支持新增（顶级/子级）/编辑/删除部门
  *
  * @path apps\userinfo-web\src\views\system\dept\index.vue

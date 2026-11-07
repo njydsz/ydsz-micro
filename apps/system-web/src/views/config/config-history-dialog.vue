@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 配置版本历史抽屉 — 展示指定配置的版本快照列表，支持查看快照、版本对比和回滚
  *
  * @path apps\system-web\src\views\config\config-history-dialog.vue

@@ -73,14 +73,14 @@ function toConnectorConfig(): ConnectorConfigPostDTO {
 const taskGridOptions: VxeGridProps<ConnectorTaskInfo> = {
   columns: [
     { type: 'seq', width: 50, title: t('common.seq') },
-    { field: 'externalTaskId', title: '远程任务ID', width: 150 },
+    { field: 'externalTaskId', title: t('page.connector.remoteTaskId'), width: 150 },
     { field: 'jobName', title: t('business.jobName'), width: 170 },
-    { field: 'jobGroup', title: '分组', width: 110 },
+    { field: 'jobGroup', title: t('page.connector.group'), width: 110 },
     { field: 'cronExpression', title: 'Cron', width: 150 },
-    { field: 'jobType', title: '类型', width: 100 },
-    { field: 'executorHandler', title: '执行器Handler', width: 150 },
-    { field: 'description', title: '描述', width: 160 },
-    { field: 'sourceSystem', title: '来源系统', width: 120 },
+    { field: 'jobType', title: t('page.jobTask.type'), width: 100 },
+    { field: 'executorHandler', title: t('page.connector.executorHandler'), width: 150 },
+    { field: 'description', title: t('business.description'), width: 160 },
+    { field: 'sourceSystem', title: t('page.connector.sourceSystem'), width: 120 },
   ],
   height: 360,
   pagerConfig: { pageSize: 10, pageSizes: [10, 20, 50] },
@@ -132,12 +132,12 @@ function handleTest() {
 
 async function handleImport() {
   if (!config.type || !config.endpoint) {
-    showToast.warning('请先填写连接器类型与端点');
+    showToast.warning(t('page.connector.fillTypeAndEndpoint'));
     return;
   }
   try {
     const res = await importTasks({ type: config.type }, toConnectorConfig());
-    showToast.success(`导入成功：${res.length} 个任务`);
+    showToast.success(t('page.connector.importSuccess', { count: res.length }));
     taskGridApi.query();
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -146,13 +146,17 @@ async function handleImport() {
 
 async function handleExport() {
   if (!config.type) {
-    showToast.warning('请先填写连接器类型');
+    showToast.warning(t('page.connector.fillType'));
     return;
   }
   try {
     const res = await exportTasks({ type: config.type });
     showToast.success(
-      `导出完成：成功 ${res.success ?? 0}，失败 ${res.failed ?? 0}，跳过 ${res.skipped ?? 0}`,
+      t('page.connector.exportDone', {
+        success: res.success ?? 0,
+        failed: res.failed ?? 0,
+        skipped: res.skipped ?? 0,
+      }),
     );
   } catch {
     // 错误提示由请求拦截器统一处理
@@ -163,27 +167,27 @@ async function handleExport() {
 <template>
   <Page auto-content-height>
     <div class="mb-2 flex flex-wrap items-center gap-2">
-      <span class="text-sm text-gray-500">支持的连接器类型：</span>
+      <span class="text-sm text-gray-500">{{ t('page.connector.supportedTypes') }}</span>
       <YdBadge v-for="item in connectorTypes" :key="item" variant="secondary">{{ item }}</YdBadge>
       <YdBadge v-if="connectorTypes.length === 0" variant="secondary">{{
         t('common.noData')
       }}</YdBadge>
     </div>
     <YdForm inline class="rounded border border-gray-200 p-2">
-      <YdFormItem label="类型">
-        <YdInput v-model="config.type" class="w-32" placeholder="连接器类型" />
+      <YdFormItem :label="t('page.connector.type')">
+        <YdInput v-model="config.type" class="w-32" :placeholder="t('business.connectorType')" />
       </YdFormItem>
-      <YdFormItem label="端点">
-        <YdInput v-model="config.endpoint" class="w-56" placeholder="连接端点" />
+      <YdFormItem :label="t('page.connector.endpoint')">
+        <YdInput v-model="config.endpoint" class="w-56" :placeholder="t('page.connector.endpointPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="认证方式">
+      <YdFormItem :label="t('page.connector.authType')">
         <YdInput v-model="config.authType" class="w-28" placeholder="authType" />
       </YdFormItem>
-      <YdFormItem label="用户名">
-        <YdInput v-model="config.username" class="w-32" placeholder="用户名" />
+      <YdFormItem :label="t('page.connector.username')">
+        <YdInput v-model="config.username" class="w-32" :placeholder="t('page.connector.username')" />
       </YdFormItem>
-      <YdFormItem label="密码">
-        <YdInput v-model="config.password" class="w-32" type="password" placeholder="密码" />
+      <YdFormItem :label="t('page.connector.password')">
+        <YdInput v-model="config.password" class="w-32" type="password" :placeholder="t('page.connector.password')" />
       </YdFormItem>
       <YdFormItem label="AccessKey">
         <YdInput v-model="config.accessKey" class="w-36" placeholder="AccessKey" />
@@ -192,11 +196,15 @@ async function handleExport() {
         <YdInput v-model="config.secretKey" class="w-36" type="password" placeholder="SecretKey" />
       </YdFormItem>
     </YdForm>
-    <TaskGrid class="mt-4" table-title="远程任务">
+    <TaskGrid class="mt-4" :table-title="t('page.connector.remoteTask')">
       <template #toolbar-tools>
-        <YdButton @click="handleTest">测试连接</YdButton>
-        <YdButton variant="outline" @click="handleImport">导入任务</YdButton>
-        <YdButton variant="outline" @click="handleExport">导出任务</YdButton>
+        <YdButton @click="handleTest">{{ t('page.connector.testConnection') }}</YdButton>
+        <YdButton variant="outline" @click="handleImport">
+          {{ t('page.connector.importTasks') }}
+        </YdButton>
+        <YdButton variant="outline" @click="handleExport">
+          {{ t('page.connector.exportTasks') }}
+        </YdButton>
         <YdButton variant="outline" @click="taskGridApi.query()">{{ t('common.search') }}</YdButton>
       </template>
     </TaskGrid>

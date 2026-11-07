@@ -85,8 +85,10 @@ async function handleRevoke(row: DeviceSessionVO): Promise<void> {
   if (!row.sessionId) return;
   try {
     await YdConfirm(
-      `确认吊销设备「${row.deviceTypeDesc ?? row.deviceType ?? row.sessionId}」？该设备将被强制登出。`,
-      '确认吊销',
+      t('device.revokeConfirm', {
+        name: row.deviceTypeDesc ?? row.deviceType ?? row.sessionId,
+      }),
+      t('device.revokeTitle'),
       { type: 'warning' },
     );
   } catch {
@@ -94,7 +96,7 @@ async function handleRevoke(row: DeviceSessionVO): Promise<void> {
   }
   try {
     await revokeDevice({ sessionId: row.sessionId });
-    showToast.success('吊销成功');
+    showToast.success(t('device.revokeSuccess'));
     await loadDevices();
   } catch (error) {
     logger.warn('吊销设备失败: {}', error);
@@ -113,7 +115,7 @@ onMounted(() => {
       <YdCard class="shadow-sm transition-shadow hover:shadow-md">
         <YdCardContent class="flex items-center justify-between pt-6">
           <div>
-            <p class="text-muted-foreground text-sm">设备总数</p>
+            <p class="text-muted-foreground text-sm">{{ t('device.deviceTotal') }}</p>
             <p class="mt-1 text-2xl font-bold text-blue-600">{{ totalDevices }}</p>
           </div>
           <div class="rounded-full bg-blue-50 p-3 dark:bg-blue-950">
@@ -124,7 +126,7 @@ onMounted(() => {
       <YdCard class="shadow-sm transition-shadow hover:shadow-md">
         <YdCardContent class="flex items-center justify-between pt-6">
           <div>
-            <p class="text-muted-foreground text-sm">当前会话</p>
+            <p class="text-muted-foreground text-sm">{{ t('device.currentSession') }}</p>
             <p class="mt-1 truncate text-sm text-green-600">{{ currentSessionId ?? '-' }}</p>
           </div>
           <div class="rounded-full bg-green-50 p-3 dark:bg-green-950">
@@ -135,7 +137,7 @@ onMounted(() => {
       <YdCard class="shadow-sm transition-shadow hover:shadow-md">
         <YdCardContent class="flex items-center justify-between pt-6">
           <div>
-            <p class="text-muted-foreground text-sm">设备类型</p>
+            <p class="text-muted-foreground text-sm">{{ t('device.deviceTypeCount') }}</p>
             <p class="mt-1 text-2xl font-bold text-purple-600">
               {{ devices.filter((d) => d.deviceType).length }}
             </p>
@@ -150,39 +152,43 @@ onMounted(() => {
     <!-- 设备列表 -->
     <YdCard>
       <YdCardHeader class="flex flex-row items-center justify-between">
-        <YdCardTitle>我的设备</YdCardTitle>
-        <YdButton size="sm" variant="outline" @click="loadDevices"> 刷新 </YdButton>
+        <YdCardTitle>{{ t('device.deviceManagement') }}</YdCardTitle>
+        <YdButton size="sm" variant="outline" @click="loadDevices">
+          {{ t('device.refresh') }}
+        </YdButton>
       </YdCardHeader>
       <YdTable :data="devices" border>
-        <YdTableColumn prop="sessionId" label="会话ID" width="140" />
-        <YdTableColumn label="设备类型" width="120">
+        <YdTableColumn prop="sessionId" :label="t('device.deviceId')" width="140" />
+        <YdTableColumn :label="t('device.deviceType')" width="120">
           <template #default="{ row }">
             <YdBadge :variant="getDeviceTypeTagType(row.deviceType)" class="text-xs">
               {{ row.deviceTypeDesc ?? row.deviceType ?? '-' }}
             </YdBadge>
           </template>
         </YdTableColumn>
-        <YdTableColumn prop="loginIp" label="登录IP" width="140" />
-        <YdTableColumn prop="location" label="归属地" width="120" />
+        <YdTableColumn prop="loginIp" :label="t('device.loginIp')" width="140" />
+        <YdTableColumn prop="location" :label="t('device.location')" width="120" />
         <YdTableColumn
           prop="deviceFingerprint"
-          label="设备指纹"
+          :label="t('device.deviceFingerprint')"
           minWidth="180"
           show-overflow-tooltip
         />
-        <YdTableColumn prop="loginTime" label="登录时间" width="170" />
-        <YdTableColumn prop="lastActiveTime" label="最后活跃" width="170" />
-        <YdTableColumn label="会话状态" width="100" align="center">
+        <YdTableColumn prop="loginTime" :label="t('device.loginTime')" width="170" />
+        <YdTableColumn prop="lastActiveTime" :label="t('device.lastActive')" width="170" />
+        <YdTableColumn :label="t('device.sessionStatus')" width="100" align="center">
           <template #default="{ row }">
             <YdBadge
               v-if="row.currentSession"
               class="bg-green-500 text-xs text-white hover:bg-green-600"
-              >当前会话</YdBadge
+              >{{ t('device.currentSession') }}</YdBadge
             >
-            <YdBadge v-else variant="secondary" class="text-xs">活跃</YdBadge>
+            <YdBadge v-else variant="secondary" class="text-xs">
+              {{ t('device.activeLabel') }}
+            </YdBadge>
           </template>
         </YdTableColumn>
-        <YdTableColumn label="操作" width="100" fixed="right">
+        <YdTableColumn :label="t('common.actions')" width="100" fixed="right">
           <template #default="{ row }">
             <YdButton
               v-if="!row.currentSession"
@@ -191,13 +197,17 @@ onMounted(() => {
               class="text-destructive"
               @click="handleRevoke(row)"
             >
-              吊销
+              {{ t('device.revoke') }}
             </YdButton>
             <span v-else class="text-xs text-gray-400">-</span>
           </template>
         </YdTableColumn>
       </YdTable>
-      <YdEmptyState v-if="devices.length === 0" description="暂无设备记录" :image-size="60" />
+      <YdEmptyState
+        v-if="devices.length === 0"
+        :description="t('device.noDevices')"
+        :image-size="60"
+      />
     </YdCard>
   </Page>
 </template>

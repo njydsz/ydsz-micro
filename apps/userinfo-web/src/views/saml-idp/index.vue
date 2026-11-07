@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * SAML IdP 配置管理页面 — 管理 SAML 身份提供商配置
  *
  * @path apps\userinfo-web\src\views\saml-idp\index.vue

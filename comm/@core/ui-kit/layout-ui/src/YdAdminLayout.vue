@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 后台管理布局的根组件：按 layout 模式组合 header / sidebar / tabbar / content / footer 五个区域。
  *
  * 所有区域开关都有默认值且默认关闭（footerEnable 等），

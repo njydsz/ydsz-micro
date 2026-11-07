@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @ydsz-core/preferences 包的 unbuild 构建配置：单入口打包偏好中心。
  *
  * @path comm\@core\preferences\build.config.ts

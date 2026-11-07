@@ -1,4 +1,4 @@
-﻿/**
+/**
  * tabs-ui 的包出口：YdTabsView 组件、右侧工具按钮，以及右键菜单项的类型。
  *
  * IContextMenuItem 从 ydsz-ui 转出而非重新定义，

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 子应用 i18n 装配工厂 — 消除各子应用 locales/index.ts 中重复的样板代码。
  *
  * v3.6 (EP-EXIT): Element Plus 退场 — 移除 EP locale 装配与 `elementLocale`，

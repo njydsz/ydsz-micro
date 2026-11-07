@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 按钮：由 cva 变体产出 variant / size 两组类名，默认渲染为原生 button。
  *
  * 基于 radix Primitive 而非硬编码 button，是为了支持 as / asChild ——

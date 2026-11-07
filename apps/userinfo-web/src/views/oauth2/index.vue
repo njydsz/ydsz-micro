@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * OAuth2 应用管理页面 — 管理 OAuth2 客户端应用注册信息
  *
  * @path apps\userinfo-web\src\views\oauth2\index.vue

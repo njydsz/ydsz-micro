@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 布局尺寸同步：把 header / content / footer 的实测尺寸写回 CSS 变量。
  *
  * 存在的原因是布局各区块高度互相依赖（content 高度 = 视口 − header − footer），

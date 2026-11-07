@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 标签页组件的类型契约：事件声明与 props。
  *
  * 注意 gap / maxWidth / minWidth 等属性仅在 chrome 风格下生效 ——

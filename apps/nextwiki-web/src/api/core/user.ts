@@ -1,4 +1,4 @@
-﻿/**
+/**
  * User API 重导出
  * <p>从 {@code @ydsz/shared-auth} 统一 re-export 用户信息 API。
  * <p>提供 {@code getUserInfoApi}（获取当前用户信息）。

@@ -15,6 +15,7 @@
  * @since 1.0.0
  */
 import { reactive, ref } from 'vue';
+import { $t } from '@ydsz/locales';
 
 import {
   YdButton,
@@ -48,7 +49,7 @@ const form = reactive({
 });
 
 const rules = {
-  name: [{ required: true, message: '请输入分组名称', trigger: 'blur' }],
+  name: [{ required: true, message: () => $t('template.groupNamePlaceholder'), trigger: 'blur' }],
 };
 
 function handleClose() {
@@ -66,22 +67,27 @@ async function handleSubmit() {
   <YdDialog :open="visible" @update:open="handleClose">
     <YdDialogContent>
       <YdDialogHeader>
-        <YdDialogTitle>新建模板分组</YdDialogTitle>
+        <YdDialogTitle>{{ $t('template.groupFormTitle') }}</YdDialogTitle>
       </YdDialogHeader>
       <YdForm ref="formRef" :model="form" :rules="rules" label-width="100px">
-        <YdFormItem label="分组名称" prop="name">
-          <YdInput v-model="form.name" placeholder="如 mybatis-plus、mongodb" />
+        <YdFormItem :label="$t('template.groupName')" prop="name">
+          <YdInput v-model="form.name" :placeholder="$t('template.groupNameHint')" />
         </YdFormItem>
-        <YdFormItem label="描述">
-          <YdInput v-model="form.description" placeholder="分组用途说明" />
+        <YdFormItem :label="$t('template.groupDescription')">
+          <YdInput
+            v-model="form.description"
+            :placeholder="$t('template.groupDescriptionPlaceholder')"
+          />
         </YdFormItem>
-        <YdFormItem label="排序">
+        <YdFormItem :label="$t('template.groupSort')">
           <YdInput v-model="form.sort" type="number" :min="0" />
         </YdFormItem>
       </YdForm>
       <YdDialogFooter>
-        <YdButton variant="secondary" @click="handleClose">取消</YdButton>
-        <YdButton @click="handleSubmit">确定</YdButton>
+        <YdButton variant="secondary" @click="handleClose">
+          {{ $t('template.groupFormCancel') }}
+        </YdButton>
+        <YdButton @click="handleSubmit">{{ $t('template.groupFormConfirm') }}</YdButton>
       </YdDialogFooter>
     </YdDialogContent>
   </YdDialog>

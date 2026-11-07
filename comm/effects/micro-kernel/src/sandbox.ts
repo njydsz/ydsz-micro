@@ -87,6 +87,13 @@ let originalRequestAnimationFrame: typeof window.requestAnimationFrame;
 let originalCancelAnimationFrame: typeof window.cancelAnimationFrame;
 /** 标记：定时器 API 是否已被代理（proxyGlobals 中按环境能力设置） */
 let timersProxied = false;
+/**
+ * 标记：requestAnimationFrame 是否已被代理
+ *
+ * v4.3.2：rAF 代理从定时器守卫中拆出，需独立标记以便 restoreGlobals
+ * 精确还原（避免定时器未代理时误还原 rAF，或反之）。
+ */
+let rafProxied = false;
 
 /**
  * 沙箱栈：支持嵌套进入。栈顶为当前激活沙箱。
@@ -331,8 +338,21 @@ function proxyGlobals(): void {
       return originalClearInterval(id);
     } as typeof window.clearInterval;
 
-    // --- requestAnimationFrame 代理 ---
-    // v4.3.1 修复：rAF ID 记录到独立的 rafIds（与定时器 ID 分池），见 SandboxInstance.rafIds 注释
+    timersProxied = true;
+  }
+
+  // --- requestAnimationFrame 代理 ---
+  // v4.3.1 修复：rAF ID 记录到独立的 rafIds（与定时器 ID 分池），见 SandboxInstance.rafIds 注释
+  //
+  // v4.3.2 修复：rAF 与 setTimeout 是相互独立的 API，此前把 rAF 代理嵌在
+  // `typeof window.setTimeout === 'function'` 守卫内，导致在 setTimeout 缺失
+  // 的环境（如 happy-dom 经 vitest fake timers 还原后）整个 rAF 代理被跳过，
+  // 帧回调不再被追踪 → 子应用卸载后幽灵帧回调泄漏（v4.3.1 的问题重新出现）。
+  // 现拆分为独立守卫，仅依赖 rAF 自身可用性。
+  if (typeof window.requestAnimationFrame === 'function') {
+    originalRequestAnimationFrame = window.requestAnimationFrame.bind(window);
+    originalCancelAnimationFrame = window.cancelAnimationFrame.bind(window);
+
     window.requestAnimationFrame = function proxyRAF(cb: FrameRequestCallback): number {
       const id = originalRequestAnimationFrame(cb);
       const current = topSandbox();
@@ -349,7 +369,7 @@ function proxyGlobals(): void {
       originalCancelAnimationFrame(id);
     };
 
-    timersProxied = true;
+    rafProxied = true;
   }
 }
 
@@ -368,9 +388,14 @@ function restoreGlobals(): void {
       window.setInterval = originalSetInterval;
       window.clearTimeout = originalClearTimeout;
       window.clearInterval = originalClearInterval;
+      timersProxied = false;
+    }
+
+    // 仅还原实际被代理过的 rAF API（v4.3.2：与定时器解耦，独立守卫）
+    if (rafProxied) {
       window.requestAnimationFrame = originalRequestAnimationFrame;
       window.cancelAnimationFrame = originalCancelAnimationFrame;
-      timersProxied = false;
+      rafProxied = false;
     }
   }
 }

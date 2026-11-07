@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则模板管理页面
  *
  * @path apps\literule-web\src\views\rule-template\index.vue

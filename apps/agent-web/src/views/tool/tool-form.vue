@@ -32,10 +32,13 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz/utils';
 import { computed, reactive, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { showToast } from '@ydsz/notification';
 
 const logger = createLogger('agent-tool');
+
+const { t } = useI18n();
 
 defineOptions({ name: 'ToolForm' });
 
@@ -104,10 +107,10 @@ const formData = reactive({
 
 /** 工具类型选项 */
 const toolTypeOptions = [
-  { label: 'HTTP 接口', value: 'HTTP' },
-  { label: '函数', value: 'FUNCTION' },
-  { label: '数据库', value: 'DATABASE' },
-  { label: '代码执行', value: 'CODE' },
+  { label: t('toolForm.typeHttp'), value: 'HTTP' },
+  { label: t('toolForm.typeFunction'), value: 'FUNCTION' },
+  { label: t('toolForm.typeDatabase'), value: 'DATABASE' },
+  { label: t('toolForm.typeCode'), value: 'CODE' },
 ];
 
 /** HTTP 方法选项 */
@@ -122,21 +125,21 @@ const httpMethodOptions = [
 /** 提交表单 */
 async function handleSubmit(): Promise<void> {
   if (!formData.toolCode.trim()) {
-    showToast.warning('请输入工具编码');
+    showToast.warning(t('toolForm.toolCodeRequired'));
     return;
   }
   if (!formData.toolName.trim()) {
-    showToast.warning('请输入工具名称');
+    showToast.warning(t('toolForm.toolNameRequired'));
     return;
   }
   if (!formData.endpoint.trim()) {
-    showToast.warning('请输入端点地址');
+    showToast.warning(t('toolForm.endpointRequired'));
     return;
   }
 
   try {
     // TODO: 调用后端 API 保存
-    showToast.success(isEditMode.value ? '更新成功' : '创建成功');
+    showToast.success(isEditMode.value ? t('toolForm.updateSuccess') : t('toolForm.createSuccess'));
     emit('success');
     modalApi.close();
   } catch (error) {
@@ -157,27 +160,34 @@ watch(
 </script>
 
 <template>
-  <Modal :title="isEditMode ? '编辑工具' : '新增工具'" width="700px">
+  <Modal
+    :title="isEditMode ? t('toolForm.editTitle') : t('toolForm.createTitle')"
+    width="700px"
+  >
     <YdTabs v-model="activeTab">
       <YdTabsList>
-        <YdTabsTrigger value="basic">基本信息</YdTabsTrigger>
-        <YdTabsTrigger value="params">参数配置</YdTabsTrigger>
+        <YdTabsTrigger value="basic">{{ t('toolForm.tabBasic') }}</YdTabsTrigger>
+        <YdTabsTrigger value="params">{{ t('toolForm.tabParams') }}</YdTabsTrigger>
       </YdTabsList>
       <!-- 基本信息 -->
       <YdTabsContent value="basic">
         <YdForm ref="formRef" label-width="100px" class="mt-3">
-          <YdFormItem label="工具编码" required>
+          <YdFormItem :label="t('toolForm.toolCode')" required>
             <YdInput
               v-model="formData.toolCode"
-              placeholder="请输入工具编码（唯一标识）"
+              :placeholder="t('toolForm.toolCodePlaceholder')"
               :disabled="isEditMode"
             />
           </YdFormItem>
-          <YdFormItem label="工具名称" required>
-            <YdInput v-model="formData.toolName" placeholder="请输入工具名称" />
+          <YdFormItem :label="t('toolForm.toolName')" required>
+            <YdInput v-model="formData.toolName" :placeholder="t('toolForm.toolNamePlaceholder')" />
           </YdFormItem>
-          <YdFormItem label="工具类型" required>
-            <YdSelect v-model="formData.toolType" placeholder="请选择工具类型" class="w-full">
+          <YdFormItem :label="t('toolForm.toolType')" required>
+            <YdSelect
+              v-model="formData.toolType"
+              :placeholder="t('toolForm.toolTypePlaceholder')"
+              class="w-full"
+            >
               <YdSelectItem
                 v-for="opt in toolTypeOptions"
                 :key="opt.value"
@@ -186,19 +196,26 @@ watch(
               />
             </YdSelect>
           </YdFormItem>
-          <YdFormItem label="描述">
+          <YdFormItem :label="t('toolForm.description')">
             <YdInput
               v-model="formData.description"
               type="textarea"
               :rows="3"
-              placeholder="请输入工具描述"
+              :placeholder="t('toolForm.descriptionPlaceholder')"
             />
           </YdFormItem>
-          <YdFormItem label="端点地址" required>
-            <YdInput v-model="formData.endpoint" placeholder="请输入端点地址（URL 或连接字符串）" />
+          <YdFormItem :label="t('toolForm.endpoint')" required>
+            <YdInput
+              v-model="formData.endpoint"
+              :placeholder="t('toolForm.endpointPlaceholder')"
+            />
           </YdFormItem>
-          <YdFormItem v-if="formData.toolType === 'HTTP'" label="请求方法">
-            <YdSelect v-model="formData.method" placeholder="请选择" class="w-full">
+          <YdFormItem v-if="formData.toolType === 'HTTP'" :label="t('toolForm.method')">
+            <YdSelect
+              v-model="formData.method"
+              :placeholder="t('toolForm.methodPlaceholder')"
+              class="w-full"
+            >
               <YdSelectItem
                 v-for="opt in httpMethodOptions"
                 :key="opt.value"
@@ -207,7 +224,7 @@ watch(
               />
             </YdSelect>
           </YdFormItem>
-          <YdFormItem label="超时时间">
+          <YdFormItem :label="t('toolForm.timeout')">
             <YdNumberFieldInput
               v-model="formData.timeout"
               :min="1000"
@@ -215,12 +232,12 @@ watch(
               :step="1000"
               class="w-full"
             />
-            <span class="ml-2 text-xs text-gray-500">毫秒</span>
+            <span class="ml-2 text-xs text-gray-500">{{ t('toolForm.timeoutUnit') }}</span>
           </YdFormItem>
-          <YdFormItem label="重试次数">
+          <YdFormItem :label="t('toolForm.retryCount')">
             <YdNumberFieldInput v-model="formData.retryCount" :min="0" :max="5" class="w-full" />
           </YdFormItem>
-          <YdFormItem label="启用">
+          <YdFormItem :label="t('toolForm.enabled')">
             <YdSwitch v-model="formData.enabled" />
           </YdFormItem>
         </YdForm>
@@ -229,28 +246,28 @@ watch(
       <!-- 参数配置 -->
       <YdTabsContent value="params">
         <YdForm label-width="100px" class="mt-3">
-          <YdFormItem label="输入 Schema">
+          <YdFormItem :label="t('toolForm.inputSchema')">
             <YdInput
               v-model="formData.inputSchema"
               type="textarea"
               :rows="10"
-              placeholder="请输入 JSON Schema 定义输入参数"
+              :placeholder="t('toolForm.inputSchemaPlaceholder')"
             />
           </YdFormItem>
-          <YdFormItem label="输出 Schema">
+          <YdFormItem :label="t('toolForm.outputSchema')">
             <YdInput
               v-model="formData.outputSchema"
               type="textarea"
               :rows="10"
-              placeholder="请输入 JSON Schema 定义输出参数"
+              :placeholder="t('toolForm.outputSchemaPlaceholder')"
             />
           </YdFormItem>
-          <YdFormItem v-if="formData.toolType === 'HTTP'" label="请求头">
+          <YdFormItem v-if="formData.toolType === 'HTTP'" :label="t('toolForm.headers')">
             <YdInput
               v-model="formData.headers"
               type="textarea"
               :rows="5"
-              placeholder="请输入请求头（JSON 格式）"
+              :placeholder="t('toolForm.headersPlaceholder')"
             />
           </YdFormItem>
         </YdForm>
@@ -258,8 +275,10 @@ watch(
     </YdTabs>
 
     <template #footer>
-      <YdButton variant="outline" @click="modalApi.close()">取消</YdButton>
-      <YdButton @click="handleSubmit">保存</YdButton>
+      <YdButton variant="outline" @click="modalApi.close()">
+        {{ t('toolForm.cancel') }}
+      </YdButton>
+      <YdButton @click="handleSubmit">{{ t('toolForm.save') }}</YdButton>
     </template>
   </Modal>
 </template>

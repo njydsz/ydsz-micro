@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * JSON 版本对比对话框 — 左右分栏展示两个版本快照的差异，高亮显示差异行
  *
  * @path apps\system-web\src\views\config\json-diff-dialog.vue

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 菜单管理页面 — 树形表格展示菜单层级，支持新增（顶级/子级）/编辑/删除菜单项
  *
  * @path apps\userinfo-web\src\views\system\menu\index.vue

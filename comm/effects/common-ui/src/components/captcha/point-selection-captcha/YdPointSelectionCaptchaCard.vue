@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * point-selection-captcha-card 通用组件
  *
  * @path comm\effects\common-ui\src\components\captcha\point-selection-captcha\point-selection-captcha-card.vue

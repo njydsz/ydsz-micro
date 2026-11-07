@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 子应用启动工厂 — 消除各子应用 main.ts 中重复的 bootstrap/mount/unmount 样板代码。
  *
  * v3.0: 对接 micro-kernel ESM 原生微前端运行时。
@@ -14,7 +14,7 @@ import type { App as VueApp } from 'vue';
 import type { RouteRecordRaw, Router } from 'vue-router';
 
 import { createApp } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 
 import { registerAccessDirective } from '@ydsz/access';
 import { registerLoadingDirective, registerSafeHtmlDirective } from '@ydsz/common-ui';
@@ -50,6 +50,17 @@ export interface SubAppConfig {
   preferencesOverrides?: Record<string, unknown>;
   /** 命名空间覆写 */
   namespace?: string;
+  /**
+   * 路由 history 模式（v4.3.2）
+   *
+   * - `'web'`（默认）：`createWebHistory`，URL 形如 `/ydsz-ai/chat`
+   * - `'hash'`：`createWebHashHistory`，URL 形如 `/index.html#/ydsz-ai/chat`
+   *
+   * 微前端模式下此前**强制** web history，导致 hash 部署场景
+   * （静态托管无 rewrite 规则、或需要兼容旧书签）无法使用。
+   * 缺省保持 `'web'` 以兼容既有子应用。
+   */
+  routerHistory?: 'web' | 'hash';
 }
 
 /**
@@ -170,7 +181,12 @@ async function coreMount(config: SubAppConfig, props?: StandardMountProps) {
   }
 
   const router = createRouter({
-    history: createWebHistory(basename),
+    // v4.3.2：支持 hash history（静态托管 / 旧书签兼容）。
+    // 缺省 'web' 保持既有子应用行为不变。
+    history:
+      config.routerHistory === 'hash'
+        ? createWebHashHistory(basename)
+        : createWebHistory(basename),
     routes,
     scrollBehavior: (to, _from, savedPosition) => {
       if (savedPosition) return savedPosition;

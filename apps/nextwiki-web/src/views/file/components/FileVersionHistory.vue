@@ -21,6 +21,7 @@ defineOptions({
 import { useYdModal } from '@ydsz/common-ui';
 import { YdDialog, YdTable, YdTableColumn, YdButton, YdBadge } from '@ydsz-core/ydsz-ui';
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
 import { download } from '#/api/download';
@@ -33,6 +34,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   fileNode: null,
 });
+
+const { t } = useI18n();
 
 const emit = defineEmits<{
   success: [];
@@ -126,7 +129,7 @@ function formatSize(size?: number): string {
 
 /** 预览历史版本 */
 function handlePreview(version: FileVersionVO): void {
-  showToast.info(`预览版本 v${version.version}`);
+  showToast.info(t('fileVersion.previewToast', { version: version.version }));
 }
 
 /** 下载历史版本 */
@@ -134,7 +137,7 @@ async function handleDownloadVersion(version: FileVersionVO): Promise<void> {
   if (!props.fileNode?.id) return;
   try {
     await download({ nodeId: props.fileNode.id }, { version: version.version });
-    showToast.success('下载已开始');
+    showToast.success(t('fileVersion.downloadStarted'));
   } catch {
     // 错误提示由请求拦截器统一处理
   }
@@ -144,16 +147,18 @@ async function handleDownloadVersion(version: FileVersionVO): Promise<void> {
 async function handleRollback(version: FileVersionVO): Promise<void> {
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定回滚到版本 v${version.version} 吗？当前版本将被覆盖。`, '回滚确认', {
-      type: 'warning',
-    });
+    await YdConfirm(
+      t('fileVersion.rollbackConfirm', { version: version.version }),
+      t('fileVersion.rollbackTitle'),
+      { type: 'warning' },
+    );
   } catch {
     return; // 用户主动取消回滚操作
   }
   // 步骤2：执行回滚操作
   try {
     // TODO: 调用后端 API 回滚版本
-    showToast.success(`已回滚到版本 v${version.version}`);
+    showToast.success(t('fileVersion.rollbackSuccess', { version: version.version }));
     emit('success');
     modalApi.close();
   } catch {
@@ -173,48 +178,58 @@ onMounted(() => {
 </script>
 
 <template>
-  <Modal :title="`版本历史 - ${props.fileNode?.name ?? ''}`" width="900px">
+  <Modal :title="t('fileVersion.title', { name: props.fileNode?.name ?? '' })" width="900px">
     <div v-loading="loading">
       <div class="mb-3 flex justify-between">
-        <span class="text-sm text-gray-500">共 {{ versions.length }} 个版本</span>
+        <span class="text-sm text-gray-500">
+          {{ t('fileVersion.totalCount', { count: versions.length }) }}
+        </span>
         <div class="flex gap-2">
-          <YdButton size="small" @click="handleCompare">版本对比</YdButton>
-          <YdButton size="small" @click="loadVersions">刷新</YdButton>
+          <YdButton size="small" @click="handleCompare">{{ t('fileVersion.compare') }}</YdButton>
+          <YdButton size="small" @click="loadVersions">{{ t('fileVersion.refresh') }}</YdButton>
         </div>
       </div>
 
       <YdTable :data="versions" border>
-        <YdTableColumn type="index" label="序号" width="60" />
-        <YdTableColumn label="版本" width="80">
+        <YdTableColumn type="index" :label="t('fileVersion.seq')" width="60" />
+        <YdTableColumn :label="t('fileVersion.version')" width="80">
           <template #default="{ row }">
             <span class="font-medium">v{{ row.version }}</span>
-            <YdBadge v-if="row.isCurrent" variant="default" class="ml-1">当前</YdBadge>
+            <YdBadge v-if="row.isCurrent" variant="default" class="ml-1">
+              {{ t('fileVersion.current') }}
+            </YdBadge>
           </template>
         </YdTableColumn>
-        <YdTableColumn prop="size" label="大小" width="100">
+        <YdTableColumn prop="size" :label="t('fileVersion.size')" width="100">
           <template #default="{ row }">{{ formatSize(row.size) }}</template>
         </YdTableColumn>
-        <YdTableColumn prop="createdBy" label="操作人" width="100" />
-        <YdTableColumn prop="createdAt" label="时间" width="170" />
-        <YdTableColumn prop="remark" label="备注" min-width="120" />
-        <YdTableColumn label="操作" width="200" fixed="right">
+        <YdTableColumn prop="createdBy" :label="t('fileVersion.operator')" width="100" />
+        <YdTableColumn prop="createdAt" :label="t('fileVersion.time')" width="170" />
+        <YdTableColumn prop="remark" :label="t('fileVersion.remark')" min-width="120" />
+        <YdTableColumn :label="t('fileVersion.operation')" width="200" fixed="right">
           <template #default="{ row }">
-            <YdButton size="sm" variant="link" @click="handlePreview(row)">预览</YdButton>
-            <YdButton size="sm" variant="link" @click="handleDownloadVersion(row)">下载</YdButton>
+            <YdButton size="sm" variant="link" @click="handlePreview(row)">
+              {{ t('fileVersion.preview') }}
+            </YdButton>
+            <YdButton size="sm" variant="link" @click="handleDownloadVersion(row)">
+              {{ t('fileVersion.download') }}
+            </YdButton>
             <YdButton v-if="!row.isCurrent" size="sm" variant="link" @click="handleRollback(row)">
-              回滚
+              {{ t('fileVersion.rollback') }}
             </YdButton>
           </template>
         </YdTableColumn>
       </YdTable>
 
       <!-- 版本对比结果 -->
-      <YdDialog v-model="comparing" title="版本对比" width="700px">
+      <YdDialog v-model="comparing" :title="t('fileVersion.compare')" width="700px">
         <pre
           class="max-h-96 overflow-auto whitespace-pre-wrap rounded border bg-gray-50 p-3 text-xs"
           >{{ diffContent }}</pre>
         <template #footer>
-          <YdButton variant="outline" @click="comparing = false">关闭</YdButton>
+          <YdButton variant="outline" @click="comparing = false">
+            {{ t('fileVersion.close') }}
+          </YdButton>
         </template>
       </YdDialog>
     </div>

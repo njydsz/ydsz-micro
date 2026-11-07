@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 公司表单组件 — 支持新增/编辑公司信息（公司编码、名称、上级公司、联系人、状态）
  *
  * @path apps\userinfo-web\src\views\system\company\company-form.vue

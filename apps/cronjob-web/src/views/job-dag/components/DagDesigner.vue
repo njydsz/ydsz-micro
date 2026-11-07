@@ -34,6 +34,7 @@ import {
   YdFormItem,
 } from '@ydsz-core/ydsz-ui';
 import { computed, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { showToast } from '@ydsz/notification';
 import { createDag, updateDag, validateDag } from '#/api/jobDag';
 import type { JobDagPostDTO } from '#/api/models';
@@ -53,6 +54,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   record: null,
 });
+
+const { t } = useI18n();
 
 const emit = defineEmits<{
   success: [];
@@ -74,14 +77,14 @@ const [Modal, modalApi] = useYdModal({
     }
     // 初始化节点列表
     if (nodeList.value.length === 0) {
-      nodeList.value = [{ id: 'start', name: '开始', type: 'START', x: 100, y: 100 }];
+      nodeList.value = [{ id: 'start', name: t('page.dagDesigner.startNode'), type: 'START', x: 100, y: 100 }];
     }
     selectedNodeId.value = '';
     edgeList.value = [];
   },
   onConfirm: async () => {
     if (!formData.dagName || !formData.dagKey) {
-      showToast.warning('请填写DAG名称和标识');
+      showToast.warning(t('page.dagDesigner.nameKeyRequired'));
       return;
     }
     modalApi.lock();
@@ -127,20 +130,20 @@ const selectedNodeId = ref('');
 const zoomPercent = ref(100);
 
 /** 触发类型选项 */
-const triggerTypeOptions = [
-  { label: 'Cron 定时', value: 'CRON' },
-  { label: '手动触发', value: 'MANUAL' },
-  { label: 'API 触发', value: 'API' },
-  { label: '事件触发', value: 'EVENT' },
-];
+const triggerTypeOptions = computed(() => [
+  { label: t('page.dagDesigner.triggerCron'), value: 'CRON' },
+  { label: t('page.dagDesigner.triggerManual'), value: 'MANUAL' },
+  { label: t('page.dagDesigner.triggerApi'), value: 'API' },
+  { label: t('page.dagDesigner.triggerEvent'), value: 'EVENT' },
+]);
 
 /** 节点类型选项 */
-const nodeTypeOptions = [
-  { label: '开始节点', value: 'START' },
-  { label: '任务节点', value: 'TASK' },
-  { label: '条件节点', value: 'CONDITION' },
-  { label: '结束节点', value: 'END' },
-];
+const nodeTypeOptions = computed(() => [
+  { label: t('page.dagDesigner.nodeTypeStart'), value: 'START' },
+  { label: t('page.dagDesigner.nodeTypeTask'), value: 'TASK' },
+  { label: t('page.dagDesigner.nodeTypeCondition'), value: 'CONDITION' },
+  { label: t('page.dagDesigner.nodeTypeEnd'), value: 'END' },
+]);
 
 /** 选中节点配置 */
 const selectedNode = computed(() => nodeList.value.find((n) => n.id === selectedNodeId.value));
@@ -158,7 +161,7 @@ function resetForm(): void {
 function handleAddNode(type: string): void {
   const newNode = {
     id: `node_${Date.now()}`,
-    name: `新${nodeTypeOptions.find((o) => o.value === type)?.label ?? '节点'}`,
+    name: `${t('page.dagDesigner.newNodePrefix')}${nodeTypeOptions.value.find((o) => o.value === type)?.label ?? t('page.dagDesigner.nodeFallback')}`,
     type,
     x: 200 + Math.random() * 200,
     y: 150 + Math.random() * 150,
@@ -205,7 +208,7 @@ async function handleSave(): Promise<void> {
   // 验证 DAG
   const valid = await validateDag(JSON.stringify(dagData));
   if (!valid) {
-    showToast.error('DAG 验证失败，请检查节点和连线配置');
+    showToast.error(t('page.dagDesigner.validateFailed'));
     return;
   }
 
@@ -228,27 +231,27 @@ function handleNodeNameChange(name: string): void {
 </script>
 
 <template>
-  <Modal title="DAG 编排设计器" width="1000px">
+  <Modal :title="t('page.dagDesigner.title')" width="1000px">
     <div class="dag-designer">
       <YdForm :model="formData" label-width="100px" class="dag-form">
-        <YdFormItem label="DAG名称" required>
-          <YdInput v-model="formData.dagName" placeholder="请输入DAG名称" />
+        <YdFormItem :label="t('business.dagName')" required>
+          <YdInput v-model="formData.dagName" :placeholder="t('business.dagNamePlaceholder')" />
         </YdFormItem>
-        <YdFormItem label="DAG标识" required>
-          <YdInput v-model="formData.dagKey" placeholder="请输入DAG标识（唯一）" />
+        <YdFormItem :label="t('business.dagKey')" required>
+          <YdInput v-model="formData.dagKey" :placeholder="t('page.dagDesigner.dagKeyPlaceholder')" />
         </YdFormItem>
-        <YdFormItem label="描述">
-          <YdTextarea v-model="formData.description" placeholder="请输入描述" :rows="2" />
+        <YdFormItem :label="t('business.description')">
+          <YdTextarea v-model="formData.description" :placeholder="t('business.descriptionPlaceholder')" :rows="2" />
         </YdFormItem>
-        <YdFormItem label="Cron表达式">
+        <YdFormItem :label="t('business.cronExpression')">
           <YdInput
             v-model="formData.cronExpression"
-            placeholder="请输入Cron表达式（如：0 0 * * *）"
+            :placeholder="t('page.dagDesigner.cronPlaceholder')"
           />
         </YdFormItem>
-        <YdFormItem label="触发类型">
+        <YdFormItem :label="t('business.triggerType')">
           <YdSelectBase v-model="formData.triggerType">
-            <YdSelectTriggerBase placeholder="选择触发类型" />
+            <YdSelectTriggerBase :placeholder="t('business.triggerTypePlaceholder')" />
             <YdSelectContentBase>
               <YdSelectItemBase
                 v-for="opt in triggerTypeOptions"
@@ -264,7 +267,7 @@ function handleNodeNameChange(name: string): void {
 
       <!-- 设计器工具 -->
       <div class="designer-toolbar mb-3 flex items-center gap-2">
-        <span class="text-sm text-gray-600">添加节点：</span>
+        <span class="text-sm text-gray-600">{{ t('page.dagDesigner.addNode') }}</span>
         <YdButton
           v-for="opt in nodeTypeOptions"
           :key="opt.value"
@@ -275,7 +278,7 @@ function handleNodeNameChange(name: string): void {
           {{ opt.label }}
         </YdButton>
         <div class="mx-2 h-5 w-px bg-gray-300" />
-        <span class="text-sm text-gray-600">缩放：</span>
+        <span class="text-sm text-gray-600">{{ t('page.dagDesigner.zoom') }}</span>
         <YdSlider v-model="zoomPercent" :min="50" :max="150" :step="10" class="w-32" />
         <span class="text-xs text-gray-500">{{ zoomPercent }}%</span>
       </div>
@@ -341,20 +344,22 @@ function handleNodeNameChange(name: string): void {
 
       <!-- 节点配置面板 -->
       <div v-if="selectedNode" class="node-config mt-3 rounded border bg-white p-3">
-        <h4 class="mb-2 text-sm font-medium">节点配置</h4>
+        <h4 class="mb-2 text-sm font-medium">{{ t('page.dagDesigner.nodeConfig') }}</h4>
         <YdForm label-width="80px">
-          <YdFormItem label="节点名称">
+          <YdFormItem :label="t('page.dagDesigner.nodeName')">
             <YdInput :model-value="selectedNode.name" @update:model-value="handleNodeNameChange" />
           </YdFormItem>
-          <YdFormItem label="任务ID">
-            <YdInput v-model="selectedNode.jobId" placeholder="关联任务ID" />
+          <YdFormItem :label="t('page.dagDesigner.jobId')">
+            <YdInput v-model="selectedNode.jobId" :placeholder="t('page.dagDesigner.jobIdPlaceholder')" />
           </YdFormItem>
         </YdForm>
       </div>
 
       <!-- 依赖关系列表 -->
       <div v-if="edgeList.length > 0" class="edge-list mt-3">
-        <h4 class="mb-2 text-sm font-medium">依赖关系（{{ edgeList.length }}）</h4>
+        <h4 class="mb-2 text-sm font-medium">
+          {{ t('page.dagDesigner.dependencies', { count: edgeList.length }) }}
+        </h4>
         <div class="flex flex-wrap gap-2">
           <div
             v-for="edge in edgeList"
@@ -364,9 +369,9 @@ function handleNodeNameChange(name: string): void {
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.from)?.name }}</span>
             <span class="text-xs text-gray-400">→</span>
             <span class="text-xs">{{ nodeList.find((n) => n.id === edge.to)?.name }}</span>
-            <YdButton size="sm" variant="link" @click="handleDeleteEdge(edgeList.indexOf(edge))"
-              >删除</YdButton
-            >
+            <YdButton size="sm" variant="link" @click="handleDeleteEdge(edgeList.indexOf(edge))">
+              {{ t('business.delete') }}
+            </YdButton>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则生命周期审批页面
  *
  * @path apps\literule-web\src\views\rule-lifecycle\index.vue
@@ -36,6 +36,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { YdAlert, YdConfirm } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -51,6 +52,7 @@ import {
 } from '#/api/ruleLifecycle';
 
 const logger = createLogger('literule-rule-lifecycle');
+const { t } = useI18n();
 
 defineOptions({ name: 'RuleLifecycleManagement' });
 
@@ -380,17 +382,17 @@ onMounted(() => {
       <YdCard shadow="never">
         <YdTabs v-model="activeTab" @tab-change="handleTabChange">
           <!-- 待我审批 -->
-          <YdTabsContent label="待我审批" name="pending">
+          <YdTabsContent :label="$t('page.ruleLifecycle.pendingApprovals')" name="pending">
             <div class="mb-2">
-              <YdButton @click="loadPending">刷新</YdButton>
+              <YdButton @click="loadPending">{{ $t('page.common.refresh') }}</YdButton>
             </div>
             <PendingGrid />
           </YdTabsContent>
 
           <!-- 审批流程模板 -->
-          <YdTabsContent label="审批流程模板" name="flows">
+          <YdTabsContent :label="$t('page.ruleLifecycle.approvalFlowTemplates')" name="flows">
             <div class="mb-2">
-              <YdButton @click="loadFlows">刷新</YdButton>
+              <YdButton @click="loadFlows">{{ $t('page.common.refresh') }}</YdButton>
             </div>
             <FlowGrid />
           </YdTabsContent>
@@ -398,31 +400,37 @@ onMounted(() => {
       </YdCard>
 
       <!-- 驳回弹窗 -->
-      <YdDialog v-model="rejectDialogVisible" title="驳回审批" width="480px">
+      <YdDialog
+        v-model="rejectDialogVisible"
+        :title="$t('page.ruleLifecycle.rejectApproval')"
+        width="480px"
+      >
         <YdForm label-width="80px">
-          <YdFormItem label="规则编码">
+          <YdFormItem :label="$t('page.ruleLifecycle.ruleCode')">
             <YdInput :model-value="currentRuleCode" disabled />
           </YdFormItem>
-          <YdFormItem label="驳回原因" required>
+          <YdFormItem :label="$t('page.ruleLifecycle.rejectReason')" required>
             <YdInput
               v-model="rejectReason"
               type="textarea"
               :rows="4"
-              placeholder="请填写驳回原因"
+              :placeholder="$t('page.ruleLifecycle.rejectReasonPlaceholder')"
             />
           </YdFormItem>
-          <YdFormItem label="补充意见">
+          <YdFormItem :label="$t('page.ruleLifecycle.additionalComment')">
             <YdInput
               v-model="rejectComment"
               type="textarea"
               :rows="2"
-              placeholder="可选补充意见（可选）"
+              :placeholder="$t('page.ruleLifecycle.additionalCommentPlaceholder')"
             />
           </YdFormItem>
         </YdForm>
         <template #footer>
-          <YdButton @click="rejectDialogVisible = false">取消</YdButton>
-          <YdButton type="danger" @click="handleRejectSubmit">确认驳回</YdButton>
+          <YdButton @click="rejectDialogVisible = false">{{ $t('page.common.cancel') }}</YdButton>
+          <YdButton type="danger" @click="handleRejectSubmit">
+            {{ $t('page.ruleLifecycle.confirmReject') }}
+          </YdButton>
         </template>
       </YdDialog>
 
@@ -466,7 +474,9 @@ onMounted(() => {
             </YdTimelineItem>
           </YdTimeline>
         </div>
-        <div v-else class="text-center text-gray-400">暂无审批数据</div>
+        <div v-else class="text-center text-gray-400">
+          {{ $t('page.ruleLifecycle.noApprovalData') }}
+        </div>
       </YdDialog>
     </div>
   </Page>

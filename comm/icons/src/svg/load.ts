@@ -1,4 +1,4 @@
-﻿/**
+/**
  * SVG 图标注册模块 — 构建时将 SVG 原始文件注入 Iconify 全局图标池。
  *
  * @path comm\icons\src\svg\load.ts

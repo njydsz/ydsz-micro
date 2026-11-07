@@ -1,4 +1,4 @@
-﻿/**
+/**
  * validators 属性验证工具函数
  *
  * @path comm\effects\common-ui\src\components\resize\utils\validators.ts

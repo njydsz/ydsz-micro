@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 开关：转发 radix SwitchRoot 的 props 与 emits，内部固定渲染 SwitchThumb 作为滑块。
  *
  * 状态色由 data-state=checked / unchecked 驱动，而不是绑定 v-model 后手动切换类 ——

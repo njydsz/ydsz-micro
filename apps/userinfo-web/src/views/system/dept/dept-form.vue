@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 部门表单组件 — 支持新增/编辑部门信息（部门编码、名称、上级部门、描述、排序、状态）
  *
  * @path apps\userinfo-web\src\views\system\dept\dept-form.vue

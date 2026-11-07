@@ -32,6 +32,7 @@ export { setupSharedAuth } from './setup-shared-auth';
 
 // v4.1: 子应用壳层复用（消除 9 份重复拷贝）
 export { createCoreRoutes } from './shell-core-routes';
+export { default as ShellNotFound } from './ShellNotFound.vue';
 
 export { type SubAppConfig, createSubApp } from './create-sub-app';
 

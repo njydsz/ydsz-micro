@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ESM Manifest 加载器
  *
  * 约定：子应用由统一 vite-config 构建，输出 manifest.json：
@@ -15,6 +15,7 @@
 
 import type { LifecycleExports, MicroAppConfig } from '@ydsz/micro-runtime';
 import { createLogger } from '@ydsz-core/shared/utils';
+import { getCanaryManager } from './canary-manager';
 import { retryOperation } from './retry';
 import { injectModulePreload, preloadAppAssets } from './link-hints';
 import { injectStylesheets } from './loader-stylesheets';
@@ -22,6 +23,52 @@ import { KernelError, KernelErrorCode } from './error-boundary';
 
 /** 模块级日志器（重试等运维信息走 debug，避免生产噪音） */
 const logger = createLogger('MicroKernel');
+
+/**
+ * 解析子应用的有效入口地址（含灰度分流）。
+ *
+ * v4.3.2：此前 canary-manager 的 resolveVersion 未接入加载链路，
+ * 灰度决策结果无处可用，等于「看起来有、实际没有」。
+ * 现在此处查询灰度配置：
+ * - 未启用灰度 / 未命中灰度版本 → 返回 config.entry（原行为）
+ * - 命中灰度版本且 entry 非空 → 返回灰度版本 entry，并记录 debug 日志
+ *
+ * 查询失败不阻断加载（降级为原 entry），避免灰度配置服务故障
+ * 拖垮整个子应用加载。
+ *
+ * @param config - 子应用注册配置
+ * @returns 实际用于加载的入口地址
+ */
+function resolveEffectiveEntry(config: MicroAppConfig): string {
+  try {
+    const canary = getCanaryManager();
+    const resolution = canary.resolveVersion(config.name);
+
+    // 未命中灰度（tag 为 stable）或灰度未启用 → 保持原入口
+    if (!resolution || resolution.tag === 'stable') {
+      return config.entry;
+    }
+
+    const canaryEntry = resolution.resolved?.entry;
+    if (!canaryEntry) {
+      logger.warn(
+        `[${config.name}] Canary version "${resolution.resolved.version}" has no entry, ` +
+          'falling back to registered entry',
+      );
+      return config.entry;
+    }
+
+    logger.debug(
+      `[${config.name}] Canary resolved: ${resolution.tag}@${resolution.resolved.version} ` +
+        `(${canaryEntry})`,
+    );
+    return canaryEntry;
+  } catch (err) {
+    // 灰度查询异常不得阻断加载
+    logger.debug(`[${config.name}] Canary resolution failed: ${String(err)}`);
+    return config.entry;
+  }
+}
 
 /**
  * 子应用 manifest.json 中声明的路由级骨架屏配置。
@@ -222,14 +269,17 @@ export async function loadApp(
   options: LoadOptions = {},
 ): Promise<LoadResult> {
   // v4.5 P0-3: in-flight 去重 — 同一应用同时只执行一个加载流程
-  const cacheKey = `${config.name}:${config.entry}`;
+  // v4.3.2: 缓存键纳入灰度解析后的入口，避免同一应用的灰度版本与稳定版本
+  // 共用去重键导致后者误命中前者的 in-flight Promise
+  const effectiveEntry = resolveEffectiveEntry(config);
+  const cacheKey = `${config.name}:${effectiveEntry}`;
   const existing = inFlightLoads.get(cacheKey);
   if (existing) {
     logger.debug(`[${config.name}] Reusing in-flight load`);
     return existing;
   }
 
-  const loadPromise = performLoadApp(config, options).finally(() => {
+  const loadPromise = performLoadApp(config, options, effectiveEntry).finally(() => {
     // 加载完成（成功或失败）后清理 in-flight 记录
     inFlightLoads.delete(cacheKey);
   });
@@ -241,13 +291,14 @@ export async function loadApp(
 async function performLoadApp(
   config: MicroAppConfig,
   options: LoadOptions = {},
+  effectiveEntry: string = resolveEffectiveEntry(config),
 ): Promise<LoadResult> {
   const { timeout = 10_000, retries = 2, retryBaseDelay = 500, signal: extSignal } = options;
   const startTime = performance.now();
 
   // === M4 修复：Dev 模式直接 import 子应用 dev server 入口，跳过 manifest ===
   if (isDev) {
-    const entryUrl = `${config.entry.replace(/\/$/, '')}/src/main.ts`;
+    const entryUrl = `${effectiveEntry.replace(/\/$/, '')}/src/main.ts`;
     // C4: dev 模式也注入 modulepreload，提前建立与 dev server 的连接
     injectModulePreload(entryUrl);
     const mod = await importWithRetry(entryUrl, { timeout, retries, retryBaseDelay, extSignal });
@@ -263,14 +314,14 @@ async function performLoadApp(
 
   // === Build 模式：fetch manifest → 注入 CSS → dynamic import ESM entry ===
   const manifest = await fetchWithRetry(
-    () => fetchManifest(config.entry, extSignal),
+    () => fetchManifest(effectiveEntry, extSignal),
     { timeout, retries, retryBaseDelay },
     `manifest for ${config.name}`,
   );
 
   // C4: 在 dynamic import 前注入 preconnect + modulepreload 提示，
   //     让浏览器提前建立连接并预取 ESM 模块及其静态依赖
-  preloadAppAssets(config.entry, manifest);
+  preloadAppAssets(effectiveEntry, manifest);
 
   // 注入样式（标记 data-micro-kernel-app，卸载时一键移除）
   // v4.2.1 L2: 附加 SRI integrity + CSP nonce

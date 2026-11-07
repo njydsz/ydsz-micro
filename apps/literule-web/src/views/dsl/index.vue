@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则 DSL 工具页面
  *
  * @path apps\literule-web\src\views\dsl\index.vue
@@ -36,7 +36,7 @@ const running = ref(false);
 /** 执行一次 DSL 动作并展示返回结果 */
 async function runAction(fn: () => Promise<unknown>, label: string) {
   if (!dslText.value.trim()) {
-    showToast.warning(t('dslWarning'));
+    showToast.warning(t('business.dslWarning'));
     return;
   }
   running.value = true;
@@ -50,33 +50,33 @@ async function runAction(fn: () => Promise<unknown>, label: string) {
 }
 /** DSL 校验 */
 function handleValidate() {
-  void runAction(() => validate({ dsl: dslText.value }), '校验');
+  void runAction(() => validate({ dsl: dslText.value }), t('business.validate'));
 }
 /** DSL 解析 */
 function handleParse() {
-  void runAction(() => parse({ dsl: dslText.value }), '解析');
+  void runAction(() => parse({ dsl: dslText.value }), t('business.parse'));
 }
 /** DSL 预览 */
 function handlePreview() {
-  void runAction(() => preview({ dsl: dslText.value }), '预览');
+  void runAction(() => preview({ dsl: dslText.value }), t('business.previewButton'));
 }
 </script>
 <template>
   <Page auto-content-height>
     <div class="flex h-full flex-col gap-3 p-5">
-      <span class="text-sm text-gray-500"
-        >输入 DSL 内容，可执行校验 / 解析 / 预览操作（支持语法高亮与自动补全）：</span
-      >
+      <span class="text-sm text-gray-500">{{ t('business.dslHint') }}</span>
       <div class="min-h-0 flex-1">
-        <DslEditor v-model="dslText" placeholder="请输入 DSL 内容…" />
+        <DslEditor v-model="dslText" :placeholder="t('business.dslPlaceholder')" />
       </div>
       <div class="flex gap-2">
-        <YdButton :loading="running" @click="handleValidate">校验</YdButton>
-        <YdButton :loading="running" @click="handleParse">解析</YdButton>
-        <YdButton variant="destructive" :loading="running" @click="handlePreview">预览</YdButton>
+        <YdButton :loading="running" @click="handleValidate">{{ t('business.validate') }}</YdButton>
+        <YdButton :loading="running" @click="handleParse">{{ t('business.parse') }}</YdButton>
+        <YdButton variant="destructive" :loading="running" @click="handlePreview">
+          {{ t('business.previewButton') }}
+        </YdButton>
       </div>
       <div class="flex items-center gap-2">
-        <span class="text-sm text-gray-500">结果：</span>
+        <span class="text-sm text-gray-500">{{ t('business.resultLabel') }}</span>
         <YdBadge v-if="actionLabel" variant="secondary">{{ actionLabel }}</YdBadge>
       </div>
       <pre

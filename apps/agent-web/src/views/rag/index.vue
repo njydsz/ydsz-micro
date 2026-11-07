@@ -101,7 +101,7 @@ function handleOpenIngest() {
 async function handleSearch() {
   const query = queryForm.value.query?.trim() ?? '';
   if (!query) {
-    showToast.warning('请输入检索内容');
+    showToast.warning(t('business.rag.queryRequired'));
     return;
   }
   searchLoading.value = true;
@@ -141,10 +141,15 @@ async function handleDelete(row: Record<string, unknown>) {
   const documentId = typeof row?.documentId === 'string' ? row.documentId : '';
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定删除文档「${displayValue(row?.documentTitle ?? row?.title)}」吗？`, {
-      title: '删除确认',
-      type: 'warning',
-    });
+    await YdConfirm(
+      t('business.rag.deleteConfirm', {
+        title: displayValue(row?.documentTitle ?? row?.title),
+      }),
+      {
+        title: t('common.crud.deleteConfirmTitle'),
+        type: 'warning',
+      },
+    );
   } catch {
     logger.debug('用户取消删除文档操作');
     return;
@@ -182,30 +187,34 @@ onMounted(() => {
       </YdDescriptionsItem>
     </YdDescriptions>
     <div class="mb-3 flex items-center gap-2">
-      <YdButton :loading="statsLoading" @click="handleLoadStats">刷新统计</YdButton>
-      <YdButton @click="handleOpenIngest">导入文档</YdButton>
+      <YdButton :loading="statsLoading" @click="handleLoadStats">
+        {{ t('business.rag.refreshStats') }}
+      </YdButton>
+      <YdButton @click="handleOpenIngest">{{ t('business.rag.ingestDocument') }}</YdButton>
     </div>
     <div class="mb-3 flex flex-wrap items-center gap-2 rounded-md border p-3">
       <YdInput
         v-model="queryForm.query"
-        placeholder="输入检索内容"
+        :placeholder="t('business.rag.queryPlaceholder')"
         class="w-72"
         @keyup.enter="handleSearch"
       />
       <span class="text-sm text-gray-500">TopK</span>
       <YdNumberFieldInput v-model="queryForm.topK" :min="1" :max="100" class="w-24" />
-      <span class="text-sm text-gray-500">最小得分</span>
+      <span class="text-sm text-gray-500">{{ t('business.rag.minScore') }}</span>
       <YdNumberFieldInput v-model="queryForm.minScore" :min="0" :max="1" :step="0.1" class="w-24" />
-      <YdButton :loading="searchLoading" @click="handleSearch">检索</YdButton>
+      <YdButton :loading="searchLoading" @click="handleSearch">
+        {{ t('business.rag.search') }}
+      </YdButton>
     </div>
     <YdTable :data="searchRows" border stripe height="360">
       <YdTableColumn prop="id" label="ID" min-width="180" show-overflow-tooltip />
-      <YdTableColumn prop="documentId" label="文档ID" min-width="180" show-overflow-tooltip />
-      <YdTableColumn prop="documentTitle" label="标题" min-width="180" show-overflow-tooltip />
-      <YdTableColumn prop="title" label="标题(兼容)" min-width="160" show-overflow-tooltip />
-      <YdTableColumn prop="content" label="内容" min-width="320" show-overflow-tooltip />
-      <YdTableColumn prop="score" label="得分" width="100" />
-      <YdTableColumn prop="source" label="来源" min-width="140" show-overflow-tooltip />
+      <YdTableColumn prop="documentId" :label="t('business.rag.documentId')" min-width="180" show-overflow-tooltip />
+      <YdTableColumn prop="documentTitle" :label="t('business.rag.title')" min-width="180" show-overflow-tooltip />
+      <YdTableColumn prop="title" :label="t('business.rag.titleCompat')" min-width="160" show-overflow-tooltip />
+      <YdTableColumn prop="content" :label="t('business.rag.content')" min-width="320" show-overflow-tooltip />
+      <YdTableColumn prop="score" :label="t('business.rag.score')" width="100" />
+      <YdTableColumn prop="source" :label="t('business.rag.source')" min-width="140" show-overflow-tooltip />
       <YdTableColumn :label="t('common.actions')" width="100" fixed="right">
         <template #default="{ row }">
           <YdButton size="sm" variant="destructive" @click="handleDelete(row)">{{

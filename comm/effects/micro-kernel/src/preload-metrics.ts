@@ -1,4 +1,4 @@
-﻿/**
+/**
  * preload-metrics.ts — 预加载命中率指标回环
  *
  * 内部已维护 preloadCount / consumedCount / wastedCount / hitRate 统计

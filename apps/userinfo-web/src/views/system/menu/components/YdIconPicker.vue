@@ -843,12 +843,12 @@ defineExpose({ open, close });
   <YdDialog v-model:open="visible">
     <YdDialogContent class="max-w-[700px]">
       <YdDialogHeader>
-        <YdDialogTitle>选择图标</YdDialogTitle>
+        <YdDialogTitle>{{ t('business.menu.selectIcon') }}</YdDialogTitle>
       </YdDialogHeader>
       <div class="icon-picker">
         <!-- 搜索框 -->
         <div class="mb-4">
-          <YdInput v-model="searchKeyword" placeholder="搜索图标名称..." />
+          <YdInput v-model="searchKeyword" :placeholder="t('business.menu.searchIconPlaceholder')" />
         </div>
 
         <!-- 图标网格 -->
@@ -869,16 +869,22 @@ defineExpose({ open, close });
             </div>
           </div>
           <div v-if="filteredIcons.length === 0" class="text-muted-foreground py-8 text-center">
-            未找到匹配的图标
+            {{ t('business.menu.noMatchingIcon') }}
           </div>
         </div>
       </div>
 
       <YdDialogFooter class="gap-2 sm:justify-between">
-        <span class="text-muted-foreground text-sm"> 共 {{ filteredIcons.length }} 个图标 </span>
+        <span class="text-muted-foreground text-sm">
+          {{ t('business.menu.iconCount', { count: filteredIcons.length }) }}
+        </span>
         <div class="flex gap-2">
-          <YdButton size="sm" variant="ghost" @click="clearSelection">清除选择</YdButton>
-          <YdButton size="sm" variant="outline" @click="close">取消</YdButton>
+          <YdButton size="sm" variant="ghost" @click="clearSelection">
+            {{ t('business.menu.clearSelection') }}
+          </YdButton>
+          <YdButton size="sm" variant="outline" @click="close">
+            {{ t('business.menu.cancel') }}
+          </YdButton>
         </div>
       </YdDialogFooter>
     </YdDialogContent>

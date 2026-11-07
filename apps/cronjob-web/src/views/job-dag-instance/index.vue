@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * DAG 运行实例（列表 + 控制 + 详情）
  *
  * @path apps\cronjob-web\src\views\job-dag-instance\index.vue
@@ -38,6 +38,7 @@ import {
   YdDescriptionsItem,
 } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
@@ -50,6 +51,7 @@ import type { JobDagInstanceVO, JobDagNodeInstanceVO } from '#/api/models';
 import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('cronjob-job');
+const { t } = useI18n();
 
 defineOptions({ name: 'JobDagInstanceManagement' });
 
@@ -71,11 +73,11 @@ function isRunning(status?: string): boolean {
 
 const gridOptions = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'dagKey', title: 'DAG标识', width: 150 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'dagKey', title: t('page.dagInstance.dagKey'), width: 150 },
     {
       field: 'instanceStatus',
-      title: '状态',
+      title: t('common.status'),
       width: 130,
       slots: {
         default: ({ row }: { row: JobDagInstanceVO }) =>
@@ -86,11 +88,11 @@ const gridOptions = {
           ),
       },
     },
-    { field: 'triggerType', title: '触发方式', width: 100 },
-    { field: 'triggerBy', title: '触发人', width: 100 },
+    { field: 'triggerType', title: t('page.dagInstance.triggerType'), width: 100 },
+    { field: 'triggerBy', title: t('page.dagInstance.triggerBy'), width: 100 },
     {
       field: 'totalNodes',
-      title: '节点进度',
+      title: t('page.dagInstance.nodeProgress'),
       width: 140,
       slots: {
         default: ({ row }: { row: JobDagInstanceVO }) =>
@@ -98,18 +100,18 @@ const gridOptions = {
             'span',
             {},
             () =>
-              `${row.successNodes ?? 0}/${row.totalNodes ?? 0} 成功, ${row.failedNodes ?? 0} 失败`,
+              `${row.successNodes ?? 0}/${row.totalNodes ?? 0} ${t('page.dagInstance.success')}, ${row.failedNodes ?? 0} ${t('page.dagInstance.failed')}`,
           ),
       },
     },
-    { field: 'durationMs', title: '耗时(ms)', width: 100 },
-    { field: 'startedAt', title: '开始时间', width: 170 },
-    { field: 'finishedAt', title: '结束时间', width: 170 },
-    { field: 'errorMessage', title: '错误信息', minWidth: 140 },
-    { field: 'createdAt', title: '创建时间', width: 170 },
+    { field: 'durationMs', title: t('page.dagInstance.durationMs'), width: 100 },
+    { field: 'startedAt', title: t('page.dagInstance.startTime'), width: 170 },
+    { field: 'finishedAt', title: t('page.dagInstance.endTime'), width: 170 },
+    { field: 'errorMessage', title: t('page.jobTask.errorMessage'), minWidth: 140 },
+    { field: 'createdAt', title: t('page.jobTask.createdAt'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 220,
       fixed: 'right',
       slots: {
@@ -118,13 +120,13 @@ const gridOptions = {
             h(
               YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleViewDetail(row) },
-              () => '详情',
+              () => t('page.jobTask.detail'),
             ),
             isRunning(row.instanceStatus)
               ? h(
                   YdButton,
                   { size: 'sm', variant: 'link', onClick: () => handlePause(row) },
-                  () => '暂停',
+                  () => t('common.pause'),
                 )
               : row.instanceStatus === 'PAUSED'
                 ? h(
@@ -134,14 +136,14 @@ const gridOptions = {
                       variant: 'link',
                       onClick: () => handleResume(row),
                     },
-                    () => '恢复',
+                    () => t('common.resume'),
                   )
                 : null,
             isRunning(row.instanceStatus) || row.instanceStatus === 'PAUSED'
               ? h(
                   YdButton,
                   { size: 'sm', variant: 'link', onClick: () => handleCancel(row) },
-                  () => '取消',
+                  () => t('common.cancel'),
                 )
               : null,
           ]),
@@ -174,7 +176,7 @@ async function handlePause(row: JobDagInstanceVO) {
   if (!row.id) return;
   try {
     await pause({ instanceId: row.id });
-    showToast.success('已暂停');
+    showToast.success(t('business.cronBuilder.pauseSuccess'));
     gridApi.query();
   } catch {
     logger.warn('暂停DAG实例失败', row.id);
@@ -186,7 +188,7 @@ async function handleResume(row: JobDagInstanceVO) {
   if (!row.id) return;
   try {
     await resume({ instanceId: row.id });
-    showToast.success('已恢复');
+    showToast.success(t('business.cronBuilder.resumeSuccess'));
     gridApi.query();
   } catch {
     logger.warn('恢复DAG实例失败', row.id);
@@ -198,8 +200,8 @@ async function handleCancel(row: JobDagInstanceVO) {
   if (!row.id) return;
   // 步骤1：确认弹窗（用户取消直接返回）
   try {
-    await YdConfirm(`确定取消 DAG 实例「${row.dagKey}」吗？`, {
-      title: '取消确认',
+    await YdConfirm(t('page.dagInstance.cancelConfirm', { dagKey: row.dagKey }), {
+      title: t('page.dagInstance.cancelConfirmTitle'),
       type: 'warning',
     });
   } catch {
@@ -209,7 +211,7 @@ async function handleCancel(row: JobDagInstanceVO) {
   // 步骤2：执行取消 API（失败提示由 errorMessageResponseInterceptor 统一处理）
   try {
     await cancel({ instanceId: row.id });
-    showToast.success('已取消');
+    showToast.success(t('page.dagInstance.cancelledSuccess'));
     gridApi.query();
   } catch {
     logger.warn('取消DAG实例失败', row.id);
@@ -247,7 +249,7 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
   if (!detailLog.value?.id || !node.id) return;
   try {
     await retryNode({ instanceId: detailLog.value.id, nodeInstanceId: node.id });
-    showToast.success('节点重试已触发');
+    showToast.success(t('page.dagInstance.retryTriggered'));
   } catch {
     logger.warn('重试DAG节点失败', node.id);
     // 错误提示由请求拦截器统一处理
@@ -264,13 +266,15 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
             <YdSelectValueBase :placeholder="$t('common.status')" />
           </YdSelectTriggerBase>
           <YdSelectContentBase>
-            <YdSelectItemBase value="PENDING">待执行</YdSelectItemBase>
-            <YdSelectItemBase value="RUNNING">执行中</YdSelectItemBase>
-            <YdSelectItemBase value="PAUSED">已暂停</YdSelectItemBase>
-            <YdSelectItemBase value="SUCCESS">成功</YdSelectItemBase>
-            <YdSelectItemBase value="FAILED">失败</YdSelectItemBase>
-            <YdSelectItemBase value="PARTIAL_SUCCESS">部分成功</YdSelectItemBase>
-            <YdSelectItemBase value="CANCELLED">已取消</YdSelectItemBase>
+            <YdSelectItemBase value="PENDING">{{ t('page.dagInstance.pending') }}</YdSelectItemBase>
+            <YdSelectItemBase value="RUNNING">{{ t('page.dagInstance.running') }}</YdSelectItemBase>
+            <YdSelectItemBase value="PAUSED">{{ t('page.dagInstance.paused') }}</YdSelectItemBase>
+            <YdSelectItemBase value="SUCCESS">{{ t('page.dagInstance.success') }}</YdSelectItemBase>
+            <YdSelectItemBase value="FAILED">{{ t('page.dagInstance.failed') }}</YdSelectItemBase>
+            <YdSelectItemBase value="PARTIAL_SUCCESS">{{
+              t('page.dagInstance.partialSuccess')
+            }}</YdSelectItemBase>
+            <YdSelectItemBase value="CANCELLED">{{ t('page.dagInstance.cancelled') }}</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
       </template>
@@ -283,29 +287,29 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
         </YdSheetHeader>
         <template v-if="detailLog">
           <YdDescriptions :column="2" border size="small" class="mb-3">
-            <YdDescriptionsItem label="DAG标识">{{ detailLog.dagKey ?? '-' }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="状态">
+            <YdDescriptionsItem :label="t('page.dagInstance.dagKey')">{{ detailLog.dagKey ?? '-' }}</YdDescriptionsItem>
+            <YdDescriptionsItem :label="t('common.status')">
               <YdBadge :variant="STATUS_TAG[detailLog.instanceStatus ?? ''] ?? 'info'">{{
                 detailLog.instanceStatus ?? '-'
               }}</YdBadge>
             </YdDescriptionsItem>
-            <YdDescriptionsItem label="触发方式">{{
+            <YdDescriptionsItem :label="t('page.dagInstance.triggerType')">{{
               detailLog.triggerType ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="触发人">{{ detailLog.triggerBy ?? '-' }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="开始时间">{{
+            <YdDescriptionsItem :label="t('page.dagInstance.triggerBy')">{{ detailLog.triggerBy ?? '-' }}</YdDescriptionsItem>
+            <YdDescriptionsItem :label="t('page.dagInstance.startTime')">{{
               detailLog.startedAt ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="结束时间">{{
+            <YdDescriptionsItem :label="t('page.dagInstance.endTime')">{{
               detailLog.finishedAt ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="耗时(ms)">{{
+            <YdDescriptionsItem :label="t('page.dagInstance.durationMs')">{{
               detailLog.durationMs ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="TraceId">{{
+            <YdDescriptionsItem :label="t('page.dagInstance.traceId')">{{
               detailLog.triggerTraceId ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem v-if="detailLog.errorMessage" label="错误信息" :span="2">
+            <YdDescriptionsItem v-if="detailLog.errorMessage" :label="t('page.jobTask.errorMessage')" :span="2">
               <pre class="whitespace-pre-wrap break-all text-xs text-red-500">{{
                 detailLog.errorMessage
               }}</pre>
@@ -314,24 +318,24 @@ async function handleRetryNode(node: JobDagNodeInstanceVO) {
 
           <div class="mb-1 text-sm font-medium">{{ $t('page.nodeDetail') }}</div>
           <YdTable v-if="nodes.length" :data="nodes" border size="small" class="mb-3">
-            <YdTableColumn prop="nodeId" label="节点ID" min-width="110" show-overflow-tooltip />
-            <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
-            <YdTableColumn label="状态" width="110">
+            <YdTableColumn prop="nodeId" :label="t('page.dagInstance.nodeId')" min-width="110" show-overflow-tooltip />
+            <YdTableColumn prop="jobKey" :label="t('page.jobTask.jobKey')" min-width="120" show-overflow-tooltip />
+            <YdTableColumn :label="t('common.status')" width="110">
               <template #default="{ row }">
                 <YdBadge :variant="STATUS_TAG[row.nodeStatus ?? ''] ?? 'info'" size="sm">{{
                   row.nodeStatus ?? '-'
                 }}</YdBadge>
               </template>
             </YdTableColumn>
-            <YdTableColumn prop="durationMs" label="耗时(ms)" width="90" />
-            <YdTableColumn label="操作" width="100">
+            <YdTableColumn prop="durationMs" :label="t('page.dagInstance.durationMs')" width="90" />
+            <YdTableColumn :label="t('common.actions')" width="100">
               <template #default="{ row }">
                 <YdButton
                   v-if="row.nodeStatus === 'FAILED'"
                   size="sm"
                   variant="link"
                   @click="handleRetryNode(row)"
-                  >重试</YdButton
+                  >{{ t('page.dagInstance.retryNode') }}</YdButton
                 >
               </template>
             </YdTableColumn>

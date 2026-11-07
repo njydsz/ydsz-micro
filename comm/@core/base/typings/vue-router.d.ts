@@ -1,4 +1,4 @@
-﻿/**
+/**
  * vue-router 类型增强声明，把项目自定义的 `RouteMeta` 合并进路由元信息。
  *
  * @remarks

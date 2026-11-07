@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 用户账号表单组件 — 支持新增/编辑用户账号（账号、密码、姓名、公司/部门/岗位、角色）
  *
  * @path apps\userinfo-web\src\views\system\user\user-form.vue

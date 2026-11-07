@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * workbench-header Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\dashboard\workbench\workbench-header.vue

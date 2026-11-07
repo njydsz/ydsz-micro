@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * use-vxe-grid Vue 组件
  *
  * @path comm\effects\plugins\src\vxe-table\use-vxe-grid.vue

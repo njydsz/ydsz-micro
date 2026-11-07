@@ -158,17 +158,22 @@ onMounted(() => {
   <YdCard v-loading="loading" class="embedded-approval">
     <YdCardHeader>
       <div class="header flex items-center justify-between">
-        <YdCardTitle class="text-base font-semibold">审批信息</YdCardTitle>
+        <YdCardTitle class="text-base font-semibold">
+          {{ $t('wf.approvalInfo') }}
+        </YdCardTitle>
         <YdBadge v-if="panel.myRole" variant="default">{{ panel.myRole }}</YdBadge>
       </div>
     </YdCardHeader>
     <YdCardContent>
-      <YdEmptyState v-if="!loading && !availableActions.length" description="暂无待处理任务" />
+      <YdEmptyState
+        v-if="!loading && !availableActions.length"
+        :description="$t('wf.noPendingTasks')"
+      />
 
       <div v-else class="content">
         <!-- 当前任务 -->
         <div v-if="currentTasks.length" class="section">
-          <div class="section-title">当前节点</div>
+          <div class="section-title">{{ $t('wf.currentNode') }}</div>
           <div v-for="task in currentTasks" :key="task.id" class="task-item">
             <span class="task-node">{{ task.nodeName }}</span>
             <span class="task-assignee">{{ task.assigneeName }}</span>
@@ -177,7 +182,7 @@ onMounted(() => {
 
         <!-- 操作面板 -->
         <YdForm v-if="availableActions.length" :model="form" label-width="80px" size="small">
-          <YdFormItem label="操作">
+          <YdFormItem :label="$t('wf.action')">
             <YdSpace wrap>
               <div class="flex flex-wrap gap-2">
                 <YdButton
@@ -214,7 +219,7 @@ onMounted(() => {
               </div>
             </YdSpace>
           </YdFormItem>
-          <YdFormItem label="意见">
+          <YdFormItem :label="$t('wf.comment')">
             <YdInput
               v-model="form.comment"
               type="textarea"
@@ -222,7 +227,9 @@ onMounted(() => {
             />
           </YdFormItem>
           <YdFormItem>
-            <YdButton :loading="submitting" @click="handleAction"> 提交 </YdButton>
+            <YdButton :loading="submitting" @click="handleAction">
+              {{ $t('wf.submit') }}
+            </YdButton>
             <YdButton
               v-if="canRecall"
               variant="secondary"
@@ -236,7 +243,7 @@ onMounted(() => {
 
         <!-- 审批历史 -->
         <div v-if="history.length" class="section">
-          <div class="section-title">审批历史</div>
+          <div class="section-title">{{ $t('wf.approvalHistory') }}</div>
           <YdTimeline>
             <YdTimelineItem
               v-for="item in history"

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 智能助手 API 索引 API 模块（前端）
  * <p>统一导出 YDSZ-agent 服务的全部前端 API 模块。
  * <p>供业务代码统一 import { ... } from '#/api' 使用。

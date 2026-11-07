@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * YdTooltipSmart 的组合封装：内部自带 YdTooltipProvider，因此调用方不必再手动包一层 Provider。
  *
  * 对外只暴露高频的四个入口：trigger 插槽承载触发元素、默认插槽承载浮层内容，

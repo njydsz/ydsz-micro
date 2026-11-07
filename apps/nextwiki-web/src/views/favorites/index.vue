@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 收藏夹（列表页）
  *
  * @path apps\nextwiki-web\src\views\favorites\index.vue

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 路由守卫 — 统一通过 shared-auth 包提供的标准化守卫注册。
  *
  * 子应用无需重复实现 commonGuard / authGuard / permissionGuard / initRoutes，

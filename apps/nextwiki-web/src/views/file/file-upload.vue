@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件上传组件（支持分片上传）
  *
  * @path apps\nextwiki-web\src\views\file\file-upload.vue
@@ -79,7 +79,7 @@ const formData = reactive<UploadFormData>({
 
 const formRef = ref();
 const rules = {
-  versionRemark: [{ max: 200, message: '版本备注不超过200字符', trigger: 'blur' }],
+  versionRemark: [{ max: 200, message: t('business.versionRemarkMax'), trigger: 'blur' }],
 };
 
 const selectedFile = ref<File | null>(null);
@@ -212,7 +212,7 @@ async function handleCancel(): Promise<void> {
 </script>
 
 <template>
-  <Modal title="上传文件">
+  <Modal :title="t('business.uploadFileTitle')">
     <YdForm
       ref="formRef"
       :model="formData"
@@ -220,38 +220,40 @@ async function handleCancel(): Promise<void> {
       label-width="100px"
       label-position="right"
     >
-      <YdFormItem label="父目录ID" prop="parentId">
-        <YdInput v-model="formData.parentId" placeholder="请输入父目录ID（留空表示根目录）" />
+      <YdFormItem :label="t('business.parentId')" prop="parentId">
+        <YdInput v-model="formData.parentId" :placeholder="t('business.parentIdPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="版本备注" prop="versionRemark">
-        <YdInput v-model="formData.versionRemark" placeholder="请输入版本备注（选填）" />
+      <YdFormItem :label="t('business.versionRemark')" prop="versionRemark">
+        <YdInput v-model="formData.versionRemark" :placeholder="t('business.versionRemarkPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="选择文件">
+      <YdFormItem :label="t('business.selectFileLabel')">
         <YdUpload
           :auto-upload="false"
           :show-file-list="true"
           :limit="1"
           :on-change="handleFileChange"
-          :on-exceed="() => showToast.warning('一次只能上传一个文件')"
+          :on-exceed="() => showToast.warning(t('business.singleFileLimit'))"
           drag
         >
           <div class="py-6">
-            <p class="text-sm text-gray-500">点击或拖拽文件到此处上传</p>
+            <p class="text-sm text-gray-500">{{ t('business.dragUploadHint') }}</p>
             <p class="mt-1 text-xs text-gray-400">
-              文件大小 ≥ 100MB 时自动使用分片上传（支持断点续传）
+              {{ t('business.chunkUploadHint') }}
             </p>
           </div>
         </YdUpload>
       </YdFormItem>
-      <YdFormItem v-if="selectedFile" label="文件信息">
+      <YdFormItem v-if="selectedFile" :label="t('business.fileInfo')">
         <div class="text-sm text-gray-600">
-          <p>名称：{{ selectedFile.name }}</p>
-          <p>大小：{{ (selectedFile.size / (1024 * 1024)).toFixed(2) }} MB</p>
-          <p>类型：{{ selectedFile.type || '未知' }}</p>
-          <p v-if="useChunkUpload" class="text-orange-500">将使用分片上传</p>
+          <p>{{ t('business.fileInfoName') }}{{ selectedFile.name }}</p>
+          <p>{{ t('business.fileInfoSize') }}{{ (selectedFile.size / (1024 * 1024)).toFixed(2) }} MB</p>
+          <p>{{ t('business.fileInfoType') }}{{ selectedFile.type || t('business.unknown') }}</p>
+          <p v-if="useChunkUpload" class="text-orange-500">
+            {{ t('business.fileInfoChunked') }}
+          </p>
         </div>
       </YdFormItem>
-      <YdFormItem v-if="uploadStatus === 'uploading'" label="上传进度">
+      <YdFormItem v-if="uploadStatus === 'uploading'" :label="t('business.uploadProgress')">
         <div>
           <YdProgress
             :percentage="uploadProgress"
@@ -262,8 +264,8 @@ async function handleCancel(): Promise<void> {
       </YdFormItem>
     </YdForm>
     <template #footer>
-      <YdButton variant="outline" @click="handleCancel">取消</YdButton>
-      <YdButton :disabled="uploadStatus === 'uploading'">上传</YdButton>
+      <YdButton variant="outline" @click="handleCancel">{{ t('business.cancel') }}</YdButton>
+      <YdButton :disabled="uploadStatus === 'uploading'">{{ t('business.uploadFile') }}</YdButton>
     </template>
   </Modal>
 </template>

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 调度日历（可视化调度任务时间分布）
  *
  * @path apps\cronjob-web\src\views\schedule-calendar\index.vue
@@ -38,12 +38,14 @@ import {
 import { ref, computed, onMounted } from 'vue';
 
 import { showToast } from '@ydsz/notification';
+import { useI18n } from 'vue-i18n';
 
 import { getScheduleCalendar } from '#/api/scheduleCalendar';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
 const logger = createLogger('cronjob-job');
+const { t } = useI18n();
 
 defineOptions({ name: 'ScheduleCalendar' });
 
@@ -173,7 +175,7 @@ onMounted(() => {
       <div class="mb-4 flex items-center gap-3 rounded-lg bg-gray-50 p-3">
         <YdDatePicker
           v-model="selectedDate"
-          placeholder="选择日期"
+          :placeholder="t('page.scheduleCalendar.selectDate')"
           @update:model-value="handleDateChange"
         />
         <YdButton @click="fetchScheduleData">
@@ -190,17 +192,21 @@ onMounted(() => {
               d="M4 4v5h5M20 20v-5h-5M5.635 19.364A9 9 0 1 0 4.05 10M19.364 4.636A9 9 0 0 1 20.95 14"
             />
           </svg>
-          刷新
+          {{ t('page.scheduleCalendar.refresh') }}
         </YdButton>
         <YdRadioGroup v-model="viewMode" @update:model-value="fetchScheduleData">
           <div class="flex items-center gap-1">
             <div class="flex items-center gap-2">
               <YdRadioGroupItem id="view-day" value="day" />
-              <label for="view-day" class="cursor-pointer text-sm">日视图</label>
+              <label for="view-day" class="cursor-pointer text-sm">
+                {{ t('page.scheduleCalendar.dayView') }}
+              </label>
             </div>
             <div class="flex items-center gap-2">
               <YdRadioGroupItem id="view-week" value="week" />
-              <label for="view-week" class="cursor-pointer text-sm">周视图</label>
+              <label for="view-week" class="cursor-pointer text-sm">
+                {{ t('page.scheduleCalendar.weekView') }}
+              </label>
             </div>
           </div>
         </YdRadioGroup>
@@ -241,7 +247,9 @@ onMounted(() => {
       <YdSheet v-model:open="drawerVisible">
         <YdSheetContent side="right" class="w-[400px]">
           <YdSheetHeader>
-            <YdSheetTitle>{{ `${selectedDateDetail} 调度任务` }}</YdSheetTitle>
+            <YdSheetTitle>
+              {{ t('page.scheduleCalendar.dateTasks', { date: selectedDateDetail }) }}
+            </YdSheetTitle>
           </YdSheetHeader>
           <YdTimeline v-if="selectedDateTasks.length > 0">
             <YdTimelineItem
@@ -257,13 +265,19 @@ onMounted(() => {
                   <YdBadge variant="outline">{{ task.jobKey }}</YdBadge>
                 </YdCardHeader>
                 <YdCardContent class="pt-0">
-                  <p><b>Cron 表达式：</b>{{ task.cron }}</p>
-                  <p><b>分组：</b>{{ task.group || '默认' }}</p>
+                  <p>
+                    <b>{{ t('page.scheduleCalendar.cronExpression') }}</b>
+                    {{ task.cron }}
+                  </p>
+                  <p>
+                    <b>{{ t('page.scheduleCalendar.group') }}</b>
+                    {{ task.group || t('page.scheduleCalendar.defaultGroup') }}
+                  </p>
                 </YdCardContent>
               </YdCard>
             </YdTimelineItem>
           </YdTimeline>
-          <YdEmptyState v-else description="当日无调度任务" />
+          <YdEmptyState v-else :description="t('page.scheduleCalendar.noTasks')" />
         </YdSheetContent>
       </YdSheet>
     </div>

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 抽屉的渲染实现：把 DrawerProps 与命令式 API 的状态合并后映射为 YdSheet 结构。
  *
  * props 与 API 状态的合并走 usePriorityValues，API 优先 ——

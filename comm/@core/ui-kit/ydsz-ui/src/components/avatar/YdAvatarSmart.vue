@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 头像容器：融合 radix 的 AvatarRoot / YdAvatarImage / YdAvatarFallback 三态。
  *
  * 合在一个组件里是为了让调用方只传 src 与 alt：加载成功显示图片、失败或加载中

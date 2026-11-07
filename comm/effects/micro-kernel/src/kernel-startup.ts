@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 内核启动逻辑 — start() 方法体
  *
  * 从 kernel.ts 提取的内核启动流程，包含预加载策略初始化、
@@ -79,7 +79,11 @@ export function createStartFunction(ctx: StartupContext) {
     ctx.setRouterSyncCleanup(ctx.startRouterSync(ctx.getApps(), options));
 
     // v4.2.1 N5: 全局运行时 CSS 作用域兜底开关
-    setStyleIsolation(options?.sandbox?.styleIsolation === true);
+    // v4.3.2：仅在显式传入 false 时关闭；未传时保留默认开启值
+    // （此前 `=== true` 的写法会把 undefined 误判为关闭）。
+    if (options?.sandbox?.styleIsolation === false) {
+      setStyleIsolation(false);
+    }
 
     // P0-P2: 页面切到后台时自动释放保活实例
     ctx.setVisibilityCleanup(setupVisibilityAutoRelease());

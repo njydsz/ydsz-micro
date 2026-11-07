@@ -35,10 +35,13 @@ import {
 import { Loader2 } from '@ydsz/icons';
 import { cn } from '@ydsz-core/shared/utils';
 import { reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { showToast } from '@ydsz/notification';
 import { createKey } from '#/api/apiKey';
 
 defineOptions({ name: 'ApiKeyForm' });
+
+const { t } = useI18n();
 
 /** 弹窗显示控制 */
 const visible = ref(false);
@@ -99,7 +102,7 @@ async function handleSubmit() {
     });
     if (result.apiKey) {
       createdApiKey.value = result.apiKey;
-      showToast.success('创建成功，请立即保存下方明文 Key');
+      showToast.success(t('apiKey.createSuccess'));
     }
   } catch {
     /* 错误由拦截器处理 */
@@ -115,12 +118,12 @@ defineExpose({ open, close });
   <YdDialog v-model:open="visible">
     <YdDialogContent :class="cn('max-w-[500px]')">
       <YdDialogHeader>
-        <YdDialogTitle>创建 API Key</YdDialogTitle>
+        <YdDialogTitle>{{ t('apiKey.createTitle') }}</YdDialogTitle>
       </YdDialogHeader>
       <YdDialogDescription v-if="createdApiKey">
-        <strong class="text-yellow-600 dark:text-yellow-400"
-          >请立即保存以下明文 API Key，关闭此弹窗后将无法再次获取！</strong
-        >
+        <strong class="text-yellow-600 dark:text-yellow-400">
+          {{ t('apiKey.plaintextWarning') }}
+        </strong>
       </YdDialogDescription>
 
       <div v-if="createdApiKey" class="bg-muted mb-4 break-all rounded p-3 font-mono text-sm">
@@ -128,42 +131,44 @@ defineExpose({ open, close });
       </div>
 
       <YdForm v-show="!createdApiKey" ref="formRef" :model="form" label-width="100px">
-        <YdFormItem label="Key 名称" prop="keyName" required>
+        <YdFormItem :label="t('apiKey.keyName')" prop="keyName" required>
           <YdInput
             v-model="form.keyName"
-            placeholder="如 jenkins-deploy"
+            :placeholder="t('apiKey.keyNamePlaceholder')"
             maxlength="64"
             show-word-limit
           />
         </YdFormItem>
-        <YdFormItem label="授权范围" prop="scopes">
-          <YdInput v-model="form.scopes" placeholder="逗号分隔，如 read,write" />
+        <YdFormItem :label="t('apiKey.scopes')" prop="scopes">
+          <YdInput v-model="form.scopes" :placeholder="t('apiKey.scopesPlaceholder')" />
         </YdFormItem>
-        <YdFormItem label="过期天数" prop="expireDays">
+        <YdFormItem :label="t('apiKey.expireDays')" prop="expireDays">
           <YdNumberFieldInput
             v-model="form.expireDays"
             :min="1"
             :max="3650"
-            placeholder="留空永不过期"
+            :placeholder="t('apiKey.expireDaysPlaceholder')"
             class="w-full"
           />
         </YdFormItem>
-        <YdFormItem label="限流(次/分)" prop="rateLimit">
+        <YdFormItem :label="t('apiKey.rateLimit')" prop="rateLimit">
           <YdNumberFieldInput
             v-model="form.rateLimit"
             :min="1"
             :max="10000"
-            placeholder="留空使用默认"
+            :placeholder="t('apiKey.rateLimitPlaceholder')"
             class="w-full"
           />
         </YdFormItem>
       </YdForm>
 
       <YdDialogFooter class="gap-2">
-        <YdButton variant="outline" @click="close">{{ createdApiKey ? '关闭' : '取消' }}</YdButton>
+        <YdButton variant="outline" @click="close">
+          {{ createdApiKey ? t('apiKey.close') : t('apiKey.cancel') }}
+        </YdButton>
         <YdButton v-if="!createdApiKey" :disabled="loading" @click="handleSubmit">
           <Loader2 v-if="loading" class="mr-2 h-4 w-4 animate-spin" />
-          创建
+          {{ t('apiKey.create') }}
         </YdButton>
       </YdDialogFooter>
     </YdDialogContent>

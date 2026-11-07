@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 手风琴的单条目：转发 radix YdAccordionItem 的 value / disabled 等属性，并统一加下分隔线。
  *
  * 分隔线固定在条目底部（border-b）而非顶部，

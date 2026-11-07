@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Message Web Mock 配置
  *
  * <p>基于 @ydsz/mock-service 提供类型安全的 API Mock。

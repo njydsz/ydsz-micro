@@ -29,11 +29,14 @@ import {
   YdEmptyState,
 } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { daily, summary } from '#/api/jobStats';
 import type { JobDailyStatsVO } from '#/api/models';
 
 defineOptions({ name: 'JobStatsReport' });
+
+const { t } = useI18n();
 
 // ==================== 数据 ====================
 
@@ -62,15 +65,23 @@ interface SummaryCard {
 const summaryCards = computed<SummaryCard[]>(() => {
   const data = summaryData.value as unknown as Record<string, number | undefined>;
   return [
-    { label: '总触发', value: data.totalFireCount ?? data.fireCount ?? 0, color: 'text-blue-500' },
     {
-      label: '总成功',
+      label: t('page.stats.totalFire'),
+      value: data.totalFireCount ?? data.fireCount ?? 0,
+      color: 'text-blue-500',
+    },
+    {
+      label: t('page.stats.totalSuccess'),
       value: data.totalSuccessCount ?? data.successCount ?? 0,
       color: 'text-green-500',
     },
-    { label: '总失败', value: data.totalFailCount ?? data.failCount ?? 0, color: 'text-red-500' },
     {
-      label: '总超时',
+      label: t('page.stats.totalFail'),
+      value: data.totalFailCount ?? data.failCount ?? 0,
+      color: 'text-red-500',
+    },
+    {
+      label: t('page.stats.totalTimeout'),
       value: data.totalTimeoutCount ?? data.timeoutCount ?? 0,
       color: 'text-orange-500',
     },
@@ -125,18 +136,30 @@ onMounted(handleQuery);
     <!-- 查询条件 -->
     <YdCard class="mb-3">
       <YdCardHeader>
-        <YdCardTitle>查询条件</YdCardTitle>
+        <YdCardTitle>{{ t('page.stats.queryCondition') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
         <div class="flex flex-wrap items-center gap-3">
-          <YdInput v-model="queryForm.jobId" placeholder="任务ID（可选）" class="!w-56" />
-          <YdDatePicker v-model="queryForm.startDate" placeholder="开始日期" class="!w-40" />
-          <YdDatePicker v-model="queryForm.endDate" placeholder="结束日期" class="!w-40" />
+          <YdInput
+            v-model="queryForm.jobId"
+            :placeholder="t('page.stats.jobIdPlaceholder')"
+            class="!w-56"
+          />
+          <YdDatePicker
+            v-model="queryForm.startDate"
+            :placeholder="t('page.stats.startDate')"
+            class="!w-40"
+          />
+          <YdDatePicker
+            v-model="queryForm.endDate"
+            :placeholder="t('page.stats.endDate')"
+            class="!w-40"
+          />
           <button
             class="rounded bg-blue-500 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-600"
             @click="handleQuery"
           >
-            查询
+            {{ t('common.query') }}
           </button>
         </div>
       </YdCardContent>
@@ -145,7 +168,7 @@ onMounted(handleQuery);
     <!-- 汇总统计卡片 -->
     <YdCard class="mb-3">
       <YdCardHeader>
-        <YdCardTitle>汇总统计</YdCardTitle>
+        <YdCardTitle>{{ t('page.stats.summary') }}</YdCardTitle>
       </YdCardHeader>
       <YdCardContent>
         <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -161,7 +184,7 @@ onMounted(handleQuery);
       <!-- 日报趋势图 -->
       <YdCard class="lg:col-span-2">
         <YdCardHeader>
-          <YdCardTitle>每日触发分布</YdCardTitle>
+          <YdCardTitle>{{ t('page.stats.dailyFireDistribution') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <div v-if="dailyList.length" class="flex h-64 items-end gap-1 px-1">
@@ -175,7 +198,7 @@ onMounted(handleQuery);
                   : 'bg-green-100 hover:bg-green-300'
               "
               :style="{ height: `${Math.max(3, ((item.fireCount ?? 0) / dailyMaxFire) * 100)}%` }"
-              :title="`${item.statsDate} - 触发${item.fireCount ?? 0}次`"
+              :title="`${item.statsDate} - ${t('page.stats.fireTooltip', { count: item.fireCount ?? 0 })}`"
             >
               <span
                 class="pointer-events-none absolute -top-5 left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded bg-gray-800 px-1 text-[10px] text-white group-hover:block"
@@ -183,14 +206,14 @@ onMounted(handleQuery);
               >
             </div>
           </div>
-          <YdEmptyState v-else description="暂无日报数据" :image-size="60" />
+          <YdEmptyState v-else :description="t('page.stats.noDailyData')" :image-size="60" />
         </YdCardContent>
       </YdCard>
 
       <!-- 日报明细表格 -->
       <YdCard class="lg:col-span-3">
         <YdCardHeader>
-          <YdCardTitle>日报明细</YdCardTitle>
+          <YdCardTitle>{{ t('page.stats.dailyDetail') }}</YdCardTitle>
         </YdCardHeader>
         <YdCardContent>
           <YdTable
@@ -201,16 +224,16 @@ onMounted(handleQuery);
             max-height="380"
             :loading="isLoading"
           >
-            <YdTableColumn prop="statsDate" label="日期" width="110" />
-            <YdTableColumn prop="jobKey" label="任务标识" min-width="120" show-overflow-tooltip />
-            <YdTableColumn prop="fireCount" label="触发" width="70" />
-            <YdTableColumn prop="successCount" label="成功" width="70" />
-            <YdTableColumn prop="failCount" label="失败" width="70" />
-            <YdTableColumn prop="timeoutCount" label="超时" width="70" />
-            <YdTableColumn prop="avgDurationMs" label="平均耗时(ms)" width="110" />
+            <YdTableColumn prop="statsDate" :label="t('page.stats.date')" width="110" />
+            <YdTableColumn prop="jobKey" :label="t('page.jobTask.jobKey')" min-width="120" show-overflow-tooltip />
+            <YdTableColumn prop="fireCount" :label="t('page.stats.fire')" width="70" />
+            <YdTableColumn prop="successCount" :label="t('page.jobTask.success')" width="70" />
+            <YdTableColumn prop="failCount" :label="t('page.jobTask.failed')" width="70" />
+            <YdTableColumn prop="timeoutCount" :label="t('page.stats.timeout')" width="70" />
+            <YdTableColumn prop="avgDurationMs" :label="t('page.stats.avgDurationMs')" width="110" />
             <YdTableColumn prop="p95DurationMs" label="P95(ms)" width="90" />
           </YdTable>
-          <YdEmptyState v-else description="暂无日报明细" :image-size="60" />
+          <YdEmptyState v-else :description="t('page.stats.noDailyDetail')" :image-size="60" />
         </YdCardContent>
       </YdCard>
     </div>

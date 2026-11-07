@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CSS 变量写入工具，根据偏好配置动态设置主题色、圆角、明暗等全局样式。
  *
  * @path comm\@core\preferences\src\update-css-variables.ts

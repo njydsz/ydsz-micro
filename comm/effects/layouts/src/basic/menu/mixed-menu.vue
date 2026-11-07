@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * mixed-menu 布局组件
  *
  * @path comm\effects\layouts\src\basic\menu\mixed-menu.vue

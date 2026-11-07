@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 选择器中的单个选项：内部固定渲染 YdSelectItemText 与 SelectItemIndicator。
  *
  * 右侧预留 pr-8 给选中标记，避免长文本被图标压住；

@@ -273,7 +273,7 @@ void loadAgentList();
             <rect height="9" rx="1.5" width="9" x="2.5" y="12.5" />
             <rect height="9" rx="1.5" width="9" x="12.5" y="12.5" />
           </svg>
-          卡片
+          {{ t('page.agentPage.cardView') }}
         </button>
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
@@ -299,7 +299,7 @@ void loadAgentList();
             <line x1="3" x2="21" y1="17.5" y2="17.5" />
             <line x1="8.5" x2="8.5" y1="3" y2="21" />
           </svg>
-          表格
+          {{ t('page.agentPage.tableView') }}
         </button>
       </div>
       <div class="flex items-center gap-2">
@@ -327,12 +327,12 @@ void loadAgentList();
           </svg>
           {{ t('business.export') }}
         </YdButton>
-        <YdButton @click="handleAdd">新增</YdButton>
+        <YdButton @click="handleAdd">{{ t('page.agentPage.add') }}</YdButton>
       </div>
     </div>
 
     <!-- 表格视图 -->
-    <Grid v-if="viewMode === 'table'" table-title="Agent定义管理" />
+    <Grid v-if="viewMode === 'table'" :table-title="t('page.agentPage.management')" />
 
     <!-- 卡片视图 -->
     <div v-else class="min-h-[400px]">
@@ -342,10 +342,10 @@ void loadAgentList();
       >
         <template #empty>
           <YdEmptyState
-            description="创建 Agent 后可在应用中心调用"
+            :description="t('page.agentPage.emptyDescription')"
             preset="created"
-            action-text="创建 Agent"
-            title="暂无 Agent"
+            :action-text="t('page.agentPage.createAgent')"
+            :title="t('page.agentPage.emptyTitle')"
             @action="handleAdd"
           />
         </template>
@@ -368,7 +368,7 @@ void loadAgentList();
           <template #meta>
             <div class="mt-3 grid grid-cols-2 gap-2 text-xs">
               <div class="bg-accent/60 rounded-md px-2 py-1.5">
-                <span class="text-text-tertiary">模型温度</span>
+                <span class="text-text-tertiary">{{ t('page.agentPage.modelTemperature') }}</span>
                 <div class="text-text-secondary mt-0.5 font-medium">
                   {{ item.temperature ?? '-' }}
                 </div>
@@ -411,9 +411,11 @@ void loadAgentList();
               </YdButton>
               <template #dropdown>
                 <YdDropdownMenu>
-                  <YdDropdownMenuItem command="edit"> 编辑信息 </YdDropdownMenuItem>
+                  <YdDropdownMenuItem command="edit">
+                    {{ t('page.agentPage.editInfo') }}
+                  </YdDropdownMenuItem>
                   <YdDropdownMenuItem command="delete" divided>
-                    <span class="text-destructive">删除定义</span>
+                    <span class="text-destructive">{{ t('page.agentPage.deleteDefinition') }}</span>
                   </YdDropdownMenuItem>
                 </YdDropdownMenu>
               </template>
@@ -424,9 +426,11 @@ void loadAgentList();
 
       <!-- P2-3: 卡片视图「加载更多」按钮 -->
       <div v-if="agentList.length > 0 && !loading" class="mt-6 flex justify-center">
-        <YdButton v-if="hasMore" variant="outline" @click="loadMore"> 加载更多 </YdButton>
+        <YdButton v-if="hasMore" variant="outline" @click="loadMore">
+          {{ t('page.agentPage.loadMore') }}
+        </YdButton>
         <span v-else-if="agentList.length > pageSize" class="text-text-tertiary text-sm">
-          已全部加载（共 {{ agentList.length }} 条）
+          {{ t('page.agentPage.allLoaded', { count: agentList.length }) }}
         </span>
       </div>
     </div>

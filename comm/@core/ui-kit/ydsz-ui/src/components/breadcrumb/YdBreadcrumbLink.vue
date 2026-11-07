@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 面包屑中可点击的一级：默认渲染为 a，可通过 as / asChild 换成 RouterLink 等组件。
  *
  * 用 radix Primitive 而非硬编码 a 标签，是为了让面包屑能直接接入路由链接，

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件预览组件
  *
  * @path apps\nextwiki-web\src\views\file\file-preview.vue

@@ -26,9 +26,12 @@ defineOptions({
  */
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { showToast } from '@ydsz/notification';
 import { diagram } from '#/api/flowInstance';
 import type { FlowDiagramVO, FlowInstanceVO } from '#/api/models';
+
+const { t } = useI18n();
 
 /** 后端实际返回的 DiagramNodeVO 含 FlowNodeVO 全部字段（id/nodeCode/nodeName 等），此处显式扩展 */
 interface RichDiagramNodeVO {
@@ -93,17 +96,58 @@ const hasDiagram = computed(() => hasSvg.value || nodeList.value.length > 0);
 /** 节点状态映射 */
 const NODE_STATUS_MAP: Record<
   string,
-  { label: string; color: string; bgColor: string; animate?: boolean }
+  { labelKey: string; color: string; bgColor: string; animate?: boolean }
 > = {
-  COMPLETED: { label: '已完成', color: '#67c23a', bgColor: '#f0f9eb' },
-  RUNNING: { label: '当前节点', color: '#409eff', bgColor: '#ecf5ff', animate: true },
-  CURRENT: { label: '当前节点', color: '#409eff', bgColor: '#ecf5ff', animate: true },
-  PENDING: { label: '待处理', color: '#909399', bgColor: '#f4f4f5' },
-  REJECTED: { label: '已驳回', color: '#f56c6c', bgColor: '#fef0f0' },
-  SKIPPED: { label: '已跳过', color: '#e6a23c', bgColor: '#fdf6ec' },
-  FINISHED: { label: '已完成', color: '#67c23a', bgColor: '#f0f9eb' },
-  ACTIVE: { label: '当前节点', color: '#409eff', bgColor: '#ecf5ff', animate: true },
+  COMPLETED: {
+    labelKey: 'wf.flowDiagram.nodeCompleted',
+    color: '#67c23a',
+    bgColor: '#f0f9eb',
+  },
+  RUNNING: {
+    labelKey: 'wf.flowDiagram.nodeCurrent',
+    color: '#409eff',
+    bgColor: '#ecf5ff',
+    animate: true,
+  },
+  CURRENT: {
+    labelKey: 'wf.flowDiagram.nodeCurrent',
+    color: '#409eff',
+    bgColor: '#ecf5ff',
+    animate: true,
+  },
+  PENDING: {
+    labelKey: 'wf.flowDiagram.nodePending',
+    color: '#909399',
+    bgColor: '#f4f4f5',
+  },
+  REJECTED: {
+    labelKey: 'wf.flowDiagram.nodeRejected',
+    color: '#f56c6c',
+    bgColor: '#fef0f0',
+  },
+  SKIPPED: {
+    labelKey: 'wf.flowDiagram.nodeSkipped',
+    color: '#e6a23c',
+    bgColor: '#fdf6ec',
+  },
+  FINISHED: {
+    labelKey: 'wf.flowDiagram.nodeCompleted',
+    color: '#67c23a',
+    bgColor: '#f0f9eb',
+  },
+  ACTIVE: {
+    labelKey: 'wf.flowDiagram.nodeCurrent',
+    color: '#409eff',
+    bgColor: '#ecf5ff',
+    animate: true,
+  },
 };
+
+/** 节点状态文案（模板与脚本共用，统一从词典取） */
+function nodeStatusLabel(state: string | undefined): string {
+  const config = NODE_STATUS_MAP[state ?? ''];
+  return config ? t(config.labelKey) : t('wf.flowDiagram.unknownStatus');
+}
 
 /** 当前选中的节点（点击） */
 const selectedNodeId = ref<string | null>(null);
@@ -120,7 +164,7 @@ async function loadDiagram(): Promise<void> {
   } catch {
     error.value = true;
     diagramData.value = null;
-    showToast.error('加载流程图失败');
+    showToast.error(t('wf.flowDiagram.loadFailed'));
   } finally {
     loading.value = false;
   }
@@ -152,14 +196,14 @@ onMounted(() => {
   <div class="flow-diagram-viewer">
     <!-- 图例 -->
     <div class="diagram-legend mb-3 flex items-center gap-5">
-      <span class="text-xs text-gray-500">节点状态：</span>
+      <span class="text-xs text-gray-500">{{ t('wf.flowDiagram.legend') }}</span>
       <div v-for="(config, key) in NODE_STATUS_MAP" :key="key" class="flex items-center gap-1">
         <span
           class="legend-dot"
           :class="{ 'dot-animate': config.animate }"
           :style="{ backgroundColor: config.color }"
         />
-        <span class="text-xs text-gray-600">{{ config.label }}</span>
+        <span class="text-xs text-gray-600">{{ t(config.labelKey) }}</span>
       </div>
     </div>
 
@@ -171,14 +215,16 @@ onMounted(() => {
           <div
             class="h-6 w-6 animate-spin rounded-full border-2 border-gray-300 border-t-blue-500"
           />
-          <span class="text-sm">正在加载流程图...</span>
+          <span class="text-sm">{{ t('wf.flowDiagram.loading') }}</span>
         </div>
       </div>
 
       <!-- 错误态 -->
       <div v-else-if="error" class="flex h-64 flex-col items-center justify-center text-red-400">
-        <p class="mb-2">加载流程图失败</p>
-        <YdButton size="sm" variant="secondary" @click="loadDiagram">重试</YdButton>
+        <p class="mb-2">{{ t('wf.flowDiagram.loadFailed') }}</p>
+        <YdButton size="sm" variant="secondary" @click="loadDiagram">
+          {{ t('wf.flowDiagram.retry') }}
+        </YdButton>
       </div>
 
       <!-- SVG 渲染 -->
@@ -205,9 +251,11 @@ onMounted(() => {
                 backgroundColor: NODE_STATUS_MAP[node.nodeState ?? '']?.color ?? '#909399',
               }"
             />
-            <span class="text-sm font-medium">{{
-              node.nodeName ?? node.nodeCode ?? '未知节点'
-            }}</span>
+            <span class="text-sm font-medium">
+              {{
+                node.nodeName ?? node.nodeCode ?? t('wf.flowDiagram.unknownNode')
+              }}
+            </span>
             <span
               class="rounded px-1.5 py-0.5 text-xs"
               :style="{
@@ -216,7 +264,7 @@ onMounted(() => {
                   (NODE_STATUS_MAP[node.nodeState ?? '']?.bgColor ?? '#f4f4f5') + '99',
               }"
             >
-              {{ NODE_STATUS_MAP[node.nodeState ?? '']?.label ?? node.nodeState ?? '未知' }}
+              {{ nodeStatusLabel(node.nodeState) }}
             </span>
           </div>
         </div>
@@ -250,16 +298,18 @@ onMounted(() => {
             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
           />
         </svg>
-        <p>暂无流程图数据</p>
-        <YdButton size="sm" variant="secondary" class="mt-2" @click="loadDiagram"
-          >重新加载</YdButton
-        >
+        <p>{{ t('wf.flowDiagram.empty') }}</p>
+        <YdButton size="sm" variant="secondary" class="mt-2" @click="loadDiagram">
+          {{ t('wf.flowDiagram.reload') }}
+        </YdButton>
       </div>
     </div>
 
     <!-- 节点状态列表（仅当有节点数据时显示） -->
     <div v-if="nodeList.length > 0" class="node-status-list mt-4">
-      <h4 class="mb-2 text-sm font-medium text-gray-700">节点执行状态</h4>
+      <h4 class="mb-2 text-sm font-medium text-gray-700">
+        {{ t('wf.flowDiagram.nodeStatusList') }}
+      </h4>
       <div class="flex flex-wrap gap-2">
         <div
           v-for="(node, idx) in nodeList"
@@ -277,12 +327,14 @@ onMounted(() => {
             :class="{ 'dot-animate': NODE_STATUS_MAP[node.nodeState ?? '']?.animate }"
             :style="{ backgroundColor: NODE_STATUS_MAP[node.nodeState ?? '']?.color ?? '#909399' }"
           />
-          <span class="text-sm">{{ node.nodeName ?? node.nodeCode ?? '未知节点' }}</span>
+          <span class="text-sm">
+            {{ node.nodeName ?? node.nodeCode ?? t('wf.flowDiagram.unknownNode') }}
+          </span>
           <YdBadge
             :variant="NODE_STATUS_MAP[node.nodeState ?? '']?.animate ? 'default' : 'secondary'"
             size="sm"
           >
-            {{ NODE_STATUS_MAP[node.nodeState ?? '']?.label ?? node.nodeState ?? '未知' }}
+            {{ nodeStatusLabel(node.nodeState) }}
           </YdBadge>
         </div>
       </div>

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 验证码输入的分格容器：把 YdPinInputInput 组织成一组。
  *
  * 基于 Primitive 而非固定 div，是为了在需要给整组加语义（如 role=group）

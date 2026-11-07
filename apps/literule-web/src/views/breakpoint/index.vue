@@ -18,6 +18,7 @@ import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButton, YdInput, YdTable, YdTableColumn } from '@ydsz-core/ydsz-ui';
 import { YdConfirm, YdPrompt } from '@ydsz-core/popup-ui';
 import { h, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -32,6 +33,7 @@ import {
   terminateSession,
 } from '#/api/ruleDebug';
 import { formatJsonResult, toRecordList } from '#/utils/format';
+const { t } = useI18n();
 defineOptions({ name: 'BreakpointManagement' });
 /** 断点/Session 行数据的兜底类型（后端契约返回 unknown） */
 type DebugRow = Record<string, unknown>;
@@ -207,35 +209,41 @@ async function handleSubmitCommand() {
 <template>
   <Page auto-content-height>
     <div class="flex flex-col gap-3 p-5">
-      <Grid table-title="断点列表">
+      <Grid :table-title="t('breakpointList')">
         <template #toolbar-tools
-          ><YdButton @click="handleAddBreakpoint">新增断点</YdButton></template
+          ><YdButton @click="handleAddBreakpoint">{{ t('addBreakpoint') }}</YdButton></template
         >
       </Grid>
       <div class="rounded border border-gray-200 bg-white p-3">
         <div class="mb-2 flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <span class="text-sm font-medium">调试会话</span>
+            <span class="text-sm font-medium">{{ t('debugSession') }}</span>
             <span v-if="selectedSessionId" class="text-xs text-gray-500"
-              >当前会话：{{ selectedSessionId }}</span
+              >{{ t('currentSession') }}{{ selectedSessionId }}</span
             >
           </div>
           <div class="flex gap-2">
-            <YdButton size="sm" @click="handleCreateSession">创建会话</YdButton>
-            <YdButton size="sm" variant="secondary" @click="loadSessions">刷新会话</YdButton>
+            <YdButton size="sm" @click="handleCreateSession">
+              {{ t('createSession') }}
+            </YdButton>
+            <YdButton size="sm" variant="secondary" @click="loadSessions">
+              {{ t('refreshSession') }}
+            </YdButton>
           </div>
         </div>
         <YdTable :data="sessions" border size="small" class="mb-2">
-          <YdTableColumn prop="sessionId" label="会话ID" min-width="180" />
-          <YdTableColumn prop="ruleCode" label="规则编码" width="160" />
-          <YdTableColumn prop="status" label="状态" width="90" />
-          <YdTableColumn prop="createdAt" label="创建时间" width="170" />
-          <YdTableColumn label="操作" width="160" fixed="right">
+          <YdTableColumn prop="sessionId" :label="t('sessionIdLabel')" min-width="180" />
+          <YdTableColumn prop="ruleCode" :label="t('ruleCodeColumn')" width="160" />
+          <YdTableColumn prop="status" :label="t('statusColumn')" width="90" />
+          <YdTableColumn prop="createdAt" :label="t('createdAtColumn')" width="170" />
+          <YdTableColumn :label="t('actionColumn')" width="160" fixed="right">
             <template #default="{ row }">
-              <YdButton variant="link" size="sm" @click="handleSelectSession(row)">选择</YdButton>
-              <YdButton variant="link" size="sm" @click="handleTerminateSession(row)"
-                >结束</YdButton
-              >
+              <YdButton variant="link" size="sm" @click="handleSelectSession(row)">
+                {{ t('selectAction') }}
+              </YdButton>
+              <YdButton variant="link" size="sm" @click="handleTerminateSession(row)">
+                {{ t('endSession') }}
+              </YdButton>
             </template>
           </YdTableColumn>
         </YdTable>
@@ -244,10 +252,12 @@ async function handleSubmitCommand() {
             v-model="commandText"
             type="textarea"
             :rows="4"
-            placeholder="输入调试命令…"
+            :placeholder="t('debugCommandPlaceholder')"
             class="flex-1"
           />
-          <YdButton :disabled="!selectedSessionId" @click="handleSubmitCommand">提交命令</YdButton>
+          <YdButton :disabled="!selectedSessionId" @click="handleSubmitCommand">
+            {{ t('submitCommand') }}
+          </YdButton>
         </div>
         <pre
           v-if="commandResult"

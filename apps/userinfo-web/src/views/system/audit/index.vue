@@ -20,6 +20,7 @@ import type { VxeGridProps } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { showToast } from '@ydsz/notification';
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import {
@@ -32,14 +33,16 @@ import {
 
 defineOptions({ name: 'AuditLogManagement' });
 
+const { t } = useI18n();
+
 /** 告警类型映射 */
 const ALERT_TYPE_MAP: Record<string, { label: string; type: string }> = {
-  ACCOUNT_LOCKED: { label: '账户锁定', type: 'danger' },
-  ACCOUNT_BANNED: { label: '账户封禁', type: 'danger' },
-  MFA_FAILED: { label: 'MFA失败', type: 'warning' },
-  BRUTE_FORCE: { label: '暴力破解', type: 'danger' },
-  ANOMALOUS_LOGIN: { label: '异常登录', type: 'warning' },
-  PASSWORD_SPRAY: { label: '密码喷洒', type: 'danger' },
+  ACCOUNT_LOCKED: { label: t('audit.alertTypeAccountLocked'), type: 'danger' },
+  ACCOUNT_BANNED: { label: t('audit.alertTypeAccountBanned'), type: 'danger' },
+  MFA_FAILED: { label: t('audit.alertTypeMfaFailed'), type: 'warning' },
+  BRUTE_FORCE: { label: t('audit.alertTypeBruteForce'), type: 'danger' },
+  ANOMALOUS_LOGIN: { label: t('audit.alertTypeAnomalousLogin'), type: 'warning' },
+  PASSWORD_SPRAY: { label: t('audit.alertTypePasswordSpray'), type: 'danger' },
 };
 
 /** 待处理告警数量 */
@@ -63,10 +66,10 @@ interface AlertRow {
 
 const gridOptions: VxeGridProps<AlertRow> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('rowIndex') },
     {
       field: 'alertType',
-      title: '告警类型',
+      title: t('audit.alertType'),
       width: 140,
       slots: {
         default: ({ row }) => {
@@ -93,7 +96,7 @@ const gridOptions: VxeGridProps<AlertRow> = {
     },
     {
       field: 'alertType',
-      title: '类型编码',
+      title: t('audit.typeCode'),
       width: 140,
       slots: {
         default: ({ row }) =>
@@ -102,7 +105,7 @@ const gridOptions: VxeGridProps<AlertRow> = {
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('operation'),
       width: 180,
       fixed: 'right',
       slots: {
@@ -111,7 +114,7 @@ const gridOptions: VxeGridProps<AlertRow> = {
             h(
               YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(row) },
-              () => '确认',
+              () => t('audit.acknowledge'),
             ),
             h(
               YdButton,
@@ -121,12 +124,12 @@ const gridOptions: VxeGridProps<AlertRow> = {
                 class: 'border-green-500 text-green-600 dark:text-green-400',
                 onClick: () => handleResolve(row),
               },
-              () => '解决',
+              () => t('audit.resolve'),
             ),
             h(
               YdButton,
               { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(row) },
-              () => '忽略',
+              () => t('audit.ignore'),
             ),
           ]),
       },
@@ -158,8 +161,8 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 /** 确认告警 */
 async function handleAcknowledge(row: AlertRow): Promise<void> {
   try {
-    await acknowledgeAlert({ id: row.id }, { note: '管理员确认' });
-    showToast.success('确认成功');
+    await acknowledgeAlert({ id: row.id }, { note: t('audit.adminAcknowledge') });
+    showToast.success(t('audit.acknowledgeSuccess'));
     gridApi.query();
     loadPendingCount();
   } catch {
@@ -170,8 +173,8 @@ async function handleAcknowledge(row: AlertRow): Promise<void> {
 /** 解决告警 */
 async function handleResolve(row: AlertRow): Promise<void> {
   try {
-    await resolveAlert({ id: row.id }, { note: '管理员解决' });
-    showToast.success('解决成功');
+    await resolveAlert({ id: row.id }, { note: t('audit.adminResolve') });
+    showToast.success(t('audit.resolveSuccess'));
     gridApi.query();
     loadPendingCount();
   } catch {
@@ -182,8 +185,8 @@ async function handleResolve(row: AlertRow): Promise<void> {
 /** 忽略告警 */
 async function handleIgnore(row: AlertRow): Promise<void> {
   try {
-    await ignoreAlert({ id: row.id }, { note: '管理员忽略' });
-    showToast.success('忽略成功');
+    await ignoreAlert({ id: row.id }, { note: t('audit.adminIgnore') });
+    showToast.success(t('audit.ignoreSuccess'));
     gridApi.query();
     loadPendingCount();
   } catch {
@@ -201,13 +204,13 @@ onMounted(() => {
     <!-- 统计头部 -->
     <div class="mb-4 px-4 pt-3">
       <div class="rounded-lg border bg-red-50 px-4 py-3">
-        <span class="text-sm text-gray-600">待处理安全告警：</span>
+        <span class="text-sm text-gray-600">{{ t('audit.pendingAlerts') }}</span>
         <span class="text-xl font-bold text-red-600">{{ pendingCount }}</span>
-        <span class="ml-2 text-xs text-gray-400">请及时处理高危告警</span>
+        <span class="ml-2 text-xs text-gray-400">{{ t('audit.handleHighRisk') }}</span>
       </div>
     </div>
 
-    <Grid table-title="操作审计日志">
+    <Grid :table-title="t('audit.title')">
       <template #toolbar-tools>
         <YdButton
           variant="default"
@@ -217,7 +220,7 @@ onMounted(() => {
               loadPendingCount();
             }
           "
-          >刷新</YdButton
+          >{{ t('audit.refresh') }}</YdButton
         >
       </template>
     </Grid>

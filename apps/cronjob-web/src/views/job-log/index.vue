@@ -33,6 +33,7 @@ import {
   YdDescriptionsItem,
 } from '@ydsz-core/ydsz-ui';
 import { h, onBeforeUnmount, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
@@ -40,6 +41,8 @@ import { pageLog } from '#/api/job';
 import type { JobLogVO } from '#/api/models';
 
 defineOptions({ name: 'JobLogManagement' });
+
+const { t } = useI18n();
 
 const route = useRoute();
 
@@ -117,11 +120,11 @@ onMounted(() => {
 
 const gridOptions: VxeTableGridOptions<JobLogVO> = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
-    { field: 'jobKey', title: '任务标识', width: 140 },
+    { type: 'seq', width: 50, title: t('common.seq') },
+    { field: 'jobKey', title: t('page.jobTask.jobKey'), width: 140 },
     {
       field: 'status',
-      title: '状态',
+      title: t('common.status'),
       width: 100,
       slots: {
         default: ({ row }) => {
@@ -135,15 +138,15 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
         },
       },
     },
-    { field: 'startTime', title: '开始时间', width: 170 },
-    { field: 'endTime', title: '结束时间', width: 170 },
-    { field: 'durationMs', title: '耗时(ms)', width: 100 },
-    { field: 'triggerType', title: '触发类型', width: 110 },
-    { field: 'errorMessage', title: '错误信息', minWidth: 160 },
-    { field: 'createdAt', title: '创建时间', width: 170 },
+    { field: 'startTime', title: t('page.dagInstance.startTime'), width: 170 },
+    { field: 'endTime', title: t('page.dagInstance.endTime'), width: 170 },
+    { field: 'durationMs', title: t('page.dagInstance.durationMs'), width: 100 },
+    { field: 'triggerType', title: t('page.dagInstance.triggerType'), width: 110 },
+    { field: 'errorMessage', title: t('page.jobTask.errorMessage'), minWidth: 160 },
+    { field: 'createdAt', title: t('page.jobTask.createdAt'), width: 170 },
     {
       field: 'action',
-      title: '操作',
+      title: t('common.actions'),
       width: 90,
       fixed: 'right',
       slots: {
@@ -152,7 +155,7 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
           return h(
             YdButton,
             { size: 'sm', variant: 'link', onClick: () => handleViewDetail(log) },
-            () => '详情',
+            () => t('page.jobTask.detail'),
           );
         },
       },
@@ -178,16 +181,16 @@ const gridOptions: VxeTableGridOptions<JobLogVO> = {
     items: [
       {
         field: 'jobKey',
-        title: '任务标识',
+        title: t('page.jobTask.jobKey'),
         itemRender: {
           name: 'YdInput',
-          props: { placeholder: '任务标识', modelValue: presetJobKey },
+          props: { placeholder: t('page.jobTask.jobKey'), modelValue: presetJobKey },
         },
       },
       {
         field: 'status',
-        title: '状态',
-        itemRender: { name: 'YdInput', props: { placeholder: '状态' } },
+        title: t('common.status'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('common.status') } },
       },
     ],
   },
@@ -198,47 +201,49 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
 
 <template>
   <Page auto-content-height>
-    <Grid table-title="执行日志" />
+    <Grid :table-title="t('page.executionLog')" />
 
     <YdSheet v-model:open="detailVisible">
       <YdSheetContent side="right" class="w-[720px]">
         <YdSheetHeader>
-          <YdSheetTitle>执行日志详情</YdSheetTitle>
+          <YdSheetTitle>{{ t('page.executionLogDetail') }}</YdSheetTitle>
         </YdSheetHeader>
         <template v-if="detailLog">
           <YdDescriptions :column="2" border size="small" class="mb-3">
-            <YdDescriptionsItem label="任务标识">{{ detailLog.jobKey ?? '-' }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="状态">
+            <YdDescriptionsItem :label="t('page.jobTask.jobKey')">{{ detailLog.jobKey ?? '-' }}</YdDescriptionsItem>
+            <YdDescriptionsItem :label="t('common.status')">
               <YdBadge :variant="detailLog.status === 'SUCCESS' ? 'default' : 'destructive'">{{
                 detailLog.status ?? '-'
               }}</YdBadge>
             </YdDescriptionsItem>
-            <YdDescriptionsItem label="开始时间">{{
+            <YdDescriptionsItem :label="t('page.dagInstance.startTime')">{{
               detailLog.startTime ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="结束时间">{{ detailLog.endTime ?? '-' }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="耗时(ms)">{{
+            <YdDescriptionsItem :label="t('page.dagInstance.endTime')">{{ detailLog.endTime ?? '-' }}</YdDescriptionsItem>
+            <YdDescriptionsItem :label="t('page.dagInstance.durationMs')">{{
               detailLog.durationMs ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="触发类型">{{
+            <YdDescriptionsItem :label="t('page.dagInstance.triggerType')">{{
               detailLog.triggerType ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="执行节点">{{
+            <YdDescriptionsItem :label="t('page.jobTask.execNode')">{{
               detailLog.execNodeId ?? '-'
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="TraceId">{{ detailLog.traceId ?? '-' }}</YdDescriptionsItem>
-            <YdDescriptionsItem label="分片" :span="2">{{
+            <YdDescriptionsItem :label="t('page.dagInstance.traceId')">{{
+              detailLog.traceId ?? '-'
+            }}</YdDescriptionsItem>
+            <YdDescriptionsItem :label="t('page.jobLog.shard')" :span="2">{{
               detailLog.shardTotal
                 ? `${(detailLog.shardIndex ?? 0) + 1}/${detailLog.shardTotal}`
-                : '非分片'
+                : t('page.jobLog.notSharded')
             }}</YdDescriptionsItem>
-            <YdDescriptionsItem v-if="detailLog.paramsJson" label="任务参数" :span="2">
+            <YdDescriptionsItem v-if="detailLog.paramsJson" :label="t('page.jobTask.taskParams')" :span="2">
               <pre class="whitespace-pre-wrap break-all text-xs">{{ detailLog.paramsJson }}</pre>
             </YdDescriptionsItem>
-            <YdDescriptionsItem v-if="detailLog.resultJson" label="执行结果" :span="2">
+            <YdDescriptionsItem v-if="detailLog.resultJson" :label="t('page.jobTask.execResult')" :span="2">
               <pre class="whitespace-pre-wrap break-all text-xs">{{ detailLog.resultJson }}</pre>
             </YdDescriptionsItem>
-            <YdDescriptionsItem v-if="detailLog.errorMessage" label="错误信息" :span="2">
+            <YdDescriptionsItem v-if="detailLog.errorMessage" :label="t('page.jobTask.errorMessage')" :span="2">
               <pre class="whitespace-pre-wrap break-all text-xs text-red-500">{{
                 detailLog.errorMessage
               }}</pre>
@@ -246,16 +251,18 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
           </YdDescriptions>
 
           <div class="mb-1 flex items-center gap-2 text-xs text-gray-500">
-            <span>实时日志</span>
-            <YdBadge v-if="sseConnected" variant="default" size="sm">已连接</YdBadge>
-            <YdBadge v-else variant="secondary" size="sm">已结束</YdBadge>
+            <span>{{ t('page.jobLog.realtimeLog') }}</span>
+            <YdBadge v-if="sseConnected" variant="default" size="sm">{{
+              t('business.job.sse.connected')
+            }}</YdBadge>
+            <YdBadge v-else variant="secondary" size="sm">{{ t('page.jobLog.ended') }}</YdBadge>
           </div>
           <div
             ref="logBodyRef"
             class="h-80 overflow-auto rounded border border-gray-200 bg-gray-50 p-2 font-mono text-xs leading-5"
           >
             <pre v-if="logText" class="whitespace-pre-wrap break-all">{{ logText }}</pre>
-            <YdEmptyState v-else description="暂无日志内容" :image-size="60" />
+            <YdEmptyState v-else :description="t('page.jobLogStream.noLogContent')" :image-size="60" />
           </div>
         </template>
       </YdSheetContent>

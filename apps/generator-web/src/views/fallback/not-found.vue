@@ -1,21 +1,26 @@
 <!--
- * 404 兜底页 —— 路由未匹配时的回退视图。
+ * not-found 页面组件
  *
- * @path apps/generator-web/src/views/fallback/not-found.vue
+ * @path apps\\generator-web\\src\\views\\fallback\\not-found.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
- * 404 兜底视图。
+ * 404 兜底页
  *
- * <p>当访问路径无法匹配任何已注册路由时，显示此占位页。
+ * @remarks
+ * 实现收敛到 `@ydsz/shared-auth` 的 `ShellNotFound`，此处仅做 re-export，
+ * 保留子应用侧 `#/views/fallback/not-found` 的导入路径。
+ *
+ * @author ydsz-team
+ * @since 1.0.0
  */
+import { ShellNotFound } from '@ydsz/shared-auth';
+
 defineOptions({ name: 'FallbackNotFound' });
 </script>
 
 <template>
-  <div class="flex h-full items-center justify-center">
-    <span class="text-lg">页面不存在</span>
-  </div>
+  <ShellNotFound />
 </template>

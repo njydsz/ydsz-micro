@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 可覆盖属性优先级组合式函数：按 插槽 > attrs > props > state 顺序取值。
  *
  * @path comm\@core\composables\src\use-priority-value.ts

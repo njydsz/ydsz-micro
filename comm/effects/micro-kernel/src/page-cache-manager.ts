@@ -1,4 +1,4 @@
-﻿/**
+/**
  * page-cache-manager.ts — 子应用 Page Cache 状态记忆机制 (P3-4)
  *
  * 在 v4.2.1 N6（serialize/hydrate 基础设施）之上，补充：

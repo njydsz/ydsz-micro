@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 接口权限管理页面 — 接口权限的分页列表、搜索、启用/禁用、删除、触发扫描
  *
  * @path apps\system-web\src\views\api-permission\index.vue

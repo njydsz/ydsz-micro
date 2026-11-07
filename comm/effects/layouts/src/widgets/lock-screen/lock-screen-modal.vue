@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * lock-screen-modal 布局组件
  *
  * @path comm\effects\layouts\src\widgets\lock-screen\lock-screen-modal.vue

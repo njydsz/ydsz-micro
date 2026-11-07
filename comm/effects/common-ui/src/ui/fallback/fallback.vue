@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * fallback Vue 组件 - 现代化缺省页
  *
  * @path comm\effects\common-ui\src\ui\fallback\fallback.vue

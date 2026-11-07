@@ -1,4 +1,4 @@
-﻿/**
+/**
  * YDSZVxeGrid 表格插槽渲染相关的响应式计算模块。
  *
  * 从 use-vxe-grid-logic 拆分出表格插槽处理职责：

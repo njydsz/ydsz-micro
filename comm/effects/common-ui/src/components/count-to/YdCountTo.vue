@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * count-to 通用组件
  *
  * @path comm\effects\common-ui\src\components\count-to\count-to.vue

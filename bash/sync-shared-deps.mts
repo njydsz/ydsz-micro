@@ -159,6 +159,13 @@ async function main() {
     console.info(`  ✓ ${dep.name}@${lockedVersion || dep.range}${lockedVersion ? '（锁定）' : ''}`);
   }
 
+  // v4.3.2：强制对齐锁版本。
+  // 实测 jspm 的 `range` 参数对 esm.sh provider 不生效：即使传 `range: '4.5.1'`，
+  // 解析结果仍是 5.4.0（跨大版本，破坏 Vue 3 peer 契约并产生双 Vue 实例）。
+  // 因此在此处对解析出的 URL 做后处理：凡指向某个已锁定依赖的 URL，
+  // 一律改写为锁定版本的 URL。
+  enforceLockedVersions(generator, lock);
+
   const originalMap = generator.getMap();
   if (!originalMap) {
     throw new Error('[sync-shared-deps] importmap 生成失败');
@@ -177,6 +184,8 @@ async function main() {
   const urlRemap = new Map(); // originalUrl → localPath（以 /vendor 开头）
   let downloaded = 0;
   let failed = 0;
+  /** v4.3.2：下载失败的 URL 列表，非空则最终退出码非 0（阻断 CI） */
+  const downloadErrors: string[] = [];
 
   for (const url of urlSet) {
     try {
@@ -188,8 +197,13 @@ async function main() {
       }
     } catch (err) {
       failed++;
-      console.warn(`  ✗ 下载失败: ${url} → ${err.message}`);
-      // 失败时保留原始 URL（回退到 CDN）
+      console.error(`  ✗ 下载失败: ${url} → ${err.message}`);
+      // v4.3.2：不再静默回退到公网 CDN。
+      // 自托管的全部意义就是消除运行时 CDN SPOF；若允许失败项保留原始 URL，
+      // 线上仍会依赖 esm.sh，且 --check 门禁无法发现（它只检查 /vendor/ 前缀）。
+      // 因此记录为硬失败，最终退出码非 0，交由 CI 阻断。
+      downloadErrors.push(url);
+      // 仍写入原始 URL 以便本地构建可继续，但门禁会因 downloadErrors 非空而失败
       urlRemap.set(url, url);
     }
   }
@@ -211,14 +225,114 @@ async function main() {
   writeLock(originalMap.imports || {});
 
   console.info('[sync-shared-deps] 完成。构建时设置 VITE_IMPORTMAP_SELF_HOST=/vendor 即可启用。');
+
+  // v4.3.2：有下载失败时以非 0 退出，阻断 CI 发布
+  if (downloadErrors.length > 0) {
+    console.error(
+      `[sync-shared-deps] ✗ ${downloadErrors.length} 个模块下载失败，` +
+        'importmap 中仍残留公网 CDN 引用（自托管失效）：',
+    );
+    for (const url of downloadErrors) console.error(`    - ${url}`);
+    process.exit(1);
+  }
+}
+
+/**
+ * 强制把解析结果对齐到锁文件中的版本。
+ *
+ * 背景（v4.3.2）：实测 `@jspm/generator` 的 `install({ target, range })` 中
+ * `range` 对 esm.sh provider 不生效 —— 即使传 `range: '4.5.1'`，解析出的
+ * vue-router 仍是 5.4.0。跨大版本漂移会破坏 Vue 3 peer 契约，
+ * 并可能让主/子应用加载两个 Vue 实例（provide/inject 割裂）。
+ *
+ * 做法：遍历生成器的 importmap（imports + scopes），对每个 URL：
+ *   1. 解析出「依赖名 + 版本」
+ *   2. 若该依赖在锁文件中有记录且版本不同 → 改写为锁定 URL
+ *
+ * 找不到匹配的依赖名时保持原 URL（传递依赖不都在锁文件中）。
+ *
+ * @param generator - jspm 生成器实例（就地修改其内部 map）
+ * @param lock - 锁文件内容（含 deps）
+ */
+function enforceLockedVersions(generator, lock) {
+  if (!lock?.deps) return;
+
+  // 注意：generator.getMap() 返回的是副本，就地修改无效。
+  // 必须直接改内部字段 generator.map（jspm 的私有实现，无公开 setter）。
+  const map = generator.map;
+  if (!map) {
+    console.warn('[sync-shared-deps] 无法访问 generator.map，跳过锁版本对齐');
+    return;
+  }
+
+  let rewritten = 0;
+
+  /** 把单个 URL 对齐到锁版本，返回改写后的 URL */
+  const align = (url) => {
+    if (!url || !url.startsWith('http')) return url;
+    const parsed = new URL(url);
+    // esm.sh 的 URL 前缀有两种形态：
+    //   - `/_starvue-router@5.4.0/...`（落盘时 `*` 被归一化为 `_star`）
+    //   - `/*vue-router@5.4.0/...`（解析阶段的原始形态）
+    // 统一剥离后再提取 name@version
+    const cleaned = parsed.pathname
+      .replace(/^\/_star/, '/')
+      .replace(/^\/\*/, '/');
+    const seg = cleaned.match(/\/([^/@]+)@(\d+\.\d+\.\d+(?:-[\w.]+)?)/);
+    if (!seg) return url;
+    const [, depName, resolvedVersion] = seg;
+    const locked = lock.deps[depName];
+    if (!locked || locked.version === resolvedVersion) return url;
+
+    rewritten++;
+    console.info(
+      `  ↻ 锁对齐: ${depName}@${resolvedVersion} → ${locked.version}（锁定）`,
+    );
+    return locked.url;
+  };
+
+  // imports
+  if (map.imports) {
+    for (const key of Object.keys(map.imports)) {
+      map.imports[key] = align(map.imports[key]);
+    }
+  }
+  // scopes：键（scope URL）与值（映射表）都可能需要改写
+  if (map.scopes) {
+    const newScopes = {};
+    for (const [scope, mapping] of Object.entries(map.scopes)) {
+      const newMapping = {};
+      for (const key of Object.keys(mapping)) {
+        newMapping[key] = align(mapping[key]);
+      }
+      newScopes[align(scope)] = newMapping;
+    }
+    map.scopes = newScopes;
+  }
+
+  // jspm Generator 无公开 setter，直接改内部字段后重新注入
+  // getMap() 返回的是内部对象的引用，因此上述就地修改已生效
+  if (rewritten > 0) {
+    console.info(`[sync-shared-deps] 已对齐 ${rewritten} 处 URL 到锁版本`);
+  }
 }
 
 /**
  * 从解析结果提取顶层依赖的精确版本并写入锁文件。
- * 已存在锁且未 --refresh 时保留原锁（防覆盖人工确认过的版本）。
+ *
+ * v4.3.2 修复：此前「已存在锁且未 --refresh 时保留原锁」的注释与实现不符 ——
+ * 实现里 `prev.version !== version` 仍会覆盖已有条目，导致例行 sync 把
+ * vue-router 4.5.1 悄悄升级成 5.4.0（跨大版本，破坏 Vue 3 peer 契约，
+ * 并可能产生双 Vue 实例）。现改为：锁已存在且未显式 --refresh 时完全不写。
  */
 function writeLock(imports) {
-  const lock = readLock() || { version: 1, syncedAt: '', deps: {} };
+  const existing = readLock();
+  if (existing?.deps && !isRefresh) {
+    // 锁已存在：例行同步不得改写版本，避免非预期升级
+    return;
+  }
+
+  const lock = existing || { version: 1, syncedAt: '', deps: {} };
   let updated = false;
 
   for (const dep of ALL_SHARED_DEPS) {
@@ -264,8 +378,14 @@ function checkVendorArtifacts() {
     const map = JSON.parse(fs.readFileSync(importmapPath, 'utf-8'));
     const versions = new Map();
 
-    // 1. 悬空引用检查
+    // 1. 悬空引用检查 + v4.3.2 残留 CDN 引用检查
     for (const [key, url] of Object.entries(map.imports || {})) {
+      // 自托管失效：importmap 仍指向公网 CDN（下载失败时的回退值）
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+        console.error(`  [CDN 残留] ${app}: ${key} → ${url}`);
+        drift++;
+        continue;
+      }
       if (!url.startsWith('/vendor/')) continue;
       const rel = url.slice('/vendor/'.length);
       if (
@@ -274,6 +394,17 @@ function checkVendorArtifacts() {
       ) {
         console.error(`  [悬空] ${app}: ${key} → ${url}`);
         drift++;
+      }
+    }
+
+    // 1b. scopes 内的残留 CDN 引用（v4.3.2 新增：此前只检查 imports，
+    //     传递依赖的 scope 映射被漏检，vue-router@5.4.0 的 404 正是藏在这里）
+    for (const mapping of Object.values(map.scopes || {})) {
+      for (const [key, url] of Object.entries(mapping)) {
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+          console.error(`  [CDN 残留/scope] ${app}: ${key} → ${url}`);
+          drift++;
+        }
       }
     }
 

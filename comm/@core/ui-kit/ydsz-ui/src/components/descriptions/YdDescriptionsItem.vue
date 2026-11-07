@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 描述列表字段项：承载「标签 — 文本」一对信息，由 YdDescriptions 容器编排网格位置。
  *
  * 与 EP ElDescriptionsItem 的契约对齐：

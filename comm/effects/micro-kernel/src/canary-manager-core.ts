@@ -1,4 +1,4 @@
-﻿/**
+/**
  * canary-manager-core.ts — CanaryManager 核心分流逻辑
  *
  * 从 canary-manager.ts 提取的核心分流决策逻辑，包含：

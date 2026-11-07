@@ -118,5 +118,9 @@
       "failed": "DSL validation failed"
     },
     "failed": "Operation failed"
+  },
+  "fallback": {
+    "fallback.notFound": "Page not found",
+    "fallback.back": "Go back"
   }
 }

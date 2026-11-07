@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 任务 DAG（表单组件）
  *
  * @path apps\cronjob-web\src\views\jobDag\jobDag-form.vue
@@ -70,9 +70,9 @@ const formData = reactive<JobDagFormState>({
 });
 
 const rules = {
-  dagKey: [{ required: true, message: '请输入DAG标识', trigger: 'blur' }],
-  dagName: [{ required: true, message: '请输入DAG名称', trigger: 'blur' }],
-  dagDefinition: [{ required: true, message: '请输入DSL定义', trigger: 'blur' }],
+  dagKey: [{ required: true, message: t('business.dagKeyRequired'), trigger: 'blur' }],
+  dagName: [{ required: true, message: t('business.dagNameRequired'), trigger: 'blur' }],
+  dagDefinition: [{ required: true, message: t('business.dagDefinitionRequired'), trigger: 'blur' }],
 };
 
 const [Modal, modalApi] = useYdModal({
@@ -140,18 +140,18 @@ const [Modal, modalApi] = useYdModal({
   },
 });
 
-const title = computed(() => (isEdit.value ? '编辑DAG' : '新增DAG'));
+const title = computed(() => (isEdit.value ? t('business.dagEditTitle') : t('business.dagCreateTitle')));
 
 /** 校验 DSL 定义（validateDag 返回 boolean，仅做成功/失败提示） */
 async function handleValidateDag() {
   if (!formData.dagDefinition) {
-    showToast.warning('请先输入DSL定义');
+    showToast.warning(t('business.dagDefinitionRequired'));
     return;
   }
   try {
     const ok = await validateDag(formData.dagDefinition);
     if (ok) {
-      showToast.success('DSL 校验通过');
+      showToast.success(t('business.dagValidateSuccess'));
     } else {
       showToast.error($t('operation.failed'));
     }
@@ -171,23 +171,29 @@ async function handleValidateDag() {
       label-width="100px"
       label-position="right"
     >
-      <YdFormItem label="DAG标识" prop="dagKey">
-        <YdInput v-model="formData.dagKey" placeholder="请输入DAG标识" />
+      <YdFormItem :label="t('business.dagKey')" prop="dagKey">
+        <YdInput v-model="formData.dagKey" :placeholder="t('business.dagKeyPlaceholder')" />
       </YdFormItem>
       <YdFormItem :label="t('business.dagName')" prop="dagName">
-        <YdInput v-model="formData.dagName" placeholder="请输入DAG名称" />
+        <YdInput v-model="formData.dagName" :placeholder="t('business.dagNamePlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="DSL定义" prop="dagDefinition">
+      <YdFormItem :label="t('business.dagDefinition')" prop="dagDefinition">
         <div class="flex w-full gap-2">
-          <YdTextarea v-model="formData.dagDefinition" :rows="6" placeholder="请输入DAG DSL定义" />
-          <YdButton class="shrink-0" variant="outline" @click="handleValidateDag">校验</YdButton>
+          <YdTextarea
+            v-model="formData.dagDefinition"
+            :rows="6"
+            :placeholder="t('business.dagDefinitionPlaceholder')"
+          />
+          <YdButton class="shrink-0" variant="outline" @click="handleValidateDag">
+            {{ t('business.dagValidate') }}
+          </YdButton>
         </div>
       </YdFormItem>
-      <YdFormItem label="触发类型" prop="triggerType">
+      <YdFormItem :label="t('business.triggerType')" prop="triggerType">
         <YdSelectBase v-model="formData.triggerType">
-          <YdSelectTriggerBase placeholder="请选择触发类型" />
+          <YdSelectTriggerBase :placeholder="t('business.triggerTypePlaceholder')" />
           <YdSelectContentBase>
-            <YdSelectItemBase value="MANUAL">手动</YdSelectItemBase>
+            <YdSelectItemBase value="MANUAL">{{ t('business.triggerManual') }}</YdSelectItemBase>
             <YdSelectItemBase value="CRON">Cron</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
@@ -197,23 +203,23 @@ async function handleValidateDag() {
         :label="t('business.cronExpression')"
         prop="cronExpression"
       >
-        <YdInput v-model="formData.cronExpression" placeholder="请输入Cron表达式" />
+        <YdInput v-model="formData.cronExpression" :placeholder="t('business.cronExpressionPlaceholder')" />
       </YdFormItem>
-      <YdFormItem label="最大并发数" prop="maxConcurrentInstances">
+      <YdFormItem :label="t('business.maxConcurrentInstances')" prop="maxConcurrentInstances">
         <YdInput v-model="formData.maxConcurrentInstances" type="number" :min="1" :max="100" />
       </YdFormItem>
-      <YdFormItem label="失败策略" prop="failStrategy">
+      <YdFormItem :label="t('business.failStrategy')" prop="failStrategy">
         <YdSelectBase v-model="formData.failStrategy">
-          <YdSelectTriggerBase placeholder="请选择失败策略" />
+          <YdSelectTriggerBase :placeholder="t('business.failStrategyPlaceholder')" />
           <YdSelectContentBase>
-            <YdSelectItemBase value="FAIL_FAST">快速失败</YdSelectItemBase>
-            <YdSelectItemBase value="CONTINUE">继续执行</YdSelectItemBase>
-            <YdSelectItemBase value="COMPENSATE">补偿处理</YdSelectItemBase>
+            <YdSelectItemBase value="FAIL_FAST">{{ t('business.failFast') }}</YdSelectItemBase>
+            <YdSelectItemBase value="CONTINUE">{{ t('business.failContinue') }}</YdSelectItemBase>
+            <YdSelectItemBase value="COMPENSATE">{{ t('business.failCompensate') }}</YdSelectItemBase>
           </YdSelectContentBase>
         </YdSelectBase>
       </YdFormItem>
-      <YdFormItem label="描述" prop="description">
-        <YdTextarea v-model="formData.description" :rows="2" placeholder="请输入描述" />
+      <YdFormItem :label="t('business.description')" prop="description">
+        <YdTextarea v-model="formData.description" :rows="2" :placeholder="t('business.descriptionPlaceholder')" />
       </YdFormItem>
     </YdForm>
   </Modal>

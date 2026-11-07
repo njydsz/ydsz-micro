@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * third-party-login Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\third-party-login.vue

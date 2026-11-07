@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 分页器的「回到首页」按钮：默认开启 asChild，把 radix 的行为套到 YdButton 上。
  *
  * asChild 默认为 true 是这里的关键 —— 若渲染成 radix 自带的 button，

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 文件标签（列表页）
  *
  * @path apps\nextwiki-web\src\views\tag\index.vue

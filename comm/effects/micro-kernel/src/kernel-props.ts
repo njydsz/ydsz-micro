@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 内核 Props 更新 — updateApp / updateAllApps / prefetchApp
  *
  * 从 kernel.ts 提取的子应用 props 更新与手动预加载逻辑。

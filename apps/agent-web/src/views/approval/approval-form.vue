@@ -27,8 +27,11 @@ import {
 import { computed, ref } from 'vue';
 
 import { showToast } from '@ydsz/notification';
+import { useI18n } from 'vue-i18n';
 
 import { approve, getApproval, reject } from '#/api/humanApproval';
+
+const { t } = useI18n();
 
 /** 审批处理成功后触发，通知父级刷新列表 */
 const emit = defineEmits<{ success: [] }>();
@@ -114,23 +117,32 @@ async function handleSubmit(action: 'approve' | 'reject') {
 }
 </script>
 <template>
-  <Modal title="审批处理">
-    <div v-if="detailLoading" class="py-8 text-center text-sm text-gray-400">详情加载中...</div>
+  <Modal :title="t('page.approvalForm.title')">
+    <div v-if="detailLoading" class="py-8 text-center text-sm text-gray-400">
+      {{ t('page.approvalForm.loading') }}
+    </div>
     <YdDescriptions v-else-if="detailEntries.length" :column="1" border class="mb-4">
       <YdDescriptionsItem v-for="[key, value] in detailEntries" :key="key" :label="key">
         <pre class="whitespace-pre-wrap break-all text-sm">{{ displayValue(value) }}</pre>
       </YdDescriptionsItem>
     </YdDescriptions>
     <YdForm label-width="100px" label-position="right">
-      <YdFormItem label="审批意见">
-        <YdInput v-model="comment" type="textarea" :rows="3" placeholder="请输入审批意见（可选）" />
+      <YdFormItem :label="t('page.approvalForm.comment')">
+        <YdInput
+          v-model="comment"
+          type="textarea"
+          :rows="3"
+          :placeholder="t('page.approvalForm.commentPlaceholder')"
+        />
       </YdFormItem>
     </YdForm>
     <div class="mt-2 flex justify-end gap-2">
-      <YdButton variant="destructive" :disabled="submitting" @click="handleSubmit('reject')"
-        >驳回</YdButton
-      >
-      <YdButton :disabled="submitting" @click="handleSubmit('approve')">通过</YdButton>
+      <YdButton variant="destructive" :disabled="submitting" @click="handleSubmit('reject')">
+        {{ t('page.approvalForm.reject') }}
+      </YdButton>
+      <YdButton :disabled="submitting" @click="handleSubmit('approve')">
+        {{ t('page.approvalForm.approve') }}
+      </YdButton>
     </div>
   </Modal>
 </template>

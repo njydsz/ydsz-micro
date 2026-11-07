@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * search-panel 布局组件
  *
  * @path comm\effects\layouts\src\widgets\global-search\search-panel.vue

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则依赖拓扑页面
  *
  * <p>展示规则间的依赖关系图，支持查看规则的被依赖/依赖列表、添加/移除依赖以及级联禁用影响预览。
@@ -39,6 +39,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { YdAlert, YdConfirm } from '@ydsz-core/popup-ui';
 import { onMounted, reactive, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -52,6 +53,7 @@ import {
 import type { RuleDependencyAddDTO, RuleDependencyVO, StringVO } from '#/api/models';
 
 const logger = createLogger('literule-rule-dependency');
+const { t } = useI18n();
 
 defineOptions({ name: 'RuleDependencyManagement' });
 
@@ -75,9 +77,9 @@ const addForm = reactive<RuleDependencyAddDTO & { ruleCode: string }>({
 });
 
 const dependencyTypeOptions = [
-  { label: '强依赖 (HARD)', value: 'HARD' },
-  { label: '弱依赖 (SOFT)', value: 'SOFT' },
-  { label: '触发依赖 (TRIGGER)', value: 'TRIGGER' },
+  { label: t('ruleDependency.typeHard'), value: 'HARD' },
+  { label: t('ruleDependency.typeSoft'), value: 'SOFT' },
+  { label: t('ruleDependency.typeTrigger'), value: 'TRIGGER' },
 ];
 
 /** ========== 工具函数 ========== */
@@ -91,9 +93,9 @@ function dependencyTypeTagType(type?: string): 'danger' | 'warning' | 'info' | '
 
 function dependencyTypeLabel(type?: string): string {
   const map: Record<string, string> = {
-    HARD: '强依赖',
-    SOFT: '弱依赖',
-    TRIGGER: '触发依赖',
+    HARD: t('ruleDependency.typeHardSimple'),
+    SOFT: t('ruleDependency.typeSoftSimple'),
+    TRIGGER: t('ruleDependency.typeTriggerSimple'),
   };
   return map[type ?? ''] ?? type ?? '-';
 }
@@ -139,10 +141,10 @@ async function loadCascadingPreview(ruleCode: string): Promise<void> {
 async function handleSearch(): Promise<void> {
   if (!searchRuleCode.value.trim()) {
     await YdAlert({
-      content: '请输入规则编码',
-      title: '提示',
+      content: t('ruleDependency.ruleCodeRequired'),
+      title: t('ruleDependency.alertTitle'),
       icon: 'warning',
-      confirmText: '确定',
+      confirmText: t('ruleDependency.confirmText'),
     });
     return;
   }
@@ -153,10 +155,10 @@ async function handleSearch(): Promise<void> {
 async function showAddDialog(): Promise<void> {
   if (!searchRuleCode.value.trim()) {
     await YdAlert({
-      content: '请先搜索目标规则后再添加依赖',
-      title: '提示',
+      content: t('ruleDependency.searchFirst'),
+      title: t('ruleDependency.alertTitle'),
       icon: 'warning',
-      confirmText: '确定',
+      confirmText: t('ruleDependency.confirmText'),
     });
     return;
   }
@@ -171,10 +173,10 @@ async function showAddDialog(): Promise<void> {
 async function handleAddDependency(): Promise<void> {
   if (!addForm.dependsOnRuleCode?.trim()) {
     await YdAlert({
-      content: '请选择被依赖规则',
-      title: '提示',
+      content: t('ruleDependency.selectDependsOn'),
+      title: t('ruleDependency.alertTitle'),
       icon: 'warning',
-      confirmText: '确定',
+      confirmText: t('ruleDependency.confirmText'),
     });
     return;
   }
@@ -201,8 +203,8 @@ async function handleRemoveDependency(row: RuleDependencyVO): Promise<void> {
 
   try {
     await YdConfirm(
-      `确认移除规则 ${row.ruleCode} 对 ${row.dependsOnRuleCode} 的依赖关系？`,
-      '移除依赖确认',
+      t('ruleDependency.removeConfirm', [row.ruleCode, row.dependsOnRuleCode]),
+      t('ruleDependency.removeTitle'),
       { type: 'warning' },
     );
   } catch {
@@ -256,14 +258,14 @@ onMounted(() => {
           <div class="flex items-center gap-3">
             <YdInput
               v-model="searchRuleCode"
-              placeholder="输入目标规则编码查询依赖关系"
+              :placeholder="t('ruleDependency.searchPlaceholder')"
               clearable
               style="width: 280px"
               @keyup.enter="handleSearch"
             />
-            <YdButton type="primary" @click="handleSearch"> 查询 </YdButton>
+            <YdButton type="primary" @click="handleSearch"> {{ t('ruleDependency.search') }} </YdButton>
           </div>
-          <YdButton type="success" @click="showAddDialog"> 添加依赖 </YdButton>
+          <YdButton type="success" @click="showAddDialog"> {{ t('ruleDependency.add') }} </YdButton>
         </div>
       </YdCard>
 
@@ -276,99 +278,99 @@ onMounted(() => {
         class="mb-4"
       >
         <template #title>
-          级联禁用影响：若禁用当前规则，将同时影响
+          {{ t('ruleDependency.cascadeEffect') }}
           <strong class="mx-1 text-red-500">{{ cascadingPreview.length }}</strong>
-          条关联规则的运行
+          {{ t('ruleDependency.cascadeEffectSuffix') }}
         </template>
       </YdAlertBanner>
 
       <!-- 依赖数据展示 -->
       <YdCard shadow="never">
         <YdTabs v-model="activeTab" @tab-change="handleTabChange">
-          <YdTabsContent label="依赖此规则的" name="dependents">
+          <YdTabsContent :label="t('ruleDependency.dependentsTab')" name="dependents">
             <YdTable v-if="dependentsList.length > 0" :data="dependentsList" stripe border>
               <YdTableColumn type="index" label="#" width="50" />
-              <YdTableColumn label="规则编码" min-width="140">
+              <YdTableColumn :label="t('ruleDependency.ruleCode')" min-width="140">
                 <template #default="{ row }">
                   <span>{{ row.ruleCode ?? '-' }}</span>
                 </template>
               </YdTableColumn>
-              <YdTableColumn label="依赖类型" width="120" align="center">
+              <YdTableColumn :label="t('ruleDependency.dependencyType')" width="120" align="center">
                 <template #default="{ row }">
                   <YdBadge :type="dependencyTypeTagType(row.dependencyType)">
                     {{ dependencyTypeLabel(row.dependencyType) }}
                   </YdBadge>
                 </template>
               </YdTableColumn>
-              <YdTableColumn label="级联禁用" width="100" align="center">
+              <YdTableColumn :label="t('ruleDependency.cascadeDisable')" width="100" align="center">
                 <template #default="{ row }">
                   <span
                     :class="row.cascadeOnDisable ? 'font-medium text-red-500' : 'text-gray-400'"
                   >
-                    {{ row.cascadeOnDisable ? '是' : '否' }}
+                    {{ row.cascadeOnDisable ? t('ruleDependency.yes') : t('ruleDependency.no') }}
                   </span>
                 </template>
               </YdTableColumn>
-              <YdTableColumn label="描述" min-width="160" show-overflow-tooltip>
+              <YdTableColumn :label="t('ruleDependency.description')" min-width="160" show-overflow-tooltip>
                 <template #default="{ row }">
                   <span class="text-gray-600">{{ row.description ?? '-' }}</span>
                 </template>
               </YdTableColumn>
-              <YdTableColumn label="操作" width="180" fixed="right" align="center">
+              <YdTableColumn :label="t('ruleDependency.operation')" width="180" fixed="right" align="center">
                 <template #default="{ row }">
                   <YdButton link type="danger" size="small" @click="handleRemoveDependency(row)">
-                    移除
+                    {{ t('ruleDependency.remove') }}
                   </YdButton>
                   <YdButton link type="warning" size="small" @click="handleCascadingPreview(row)">
-                    级联预览
+                    {{ t('ruleDependency.cascadePreview') }}
                   </YdButton>
                 </template>
               </YdTableColumn>
             </YdTable>
-            <YdEmptyState v-else description="暂无依赖此规则的记录" image-size="100" />
+            <YdEmptyState v-else :description="t('ruleDependency.dependentsEmpty')" image-size="100" />
           </YdTabsContent>
 
-          <YdTabsContent label="此规则依赖的" name="dependencies">
+          <YdTabsContent :label="t('ruleDependency.dependenciesTab')" name="dependencies">
             <YdTable v-if="dependenciesList.length > 0" :data="dependenciesList" stripe border>
               <YdTableColumn type="index" label="#" width="50" />
-              <YdTableColumn label="被依赖规则编码" min-width="160">
+              <YdTableColumn :label="t('ruleDependency.dependsOnRuleCode')" min-width="160">
                 <template #default="{ row }">
                   <span>{{ row.dependsOnRuleCode ?? '-' }}</span>
                 </template>
               </YdTableColumn>
-              <YdTableColumn label="依赖类型" width="120" align="center">
+              <YdTableColumn :label="t('ruleDependency.dependencyType')" width="120" align="center">
                 <template #default="{ row }">
                   <YdBadge :type="dependencyTypeTagType(row.dependencyType)">
                     {{ dependencyTypeLabel(row.dependencyType) }}
                   </YdBadge>
                 </template>
               </YdTableColumn>
-              <YdTableColumn label="级联禁用" width="100" align="center">
+              <YdTableColumn :label="t('ruleDependency.cascadeDisable')" width="100" align="center">
                 <template #default="{ row }">
                   <span
                     :class="row.cascadeOnDisable ? 'font-medium text-red-500' : 'text-gray-400'"
                   >
-                    {{ row.cascadeOnDisable ? '是' : '否' }}
+                    {{ row.cascadeOnDisable ? t('ruleDependency.yes') : t('ruleDependency.no') }}
                   </span>
                 </template>
               </YdTableColumn>
-              <YdTableColumn label="描述" min-width="160" show-overflow-tooltip>
+              <YdTableColumn :label="t('ruleDependency.description')" min-width="160" show-overflow-tooltip>
                 <template #default="{ row }">
                   <span class="text-gray-600">{{ row.description ?? '-' }}</span>
                 </template>
               </YdTableColumn>
-              <YdTableColumn label="操作" width="180" fixed="right" align="center">
+              <YdTableColumn :label="t('ruleDependency.operation')" width="180" fixed="right" align="center">
                 <template #default="{ row }">
                   <YdButton link type="danger" size="small" @click="handleRemoveDependency(row)">
-                    移除
+                    {{ t('ruleDependency.remove') }}
                   </YdButton>
                   <YdButton link type="warning" size="small" @click="handleCascadingPreview(row)">
-                    级联预览
+                    {{ t('ruleDependency.cascadePreview') }}
                   </YdButton>
                 </template>
               </YdTableColumn>
             </YdTable>
-            <YdEmptyState v-else description="暂无此规则依赖的记录" image-size="100" />
+            <YdEmptyState v-else :description="t('ruleDependency.dependenciesEmpty')" image-size="100" />
           </YdTabsContent>
         </YdTabs>
       </YdCard>
@@ -376,15 +378,18 @@ onMounted(() => {
       <!-- 添加依赖弹窗 -->
       <YdDialog
         v-model="addDialogVisible"
-        :title="`为规则 ${addForm.ruleCode} 添加依赖`"
+        :title="t('ruleDependency.addTitle', [addForm.ruleCode])"
         width="480px"
         destroy-on-close
       >
         <YdForm :model="addForm" label-width="100px">
-          <YdFormItem label="被依赖规则" required>
-            <YdInput v-model="addForm.dependsOnRuleCode" placeholder="请输入被依赖规则编码" />
+          <YdFormItem :label="t('ruleDependency.dependsOn')" required>
+            <YdInput
+              v-model="addForm.dependsOnRuleCode"
+              :placeholder="t('ruleDependency.dependsOnPlaceholder')"
+            />
           </YdFormItem>
-          <YdFormItem label="依赖类型">
+          <YdFormItem :label="t('ruleDependency.dependencyType')">
             <YdSelect v-model="addForm.dependencyType" style="width: 100%">
               <YdSelectItem
                 v-for="opt in dependencyTypeOptions"
@@ -394,34 +399,41 @@ onMounted(() => {
               />
             </YdSelect>
           </YdFormItem>
-          <YdFormItem label="级联禁用">
-            <YdSwitch v-model="addForm.cascadeOnDisable" active-text="是" inactive-text="否" />
+          <YdFormItem :label="t('ruleDependency.cascadeDisable')">
+            <YdSwitch
+              v-model="addForm.cascadeOnDisable"
+              :active-text="t('ruleDependency.yes')"
+              :inactive-text="t('ruleDependency.no')"
+            />
           </YdFormItem>
-          <YdFormItem label="描述">
+          <YdFormItem :label="t('ruleDependency.description')">
             <YdInput
               v-model="addForm.description"
               type="textarea"
               :rows="2"
-              placeholder="依赖关系说明（可选）"
+              :placeholder="t('ruleDependency.descriptionPlaceholder')"
             />
           </YdFormItem>
         </YdForm>
         <template #footer>
-          <YdButton @click="addDialogVisible = false">取消</YdButton>
-          <YdButton type="primary" @click="handleAddDependency">确认添加</YdButton>
+          <YdButton @click="addDialogVisible = false">{{ t('ruleDependency.cancel') }}</YdButton>
+          <YdButton type="primary" @click="handleAddDependency">
+            {{ t('ruleDependency.confirmAdd') }}
+          </YdButton>
         </template>
       </YdDialog>
 
       <!-- 级联禁用影响弹窗 -->
       <YdDialog
         v-model="cascadeDialogVisible"
-        :title="`级联禁用影响预览 - ${cascadeTargetCode}`"
+        :title="t('ruleDependency.cascadePreviewTitle', [cascadeTargetCode])"
         width="480px"
         destroy-on-close
       >
         <div v-if="cascadingPreview.length > 0">
           <p class="mb-3 text-sm text-gray-500">
-            禁用规则 <strong>{{ cascadeTargetCode }}</strong> 将级联影响以下规则：
+            {{ t('ruleDependency.cascadeHint') }} <strong>{{ cascadeTargetCode }}</strong>
+            {{ t('ruleDependency.cascadeHintSuffix') }}
           </p>
           <div class="flex flex-wrap gap-2">
             <YdBadge v-for="code in cascadingPreview" :key="code" type="warning" effect="dark">
@@ -429,7 +441,7 @@ onMounted(() => {
             </YdBadge>
           </div>
         </div>
-        <YdEmptyState v-else description="无级联禁用影响" :image-size="60" />
+        <YdEmptyState v-else :description="t('ruleDependency.cascadeEmpty')" :image-size="60" />
       </YdDialog>
     </div>
   </Page>

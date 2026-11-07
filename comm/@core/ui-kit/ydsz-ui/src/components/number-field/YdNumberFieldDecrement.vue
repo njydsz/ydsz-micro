@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 数字输入框的减小按钮：绝对定位在输入区左侧，默认图标为 Minus。
  *
  * 打上 data-slot="decrement" 是给 YdNumberFieldContent 的选择器用的 ——

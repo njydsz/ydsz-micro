@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 以组合式函数方式创建 YDSZVxeGrid 表格组件与操作句柄。
  *
  * 将 vxe-grid 的配置、渲染与命令式 API 封装为 useYDSZVxeGrid(options) 调用，

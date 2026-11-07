@@ -21,6 +21,7 @@ import type { VxeTableGridOptions } from '@ydsz/plugins/vxe-table';
 import { Page } from '@ydsz/common-ui';
 import { YdBadge, YdButton } from '@ydsz-core/ydsz-ui';
 import { h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz/utils';
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
@@ -36,31 +37,32 @@ import {
 defineOptions({ name: 'SecurityAlertManagement' });
 
 const logger = createLogger('userinfo-security-alert');
+const { t } = useI18n();
 
 /** 告警等级映射（标签颜色） */
 const RISK_LEVEL_MAP: Record<string, { label: string; type: string }> = {
-  CRITICAL: { label: '严重', type: 'danger' },
-  HIGH: { label: '高危', type: 'danger' },
-  MEDIUM: { label: '中危', type: 'warning' },
-  LOW: { label: '低危', type: 'info' },
+  CRITICAL: { label: t('securityAlert.riskCritical'), type: 'danger' },
+  HIGH: { label: t('securityAlert.riskHigh'), type: 'danger' },
+  MEDIUM: { label: t('securityAlert.riskMedium'), type: 'warning' },
+  LOW: { label: t('securityAlert.riskLow'), type: 'info' },
 };
 
 /** 告警类型映射 */
 const ALERT_TYPE_MAP: Record<string, { label: string; type: string }> = {
-  ACCOUNT_LOCKED: { label: '账户锁定', type: 'danger' },
-  ACCOUNT_BANNED: { label: '账户封禁', type: 'danger' },
-  MFA_FAILED: { label: 'MFA失败', type: 'warning' },
-  BRUTE_FORCE: { label: '暴力破解', type: 'danger' },
-  ANOMALOUS_LOGIN: { label: '异常登录', type: 'warning' },
-  PASSWORD_SPRAY: { label: '密码喷洒', type: 'danger' },
+  ACCOUNT_LOCKED: { label: t('securityAlert.typeAccountLocked'), type: 'danger' },
+  ACCOUNT_BANNED: { label: t('securityAlert.typeAccountBanned'), type: 'danger' },
+  MFA_FAILED: { label: t('securityAlert.typeMfaFailed'), type: 'warning' },
+  BRUTE_FORCE: { label: t('securityAlert.typeBruteForce'), type: 'danger' },
+  ANOMALOUS_LOGIN: { label: t('securityAlert.typeAnomalousLogin'), type: 'warning' },
+  PASSWORD_SPRAY: { label: t('securityAlert.typePasswordSpray'), type: 'danger' },
 };
 
 /** 告警状态映射 */
 const ALERT_STATUS_MAP: Record<string, { label: string; type: string }> = {
-  PENDING: { label: '待处理', type: 'warning' },
-  ACKNOWLEDGED: { label: '已确认', type: 'primary' },
-  RESOLVED: { label: '已解决', type: 'success' },
-  IGNORED: { label: '已忽略', type: 'info' },
+  PENDING: { label: t('securityAlert.statusPending'), type: 'warning' },
+  ACKNOWLEDGED: { label: t('securityAlert.statusAcknowledged'), type: 'primary' },
+  RESOLVED: { label: t('securityAlert.statusResolved'), type: 'success' },
+  IGNORED: { label: t('securityAlert.statusIgnored'), type: 'info' },
 };
 
 /** 待处理告警数量 */
@@ -90,10 +92,10 @@ async function loadPendingCount(): Promise<void> {
 
 const gridOptions: VxeTableGridOptions = {
   columns: [
-    { type: 'seq', width: 50, title: '序号' },
+    { type: 'seq', width: 50, title: t('rowIndex') },
     {
       field: 'alertType',
-      title: '告警类型',
+      title: t('securityAlert.alertType'),
       width: 130,
       slots: {
         default: ({ row }) => {
@@ -125,7 +127,7 @@ const gridOptions: VxeTableGridOptions = {
     },
     {
       field: 'riskLevel',
-      title: '风险等级',
+      title: t('securityAlert.riskLevel'),
       width: 100,
       slots: {
         default: ({ row }) => {
@@ -157,7 +159,7 @@ const gridOptions: VxeTableGridOptions = {
     },
     {
       field: 'alertStatus',
-      title: '告警状态',
+      title: t('securityAlert.alertStatus'),
       width: 100,
       slots: {
         default: ({ row }) => {
@@ -189,7 +191,7 @@ const gridOptions: VxeTableGridOptions = {
     },
     {
       field: 'action',
-      title: '操作',
+      title: t('operation'),
       width: 200,
       fixed: 'right',
       slots: {
@@ -199,7 +201,7 @@ const gridOptions: VxeTableGridOptions = {
             h(
               YdButton,
               { size: 'sm', variant: 'link', onClick: () => handleAcknowledge(alertRow) },
-              () => '确认',
+              () => t('securityAlert.acknowledge'),
             ),
             h(
               YdButton,
@@ -209,12 +211,12 @@ const gridOptions: VxeTableGridOptions = {
                 class: 'border-green-500 text-green-600 dark:text-green-400',
                 onClick: () => handleResolve(alertRow),
               },
-              () => '解决',
+              () => t('securityAlert.resolve'),
             ),
             h(
               YdButton,
               { size: 'sm', variant: 'ghost', onClick: () => handleIgnore(alertRow) },
-              () => '忽略',
+              () => t('securityAlert.ignore'),
             ),
           ]);
         },
@@ -257,13 +259,16 @@ const [Grid, gridApi] = useYDSZVxeGrid({ gridOptions });
  */
 async function handleAcknowledge(row: AlertRow): Promise<void> {
   try {
-    await YdConfirm('确认该安全告警？', { title: '确认告警', type: 'warning' });
+    await YdConfirm(t('securityAlert.confirmAcknowledge'), {
+      title: t('securityAlert.acknowledgeTitle'),
+      type: 'warning',
+    });
   } catch {
     return;
   }
   try {
-    await acknowledgeAlert({ id: row.id }, { note: '管理员确认' });
-    showToast.success('确认成功');
+    await acknowledgeAlert({ id: row.id }, { note: t('securityAlert.adminAcknowledge') });
+    showToast.success(t('securityAlert.acknowledgeSuccess'));
     gridApi.query();
     loadPendingCount();
   } catch {
@@ -278,13 +283,16 @@ async function handleAcknowledge(row: AlertRow): Promise<void> {
  */
 async function handleResolve(row: AlertRow): Promise<void> {
   try {
-    await YdConfirm('将该安全告警标记为已解决？', { title: '解决告警', type: 'warning' });
+    await YdConfirm(t('securityAlert.confirmResolve'), {
+      title: t('securityAlert.resolveTitle'),
+      type: 'warning',
+    });
   } catch {
     return;
   }
   try {
-    await resolveAlert({ id: row.id }, { note: '管理员解决' });
-    showToast.success('解决成功');
+    await resolveAlert({ id: row.id }, { note: t('securityAlert.adminResolve') });
+    showToast.success(t('securityAlert.resolveSuccess'));
     gridApi.query();
     loadPendingCount();
   } catch {
@@ -299,13 +307,16 @@ async function handleResolve(row: AlertRow): Promise<void> {
  */
 async function handleIgnore(row: AlertRow): Promise<void> {
   try {
-    await YdConfirm('确定忽略该安全告警？', { title: '忽略告警', type: 'info' });
+    await YdConfirm(t('securityAlert.confirmIgnore'), {
+      title: t('securityAlert.ignoreTitle'),
+      type: 'info',
+    });
   } catch {
     return;
   }
   try {
-    await ignoreAlert({ id: row.id }, { note: '管理员忽略' });
-    showToast.success('忽略成功');
+    await ignoreAlert({ id: row.id }, { note: t('securityAlert.adminIgnore') });
+    showToast.success(t('securityAlert.ignoreSuccess'));
     gridApi.query();
     loadPendingCount();
   } catch {
@@ -323,13 +334,13 @@ onMounted(() => {
     <!-- 待处理告警统计 -->
     <div class="mb-4 px-4 pt-3">
       <div class="rounded-lg border bg-orange-50 px-4 py-3">
-        <span class="text-sm text-gray-600">待处理安全告警：</span>
+        <span class="text-sm text-gray-600">{{ t('securityAlert.pendingAlerts') }}</span>
         <span class="text-xl font-bold text-orange-600">{{ pendingCount }}</span>
-        <span class="ml-2 text-xs text-gray-400">请及时处理高危告警</span>
+        <span class="ml-2 text-xs text-gray-400">{{ t('securityAlert.handleHighRisk') }}</span>
       </div>
     </div>
 
-    <Grid table-title="安全告警管理">
+    <Grid :table-title="t('securityAlert.title')">
       <template #toolbar-tools>
         <YdButton
           variant="default"
@@ -339,7 +350,7 @@ onMounted(() => {
               loadPendingCount();
             }
           "
-          >刷新</YdButton
+          >{{ t('securityAlert.refresh') }}</YdButton
         >
       </template>
     </Grid>

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 实时日志流（SSE）
  *
  * @path apps\cronjob-web\src\views\job-log-stream\index.vue

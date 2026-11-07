@@ -74,7 +74,7 @@ export interface SchedulerContext {
  * 从而支持同页多 kernel 共存与 HMR 热替换（旧实例不会被新实例污染）。
  *
  * @returns 带默认保活策略的上下文：最多缓存 5 个实例、TTL 30 分钟、
- *          keep-alive 默认开启、CSS 作用域隔离默认关闭
+ *          keep-alive 默认开启、CSS 作用域隔离默认开启（v4.3.2 起）
  */
 export function createSchedulerContext(): SchedulerContext {
   return {
@@ -83,7 +83,10 @@ export function createSchedulerContext(): SchedulerContext {
     keepAliveTTL: 30 * 60 * 1000,
     keepAliveTimestamp: 1,
     keepAliveEnabled: true,
-    styleIsolationEnabled: false,
+    // v4.3.2：默认开启。此前默认关闭导致子应用可互相污染样式，
+    // 而运行时白名单 scope 是唯一的运行时兵底手段。
+    // 如需关闭需显式传 `sandbox.styleIsolation: false`。
+    styleIsolationEnabled: true,
   };
 }
 

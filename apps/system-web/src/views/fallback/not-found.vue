@@ -1,30 +1,26 @@
 <!--
- * 404 兜底页面 — Vue Router 未匹配路由时显示
+ * not-found 页面组件
  *
- * @path apps\system-web\src\views\fallback\not-found.vue
+ * @path apps\\system-web\\src\\views\\fallback\\not-found.vue
  * @author ydsz-team
  * @since 1.0.0
 -->
 <script lang="ts" setup>
 /**
  * 404 兜底页
- * <p>Vue Router 中未匹配到任何路由时显示的 404 兜底页。
+ *
+ * @remarks
+ * 实现收敛到 `@ydsz/shared-auth` 的 `ShellNotFound`，此处仅做 re-export，
+ * 保留子应用侧 `#/views/fallback/not-found` 的导入路径。
  *
  * @author ydsz-team
  * @since 1.0.0
  */
-import { YdButton } from '@ydsz-core/ydsz-ui';
-import { useRouter } from 'vue-router';
+import { ShellNotFound } from '@ydsz/shared-auth';
 
-const router = useRouter();
+defineOptions({ name: 'FallbackNotFound' });
 </script>
 
 <template>
-  <div class="flex h-full min-h-[400px] items-center justify-center">
-    <div class="text-center">
-      <div class="mb-4 text-6xl font-bold text-gray-300">404</div>
-      <div class="mb-6 text-gray-500">{{ $t('ui.fallback.pageNotFound') }}</div>
-      <YdButton @click="router.back()">{{ $t('ui.commonAction.backToPrev') }}</YdButton>
-    </div>
-  </div>
+  <ShellNotFound />
 </template>

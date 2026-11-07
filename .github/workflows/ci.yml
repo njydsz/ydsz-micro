@@ -207,6 +207,29 @@ jobs:
       - name: 硬编码文案门禁自检
         run: pnpm check:ui-text:self-test
 
+      # 样式隔离默认值门禁：运行时 CSS 作用域（runtime-css-scope）是子应用样式隔离的
+      # 唯一运行时兜底。此前 createSchedulerContext 默认 styleIsolationEnabled: false，
+      # 且 kernel-startup 用 `=== true` 赋值会把「未传参」误判为关闭——
+      # 子应用可互相污染样式且无任何告警，只有视觉回归测试偶然发现。
+      # 本门禁锁定三件事：默认值必须为 true、启动开关不得用 `=== true`、
+      # 跨域 scope 失败必须上报（不得静默吞掉）。
+      - name: 样式隔离默认值
+        run: pnpm check:style-isolation
+
+      - name: 样式隔离门禁自检
+        run: pnpm check:style-isolation:self-test
+
+      # 沙箱边界门禁：proxy 沙箱因 ESM 严格模式禁 with，自述不拦截模块顶层
+      # window/globalThis 读写——子应用直写 `window.xxx = ...` 会逃逸到真实全局，
+      # 污染主壳与其他子应用；storage 裸 key 在多应用同 origin 下会互相覆盖。
+      # 本门禁只约束 apps/ 源码（mock 目录与测试文件豁免），
+      # 要求全局写入走 fakeWindow、storage key 必须命名空间化。
+      - name: 沙箱边界校验
+        run: pnpm check:sandbox-boundary
+
+      - name: 沙箱边界门禁自检
+        run: pnpm check:sandbox-boundary:self-test
+
       # 体积门禁自身的反例自检：它的扫描目录一旦与真实产物布局脱节，就会永远报"通过"
       # （CI 侧此前正是扫 dist/assets，而产物在 dist/js、dist/css、dist/jse）。
       - name: 体积预算门禁自检

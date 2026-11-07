@@ -118,5 +118,9 @@
     "validate": {
       "failed": "DSL校验失败"
     }
+  },
+  "fallback": {
+    "fallback.notFound": "页面不存在",
+    "fallback.back": "返回上一页"
   }
 }

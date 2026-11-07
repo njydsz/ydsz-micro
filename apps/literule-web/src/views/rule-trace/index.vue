@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则追踪页面
  *
  * @path apps\literule-web\src\views\rule-trace\index.vue
@@ -32,6 +32,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { YdAlert, YdConfirm } from '@ydsz-core/popup-ui';
 import { h, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useYDSZVxeGrid } from '#/adapter/vxe-table';
 import { createLogger } from '@ydsz-core/shared/utils';
@@ -47,6 +48,7 @@ import {
 } from '#/api/ruleTrace';
 
 const logger = createLogger('literule-rule-trace');
+const { t } = useI18n();
 
 defineOptions({ name: 'RuleTraceManagement' });
 
@@ -76,22 +78,24 @@ const traceGridOptions: VxeTableGridOptions<RuleExecutionTraceVO> = {
     },
     { type: 'seq', width: 50, title: '#' },
     { field: 'traceId', title: 'Trace ID', width: 180 },
-    { field: 'ruleCode', title: '规则编码', width: '160' },
-    { field: 'ruleName', title: '规则名称', minWidth: 140 },
+    { field: 'ruleCode', title: t('page.ruleTrace.ruleCode'), width: '160' },
+    { field: 'ruleName', title: t('page.ruleTrace.ruleName'), minWidth: 140 },
     {
       field: 'triggered',
-      title: '命中',
+      title: t('page.ruleTrace.triggered'),
       width: 70,
       slots: {
         default: ({ row }) =>
           h(YdBadge, { variant: row.triggered ? 'success' : 'info' }, () =>
-            row.triggered ? '命中' : '未命中',
+            row.triggered
+              ? t('page.ruleTrace.triggered')
+              : t('page.ruleTrace.notTriggered'),
           ),
       },
     },
     {
       field: 'severity',
-      title: '严重度',
+      title: t('page.ruleTrace.severity'),
       width: 80,
       slots: {
         default: ({ row }) =>
@@ -100,17 +104,17 @@ const traceGridOptions: VxeTableGridOptions<RuleExecutionTraceVO> = {
     },
     {
       field: 'elapsedMs',
-      title: '耗时(ms)',
+      title: t('page.ruleTrace.elapsedMs'),
       width: 90,
       slots: {
         default: ({ row }) => h('span', {}, row.elapsedMs != null ? `${row.elapsedMs}` : '-'),
       },
     },
-    { field: 'scenario', title: '场景', width: 120 },
-    { field: 'createdAt', title: '执行时间', width: 160 },
+    { field: 'scenario', title: t('page.ruleTrace.scenario'), width: 120 },
+    { field: 'createdAt', title: t('page.ruleTrace.executedAt'), width: 160 },
     {
       field: 'action',
-      title: '操作',
+      title: t('page.ruleTrace.action'),
       width: 240,
       fixed: 'right',
       slots: {
@@ -119,17 +123,17 @@ const traceGridOptions: VxeTableGridOptions<RuleExecutionTraceVO> = {
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleDetail(row) },
-              () => '详情',
+              () => t('page.ruleTrace.detail'),
             ),
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleReplay(row) },
-              () => '回放',
+              () => t('page.ruleTrace.replay'),
             ),
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleImpact(row) },
-              () => '影响分析',
+              () => t('page.ruleTrace.impactAnalysis'),
             ),
           ]),
       },
@@ -293,22 +297,25 @@ onMounted(() => {
         <div class="mb-4 flex items-center gap-3">
           <YdInput
             v-model="searchTraceId"
-            placeholder="按 Trace ID 搜索"
+            :placeholder="$t('page.ruleTrace.searchByTraceId')"
             clearable
             style="width: 220px"
             @keyup.enter="handleSearch"
           />
           <YdInput
             v-model="searchRuleCode"
-            placeholder="按规则编码搜索"
+            :placeholder="$t('page.ruleTrace.searchByRuleCode')"
             clearable
             style="width: 220px"
             @keyup.enter="handleSearch"
           />
-          <YdButton type="primary" @click="handleSearch">搜索</YdButton>
-          <YdButton @click="loadRecent">查看全部</YdButton>
-          <YdButton type="success" @click="handleBatchReplay"
-            >批量回放 ({{ selectedTraceIds.size }})</YdButton
+          <YdButton type="primary" @click="handleSearch">
+            {{ $t('page.common.search') }}
+          </YdButton>
+          <YdButton @click="loadRecent">{{ $t('page.ruleTrace.viewAll') }}</YdButton>
+          <YdButton type="success" @click="handleBatchReplay">
+            {{ $t('page.ruleTrace.batchReplay', { count: selectedTraceIds.size }) }}
+          </YdButton>
           >
         </div>
 
@@ -319,12 +326,14 @@ onMounted(() => {
       <!-- 详情弹窗 -->
       <YdDialog
         v-model="detailDialogVisible"
-        :title="`执行链路详情 - ${currentTraceId}`"
+        :title="$t('page.ruleTrace.executionDetailTitle', { traceId: currentTraceId })"
         width="780px"
       >
         <YdDescriptions :column="2" border size="small" class="mb-4">
           <YdDescriptionsItem label="Trace ID">{{ currentTraceId }}</YdDescriptionsItem>
-          <YdDescriptionsItem label="规则编码">{{ currentRuleCode }}</YdDescriptionsItem>
+          <YdDescriptionsItem :label="$t('page.ruleTrace.ruleCode')">
+            {{ currentRuleCode }}
+          </YdDescriptionsItem>
         </YdDescriptions>
         <YdTimeline>
           <YdTimelineItem
@@ -335,22 +344,38 @@ onMounted(() => {
             placement="top"
           >
             <YdDescriptions :column="2" size="small" border>
-              <YdDescriptionsItem label="规则编码">{{ item.ruleCode }}</YdDescriptionsItem>
-              <YdDescriptionsItem label="规则名称">{{ item.ruleName }}</YdDescriptionsItem>
-              <YdDescriptionsItem label="命中">
+              <YdDescriptionsItem :label="$t('page.ruleTrace.ruleCode')">
+                {{ item.ruleCode }}
+              </YdDescriptionsItem>
+              <YdDescriptionsItem :label="$t('page.ruleTrace.ruleName')">
+                {{ item.ruleName }}
+              </YdDescriptionsItem>
+              <YdDescriptionsItem :label="$t('page.ruleTrace.triggered')">
                 <YdBadge :type="item.triggered ? 'success' : 'info'">
-                  {{ item.triggered ? '命中' : '未命中' }}
+                  {{
+                    item.triggered
+                      ? $t('page.ruleTrace.triggered')
+                      : $t('page.ruleTrace.notTriggered')
+                  }}
                 </YdBadge>
               </YdDescriptionsItem>
-              <YdDescriptionsItem label="严重度">
+              <YdDescriptionsItem :label="$t('page.ruleTrace.severity')">
                 <YdBadge :type="severityTagType(item.severity)">{{ item.severity ?? '-' }}</YdBadge>
               </YdDescriptionsItem>
-              <YdDescriptionsItem label="耗时">{{ item.elapsedMs }} ms</YdDescriptionsItem>
-              <YdDescriptionsItem label="场景">{{ item.scenario ?? '-' }}</YdDescriptionsItem>
-              <YdDescriptionsItem label="条件结果" :span="2">
+              <YdDescriptionsItem :label="$t('page.ruleTrace.elapsed')">
+                {{ item.elapsedMs }} ms
+              </YdDescriptionsItem>
+              <YdDescriptionsItem :label="$t('page.ruleTrace.scenario')">
+                {{ item.scenario ?? '-' }}
+              </YdDescriptionsItem>
+              <YdDescriptionsItem :label="$t('page.ruleTrace.conditionResult')" :span="2">
                 {{ item.conditionResult ?? '-' }}
               </YdDescriptionsItem>
-              <YdDescriptionsItem v-if="item.errorMessage" label="错误" :span="2">
+              <YdDescriptionsItem
+                v-if="item.errorMessage"
+                :label="$t('page.ruleTrace.error')"
+                :span="2"
+              >
                 <span class="text-red-500">{{ item.errorMessage }}</span>
               </YdDescriptionsItem>
             </YdDescriptions>
@@ -359,19 +384,25 @@ onMounted(() => {
       </YdDialog>
 
       <!-- 回放结果弹窗 -->
-      <YdDialog v-model="replayDialogVisible" :title="`回放结果 - ${currentTraceId}`" width="560px">
+      <YdDialog
+        v-model="replayDialogVisible"
+        :title="$t('page.ruleTrace.replayResultTitle', { traceId: currentTraceId })"
+        width="560px"
+      >
         <YdDescriptions v-if="replayResult" :column="1" border size="small">
           <YdDescriptionsItem v-for="(value, key) in replayResult" :key="key" :label="key">
             {{ typeof value === 'object' ? JSON.stringify(value) : String(value) }}
           </YdDescriptionsItem>
         </YdDescriptions>
-        <div v-else class="text-center text-gray-400">暂无回放数据</div>
+        <div v-else class="text-center text-gray-400">
+          {{ $t('page.ruleTrace.noReplayData') }}
+        </div>
       </YdDialog>
 
       <!-- 影响分析弹窗 -->
       <YdDialog
         v-model="impactDialogVisible"
-        :title="`影响分析预览 - ${currentRuleCode}`"
+        :title="$t('page.ruleTrace.impactPreviewTitle', { ruleCode: currentRuleCode })"
         width="560px"
       >
         <YdDescriptions v-if="impactResult" :column="1" border size="small">
@@ -379,7 +410,9 @@ onMounted(() => {
             {{ typeof value === 'object' ? JSON.stringify(value) : String(value) }}
           </YdDescriptionsItem>
         </YdDescriptions>
-        <div v-else class="text-center text-gray-400">暂无影响分析数据</div>
+        <div v-else class="text-center text-gray-400">
+          {{ $t('page.ruleTrace.noImpactData') }}
+        </div>
       </YdDialog>
     </div>
   </Page>

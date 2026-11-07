@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * login-expired-modal Vue 组件
  *
  * @path comm\effects\common-ui\src\ui\authentication\login-expired-modal.vue

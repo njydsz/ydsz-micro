@@ -92,14 +92,14 @@ const filteredRules = computed<RuleDefinitionVO[]>(() => {
 const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
   columns: [
     { type: 'seq', width: 50, title: t('seq') },
-    { field: 'ruleCode', title: '规则编码', width: 150 },
-    { field: 'ruleName', title: '规则名称', width: 180 },
-    { field: 'category', title: '分类', width: 110 },
-    { field: 'priority', title: '优先级', width: 80 },
-    { field: 'version', title: '版本', width: 80 },
+    { field: 'ruleCode', title: t('ruleCode'), width: 150 },
+    { field: 'ruleName', title: t('ruleName'), width: 180 },
+    { field: 'category', title: t('category'), width: 110 },
+    { field: 'priority', title: t('rulePriority'), width: 80 },
+    { field: 'version', title: t('version'), width: 80 },
     {
       field: 'status',
-      title: '状态',
+      title: t('status'),
       width: 90,
       slots: {
         default: ({ row }) =>
@@ -108,19 +108,19 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
     },
     {
       field: 'isEnabled',
-      title: '启用',
+      title: t('enabled'),
       width: 80,
       slots: {
         default: ({ row }) =>
           h(YdBadge, { variant: row.isEnabled ? 'success' : 'info' }, () =>
-            row.isEnabled ? '启用' : '停用',
+            row.isEnabled ? t('enabled') : t('disabled'),
           ),
       },
     },
-    { field: 'createdAt', title: '创建时间', width: 160 },
+    { field: 'createdAt', title: t('createdAt'), width: 160 },
     {
       field: 'action',
-      title: '操作',
+      title: t('operation'),
       width: 280,
       fixed: 'right',
       slots: {
@@ -129,12 +129,12 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleEdit(row) },
-              () => '编辑',
+              () => t('edit'),
             ),
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleDesign(row) },
-              () => '编排',
+              () => t('design'),
             ),
             h(
               YdButton,
@@ -143,17 +143,17 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
                 variant: 'link',
                 onClick: () => handleToggle(row),
               },
-              () => (row.isEnabled ? '停用' : '启用'),
+              () => (row.isEnabled ? t('disabled') : t('enabled')),
             ),
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => openVersions(row) },
-              () => '版本',
+              () => t('version'),
             ),
             h(
               YdButton,
               { size: 'small', variant: 'link', onClick: () => handleDelete(row) },
-              () => '删除',
+              () => t('delete'),
             ),
           ]),
       },
@@ -177,13 +177,13 @@ const gridOptions: VxeTableGridOptions<RuleDefinitionVO> = {
     items: [
       {
         field: 'ruleName',
-        title: '规则名称',
-        itemRender: { name: 'YdInput', props: { placeholder: '请输入规则名称' } },
+        title: t('ruleName'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('ruleNamePlaceholder') } },
       },
       {
         field: 'ruleCode',
-        title: '规则编码',
-        itemRender: { name: 'YdInput', props: { placeholder: '请输入规则编码' } },
+        title: t('ruleCode'),
+        itemRender: { name: 'YdInput', props: { placeholder: t('ruleCodePlaceholder') } },
       },
     ],
   },
@@ -422,7 +422,7 @@ void loadCategoryTree();
             <rect height="9" rx="1.5" width="9" x="2.5" y="12.5" />
             <rect height="9" rx="1.5" width="9" x="12.5" y="12.5" />
           </svg>
-          卡片
+          {{ t('card') }}
         </button>
         <button
           class="rounded-md px-2.5 py-1 text-xs transition-colors"
@@ -447,14 +447,14 @@ void loadCategoryTree();
             <line x1="3" x2="21" y1="12" y2="12" />
             <line x1="3" x2="21" y1="17.5" y2="17.5" />
           </svg>
-          表格
+          {{ t('table') }}
         </button>
       </div>
-      <YdButton type="primary" @click="handleAdd">新增</YdButton>
+      <YdButton type="primary" @click="handleAdd">{{ t('create') }}</YdButton>
     </div>
 
     <!-- 表格视图 -->
-    <Grid v-if="viewMode === 'table'" table-title="规则管理" />
+    <Grid v-if="viewMode === 'table'" :table-title="t('rule')" />
 
     <!-- 卡片视图 -->
     <div v-else class="flex min-h-[500px] gap-5">
@@ -463,7 +463,7 @@ void loadCategoryTree();
         <YdDomainFilterPanel
           v-model="selectedCategory"
           :items="categoryItems"
-          title="规则分类"
+          :title="t('ruleCategory')"
           show-search
           @select="handleCategorySelect"
         />
@@ -479,12 +479,12 @@ void loadCategoryTree();
             <YdEmptyState
               :description="
                 selectedCategory === 'all'
-                  ? '新增规则后可编排到规则链中执行'
-                  : '该分类下暂无规则，可切换分类或新建规则'
+                  ? t('ruleEmptyAll')
+                  : t('ruleEmptyCategory')
               "
               preset="created"
-              action-text="新建规则"
-              title="暂无规则"
+              :action-text="t('createRule')"
+              :title="t('ruleEmptyTitle')"
               @action="handleAdd"
             />
           </template>
@@ -511,7 +511,7 @@ void loadCategoryTree();
             <template #meta>
               <div class="mt-3 flex items-center justify-between text-xs">
                 <div class="text-text-tertiary flex items-center gap-2">
-                  <span>优先级 {{ item.priority ?? '-' }}</span>
+                  <span>{{ t('rulePriority') }} {{ item.priority ?? '-' }}</span>
                   <span class="bg-border-subtle h-3 w-px" />
                   <span>v{{ item.version ?? '-' }}</span>
                 </div>
@@ -550,14 +550,16 @@ void loadCategoryTree();
                 </YdButton>
                 <template #dropdown>
                   <YdDropdownMenu>
-                    <YdDropdownMenuItem command="edit"> 编辑信息 </YdDropdownMenuItem>
-                    <YdDropdownMenuItem command="design"> 规则编排 </YdDropdownMenuItem>
+                    <YdDropdownMenuItem command="edit"> {{ t('editInfo') }} </YdDropdownMenuItem>
+                    <YdDropdownMenuItem command="design"> {{ t('ruleDesign') }} </YdDropdownMenuItem>
                     <YdDropdownMenuItem command="toggle">
-                      {{ item.isEnabled ? '停用规则' : '启用规则' }}
+                      {{ item.isEnabled ? t('disableRule') : t('enableRule') }}
                     </YdDropdownMenuItem>
-                    <YdDropdownMenuItem command="version" divided> 版本历史 </YdDropdownMenuItem>
+                    <YdDropdownMenuItem command="version" divided>
+                      {{ t('versionHistory') }}
+                    </YdDropdownMenuItem>
                     <YdDropdownMenuItem command="delete" divided>
-                      <span class="text-destructive">删除规则</span>
+                      <span class="text-destructive">{{ t('deleteRule') }}</span>
                     </YdDropdownMenuItem>
                   </YdDropdownMenu>
                 </template>
@@ -574,18 +576,20 @@ void loadCategoryTree();
       :rule-code="currentRule?.ruleCode"
       @success="handleRefresh()"
     />
-    <YdDrawer v-model:open="versionsVisible" header="版本历史" :width="540">
+    <YdDrawer v-model:open="versionsVisible" :header="t('versionHistory')" :width="540">
       <div class="mb-2 flex justify-end">
-        <YdButton size="small" @click="loadVersions">刷新</YdButton>
+        <YdButton size="small" @click="loadVersions">{{ t('refresh') }}</YdButton>
       </div>
       <YdTable :data="versionRows" border size="small" :loading="versionsLoading">
-        <YdTableColumn prop="version" label="版本" width="80" />
-        <YdTableColumn prop="changeDesc" label="变更说明" min-width="120" />
-        <YdTableColumn prop="operator" label="操作人" width="100" />
-        <YdTableColumn prop="createdAt" label="变更时间" width="170" />
-        <YdTableColumn label="操作" width="90" fixed="right">
+        <YdTableColumn prop="version" :label="t('version')" width="80" />
+        <YdTableColumn prop="changeDesc" :label="t('changeDesc')" min-width="120" />
+        <YdTableColumn prop="operator" :label="t('operator')" width="100" />
+        <YdTableColumn prop="createdAt" :label="t('changeTime')" width="170" />
+        <YdTableColumn :label="t('operation')" width="90" fixed="right">
           <template #default="{ row }">
-            <YdButton link type="primary" size="small" @click="handleRollback(row)">回滚</YdButton>
+            <YdButton link type="primary" size="small" @click="handleRollback(row)">
+              {{ t('rollback') }}
+            </YdButton>
           </template>
         </YdTableColumn>
       </YdTable>

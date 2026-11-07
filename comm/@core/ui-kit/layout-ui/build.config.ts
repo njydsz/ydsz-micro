@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @ydsz-core/layout-ui 包的 unbuild 构建配置：以 mkdist 逐文件转译，不打包。
  *
  * @path comm\@core\ui-kit\layout-ui\build.config.ts

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * tabbar 布局组件
  *
  * @path comm\effects\layouts\src\basic\tabbar\tabbar.vue

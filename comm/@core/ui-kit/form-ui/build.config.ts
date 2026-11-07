@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @ydsz-core/form-ui 包的 unbuild 构建配置：以 mkdist 逐文件转译，不打包。
  *
  * @path comm\@core\ui-kit\form-ui\build.config.ts

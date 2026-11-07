@@ -1,4 +1,4 @@
-﻿/**
+/**
  * setup-shared-auth — 子应用共享请求客户端统一装配入口
  *
  * 封装 initSharedRequest 调用与 reAuthenticate/refreshToken 回调注入，

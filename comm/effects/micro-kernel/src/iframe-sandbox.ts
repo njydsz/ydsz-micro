@@ -1,4 +1,4 @@
-﻿/**
+/**
  * iframe 沙箱 — 基于 iframe contentWindow 的强隔离兜底方案
  *
  * **设计定位**：

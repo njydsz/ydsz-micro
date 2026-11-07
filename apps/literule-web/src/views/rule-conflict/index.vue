@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 规则冲突检测页面
  *
  * <p>展示规则间的冲突检测结果，帮助识别规则集中存在冗余、矛盾、重叠或遮蔽的规则对。
@@ -30,6 +30,7 @@ import {
   YdTableColumn,
 } from '@ydsz-core/ydsz-ui';
 import { computed, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { createLogger } from '@ydsz-core/shared/utils';
 
@@ -37,6 +38,7 @@ import { detectConflicts } from '#/api/ruleConflict';
 import type { RuleConflictInfoVO } from '#/api/models';
 
 const logger = createLogger('literule-rule-conflict');
+const { t } = useI18n();
 
 defineOptions({ name: 'RuleConflictManagement' });
 
@@ -77,9 +79,9 @@ function severityTagType(severity?: string): 'danger' | 'warning' | 'info' | 'su
 
 function severityLabel(severity?: string): string {
   const map: Record<string, string> = {
-    HIGH: '高',
-    MEDIUM: '中',
-    LOW: '低',
+    HIGH: t('ruleConflict.severityHigh'),
+    MEDIUM: t('ruleConflict.severityMedium'),
+    LOW: t('ruleConflict.severityLow'),
   };
   return map[severity ?? ''] ?? severity ?? '-';
 }
@@ -121,28 +123,30 @@ onMounted(() => {
       <YdCard shadow="never" class="mb-4">
         <div class="mb-4 flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <span class="text-base font-semibold text-gray-700">规则冲突检测</span>
+            <span class="text-base font-semibold text-gray-700">{{ t('ruleConflict.title') }}</span>
             <YdBadge v-if="lastDetectTime" type="info" size="small">
-              最近检测: {{ lastDetectTime }}
+              {{ t('ruleConflict.lastDetectTime') }}: {{ lastDetectTime }}
             </YdBadge>
           </div>
-          <YdButton type="primary" @click="handleDetect"> 立即检测 </YdButton>
+          <YdButton type="primary" @click="handleDetect">
+            {{ t('ruleConflict.detectNow') }}
+          </YdButton>
         </div>
 
         <div class="mb-4 grid grid-cols-3 gap-6">
           <div class="rounded-lg bg-gray-50 p-5 text-center">
-            <YdCountToAnimator title="冲突对数" :value="totalPairs" />
+            <YdCountToAnimator :title="t('ruleConflict.totalPairs')" :value="totalPairs" />
           </div>
           <div class="rounded-lg bg-red-50 p-5 text-center">
             <YdCountToAnimator
-              title="高严重度数"
+              :title="t('ruleConflict.highSeverityCount')"
               :value="highSeverityCount"
               value-style="color: #f56c6c"
             />
           </div>
           <div class="rounded-lg bg-blue-50 p-5 text-center">
             <YdCountToAnimator
-              title="影响规则数"
+              :title="t('ruleConflict.affectedRulesCount')"
               :value="affectedRulesCount"
               value-style="color: #409eff"
             />
@@ -150,7 +154,9 @@ onMounted(() => {
         </div>
 
         <div class="flex items-center gap-3">
-          <span class="w-20 text-sm text-gray-500">高严重度占比</span>
+          <span class="w-20 text-sm text-gray-500">
+            {{ t('ruleConflict.highSeverityPercent') }}
+          </span>
           <YdProgress
             :percentage="severityPercent"
             :stroke-width="12"
@@ -164,26 +170,26 @@ onMounted(() => {
       <YdCard shadow="never">
         <YdTable v-if="conflictList.length > 0" :data="conflictList" stripe border>
           <YdTableColumn type="index" label="#" width="50" />
-          <YdTableColumn label="规则 A" min-width="160">
+          <YdTableColumn :label="t('ruleConflict.ruleA')" min-width="160">
             <template #default="{ row }">
               <div>{{ row.ruleA ?? '-' }}</div>
               <div class="text-xs text-gray-400">{{ row.ruleAName ?? '' }}</div>
             </template>
           </YdTableColumn>
-          <YdTableColumn label="规则 B" min-width="160">
+          <YdTableColumn :label="t('ruleConflict.ruleB')" min-width="160">
             <template #default="{ row }">
               <div>{{ row.ruleB ?? '-' }}</div>
               <div class="text-xs text-gray-400">{{ row.ruleBName ?? '' }}</div>
             </template>
           </YdTableColumn>
-          <YdTableColumn label="重叠字段" min-width="180">
+          <YdTableColumn :label="t('ruleConflict.overlapFields')" min-width="180">
             <template #default="{ row }">
               <span :class="row.overlapFields?.length ? 'text-orange-500' : 'text-gray-400'">
                 {{ formatOverlapFields(row.overlapFields) }}
               </span>
             </template>
           </YdTableColumn>
-          <YdTableColumn label="严重度" width="100" align="center">
+          <YdTableColumn :label="t('ruleConflict.severity')" width="100" align="center">
             <template #default="{ row }">
               <YdBadge :type="severityTagType(row.severity)">
                 {{ severityLabel(row.severity) }}
@@ -192,7 +198,7 @@ onMounted(() => {
           </YdTableColumn>
         </YdTable>
 
-        <YdEmptyState v-else description="未检测到规则冲突，规则集运行良好" image-size="120" />
+        <YdEmptyState v-else :description="t('ruleConflict.empty')" image-size="120" />
       </YdCard>
     </div>
   </Page>

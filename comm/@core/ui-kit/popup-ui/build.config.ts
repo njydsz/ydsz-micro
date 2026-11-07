@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @ydsz-core/popup-ui 包的 unbuild 构建配置：mkdist 逐文件转译，不打包。
  *
  * @path comm\@core\ui-kit\popup-ui\build.config.ts

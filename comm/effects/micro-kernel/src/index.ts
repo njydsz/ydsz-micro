@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 统一导出 — @ydsz/micro-kernel
  *
  * @path comm/effects/micro-kernel/src/index.ts
@@ -190,7 +190,31 @@ export {
 export type { KeepAliveConfig } from './scheduler';
 export type { SchedulerContext } from './scheduler';
 // v4.2.1 N5: 运行时 CSS 作用域兜底
-export { applyRuntimeCssScope, removeRuntimeCssScope } from './runtime-css-scope';
+export {
+  applyRuntimeCssScope,
+  clearCssScopeFailureReports,
+  removeRuntimeCssScope,
+} from './runtime-css-scope';
+// v4.3.2: 类型化通信契约层（action ↔ payload 编译期约束）
+export {
+  type ContractWithResponse,
+  type MessageContract,
+  type RequestOf,
+  type ResponseOf,
+  type TypedHandlerRegistrar,
+  type TypedSender,
+  registerTypedHandler,
+  sendTypedRequest,
+} from './message-contract';
+// v4.3.2: 子应用级性能归因（解决 Web Vitals 全局无法归属到子应用的问题）
+export {
+  AppPerformanceTracker,
+  type AppPerformanceReport,
+  type AppPerformanceSpan,
+  type LongTaskAttribution,
+  getAppPerformanceTracker,
+  resetAppPerformanceTracker,
+} from './app-performance';
 // v3.6.0: 公开 GlobalStateBridge 类型，供外部扩展沙箱时使用
 export type { GlobalStateBridge } from './scheduler';
 // P0-P2: 公开 DeactivateResult 类型，供调用方感知 LRU 淘汰

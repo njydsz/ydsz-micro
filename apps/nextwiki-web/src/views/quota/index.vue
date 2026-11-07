@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * 存储配额（展示页）
  *
  * @path apps\nextwiki-web\src\views\quota\index.vue

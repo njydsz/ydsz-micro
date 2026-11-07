@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Schema 解析辅助函数：提取 zod 校验规则、推导默认值、识别事件对象。
  *
  * getDefaultValueInZodStack 需要逐层剥开 ZodOptional / ZodDefault / ZodEffects 等

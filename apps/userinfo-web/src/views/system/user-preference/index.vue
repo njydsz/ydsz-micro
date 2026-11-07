@@ -35,6 +35,7 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { Loader2 } from '@ydsz/icons';
 import { reactive, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { createLogger } from '@ydsz/utils';
 import { showToast } from '@ydsz/notification';
 import { YdConfirm } from '@ydsz-core/popup-ui';
@@ -43,6 +44,7 @@ import { get, reset, save } from '#/api/userPreference';
 defineOptions({ name: 'UserPreferenceManagement' });
 
 const logger = createLogger('userinfo-preference');
+const { t } = useI18n();
 
 const formRef = ref<FormInstance>();
 const isLoading = ref(false);
@@ -63,36 +65,36 @@ const rules = {};
 
 /** 语言选项 */
 const LANGUAGE_OPTIONS = [
-  { label: '简体中文', value: 'zh-CN' },
-  { label: 'English', value: 'en-US' },
+  { label: t('preference.languageZhCn'), value: 'zh-CN' },
+  { label: t('preference.languageEnUs'), value: 'en-US' },
 ];
 
 /** 主题选项 */
 const THEME_OPTIONS = [
-  { label: '浅色模式', value: 'light' },
-  { label: '深色模式', value: 'dark' },
-  { label: '跟随系统', value: 'auto' },
+  { label: t('preference.themeLight'), value: 'light' },
+  { label: t('preference.themeDark'), value: 'dark' },
+  { label: t('preference.themeAuto'), value: 'auto' },
 ];
 
 /** 菜单布局选项 */
 const MENU_LAYOUT_OPTIONS = [
-  { label: '垂直布局', value: 'vertical' },
-  { label: '水平布局', value: 'horizontal' },
-  { label: '混合布局', value: 'mix' },
+  { label: t('preference.menuLayoutVertical'), value: 'vertical' },
+  { label: t('preference.menuLayoutHorizontal'), value: 'horizontal' },
+  { label: t('preference.menuLayoutMix'), value: 'mix' },
 ];
 
 /** 表格密度选项 */
 const TABLE_SIZE_OPTIONS = [
-  { label: '紧凑', value: 'small' },
-  { label: '中等', value: 'medium' },
-  { label: '宽松', value: 'large' },
+  { label: t('preference.tableSizeCompact'), value: 'small' },
+  { label: t('preference.tableSizeMedium'), value: 'medium' },
+  { label: t('preference.tableSizeLoose'), value: 'large' },
 ];
 
 /** 字体大小选项 */
 const FONT_SIZE_OPTIONS = [
-  { label: '较小', value: 'small' },
-  { label: '默认', value: 'medium' },
-  { label: '较大', value: 'large' },
+  { label: t('preference.fontSizeSmall'), value: 'small' },
+  { label: t('preference.fontSizeDefault'), value: 'medium' },
+  { label: t('preference.fontSizeLarge'), value: 'large' },
 ];
 
 /**
@@ -138,7 +140,7 @@ async function handleSave(): Promise<void> {
       tableSize: formData.tableSize,
       fontSize: formData.fontSize,
     });
-    showToast.success('偏好设置已保存');
+    showToast.success(t('preference.saveSuccess'));
   } catch {
     /* 错误由拦截器处理 */
   } finally {
@@ -151,8 +153,8 @@ async function handleSave(): Promise<void> {
  */
 async function handleReset(): Promise<void> {
   try {
-    await YdConfirm('确定重置为默认偏好设置吗？当前自定义设置将被清除。', {
-      title: '重置偏好',
+    await YdConfirm(t('preference.resetConfirm'), {
+      title: t('preference.resetTitle'),
       type: 'warning',
     });
   } catch {
@@ -168,7 +170,7 @@ async function handleReset(): Promise<void> {
     formData.accordionMenu = data.accordionMenu ?? true;
     formData.tableSize = data.tableSize ?? 'medium';
     formData.fontSize = data.fontSize ?? 'medium';
-    showToast.success('偏好设置已重置');
+    showToast.success(t('preference.resetSuccess'));
   } catch {
     /* 错误由拦截器处理 */
   }
@@ -182,12 +184,14 @@ loadPreferences();
   <Page auto-content-height>
     <YdCard shadow="never" class="mx-4 my-3">
       <YdCardHeader class="flex flex-row items-center justify-between">
-        <YdCardTitle class="text-base">偏好设置</YdCardTitle>
+        <YdCardTitle class="text-base">{{ t('preference.title') }}</YdCardTitle>
         <div class="flex gap-2">
-          <YdButton variant="ghost" @click="handleReset">重置默认</YdButton>
+          <YdButton variant="ghost" @click="handleReset">
+            {{ t('preference.resetDefault') }}
+          </YdButton>
           <YdButton variant="default" :disabled="isLoading" @click="handleSave">
             <Loader2 v-if="isLoading" class="mr-2 h-4 w-4 animate-spin" />
-            保存设置
+            {{ t('preference.save') }}
           </YdButton>
         </div>
       </YdCardHeader>
@@ -201,17 +205,21 @@ loadPreferences();
         >
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-              <YdFormItem label="默认首页" prop="defaultIndex">
+              <YdFormItem :label="t('preference.defaultIndex')" prop="defaultIndex">
                 <YdInput
                   v-model="formData.defaultIndex"
-                  placeholder="如 /dashboard"
+                  :placeholder="t('preference.defaultIndexPlaceholder')"
                   maxlength="128"
                 />
               </YdFormItem>
             </div>
             <div>
-              <YdFormItem label="语言设置" prop="language">
-                <YdSelect v-model="formData.language" placeholder="选择语言" class="w-full">
+              <YdFormItem :label="t('preference.language')" prop="language">
+                <YdSelect
+                  v-model="formData.language"
+                  :placeholder="t('preference.languagePlaceholder')"
+                  class="w-full"
+                >
                   <YdSelectItem
                     v-for="opt in LANGUAGE_OPTIONS"
                     :key="opt.value"
@@ -222,7 +230,7 @@ loadPreferences();
               </YdFormItem>
             </div>
             <div>
-              <YdFormItem label="主题模式" prop="theme">
+              <YdFormItem :label="t('preference.theme')" prop="theme">
                 <YdRadioGroup v-model="formData.theme">
                   <YdRadioGroupItem
                     v-for="opt in THEME_OPTIONS"
@@ -235,13 +243,21 @@ loadPreferences();
               </YdFormItem>
             </div>
             <div>
-              <YdFormItem label="主题色" prop="themeColor">
-                <YdInput v-model="formData.themeColor" placeholder="如 #1890ff" maxlength="16" />
+              <YdFormItem :label="t('preference.themeColor')" prop="themeColor">
+                <YdInput
+                  v-model="formData.themeColor"
+                  :placeholder="t('preference.themeColorPlaceholder')"
+                  maxlength="16"
+                />
               </YdFormItem>
             </div>
             <div>
-              <YdFormItem label="菜单布局" prop="menuLayout">
-                <YdSelect v-model="formData.menuLayout" placeholder="选择布局" class="w-full">
+              <YdFormItem :label="t('preference.menuLayout')" prop="menuLayout">
+                <YdSelect
+                  v-model="formData.menuLayout"
+                  :placeholder="t('preference.menuLayoutPlaceholder')"
+                  class="w-full"
+                >
                   <YdSelectItem
                     v-for="opt in MENU_LAYOUT_OPTIONS"
                     :key="opt.value"
@@ -252,17 +268,21 @@ loadPreferences();
               </YdFormItem>
             </div>
             <div>
-              <YdFormItem label="手风琴菜单" prop="accordionMenu">
+              <YdFormItem :label="t('preference.accordionMenu')" prop="accordionMenu">
                 <YdSwitch
                   v-model="formData.accordionMenu"
-                  active-text="开启"
-                  inactive-text="关闭"
+                  :active-text="t('preference.enabled')"
+                  :inactive-text="t('preference.disabled')"
                 />
               </YdFormItem>
             </div>
             <div>
-              <YdFormItem label="表格密度" prop="tableSize">
-                <YdSelect v-model="formData.tableSize" placeholder="选择密度" class="w-full">
+              <YdFormItem :label="t('preference.tableSize')" prop="tableSize">
+                <YdSelect
+                  v-model="formData.tableSize"
+                  :placeholder="t('preference.tableSizePlaceholder')"
+                  class="w-full"
+                >
                   <YdSelectItem
                     v-for="opt in TABLE_SIZE_OPTIONS"
                     :key="opt.value"
@@ -273,8 +293,12 @@ loadPreferences();
               </YdFormItem>
             </div>
             <div>
-              <YdFormItem label="字体大小" prop="fontSize">
-                <YdSelect v-model="formData.fontSize" placeholder="选择字体大小" class="w-full">
+              <YdFormItem :label="t('preference.fontSize')" prop="fontSize">
+                <YdSelect
+                  v-model="formData.fontSize"
+                  :placeholder="t('preference.fontSizePlaceholder')"
+                  class="w-full"
+                >
                   <YdSelectItem
                     v-for="opt in FONT_SIZE_OPTIONS"
                     :key="opt.value"

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @ydsz-core/icons 包的 unbuild 构建配置：单入口打包为 ESM + CJS 双格式。
  *
  * @path comm\@core\base\icons\build.config.ts

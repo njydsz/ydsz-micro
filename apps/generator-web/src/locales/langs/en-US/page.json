@@ -85,6 +85,26 @@
     "sourceRequired": "Please enter the source file path",
     "startAnalyze": "Start analysis"
   },
+  "importExport": {
+    "exportTitle": "Export Template Group as ZIP",
+    "exportGroupLabel": "Select Group",
+    "exportGroupPlaceholder": "Select the template group to export",
+    "exportNoDescription": "No description",
+    "exportZipButton": "Export ZIP",
+    "exportHint": "Export all Velocity template files in the current group as a ZIP archive, usable as a backup or for cross-environment migration.",
+    "exportSelectGroupWarning": "Please select the template group to export",
+    "importTitle": "Import Templates from ZIP",
+    "importGroupLabel": "Target Group",
+    "importGroupPlaceholder": "Select the template group to import into",
+    "importNoDescription": "No description",
+    "importOverwriteLabel": "Overwrite Mode",
+    "importOverwriteHint": "Overwrite existing templates (if unchecked, templates with the same name are skipped)",
+    "importZipLabel": "ZIP File",
+    "importSelectZipButton": "Select ZIP File",
+    "importHint": "Import templates from a ZIP archive into the specified group. The ZIP file should contain Velocity template files.",
+    "importSelectGroupWarning": "Please select the target template group",
+    "importSuccess": "Import succeeded. {count} templates imported"
+  },
   "template": {
     "groupList": "Template Groups",
     "create": "Create",
@@ -97,6 +117,15 @@
     "search": "Search",
     "disabled": "Disabled",
     "noDescription": "No description",
-    "empty": "No templates in this group"
+    "empty": "No templates in this group",
+    "groupFormTitle": "New Template Group",
+    "groupName": "Group Name",
+    "groupNamePlaceholder": "Please enter the group name",
+    "groupNameHint": "e.g. mybatis-plus, mongodb",
+    "groupDescription": "Description",
+    "groupDescriptionPlaceholder": "Description of the group",
+    "groupSort": "Sort",
+    "groupFormCancel": "Cancel",
+    "groupFormConfirm": "Confirm"
   }
 }

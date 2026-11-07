@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * notification 布局组件
  *
  * @path comm\effects\layouts\src\widgets\notification\notification.vue

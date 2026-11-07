@@ -72,8 +72,8 @@ function close(): void {
 
 /** 权限文本 */
 const permissionLabel: Record<string, string> = {
-  PUBLIC: '公开访问',
-  TEAM: '仅团队成员',
+  PUBLIC: $t('page.conversationShare.publicAccess'),
+  TEAM: $t('page.conversationShare.teamOnly'),
 };
 
 /** 执行发布 */
@@ -118,28 +118,28 @@ defineExpose({ open, close });
   <YdDialog v-model:open="visible">
     <YdDialogContent class="sm:max-w-[520px]">
       <YdDialogHeader>
-        <YdDialogTitle>对话发布 / 分享</YdDialogTitle>
+        <YdDialogTitle>{{ $t('page.conversationShare.title') }}</YdDialogTitle>
       </YdDialogHeader>
 
       <div v-if="!shareUrl" class="space-y-4">
         <p class="text-muted-foreground text-sm">
-          将当前会话「{{ currentConversationId || '未命名会话' }}」发布为可访问的分享链接：
+          {{ $t('page.conversationShare.description', { conversationId: currentConversationId || $t('page.conversationShare.unnamedConversation') }) }}
         </p>
         <YdForm label-width="90px">
-          <YdFormItem label="分享标题" required>
+          <YdFormItem :label="$t('page.conversationShare.shareTitle')" required>
             <YdInput v-model="shareConfig.title" :placeholder="$t('validation.required.shareTitle')" />
           </YdFormItem>
-          <YdFormItem label="访问权限">
+          <YdFormItem :label="$t('page.conversationShare.accessPermission')">
             <YdRadioGroup v-model="shareConfig.permission">
               <YdRadioGroupItem value="PUBLIC">{{ permissionLabel.PUBLIC }}</YdRadioGroupItem>
               <YdRadioGroupItem value="TEAM">{{ permissionLabel.TEAM }}</YdRadioGroupItem>
             </YdRadioGroup>
           </YdFormItem>
-          <YdFormItem label="有效期至">
+          <YdFormItem :label="$t('page.conversationShare.validUntil')">
             <YdDatePicker
               v-model="shareConfig.expireAt"
               type="datetime"
-              placeholder="选择失效时间（默认永久有效）"
+              :placeholder="$t('page.conversationShare.expiryPlaceholder')"
               class="w-full"
             />
           </YdFormItem>
@@ -151,22 +151,32 @@ defineExpose({ open, close });
         <div
           class="rounded bg-green-50 p-5 text-sm text-green-600 dark:bg-green-950 dark:text-green-400"
         >
-          发布成功！链接访问权限：{{
-            permissionLabel[shareConfig.permission] ?? shareConfig.permission
+          {{
+            $t('page.conversationShare.publishSuccess', {
+              permission: permissionLabel[shareConfig.permission] ?? shareConfig.permission,
+            })
           }}
         </div>
         <YdInput v-model="shareUrl" readonly />
-        <p class="text-muted-foreground text-xs">标题：{{ shareConfig.title }}</p>
+        <p class="text-muted-foreground text-xs">
+          {{ $t('page.conversationShare.titleLabel') }}: {{ shareConfig.title }}
+        </p>
       </div>
 
       <YdDialogFooter>
         <template v-if="!shareUrl">
-          <YdButton variant="outline" @click="close">取消</YdButton>
-          <YdButton :disabled="publishing" @click="handlePublish">发布</YdButton>
+          <YdButton variant="outline" @click="close">
+            {{ $t('page.conversationShare.cancel') }}
+          </YdButton>
+          <YdButton :disabled="publishing" @click="handlePublish">
+            {{ $t('page.conversationShare.publish') }}
+          </YdButton>
         </template>
         <template v-else>
-          <YdButton @click="copyShareUrl">复制链接</YdButton>
-          <YdButton variant="outline" @click="close">完成</YdButton>
+          <YdButton @click="copyShareUrl">{{ $t('page.conversationShare.copyLink') }}</YdButton>
+          <YdButton variant="outline" @click="close">
+            {{ $t('page.conversationShare.done') }}
+          </YdButton>
         </template>
       </YdDialogFooter>
     </YdDialogContent>

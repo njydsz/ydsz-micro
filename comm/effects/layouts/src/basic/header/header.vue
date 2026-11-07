@@ -1,4 +1,4 @@
-﻿<!--
+<!--
  * header 布局组件
  *
  * @path comm\effects\layouts\src\basic\header\header.vue

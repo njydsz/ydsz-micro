@@ -33,6 +33,7 @@ import {
   YdTableColumn,
 } from '@ydsz-core/ydsz-ui';
 import { computed, nextTick, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { showToast } from '@ydsz/notification';
 import type { DecisionTableVO } from '#/api/models';
 import {
@@ -49,6 +50,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   tableData: null,
 });
+
+const { t } = useI18n();
 
 const emit = defineEmits<{
   success: [];
@@ -89,21 +92,21 @@ const evaluateResults = ref<Record<string, unknown>[]>([]);
 const evaluating = ref(false);
 
 /** 命中策略选项 */
-const hitPolicyOptions = [
-  { label: '首条匹配', value: 'FIRST' },
-  { label: '全部匹配', value: 'ALL' },
-  { label: '唯一匹配', value: 'UNIQUE' },
-  { label: '优先级', value: 'PRIORITY' },
-  { label: '收集', value: 'COLLECT' },
-];
+const hitPolicyOptions = computed(() => [
+  { label: t('business.decisionTableHitFirst'), value: 'FIRST' },
+  { label: t('business.decisionTableHitAll'), value: 'ALL' },
+  { label: t('business.decisionTableHitUnique'), value: 'UNIQUE' },
+  { label: t('business.rulePriority'), value: 'PRIORITY' },
+  { label: t('business.decisionTableHitCollect'), value: 'COLLECT' },
+]);
 
 /** 列类型选项 */
-const columnTypeOptions = [
-  { label: '字符串', value: 'STRING' },
-  { label: '数字', value: 'NUMBER' },
-  { label: '日期', value: 'DATE' },
-  { label: '布尔', value: 'BOOLEAN' },
-];
+const columnTypeOptions = computed(() => [
+  { label: t('business.columnTypeString'), value: 'STRING' },
+  { label: t('business.columnTypeNumber'), value: 'NUMBER' },
+  { label: t('business.columnTypeDate'), value: 'DATE' },
+  { label: t('business.columnTypeBoolean'), value: 'BOOLEAN' },
+]);
 
 /** 是否为编辑模式 */
 const isEditMode = computed(() => !!props.tableData?.id);
@@ -144,9 +147,16 @@ function resetState(): void {
 /** 初始化默认表结构 */
 function initDefaultTable(): void {
   conditionColumns.value = [
-    { colCode: 'condition1', colName: '条件1', colType: 'STRING', operator: '==' },
+    {
+      colCode: 'condition1',
+      colName: t('business.conditionDefault', { index: 1 }),
+      colType: 'STRING',
+      operator: '==',
+    },
   ];
-  actionColumns.value = [{ colCode: 'action1', colName: '动作1', colType: 'STRING' }];
+  actionColumns.value = [
+    { colCode: 'action1', colName: t('business.actionDefault', { index: 1 }), colType: 'STRING' },
+  ];
   ruleRows.value = [createEmptyRow()];
 }
 
@@ -188,7 +198,7 @@ function addConditionColumn(): void {
   const index = conditionColumns.value.length + 1;
   conditionColumns.value.push({
     colCode: `condition${index}`,
-    colName: `条件${index}`,
+    colName: t('business.conditionDefault', { index }),
     colType: 'STRING',
     operator: '==',
   });
@@ -199,7 +209,7 @@ function addActionColumn(): void {
   const index = actionColumns.value.length + 1;
   actionColumns.value.push({
     colCode: `action${index}`,
-    colName: `动作${index}`,
+    colName: t('business.actionDefault', { index }),
     colType: 'STRING',
   });
 }
@@ -227,7 +237,7 @@ function removeActionColumn(index: number): void {
 /** 保存决策表 */
 async function handleSave(): Promise<void> {
   if (!tableInfo.value.tableCode || !tableInfo.value.tableName) {
-    showToast.warning('请填写决策表编码和名称');
+    showToast.warning(t('business.decisionTableCodeNameRequired'));
     return;
   }
   saving.value = true;
@@ -251,7 +261,7 @@ async function handleSave(): Promise<void> {
 /** 评估测试 */
 async function handleEvaluate(): Promise<void> {
   if (!tableInfo.value.tableCode) {
-    showToast.warning('请先保存决策表');
+    showToast.warning(t('business.decisionTableSaveFirst'));
     return;
   }
   evaluateDialogVisible.value = true;
@@ -262,7 +272,7 @@ async function handleEvaluate(): Promise<void> {
     const results = await evaluateDecisionTable({ tableCode: tableInfo.value.tableCode }, params);
     evaluateResults.value = Array.isArray(results) ? results : [results];
   } catch {
-    evaluateResults.value = [{ error: '评估失败，请检查输入参数格式' }];
+    evaluateResults.value = [{ error: t('business.decisionTableEvalFailed') }];
   } finally {
     evaluating.value = false;
   }
@@ -287,7 +297,7 @@ defineExpose({ open, close });
 <template>
   <YdDialog
     v-model="visible"
-    :title="isEditMode ? '编辑决策表' : '新增决策表'"
+    :title="isEditMode ? t('business.decisionTableEditTitle') : t('business.decisionTableCreateTitle')"
     width="1200px"
     :close-on-click-modal="false"
     :show-close="true"
@@ -297,21 +307,21 @@ defineExpose({ open, close });
       <!-- 基本信息 -->
       <YdForm label-width="100px" class="mb-4">
         <div class="grid grid-cols-2 gap-5">
-          <YdFormItem label="决策表编码" required>
+          <YdFormItem :label="t('business.decisionTableCode')" required>
             <YdInput
               v-model="tableInfo.tableCode"
-              placeholder="请输入编码"
+              :placeholder="t('business.decisionTableCodePlaceholder')"
               :disabled="isEditMode"
             />
           </YdFormItem>
-          <YdFormItem label="决策表名称" required>
-            <YdInput v-model="tableInfo.tableName" placeholder="请输入名称" />
+          <YdFormItem :label="t('business.decisionTableName')" required>
+            <YdInput v-model="tableInfo.tableName" :placeholder="t('business.namePlaceholder')" />
           </YdFormItem>
-          <YdFormItem label="分类">
-            <YdInput v-model="tableInfo.category" placeholder="请输入分类" />
+          <YdFormItem :label="t('business.category')">
+            <YdInput v-model="tableInfo.category" :placeholder="t('business.categoryPlaceholder')" />
           </YdFormItem>
-          <YdFormItem label="命中策略">
-            <YdSelect v-model="tableInfo.hitPolicy" placeholder="请选择命中策略">
+          <YdFormItem :label="t('business.hitPolicy')">
+            <YdSelect v-model="tableInfo.hitPolicy" :placeholder="t('business.hitPolicyPlaceholder')">
               <YdSelectItem
                 v-for="opt in hitPolicyOptions"
                 :key="opt.value"
@@ -320,12 +330,12 @@ defineExpose({ open, close });
               />
             </YdSelect>
           </YdFormItem>
-          <YdFormItem label="描述" class="col-span-2">
+          <YdFormItem :label="t('business.description')" class="col-span-2">
             <YdInput
               v-model="tableInfo.description"
               type="textarea"
               :rows="2"
-              placeholder="请输入描述"
+              :placeholder="t('business.descriptionPlaceholder')"
             />
           </YdFormItem>
         </div>
@@ -334,11 +344,17 @@ defineExpose({ open, close });
       <!-- 决策表编辑区 -->
       <div class="table-editor">
         <div class="mb-3 flex items-center justify-between">
-          <span class="text-sm font-medium">决策表规则</span>
+          <span class="text-sm font-medium">{{ t('business.decisionTableRules') }}</span>
           <div class="flex gap-2">
-            <YdButton size="small" @click="addConditionColumn">添加条件列</YdButton>
-            <YdButton size="small" @click="addActionColumn">添加动作列</YdButton>
-            <YdButton size="small" type="success" @click="addRuleRow">添加规则行</YdButton>
+            <YdButton size="small" @click="addConditionColumn">
+              {{ t('business.addConditionColumn') }}
+            </YdButton>
+            <YdButton size="small" @click="addActionColumn">
+              {{ t('business.addActionColumn') }}
+            </YdButton>
+            <YdButton size="small" type="success" @click="addRuleRow">
+              {{ t('business.addRuleRow') }}
+            </YdButton>
           </div>
         </div>
 
@@ -354,18 +370,23 @@ defineExpose({ open, close });
             >
               <template #header>
                 <div class="flex flex-col items-center gap-1">
-                  <span class="text-xs text-blue-600">条件</span>
-                  <YdInput v-model="col.colName" size="small" class="w-full" placeholder="列名" />
+                  <span class="text-xs text-blue-600">{{ t('business.conditionColumn') }}</span>
+                  <YdInput
+                    v-model="col.colName"
+                    size="small"
+                    class="w-full"
+                    :placeholder="t('business.columnNamePlaceholder')"
+                  />
                   <div class="flex gap-1">
                     <YdSelect v-model="col.operator" size="small" class="flex-1">
-                      <YdSelectItem label="等于" value="==" />
-                      <YdSelectItem label="不等于" value="!=" />
-                      <YdSelectItem label="大于" value=">" />
-                      <YdSelectItem label="小于" value="<" />
-                      <YdSelectItem label="大于等于" value=">=" />
-                      <YdSelectItem label="小于等于" value="<=" />
-                      <YdSelectItem label="包含" value="contains" />
-                      <YdSelectItem label="为空" value="empty" />
+                      <YdSelectItem :label="t('business.operatorEqual')" value="==" />
+                      <YdSelectItem :label="t('business.operatorNotEqual')" value="!=" />
+                      <YdSelectItem :label="t('business.operatorGreater')" value=">" />
+                      <YdSelectItem :label="t('business.operatorLess')" value="<" />
+                      <YdSelectItem :label="t('business.operatorGreaterEqual')" value=">=" />
+                      <YdSelectItem :label="t('business.operatorLessEqual')" value="<=" />
+                      <YdSelectItem :label="t('business.operatorContains')" value="contains" />
+                      <YdSelectItem :label="t('business.operatorEmpty')" value="empty" />
                     </YdSelect>
                     <YdButton size="small" type="danger" @click="removeConditionColumn(colIndex)"
                       >×</YdButton
@@ -377,7 +398,7 @@ defineExpose({ open, close });
                 <YdInput
                   v-model="ruleRows[$index][`cond_${col.colCode as string}`]"
                   size="small"
-                  placeholder="输入条件值"
+                  :placeholder="t('business.conditionValuePlaceholder')"
                 />
               </template>
             </YdTableColumn>
@@ -390,8 +411,13 @@ defineExpose({ open, close });
             >
               <template #header>
                 <div class="flex flex-col items-center gap-1">
-                  <span class="text-xs text-green-600">动作</span>
-                  <YdInput v-model="col.colName" size="small" class="w-full" placeholder="列名" />
+                  <span class="text-xs text-green-600">{{ t('business.actionColumn') }}</span>
+                  <YdInput
+                    v-model="col.colName"
+                    size="small"
+                    class="w-full"
+                    :placeholder="t('business.columnNamePlaceholder')"
+                  />
                   <div class="flex gap-1">
                     <YdSelect v-model="col.colType" size="small" class="flex-1">
                       <YdSelectItem
@@ -411,16 +437,16 @@ defineExpose({ open, close });
                 <YdInput
                   v-model="ruleRows[$index][`act_${col.colCode as string}`]"
                   size="small"
-                  placeholder="输入动作值"
+                  :placeholder="t('business.actionValuePlaceholder')"
                 />
               </template>
             </YdTableColumn>
 
             <!-- 操作列 -->
-            <YdTableColumn label="操作" width="80" fixed="right">
+            <YdTableColumn :label="t('business.operation')" width="80" fixed="right">
               <template #default="{ $index }">
                 <YdButton size="small" type="danger" link @click="deleteRuleRow($index)">
-                  删除
+                  {{ t('business.delete') }}
                 </YdButton>
               </template>
             </YdTableColumn>
@@ -430,28 +456,30 @@ defineExpose({ open, close });
 
       <!-- 底部操作 -->
       <div class="mt-4 flex justify-end gap-2 border-t pt-4">
-        <YdButton @click="handleEvaluate">评估测试</YdButton>
-        <YdButton @click="close">取消</YdButton>
-        <YdButton type="primary" :loading="saving" @click="handleSave">保存</YdButton>
+        <YdButton @click="handleEvaluate">{{ t('business.decisionTableEvaluate') }}</YdButton>
+        <YdButton @click="close">{{ t('business.cancelBtn') }}</YdButton>
+        <YdButton type="primary" :loading="saving" @click="handleSave">
+          {{ t('page.ruleChainDesigner.save') }}
+        </YdButton>
       </div>
     </div>
 
     <!-- 评估测试弹窗 -->
-    <YdDialog v-model="evaluateDialogVisible" title="评估测试" width="600px">
+    <YdDialog v-model="evaluateDialogVisible" :title="t('business.decisionTableEvaluateTitle')" width="600px">
       <YdForm label-width="80px">
-        <YdFormItem label="输入参数">
+        <YdFormItem :label="t('business.inputParams')">
           <YdInput
             v-model="evaluateParams"
             type="textarea"
             :rows="4"
-            placeholder='请输入JSON格式参数，如：{"age": 18, "level": "VIP"}'
+            :placeholder="t('business.evalParamsPlaceholder')"
           />
         </YdFormItem>
       </YdForm>
       <div v-loading="evaluating" class="mt-4">
-        <p class="mb-2 text-sm font-medium">评估结果：</p>
+        <p class="mb-2 text-sm font-medium">{{ t('business.evalResultLabel') }}</p>
         <div v-if="evaluateResults.length === 0" class="py-4 text-center text-gray-400">
-          暂无结果
+          {{ t('business.noEvalResult') }}
         </div>
         <div v-else class="max-h-60 overflow-auto">
           <div
@@ -468,7 +496,7 @@ defineExpose({ open, close });
         </div>
       </div>
       <template #footer>
-        <YdButton @click="evaluateDialogVisible = false">关闭</YdButton>
+        <YdButton @click="evaluateDialogVisible = false">{{ t('business.rulePackStressClose') }}</YdButton>
       </template>
     </YdDialog>
   </YdDialog>

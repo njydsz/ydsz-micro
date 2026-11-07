@@ -18,12 +18,14 @@ import {
 } from '@ydsz-core/ydsz-ui';
 import { createLogger } from '@ydsz-core/shared/utils';
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { getDagInstanceTopology, getGlobalTopology } from '#/api/topology';
 
 defineOptions({ name: 'CronjobTopology' });
 
 const logger = createLogger('cronjob-topology');
+const { t } = useI18n();
 
 // ==================== 状态 ====================
 
@@ -187,15 +189,19 @@ onMounted(() => {
   <Page auto-content-height>
     <YdTabs v-model="activeTab" class="topology-tabs" @update:model-value="handleTabChange">
       <YdTabsList>
-        <YdTabsTrigger value="global">全局拓扑</YdTabsTrigger>
-        <YdTabsTrigger value="instance">DAG 实例拓扑</YdTabsTrigger>
+        <YdTabsTrigger value="global">
+          {{ t('page.topology.globalTopology') }}
+        </YdTabsTrigger>
+        <YdTabsTrigger value="instance">
+          {{ t('page.topology.dagInstanceTopology') }}
+        </YdTabsTrigger>
       </YdTabsList>
       <!-- ========== 全局拓扑 Tab ========== -->
       <YdTabsContent value="global">
         <div class="mb-4">
           <YdInput
             v-model="searchKeyword"
-            placeholder="按 dagId / dagKey 筛选"
+            :placeholder="t('page.topology.filterByDag')"
             class="!w-80"
             @input="filterGlobalCards"
           />
@@ -230,7 +236,7 @@ onMounted(() => {
             </YdCard>
           </div>
 
-          <YdEmptyState v-else description="暂无拓扑数据" :image-size="80" />
+          <YdEmptyState v-else :description="t('page.topology.noData')" :image-size="80" />
         </div>
       </YdTabsContent>
 
@@ -239,7 +245,7 @@ onMounted(() => {
         <div class="mb-4 flex items-center gap-3">
           <YdInput
             v-model="dagInstanceId"
-            placeholder="输入 dagInstanceId"
+            :placeholder="t('page.topology.instanceIdPlaceholder')"
             class="!w-80"
             @keyup.enter="queryInstanceTopology"
           />
@@ -247,7 +253,7 @@ onMounted(() => {
             class="rounded bg-blue-500 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-blue-600"
             @click="queryInstanceTopology"
           >
-            查询
+            {{ t('page.topology.query') }}
           </button>
         </div>
 
@@ -282,17 +288,21 @@ onMounted(() => {
                 <span v-if="node.durationMs" class="text-gray-400"> {{ node.durationMs }}ms </span>
               </div>
               <div v-if="node.startedAt" class="mt-1 text-[10px] text-gray-300">
-                开始: {{ node.startedAt }}
+                {{ t('page.topology.startedAt') }}: {{ node.startedAt }}
               </div>
               <div v-if="node.finishedAt" class="text-[10px] text-gray-300">
-                结束: {{ node.finishedAt }}
+                {{ t('page.topology.finishedAt') }}: {{ node.finishedAt }}
               </div>
             </div>
           </div>
 
           <YdEmptyState
             v-else
-            :description="dagInstanceId ? '暂无节点数据' : '请输入 dagInstanceId 后查询'"
+            :description="
+              dagInstanceId
+                ? t('page.topology.noNodeData')
+                : t('page.topology.instanceIdRequired')
+            "
             :image-size="80"
           />
         </div>
